@@ -12,3 +12,5 @@ pdftools/config.h
 pdftools/config.log
 
 pdftools/config.status
+
+pdftools/src/pdftools
