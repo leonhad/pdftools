@@ -1,0 +1,14 @@
+
+pdftools/.autotools
+
+pdftools/.cproject
+
+pdftools/.project
+
+pdftools/.settings/language.settings.xml
+
+pdftools/config.h
+
+pdftools/config.log
+
+pdftools/config.status
