@@ -1,19 +1,13 @@
 
-pdftools/.autotools
+.*
 
-pdftools/.cproject
+config.h
 
-pdftools/.project
+config.log
 
-pdftools/.settings/language.settings.xml
+config.status
 
-pdftools/config.h
-
-pdftools/config.log
-
-pdftools/config.status
-
-pdftools/src/pdftools
+src/pdftools
 
 *.Po
 
