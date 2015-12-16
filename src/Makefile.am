@@ -30,6 +30,7 @@ noinst_HEADERS = \
 	genericparser.h
 
 pdftools_CXXFLAGS = 
+
 pdftools_LDADD = \
 	semantic/libsemantic.a \
 	epub/libepub.a \
