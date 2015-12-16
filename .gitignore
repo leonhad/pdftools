@@ -11,4 +11,14 @@ src/pdftools
 
 *.Po
 
+*.o
+
+*.a
+
+autom4te.cache
+
+Makefile
+
+stamp-h1
+
 .deps
