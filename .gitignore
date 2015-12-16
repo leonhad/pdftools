@@ -14,3 +14,7 @@ pdftools/config.log
 pdftools/config.status
 
 pdftools/src/pdftools
+
+*.Po
+
+.deps

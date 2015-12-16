@@ -12,8 +12,8 @@
 
 using namespace std;
 
-Converter::Converter(const string& filein, const string& fileout, const string& format) : m_filein(filein), m_format(format),
-    m_syntax_tree(nullptr), m_document(nullptr)
+Converter::Converter(const string& filein, const string& fileout, const string& format) : m_filein{filein}, m_format{format},
+    m_syntax_tree{nullptr}, m_document{nullptr}
 {
     if (fileout.empty()) {
         m_fileout = filein;

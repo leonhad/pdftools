@@ -19,7 +19,7 @@
 using namespace std;
 
 Analyze::Analyze(const string& filein) : m_filein{filein},
-    m_document{nullptr}, m_scanner{new Scanner},  m_tree{nullptr}, m_page_tree{nullptr}
+    m_document{nullptr}, m_tree{nullptr},  m_scanner{new Scanner}, m_page_tree{nullptr}
 {
 }
 

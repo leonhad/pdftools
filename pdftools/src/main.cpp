@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
             return EXIT_SUCCESS;
         case 'f':
             format = optarg;
-            if (format == "azw" && format == "epub") {
+            if (format != "epub") {
                 string msg = "format ";
                 msg += format;
                 msg += " not supported.";

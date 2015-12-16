@@ -2,10 +2,8 @@
 #include "nodes/nodes.h"
 #include "utils.h"
 
-GenericParser::GenericParser()
+GenericParser::GenericParser() : m_scanner{new Scanner}, m_token{nullptr}
 {
-    m_token = NULL;
-    m_scanner = new Scanner;
 }
 
 GenericParser::~GenericParser()
@@ -98,5 +96,6 @@ TreeNode *GenericParser::value_sequence()
         match(END_ARRAY);
         return array;
     }
-    return NULL;
+    return nullptr;
 }
+
