@@ -1,4 +1,3 @@
-#pragma once
 #ifndef EPUB_H
 #define EPUB_H
 

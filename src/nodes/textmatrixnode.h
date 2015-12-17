@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TEXTMATRIXNODE_H
 #define TEXTMATRIXNODE_H
 

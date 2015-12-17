@@ -1,4 +1,3 @@
-#pragma once
 #ifndef GLYPH_H
 #define GLYPH_H
 

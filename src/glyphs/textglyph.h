@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TEXTGLYPH_H
 #define TEXTGLYPH_H
 

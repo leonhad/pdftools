@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CMAPNODE_H
 #define CMAPNODE_H
 

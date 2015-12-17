@@ -1,4 +1,5 @@
-#pragma once
+#ifndef GENERATOR_H
+#define GENERATOR_H
 
 #include <string>
 
@@ -13,3 +14,5 @@ public:
     static Generator *get_instance(const std::string& format);
     virtual bool generate(Document *document, const std::string& output) = 0;
 };
+
+#endif

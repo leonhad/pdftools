@@ -1,4 +1,3 @@
-#pragma once
 #ifndef FONTSIZEGLYPH_H
 #define FONTSIZEGLYPH_H
 

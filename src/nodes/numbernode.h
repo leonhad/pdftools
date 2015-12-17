@@ -1,4 +1,3 @@
-#pragma once
 #ifndef NUMBERNODE_H
 #define NUMBERNODE_H
 

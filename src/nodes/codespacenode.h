@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CODESPACENODE_H
 #define CODESPACENODE_H
 

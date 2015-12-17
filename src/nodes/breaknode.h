@@ -1,4 +1,3 @@
-#pragma once
 #ifndef BREAKNODE_H
 #define BREAKNODE_H
 

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef ARRAYNODE_H
 #define ARRAYNODE_H
 

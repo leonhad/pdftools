@@ -1,4 +1,5 @@
-#pragma once
+#ifndef XML_H
+#define XML_H
 
 #include <string>
 
@@ -24,3 +25,5 @@ public:
         return m_buffer;
     }
 };
+
+#endif

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef FONTNODE_H
 #define FONTNODE_H
 

@@ -1,4 +1,3 @@
-#pragma once
 #ifndef STATENODE_H
 #define STATENODE_H
 

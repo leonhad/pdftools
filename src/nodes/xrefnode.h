@@ -1,4 +1,3 @@
-#pragma once
 #ifndef XREFNODE_H
 #define XREFNODE_H
 

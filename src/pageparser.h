@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PAGEPARSER_H
+#define PAGEPARSER_H
 
 #include "scanner.h"
 #include "genericparser.h"
@@ -31,3 +32,5 @@ private:
     void tjup_sequence(RootNode *root, vector<TreeNode *> &values);
 
 };
+
+#endif

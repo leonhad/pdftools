@@ -1,4 +1,3 @@
-#pragma once
 #ifndef BDCCOMMAND_H
 #define BDCCOMMAND_H
 

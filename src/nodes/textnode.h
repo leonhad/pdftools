@@ -1,4 +1,3 @@
-#pragma once
 #ifndef TEXTNODE_H
 #define TEXTNODE_H
 

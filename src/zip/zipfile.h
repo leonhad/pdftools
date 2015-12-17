@@ -1,4 +1,3 @@
-#pragma once
 #ifndef ZIPFILE_H
 #define ZIPFILE_H
 

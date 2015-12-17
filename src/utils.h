@@ -1,4 +1,5 @@
-#pragma once
+#ifndef UTILS_H
+#define UTILS_H
 
 #include <string>
 #include <ostream>
@@ -14,3 +15,5 @@ char *flat_decode(char *compressed, int size, int &deflated);
 char *deflate(const char *raw, int size, int &writed);
 string utf16be_to_utf8(string &str);
 string charset_to_utf8(string &str);
+
+#endif

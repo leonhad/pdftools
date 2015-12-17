@@ -1,4 +1,3 @@
-#pragma once
 #ifndef BREAKGLYPH_H
 #define BREAKGLYPH_H
 

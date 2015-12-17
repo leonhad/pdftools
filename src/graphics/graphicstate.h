@@ -1,4 +1,3 @@
-#pragma once
 #ifndef GRAPHICSTATE_H
 #define GRAPHICSTATE_H
 

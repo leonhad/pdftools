@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ANALYZE_H
+#define ANALYZE_H
 
 #include <vector>
 #include <map>
@@ -58,3 +59,5 @@ private:
     void get_stream(ArrayNode *array, stringstream *stream_value);
     void get_stream(ObjNode *obj, stringstream *stream_value);
 };
+
+#endif

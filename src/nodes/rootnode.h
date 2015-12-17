@@ -1,4 +1,3 @@
-#pragma once
 #ifndef ROOTNODE_H
 #define ROOTNODE_H
 

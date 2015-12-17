@@ -1,4 +1,3 @@
-#pragma once
 #ifndef CHARNODE_H
 #define CHARNODE_H
 

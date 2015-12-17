@@ -1,4 +1,3 @@
-#pragma once
 #ifndef BOOLEANNODE_H
 #define BOOLEANNODE_H
 

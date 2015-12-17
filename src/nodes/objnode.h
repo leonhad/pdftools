@@ -1,4 +1,3 @@
-#pragma once
 #ifndef OBJNODE_H
 #define OBJNODE_H
 

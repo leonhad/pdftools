@@ -1,4 +1,3 @@
-#pragma once
 #ifndef PARAGRAPHGLYPH_H
 #define PARAGRAPHGLYPH_H
 
