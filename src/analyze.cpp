@@ -34,7 +34,7 @@ void Analyze::analyze_xref()
 {
     int i;
     int size = m_tree->size();
-
+    
     for (i = 0; i < size; i++) {
         TreeNode *value = m_tree->get(i);
         XREFNode *xref = dynamic_cast<XREFNode *>(value);
