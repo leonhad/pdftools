@@ -1,4 +1,3 @@
-#include "config.h"
 #include "zipfile.h"
 #include "../utils.h"
 #include <iostream>
