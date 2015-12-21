@@ -28,7 +28,7 @@ public:
     int generation();
     const char *title();
     
-    int size();
+    size_t size();
     Outline *child(int index);
 };
 

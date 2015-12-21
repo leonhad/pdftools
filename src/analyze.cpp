@@ -33,7 +33,7 @@ Analyze::~Analyze()
 void Analyze::analyze_xref()
 {
     int i;
-    int size = m_tree->size();
+    size_t size = m_tree->size();
     
     for (i = 0; i < size; i++) {
         TreeNode *value = m_tree->get(i);
@@ -131,7 +131,7 @@ void Analyze::analyze_root()
         ArrayNode *array = dynamic_cast<ArrayNode *>(get_real_value(page_labels->get("/Nums")));
         if (array) {
             int loop;
-            int size = array->size();
+            size_t size = array->size();
 
             for (loop = 0; loop < size; loop += 2) {
                 double page = get_number_value(array->value(loop));
@@ -175,7 +175,7 @@ void Analyze::analyze_names(MapNode *values)
 {
     ArrayNode *kids = dynamic_cast<ArrayNode *>(values->get("/Kids"));
     if (kids) {
-        int size = kids->size();
+        size_t size = kids->size();
 
         for (int i = 0; i < size; i++) {
             MapNode *map_kids = dynamic_cast<MapNode *>(get_real_obj_value(kids->value(i)));
@@ -184,7 +184,7 @@ void Analyze::analyze_names(MapNode *values)
     } else {
         ArrayNode *names = dynamic_cast<ArrayNode *>(values->get("/Names"));
         if (names) {
-            int size = names->size();
+            size_t size = names->size();
 
             for (int i = 0; i < size; i += 2) {
                 string name = get_string_value(names->value(i));
@@ -302,7 +302,7 @@ Page *Analyze::process_page(int id, int generation, stringstream *stream_value, 
         MapNode *fonts = dynamic_cast<MapNode *>(get_real_obj_value(resources->get("/Font")));
         if (fonts) {
             vector<string> names = fonts->names();
-            int size = names.size();
+            size_t size = names.size();
             for (int loop = 0; loop < size; loop++) {
                 string alias = names[loop];
                 MapNode *fontmap = dynamic_cast<MapNode *>(get_real_obj_value(fonts->get(alias)));
@@ -373,7 +373,7 @@ Font *Analyze::analyze_font(MapNode *fontmap)
                 font->set_charmap_start(codespace->start());
                 font->set_charmap_finish(codespace->finish());
             }
-            int size = root->nodes();
+            size_t size = root->nodes();
             for (int loop = 0; loop < size; loop++) {
                 CharNode *cnode = root->node(loop);
                 font->add_charmap(cnode->character(), cnode->unicode());
@@ -414,7 +414,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
         (*stream_value).write(value, total);
         delete[] value;
     } else if (filter_array) {
-        int size = filter_array->size();
+        size_t size = filter_array->size();
         if (size > 1) {
 #ifdef DEBUG
             for (int loop = 0; loop < size; loop++) {
@@ -464,7 +464,7 @@ void Analyze::analyze_pages(TreeNode *page, ArrayNode * mediabox)
                 media = mediabox;
             }
             if (kids) {
-                int kids_size = kids->size();
+                size_t kids_size = kids->size();
                 for (int loop = 0; loop < kids_size; loop++) {
                     analyze_pages(get_real_value(kids->value(loop)), media);
                 }
@@ -541,7 +541,7 @@ ObjNode *Analyze::get_object(RefNode * ref)
 
 ObjNode *Analyze::get_object(int id, int generation)
 {
-    int size = m_tree->size();
+    size_t size = m_tree->size();
     int i;
     ObjNode *ret = NULL;
     bool done = false;

@@ -25,7 +25,7 @@ TreeNode *RootNode::get(int index)
     return m_child[index];
 }
 
-int RootNode::size()
+size_t RootNode::size()
 {
     return m_child.size();
 }

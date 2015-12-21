@@ -16,7 +16,7 @@ public:
 
     void push(TreeNode *value);
     TreeNode *value(int index);
-    int size();
+    size_t size();
 };
 
 #endif

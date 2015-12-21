@@ -74,7 +74,7 @@ RootNode *Parser::parse()
 
 void Parser::object_streams(RootNode *root_node)
 {
-    int size = root_node->size();
+    size_t size = root_node->size();
     int i;
 
     for (i = 0; i < size; i++) {

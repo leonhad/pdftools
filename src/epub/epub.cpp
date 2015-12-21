@@ -201,7 +201,7 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
         }
         xml->end_tag();
     }
-    int size = outline->size();
+    size_t size = outline->size();
     for (int loop = 0; loop < size; loop++) {
         generate_outline(xml, outline->child(loop));
     }
@@ -284,7 +284,7 @@ void EPUB::generate_pages()
     html.start_body();
 
     Page *page;
-    int size = m_document->pages();
+    size_t size = m_document->pages();
     for (int i = 0; i < size; i++) {
         page = m_document->page(i);
         page->execute(&html);

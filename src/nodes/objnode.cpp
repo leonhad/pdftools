@@ -42,12 +42,12 @@ void ObjNode::set_value(TreeNode *value)
     m_value = value;
 }
 
-void ObjNode::set_stream_pos(int pos)
+void ObjNode::set_stream_pos(size_t pos)
 {
     m_stream_pos = pos;
 }
 
-int ObjNode::stream_pos()
+size_t ObjNode::stream_pos()
 {
     return m_stream_pos;
 }

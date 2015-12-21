@@ -28,7 +28,7 @@ void Outline::set_location(double x, double y)
     m_y = y;
 }
 
-int Outline::size()
+size_t Outline::size()
 {
     return m_childs.size();
 }

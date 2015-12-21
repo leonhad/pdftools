@@ -106,6 +106,10 @@ char *deflate(const char *raw, int size, int &writed)
         zstream.next_out = (Bytef *) b.buffer;
 
         err = deflate(&zstream, Z_FINISH);
+        if (err) {
+            // stop on error
+            break;
+        }
         b.size = MAX_BUFFER_SIZE - zstream.avail_out;
 
         total += b.size;
@@ -186,7 +190,7 @@ string utf16be_to_utf8(string &str)
     } else {
         size_t len = str.length();
         size_t utf8len = len * 2;
-        const int original = utf8len;
+        const size_t original = utf8len;
         char *utf16 = (char*) str.c_str();
         char *utf8 = new char[utf8len];
         char *utf8start = utf8;
@@ -224,7 +228,7 @@ string charset_to_utf8(string &str)
         } else {
             size_t len = str.length();
             size_t utf8len = len * 2;
-            const int original = utf8len;
+            const size_t original = utf8len;
             char *utf16 = (char*) str.c_str();
             char *utf8 = new char[utf8len];
             char *utf8start = utf8;
@@ -240,7 +244,7 @@ string charset_to_utf8(string &str)
         }
     } else {
         string converted;
-        int size = str.length();
+        size_t size = str.length();
 
         for (int loop = 0; loop < size; loop++) {
             uint8_t c = str[loop];

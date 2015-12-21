@@ -26,7 +26,7 @@ Glyph *PageAnalyze::analyze_tree(RootNode *tree)
 void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
 {
     Glyph *node_parent = parent;
-    int size = tree->size();
+    size_t size = tree->size();
     for (int loop = 0; loop < size; loop++) {
         TreeNode *node = tree->get(loop);
 

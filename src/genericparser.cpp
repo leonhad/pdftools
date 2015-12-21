@@ -70,7 +70,7 @@ TreeNode *GenericParser::value_sequence()
         return new StringNode(value);
     } else if (m_token->type() == NUM) {
         double value = m_token->to_number();
-        int pos = m_scanner->pos();
+        size_t pos = m_scanner->pos();
         match(NUM);
 
         if (m_token->type() == NUM) {

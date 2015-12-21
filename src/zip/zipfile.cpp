@@ -108,7 +108,7 @@ void ZipFile::add_source(const char *filename, const char *buffer, int length)
 
 void ZipFile::write_central_file()
 {
-    int size = m_files.size();
+    size_t size = m_files.size();
     m_cd_address = m_output.tellp();
 
     for (int i = 0; i < size; i++) {

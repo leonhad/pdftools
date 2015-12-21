@@ -52,7 +52,7 @@ public:
     void add_page(Page *page);
     void add_page_label(PageLabel *label);
     Page *page(int index);
-    int pages();
+    size_t pages();
     Page *page(int id, int generation);
     
     bool encrypted();

@@ -133,7 +133,7 @@ void CMapParser::bfrange_sequence(const int count)
             char *chars = const_cast<char *>(start.c_str());
             char *b = chars;
             b++;
-            int size = start.size();
+            size_t size = start.size();
 
             // TODO find a better solution
             while (strcmp(chars, end.c_str()) <= 0) {
@@ -151,7 +151,7 @@ void CMapParser::bfrange_sequence(const int count)
             error_message("test map");
             ArrayNode *array = dynamic_cast<ArrayNode *>(node);
             char *chars = const_cast<char *>(start.c_str());
-            int size = start.size();
+            size_t size = start.size();
             int loop2 = 0;
 
             while (memcmp(chars, end.c_str(), size) < 0) {

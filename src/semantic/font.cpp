@@ -80,7 +80,7 @@ void Font::add_charmap(string character, string utf16value)
 string Font::translate(string &value)
 {
     string ret;
-    int size = m_charmap_start.size();
+    size_t size = m_charmap_start.size();
 
     if (m_charmap.size() == 0) {
         return value;
@@ -90,7 +90,7 @@ string Font::translate(string &value)
     const char *finish = m_charmap_finish.c_str();
 
     const char *buffer = value.c_str();
-    int length = value.size();
+    size_t length = value.size();
     for (int loop = 0; loop < length; loop++, buffer += size) {
         int f = memcmp(start, buffer, m_charmap_start.length());
         int s = memcmp(finish, buffer, m_charmap_finish.length());

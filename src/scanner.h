@@ -24,9 +24,9 @@ public:
     const char *error();
 
     void ignore_line();
-    int ignore_stream(int length);
-    int pos();
-    void to_pos(int pos);
+    size_t ignore_stream(int length);
+    size_t pos();
+    void to_pos(size_t pos);
     char *get_stream(int length);
     char *get_image_stream();
     void disable_charset_conversion();

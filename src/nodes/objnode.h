@@ -11,7 +11,7 @@ class ObjNode : public TreeNode {
 private:
     int m_id;
     int m_generation;
-    int m_stream_pos;
+    size_t m_stream_pos;
     TreeNode *m_value;
     
 public:
@@ -19,11 +19,11 @@ public:
     virtual ~ObjNode();
     
     void set_value(TreeNode *value);
-    void set_stream_pos(int pos);
+    void set_stream_pos(size_t pos);
     
     int id();
     int generation();
-    int stream_pos();
+    size_t stream_pos();
     TreeNode *value();
     bool this_object(int id, int generation);
     void clear_stream();

@@ -20,7 +20,7 @@ TreeNode *ArrayNode::value(int index)
     return m_values[index];
 }
 
-int ArrayNode::size()
+size_t ArrayNode::size()
 {
     return m_values.size();
 }

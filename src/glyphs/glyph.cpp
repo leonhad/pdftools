@@ -28,7 +28,7 @@ void Glyph::execute(Html *document, Context *context)
     start_glyph(document);
     do_glyph(document);
 
-    int size = m_childs.size();
+    unsigned long size = m_childs.size();
     if (size > 0) {
         m_last_glyph = this;
     }

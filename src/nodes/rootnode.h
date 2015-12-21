@@ -16,7 +16,7 @@ public:
     
     void add_child(TreeNode *child);
     TreeNode *get(int index);
-    int size();
+    size_t size();
 };
 
 #endif

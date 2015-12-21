@@ -116,7 +116,7 @@ Page *Document::page(int index)
     return m_pages[index];
 }
 
-int Document::pages()
+size_t Document::pages()
 {
     return m_pages.size();
 }

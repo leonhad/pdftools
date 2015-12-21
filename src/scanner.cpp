@@ -79,23 +79,23 @@ void Scanner::set_istream(istream *stream)
     m_filein = stream;
 }
 
-int Scanner::pos()
+size_t Scanner::pos()
 {
     return m_filein->tellg();
 }
 
-void Scanner::to_pos(int pos)
+void Scanner::to_pos(size_t pos)
 {
     m_filein->seekg(pos, ios::beg);
 }
 
-int Scanner::ignore_stream(int length)
+size_t Scanner::ignore_stream(int length)
 {
     // Ignore first new line
     while (m_filein->good() && next_char() != '\n') {
     }
     //unget_char();
-    int ret = m_filein->tellg();
+    size_t ret = m_filein->tellg();
 
     if (length > 0) {
         m_filein->ignore(length);
@@ -103,7 +103,7 @@ int Scanner::ignore_stream(int length)
         while (m_filein->good()) {
             int ret = m_filein->get();
             if ((ret == '\n' || ret == '\r') && m_filein->good()) {
-                int pos = m_filein->tellg();
+                size_t pos = m_filein->tellg();
                 int next = m_filein->get();
                 // treat '\r\n', '\r' or '\n'
                 if (next == 'e' || m_filein->get() == 'e') {
@@ -134,7 +134,7 @@ char *Scanner::get_image_stream()
     while (m_filein->good()) {
         int ret = m_filein->get();
         if ((ret == '\n' || ret == '\r') && m_filein->good()) {
-            int pos = m_filein->tellg();
+            size_t pos = m_filein->tellg();
             int next = m_filein->get();
             // treat '\r\n', '\r' or '\n'
             if (next == 'E' || m_filein->get() == 'I') {
@@ -245,7 +245,6 @@ Token *Scanner::next_token()
                     current_token = ERROR;
                 } else {
                     token_string += '>';
-                    state = DONE;
                     current_token = END_DICT;
                 }
                 state = DONE;

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     string fileout;
     string format = "epub";
 
-    static struct option long_options[] = {
+    const struct option long_options[] = {
         {"verbose", no_argument, &verbose_flag, 1},
         {"help", no_argument, 0, 'h'},
         {"version", no_argument, 0, 'v'},

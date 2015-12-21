@@ -33,7 +33,7 @@ CodeSpaceNode *CMapNode::code_space()
     return m_codespace;
 }
 
-int CMapNode::nodes()
+size_t CMapNode::nodes()
 {
     return m_charnodes.size();
 }

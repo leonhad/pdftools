@@ -22,7 +22,7 @@ public:
     void set_codespace(CodeSpaceNode *codespace);
     
     CodeSpaceNode *code_space();
-    int nodes();
+    size_t nodes();
     CharNode *node(int index);
 };
 
