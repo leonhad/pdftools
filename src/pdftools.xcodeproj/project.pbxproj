@@ -1,0 +1,619 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 47;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A57D14871C2791990072F543 /* analyze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14681C2791990072F543 /* analyze.cpp */; };
+		A57D14881C2791990072F543 /* cmapparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146A1C2791990072F543 /* cmapparser.cpp */; };
+		A57D14891C2791990072F543 /* converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146C1C2791990072F543 /* converter.cpp */; };
+		A57D148A1C2791990072F543 /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146F1C2791990072F543 /* generator.cpp */; };
+		A57D148B1C2791990072F543 /* genericparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14711C2791990072F543 /* genericparser.cpp */; };
+		A57D148C1C2791990072F543 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14761C2791990072F543 /* main.cpp */; };
+		A57D148D1C2791990072F543 /* pageanalyze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14781C2791990072F543 /* pageanalyze.cpp */; };
+		A57D148E1C2791990072F543 /* pageparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D147A1C2791990072F543 /* pageparser.cpp */; };
+		A57D148F1C2791990072F543 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D147C1C2791990072F543 /* parser.cpp */; };
+		A57D14901C2791990072F543 /* scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D147E1C2791990072F543 /* scanner.cpp */; };
+		A57D14911C2791990072F543 /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14811C2791990072F543 /* token.cpp */; };
+		A57D14921C2791990072F543 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14831C2791990072F543 /* utils.cpp */; };
+		A57D14941C2792C20072F543 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A57D14931C2792C20072F543 /* libz.tbd */; };
+		A57D14961C2792D90072F543 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A57D14951C2792D90072F543 /* libiconv.tbd */; };
+		A57D149C1C2793B10072F543 /* epub.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D149A1C2793B10072F543 /* epub.cpp */; };
+		A598EE9E1C28AF5E008FFC74 /* breakglyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EE911C28AF5E008FFC74 /* breakglyph.cpp */; };
+		A598EE9F1C28AF5E008FFC74 /* fontglyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EE931C28AF5E008FFC74 /* fontglyph.cpp */; };
+		A598EEA01C28AF5E008FFC74 /* fontsizeglyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EE951C28AF5E008FFC74 /* fontsizeglyph.cpp */; };
+		A598EEA11C28AF5E008FFC74 /* glyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EE971C28AF5E008FFC74 /* glyph.cpp */; };
+		A598EEA21C28AF5E008FFC74 /* paragraphglyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EE9A1C28AF5E008FFC74 /* paragraphglyph.cpp */; };
+		A598EEA31C28AF5E008FFC74 /* textglyph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EE9C1C28AF5E008FFC74 /* textglyph.cpp */; };
+		A598EEA91C28AF86008FFC74 /* graphicstate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEA51C28AF86008FFC74 /* graphicstate.cpp */; };
+		A598EEAA1C28AF86008FFC74 /* state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEA71C28AF86008FFC74 /* state.cpp */; };
+		A598EEAE1C28B047008FFC74 /* html.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEAC1C28B047008FFC74 /* html.cpp */; };
+		A598EED91C28B069008FFC74 /* arraynode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEB01C28B069008FFC74 /* arraynode.cpp */; };
+		A598EEDA1C28B069008FFC74 /* bdcnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEB21C28B069008FFC74 /* bdcnode.cpp */; };
+		A598EEDB1C28B069008FFC74 /* booleannode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEB41C28B069008FFC74 /* booleannode.cpp */; };
+		A598EEDC1C28B069008FFC74 /* breaknode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEB61C28B069008FFC74 /* breaknode.cpp */; };
+		A598EEDD1C28B069008FFC74 /* charnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEB81C28B069008FFC74 /* charnode.cpp */; };
+		A598EEDE1C28B069008FFC74 /* cmapnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEBA1C28B069008FFC74 /* cmapnode.cpp */; };
+		A598EEDF1C28B069008FFC74 /* codespacenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEBC1C28B069008FFC74 /* codespacenode.cpp */; };
+		A598EEE01C28B069008FFC74 /* fontnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEBE1C28B069008FFC74 /* fontnode.cpp */; };
+		A598EEE11C28B069008FFC74 /* mapnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEC01C28B069008FFC74 /* mapnode.cpp */; };
+		A598EEE21C28B069008FFC74 /* namenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEC21C28B069008FFC74 /* namenode.cpp */; };
+		A598EEE31C28B069008FFC74 /* numbernode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEC51C28B069008FFC74 /* numbernode.cpp */; };
+		A598EEE41C28B069008FFC74 /* objnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEC71C28B069008FFC74 /* objnode.cpp */; };
+		A598EEE51C28B069008FFC74 /* refnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEC91C28B069008FFC74 /* refnode.cpp */; };
+		A598EEE61C28B069008FFC74 /* rootnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EECB1C28B069008FFC74 /* rootnode.cpp */; };
+		A598EEE71C28B069008FFC74 /* statenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EECD1C28B069008FFC74 /* statenode.cpp */; };
+		A598EEE81C28B069008FFC74 /* stringnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EECF1C28B069008FFC74 /* stringnode.cpp */; };
+		A598EEE91C28B069008FFC74 /* textmatrixnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED11C28B069008FFC74 /* textmatrixnode.cpp */; };
+		A598EEEA1C28B069008FFC74 /* textnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED31C28B069008FFC74 /* textnode.cpp */; };
+		A598EEEB1C28B069008FFC74 /* treenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED51C28B069008FFC74 /* treenode.cpp */; };
+		A598EEEC1C28B069008FFC74 /* xrefnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED71C28B069008FFC74 /* xrefnode.cpp */; };
+		A598EEFA1C28B0C8008FFC74 /* context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEEE1C28B0C8008FFC74 /* context.cpp */; };
+		A598EEFB1C28B0C8008FFC74 /* document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEF01C28B0C8008FFC74 /* document.cpp */; };
+		A598EEFC1C28B0C8008FFC74 /* font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEF21C28B0C8008FFC74 /* font.cpp */; };
+		A598EEFD1C28B0C8008FFC74 /* outline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEF41C28B0C8008FFC74 /* outline.cpp */; };
+		A598EEFE1C28B0C8008FFC74 /* page.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEF61C28B0C8008FFC74 /* page.cpp */; };
+		A598EEFF1C28B0C8008FFC74 /* pagelabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEF81C28B0C8008FFC74 /* pagelabel.cpp */; };
+		A598EF031C28B0E8008FFC74 /* xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EF011C28B0E8008FFC74 /* xml.cpp */; };
+		A598EF071C28B10C008FFC74 /* zipfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EF051C28B10C008FFC74 /* zipfile.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A57D145C1C2790FF0072F543 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		A57D145E1C2790FF0072F543 /* pdftools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdftools; sourceTree = BUILT_PRODUCTS_DIR; };
+		A57D14681C2791990072F543 /* analyze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analyze.cpp; sourceTree = SOURCE_ROOT; };
+		A57D14691C2791990072F543 /* analyze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analyze.h; sourceTree = SOURCE_ROOT; };
+		A57D146A1C2791990072F543 /* cmapparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cmapparser.cpp; sourceTree = SOURCE_ROOT; };
+		A57D146B1C2791990072F543 /* cmapparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmapparser.h; sourceTree = SOURCE_ROOT; };
+		A57D146C1C2791990072F543 /* converter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = converter.cpp; sourceTree = SOURCE_ROOT; };
+		A57D146D1C2791990072F543 /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = SOURCE_ROOT; };
+		A57D146F1C2791990072F543 /* generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generator.cpp; sourceTree = SOURCE_ROOT; };
+		A57D14701C2791990072F543 /* generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = generator.h; sourceTree = SOURCE_ROOT; };
+		A57D14711C2791990072F543 /* genericparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = genericparser.cpp; sourceTree = SOURCE_ROOT; };
+		A57D14721C2791990072F543 /* genericparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genericparser.h; sourceTree = SOURCE_ROOT; };
+		A57D14761C2791990072F543 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		A57D14781C2791990072F543 /* pageanalyze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pageanalyze.cpp; sourceTree = SOURCE_ROOT; };
+		A57D14791C2791990072F543 /* pageanalyze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pageanalyze.h; sourceTree = SOURCE_ROOT; };
+		A57D147A1C2791990072F543 /* pageparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pageparser.cpp; sourceTree = SOURCE_ROOT; };
+		A57D147B1C2791990072F543 /* pageparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pageparser.h; sourceTree = SOURCE_ROOT; };
+		A57D147C1C2791990072F543 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = SOURCE_ROOT; };
+		A57D147D1C2791990072F543 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = SOURCE_ROOT; };
+		A57D147E1C2791990072F543 /* scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scanner.cpp; sourceTree = SOURCE_ROOT; };
+		A57D147F1C2791990072F543 /* scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scanner.h; sourceTree = SOURCE_ROOT; };
+		A57D14811C2791990072F543 /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = SOURCE_ROOT; };
+		A57D14821C2791990072F543 /* token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = SOURCE_ROOT; };
+		A57D14831C2791990072F543 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = SOURCE_ROOT; };
+		A57D14841C2791990072F543 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = SOURCE_ROOT; };
+		A57D14931C2792C20072F543 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		A57D14951C2792D90072F543 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		A57D149A1C2793B10072F543 /* epub.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = epub.cpp; path = epub/epub.cpp; sourceTree = SOURCE_ROOT; };
+		A57D149B1C2793B10072F543 /* epub.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = epub.h; path = epub/epub.h; sourceTree = SOURCE_ROOT; };
+		A598EE911C28AF5E008FFC74 /* breakglyph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = breakglyph.cpp; path = glyphs/breakglyph.cpp; sourceTree = SOURCE_ROOT; };
+		A598EE921C28AF5E008FFC74 /* breakglyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = breakglyph.h; path = glyphs/breakglyph.h; sourceTree = SOURCE_ROOT; };
+		A598EE931C28AF5E008FFC74 /* fontglyph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fontglyph.cpp; path = glyphs/fontglyph.cpp; sourceTree = SOURCE_ROOT; };
+		A598EE941C28AF5E008FFC74 /* fontglyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fontglyph.h; path = glyphs/fontglyph.h; sourceTree = SOURCE_ROOT; };
+		A598EE951C28AF5E008FFC74 /* fontsizeglyph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fontsizeglyph.cpp; path = glyphs/fontsizeglyph.cpp; sourceTree = SOURCE_ROOT; };
+		A598EE961C28AF5E008FFC74 /* fontsizeglyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fontsizeglyph.h; path = glyphs/fontsizeglyph.h; sourceTree = SOURCE_ROOT; };
+		A598EE971C28AF5E008FFC74 /* glyph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = glyph.cpp; path = glyphs/glyph.cpp; sourceTree = SOURCE_ROOT; };
+		A598EE981C28AF5E008FFC74 /* glyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glyph.h; path = glyphs/glyph.h; sourceTree = SOURCE_ROOT; };
+		A598EE991C28AF5E008FFC74 /* glyphs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glyphs.h; path = glyphs/glyphs.h; sourceTree = SOURCE_ROOT; };
+		A598EE9A1C28AF5E008FFC74 /* paragraphglyph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = paragraphglyph.cpp; path = glyphs/paragraphglyph.cpp; sourceTree = SOURCE_ROOT; };
+		A598EE9B1C28AF5E008FFC74 /* paragraphglyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = paragraphglyph.h; path = glyphs/paragraphglyph.h; sourceTree = SOURCE_ROOT; };
+		A598EE9C1C28AF5E008FFC74 /* textglyph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textglyph.cpp; path = glyphs/textglyph.cpp; sourceTree = SOURCE_ROOT; };
+		A598EE9D1C28AF5E008FFC74 /* textglyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textglyph.h; path = glyphs/textglyph.h; sourceTree = SOURCE_ROOT; };
+		A598EEA51C28AF86008FFC74 /* graphicstate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = graphicstate.cpp; path = graphics/graphicstate.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEA61C28AF86008FFC74 /* graphicstate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = graphicstate.h; path = graphics/graphicstate.h; sourceTree = SOURCE_ROOT; };
+		A598EEA71C28AF86008FFC74 /* state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = state.cpp; path = graphics/state.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEA81C28AF86008FFC74 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = state.h; path = graphics/state.h; sourceTree = SOURCE_ROOT; };
+		A598EEAC1C28B047008FFC74 /* html.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = html.cpp; path = html/html.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEAD1C28B047008FFC74 /* html.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = html.h; path = html/html.h; sourceTree = SOURCE_ROOT; };
+		A598EEB01C28B069008FFC74 /* arraynode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = arraynode.cpp; path = nodes/arraynode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEB11C28B069008FFC74 /* arraynode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arraynode.h; path = nodes/arraynode.h; sourceTree = SOURCE_ROOT; };
+		A598EEB21C28B069008FFC74 /* bdcnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bdcnode.cpp; path = nodes/bdcnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEB31C28B069008FFC74 /* bdcnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bdcnode.h; path = nodes/bdcnode.h; sourceTree = SOURCE_ROOT; };
+		A598EEB41C28B069008FFC74 /* booleannode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = booleannode.cpp; path = nodes/booleannode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEB51C28B069008FFC74 /* booleannode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = booleannode.h; path = nodes/booleannode.h; sourceTree = SOURCE_ROOT; };
+		A598EEB61C28B069008FFC74 /* breaknode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = breaknode.cpp; path = nodes/breaknode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEB71C28B069008FFC74 /* breaknode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = breaknode.h; path = nodes/breaknode.h; sourceTree = SOURCE_ROOT; };
+		A598EEB81C28B069008FFC74 /* charnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = charnode.cpp; path = nodes/charnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEB91C28B069008FFC74 /* charnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = charnode.h; path = nodes/charnode.h; sourceTree = SOURCE_ROOT; };
+		A598EEBA1C28B069008FFC74 /* cmapnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cmapnode.cpp; path = nodes/cmapnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEBB1C28B069008FFC74 /* cmapnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cmapnode.h; path = nodes/cmapnode.h; sourceTree = SOURCE_ROOT; };
+		A598EEBC1C28B069008FFC74 /* codespacenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = codespacenode.cpp; path = nodes/codespacenode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEBD1C28B069008FFC74 /* codespacenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = codespacenode.h; path = nodes/codespacenode.h; sourceTree = SOURCE_ROOT; };
+		A598EEBE1C28B069008FFC74 /* fontnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fontnode.cpp; path = nodes/fontnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEBF1C28B069008FFC74 /* fontnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fontnode.h; path = nodes/fontnode.h; sourceTree = SOURCE_ROOT; };
+		A598EEC01C28B069008FFC74 /* mapnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mapnode.cpp; path = nodes/mapnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEC11C28B069008FFC74 /* mapnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapnode.h; path = nodes/mapnode.h; sourceTree = SOURCE_ROOT; };
+		A598EEC21C28B069008FFC74 /* namenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = namenode.cpp; path = nodes/namenode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEC31C28B069008FFC74 /* namenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = namenode.h; path = nodes/namenode.h; sourceTree = SOURCE_ROOT; };
+		A598EEC41C28B069008FFC74 /* nodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nodes.h; path = nodes/nodes.h; sourceTree = SOURCE_ROOT; };
+		A598EEC51C28B069008FFC74 /* numbernode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = numbernode.cpp; path = nodes/numbernode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEC61C28B069008FFC74 /* numbernode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = numbernode.h; path = nodes/numbernode.h; sourceTree = SOURCE_ROOT; };
+		A598EEC71C28B069008FFC74 /* objnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = objnode.cpp; path = nodes/objnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEC81C28B069008FFC74 /* objnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = objnode.h; path = nodes/objnode.h; sourceTree = SOURCE_ROOT; };
+		A598EEC91C28B069008FFC74 /* refnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = refnode.cpp; path = nodes/refnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EECA1C28B069008FFC74 /* refnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = refnode.h; path = nodes/refnode.h; sourceTree = SOURCE_ROOT; };
+		A598EECB1C28B069008FFC74 /* rootnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rootnode.cpp; path = nodes/rootnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EECC1C28B069008FFC74 /* rootnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rootnode.h; path = nodes/rootnode.h; sourceTree = SOURCE_ROOT; };
+		A598EECD1C28B069008FFC74 /* statenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = statenode.cpp; path = nodes/statenode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EECE1C28B069008FFC74 /* statenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = statenode.h; path = nodes/statenode.h; sourceTree = SOURCE_ROOT; };
+		A598EECF1C28B069008FFC74 /* stringnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringnode.cpp; path = nodes/stringnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EED01C28B069008FFC74 /* stringnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringnode.h; path = nodes/stringnode.h; sourceTree = SOURCE_ROOT; };
+		A598EED11C28B069008FFC74 /* textmatrixnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textmatrixnode.cpp; path = nodes/textmatrixnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EED21C28B069008FFC74 /* textmatrixnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textmatrixnode.h; path = nodes/textmatrixnode.h; sourceTree = SOURCE_ROOT; };
+		A598EED31C28B069008FFC74 /* textnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textnode.cpp; path = nodes/textnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EED41C28B069008FFC74 /* textnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textnode.h; path = nodes/textnode.h; sourceTree = SOURCE_ROOT; };
+		A598EED51C28B069008FFC74 /* treenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = treenode.cpp; path = nodes/treenode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EED61C28B069008FFC74 /* treenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = treenode.h; path = nodes/treenode.h; sourceTree = SOURCE_ROOT; };
+		A598EED71C28B069008FFC74 /* xrefnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xrefnode.cpp; path = nodes/xrefnode.cpp; sourceTree = SOURCE_ROOT; };
+		A598EED81C28B069008FFC74 /* xrefnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xrefnode.h; path = nodes/xrefnode.h; sourceTree = SOURCE_ROOT; };
+		A598EEEE1C28B0C8008FFC74 /* context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = context.cpp; path = semantic/context.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEEF1C28B0C8008FFC74 /* context.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = context.h; path = semantic/context.h; sourceTree = SOURCE_ROOT; };
+		A598EEF01C28B0C8008FFC74 /* document.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = document.cpp; path = semantic/document.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEF11C28B0C8008FFC74 /* document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = document.h; path = semantic/document.h; sourceTree = SOURCE_ROOT; };
+		A598EEF21C28B0C8008FFC74 /* font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = font.cpp; path = semantic/font.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEF31C28B0C8008FFC74 /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = font.h; path = semantic/font.h; sourceTree = SOURCE_ROOT; };
+		A598EEF41C28B0C8008FFC74 /* outline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = outline.cpp; path = semantic/outline.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEF51C28B0C8008FFC74 /* outline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = outline.h; path = semantic/outline.h; sourceTree = SOURCE_ROOT; };
+		A598EEF61C28B0C8008FFC74 /* page.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = page.cpp; path = semantic/page.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEF71C28B0C8008FFC74 /* page.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = page.h; path = semantic/page.h; sourceTree = SOURCE_ROOT; };
+		A598EEF81C28B0C8008FFC74 /* pagelabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pagelabel.cpp; path = semantic/pagelabel.cpp; sourceTree = SOURCE_ROOT; };
+		A598EEF91C28B0C8008FFC74 /* pagelabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pagelabel.h; path = semantic/pagelabel.h; sourceTree = SOURCE_ROOT; };
+		A598EF011C28B0E8008FFC74 /* xml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xml.cpp; path = xml/xml.cpp; sourceTree = SOURCE_ROOT; };
+		A598EF021C28B0E8008FFC74 /* xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xml.h; path = xml/xml.h; sourceTree = SOURCE_ROOT; };
+		A598EF051C28B10C008FFC74 /* zipfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zipfile.cpp; path = zip/zipfile.cpp; sourceTree = SOURCE_ROOT; };
+		A598EF061C28B10C008FFC74 /* zipfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zipfile.h; path = zip/zipfile.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A57D145B1C2790FF0072F543 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A57D14961C2792D90072F543 /* libiconv.tbd in Frameworks */,
+				A57D14941C2792C20072F543 /* libz.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A57D14551C2790FF0072F543 = {
+			isa = PBXGroup;
+			children = (
+				A57D14951C2792D90072F543 /* libiconv.tbd */,
+				A57D14931C2792C20072F543 /* libz.tbd */,
+				A57D14601C2790FF0072F543 /* pdftools */,
+				A57D145F1C2790FF0072F543 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A57D145F1C2790FF0072F543 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A57D145E1C2790FF0072F543 /* pdftools */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A57D14601C2790FF0072F543 /* pdftools */ = {
+			isa = PBXGroup;
+			children = (
+				A598EF081C28B111008FFC74 /* zip */,
+				A598EF041C28B0EE008FFC74 /* xml */,
+				A598EF001C28B0CD008FFC74 /* semantic */,
+				A598EEED1C28B070008FFC74 /* nodes */,
+				A598EEAF1C28B050008FFC74 /* html */,
+				A598EEAB1C28AF93008FFC74 /* graphics */,
+				A598EEA41C28AF64008FFC74 /* glyphs */,
+				A57D149D1C2793BF0072F543 /* epub */,
+				A57D14681C2791990072F543 /* analyze.cpp */,
+				A57D14691C2791990072F543 /* analyze.h */,
+				A57D146A1C2791990072F543 /* cmapparser.cpp */,
+				A57D146B1C2791990072F543 /* cmapparser.h */,
+				A57D146C1C2791990072F543 /* converter.cpp */,
+				A57D146D1C2791990072F543 /* converter.h */,
+				A57D146F1C2791990072F543 /* generator.cpp */,
+				A57D14701C2791990072F543 /* generator.h */,
+				A57D14711C2791990072F543 /* genericparser.cpp */,
+				A57D14721C2791990072F543 /* genericparser.h */,
+				A57D14761C2791990072F543 /* main.cpp */,
+				A57D14781C2791990072F543 /* pageanalyze.cpp */,
+				A57D14791C2791990072F543 /* pageanalyze.h */,
+				A57D147A1C2791990072F543 /* pageparser.cpp */,
+				A57D147B1C2791990072F543 /* pageparser.h */,
+				A57D147C1C2791990072F543 /* parser.cpp */,
+				A57D147D1C2791990072F543 /* parser.h */,
+				A57D147E1C2791990072F543 /* scanner.cpp */,
+				A57D147F1C2791990072F543 /* scanner.h */,
+				A57D14811C2791990072F543 /* token.cpp */,
+				A57D14821C2791990072F543 /* token.h */,
+				A57D14831C2791990072F543 /* utils.cpp */,
+				A57D14841C2791990072F543 /* utils.h */,
+			);
+			path = pdftools;
+			sourceTree = "<group>";
+		};
+		A57D149D1C2793BF0072F543 /* epub */ = {
+			isa = PBXGroup;
+			children = (
+				A57D149A1C2793B10072F543 /* epub.cpp */,
+				A57D149B1C2793B10072F543 /* epub.h */,
+			);
+			name = epub;
+			sourceTree = "<group>";
+		};
+		A598EEA41C28AF64008FFC74 /* glyphs */ = {
+			isa = PBXGroup;
+			children = (
+				A598EE911C28AF5E008FFC74 /* breakglyph.cpp */,
+				A598EE921C28AF5E008FFC74 /* breakglyph.h */,
+				A598EE931C28AF5E008FFC74 /* fontglyph.cpp */,
+				A598EE941C28AF5E008FFC74 /* fontglyph.h */,
+				A598EE951C28AF5E008FFC74 /* fontsizeglyph.cpp */,
+				A598EE961C28AF5E008FFC74 /* fontsizeglyph.h */,
+				A598EE971C28AF5E008FFC74 /* glyph.cpp */,
+				A598EE981C28AF5E008FFC74 /* glyph.h */,
+				A598EE991C28AF5E008FFC74 /* glyphs.h */,
+				A598EE9A1C28AF5E008FFC74 /* paragraphglyph.cpp */,
+				A598EE9B1C28AF5E008FFC74 /* paragraphglyph.h */,
+				A598EE9C1C28AF5E008FFC74 /* textglyph.cpp */,
+				A598EE9D1C28AF5E008FFC74 /* textglyph.h */,
+			);
+			name = glyphs;
+			sourceTree = "<group>";
+		};
+		A598EEAB1C28AF93008FFC74 /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				A598EEA51C28AF86008FFC74 /* graphicstate.cpp */,
+				A598EEA61C28AF86008FFC74 /* graphicstate.h */,
+				A598EEA71C28AF86008FFC74 /* state.cpp */,
+				A598EEA81C28AF86008FFC74 /* state.h */,
+			);
+			name = graphics;
+			sourceTree = "<group>";
+		};
+		A598EEAF1C28B050008FFC74 /* html */ = {
+			isa = PBXGroup;
+			children = (
+				A598EEAC1C28B047008FFC74 /* html.cpp */,
+				A598EEAD1C28B047008FFC74 /* html.h */,
+			);
+			name = html;
+			sourceTree = "<group>";
+		};
+		A598EEED1C28B070008FFC74 /* nodes */ = {
+			isa = PBXGroup;
+			children = (
+				A598EEB01C28B069008FFC74 /* arraynode.cpp */,
+				A598EEB11C28B069008FFC74 /* arraynode.h */,
+				A598EEB21C28B069008FFC74 /* bdcnode.cpp */,
+				A598EEB31C28B069008FFC74 /* bdcnode.h */,
+				A598EEB41C28B069008FFC74 /* booleannode.cpp */,
+				A598EEB51C28B069008FFC74 /* booleannode.h */,
+				A598EEB61C28B069008FFC74 /* breaknode.cpp */,
+				A598EEB71C28B069008FFC74 /* breaknode.h */,
+				A598EEB81C28B069008FFC74 /* charnode.cpp */,
+				A598EEB91C28B069008FFC74 /* charnode.h */,
+				A598EEBA1C28B069008FFC74 /* cmapnode.cpp */,
+				A598EEBB1C28B069008FFC74 /* cmapnode.h */,
+				A598EEBC1C28B069008FFC74 /* codespacenode.cpp */,
+				A598EEBD1C28B069008FFC74 /* codespacenode.h */,
+				A598EEBE1C28B069008FFC74 /* fontnode.cpp */,
+				A598EEBF1C28B069008FFC74 /* fontnode.h */,
+				A598EEC01C28B069008FFC74 /* mapnode.cpp */,
+				A598EEC11C28B069008FFC74 /* mapnode.h */,
+				A598EEC21C28B069008FFC74 /* namenode.cpp */,
+				A598EEC31C28B069008FFC74 /* namenode.h */,
+				A598EEC41C28B069008FFC74 /* nodes.h */,
+				A598EEC51C28B069008FFC74 /* numbernode.cpp */,
+				A598EEC61C28B069008FFC74 /* numbernode.h */,
+				A598EEC71C28B069008FFC74 /* objnode.cpp */,
+				A598EEC81C28B069008FFC74 /* objnode.h */,
+				A598EEC91C28B069008FFC74 /* refnode.cpp */,
+				A598EECA1C28B069008FFC74 /* refnode.h */,
+				A598EECB1C28B069008FFC74 /* rootnode.cpp */,
+				A598EECC1C28B069008FFC74 /* rootnode.h */,
+				A598EECD1C28B069008FFC74 /* statenode.cpp */,
+				A598EECE1C28B069008FFC74 /* statenode.h */,
+				A598EECF1C28B069008FFC74 /* stringnode.cpp */,
+				A598EED01C28B069008FFC74 /* stringnode.h */,
+				A598EED11C28B069008FFC74 /* textmatrixnode.cpp */,
+				A598EED21C28B069008FFC74 /* textmatrixnode.h */,
+				A598EED31C28B069008FFC74 /* textnode.cpp */,
+				A598EED41C28B069008FFC74 /* textnode.h */,
+				A598EED51C28B069008FFC74 /* treenode.cpp */,
+				A598EED61C28B069008FFC74 /* treenode.h */,
+				A598EED71C28B069008FFC74 /* xrefnode.cpp */,
+				A598EED81C28B069008FFC74 /* xrefnode.h */,
+			);
+			name = nodes;
+			sourceTree = "<group>";
+		};
+		A598EF001C28B0CD008FFC74 /* semantic */ = {
+			isa = PBXGroup;
+			children = (
+				A598EEEE1C28B0C8008FFC74 /* context.cpp */,
+				A598EEEF1C28B0C8008FFC74 /* context.h */,
+				A598EEF01C28B0C8008FFC74 /* document.cpp */,
+				A598EEF11C28B0C8008FFC74 /* document.h */,
+				A598EEF21C28B0C8008FFC74 /* font.cpp */,
+				A598EEF31C28B0C8008FFC74 /* font.h */,
+				A598EEF41C28B0C8008FFC74 /* outline.cpp */,
+				A598EEF51C28B0C8008FFC74 /* outline.h */,
+				A598EEF61C28B0C8008FFC74 /* page.cpp */,
+				A598EEF71C28B0C8008FFC74 /* page.h */,
+				A598EEF81C28B0C8008FFC74 /* pagelabel.cpp */,
+				A598EEF91C28B0C8008FFC74 /* pagelabel.h */,
+			);
+			name = semantic;
+			sourceTree = "<group>";
+		};
+		A598EF041C28B0EE008FFC74 /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				A598EF011C28B0E8008FFC74 /* xml.cpp */,
+				A598EF021C28B0E8008FFC74 /* xml.h */,
+			);
+			name = xml;
+			sourceTree = "<group>";
+		};
+		A598EF081C28B111008FFC74 /* zip */ = {
+			isa = PBXGroup;
+			children = (
+				A598EF051C28B10C008FFC74 /* zipfile.cpp */,
+				A598EF061C28B10C008FFC74 /* zipfile.h */,
+			);
+			name = zip;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A57D145D1C2790FF0072F543 /* pdftools */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A57D14651C2790FF0072F543 /* Build configuration list for PBXNativeTarget "pdftools" */;
+			buildPhases = (
+				A57D145A1C2790FF0072F543 /* Sources */,
+				A57D145B1C2790FF0072F543 /* Frameworks */,
+				A57D145C1C2790FF0072F543 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = pdftools;
+			productName = pdftools;
+			productReference = A57D145E1C2790FF0072F543 /* pdftools */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A57D14561C2790FF0072F543 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = com.leonhad.pdftools;
+				KnownAssetTags = (
+					New,
+				);
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Leonardo Alves da Costa";
+				TargetAttributes = {
+					A57D145D1C2790FF0072F543 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = A57D14591C2790FF0072F543 /* Build configuration list for PBXProject "pdftools" */;
+			compatibilityVersion = "Xcode 6.3";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A57D14551C2790FF0072F543;
+			productRefGroup = A57D145F1C2790FF0072F543 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A57D145D1C2790FF0072F543 /* pdftools */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A57D145A1C2790FF0072F543 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A598EEEB1C28B069008FFC74 /* treenode.cpp in Sources */,
+				A598EEFE1C28B0C8008FFC74 /* page.cpp in Sources */,
+				A598EEEA1C28B069008FFC74 /* textnode.cpp in Sources */,
+				A57D148B1C2791990072F543 /* genericparser.cpp in Sources */,
+				A598EEDC1C28B069008FFC74 /* breaknode.cpp in Sources */,
+				A598EEAA1C28AF86008FFC74 /* state.cpp in Sources */,
+				A57D148E1C2791990072F543 /* pageparser.cpp in Sources */,
+				A598EEE21C28B069008FFC74 /* namenode.cpp in Sources */,
+				A598EF031C28B0E8008FFC74 /* xml.cpp in Sources */,
+				A598EEFA1C28B0C8008FFC74 /* context.cpp in Sources */,
+				A598EEA31C28AF5E008FFC74 /* textglyph.cpp in Sources */,
+				A598EEE51C28B069008FFC74 /* refnode.cpp in Sources */,
+				A598EEE61C28B069008FFC74 /* rootnode.cpp in Sources */,
+				A598EEE81C28B069008FFC74 /* stringnode.cpp in Sources */,
+				A57D14871C2791990072F543 /* analyze.cpp in Sources */,
+				A57D14921C2791990072F543 /* utils.cpp in Sources */,
+				A57D149C1C2793B10072F543 /* epub.cpp in Sources */,
+				A598EF071C28B10C008FFC74 /* zipfile.cpp in Sources */,
+				A598EEDE1C28B069008FFC74 /* cmapnode.cpp in Sources */,
+				A598EEE91C28B069008FFC74 /* textmatrixnode.cpp in Sources */,
+				A598EEE11C28B069008FFC74 /* mapnode.cpp in Sources */,
+				A57D148C1C2791990072F543 /* main.cpp in Sources */,
+				A57D14901C2791990072F543 /* scanner.cpp in Sources */,
+				A598EEA21C28AF5E008FFC74 /* paragraphglyph.cpp in Sources */,
+				A57D148F1C2791990072F543 /* parser.cpp in Sources */,
+				A598EEFD1C28B0C8008FFC74 /* outline.cpp in Sources */,
+				A598EEDF1C28B069008FFC74 /* codespacenode.cpp in Sources */,
+				A598EEE01C28B069008FFC74 /* fontnode.cpp in Sources */,
+				A598EEDA1C28B069008FFC74 /* bdcnode.cpp in Sources */,
+				A598EEDB1C28B069008FFC74 /* booleannode.cpp in Sources */,
+				A598EEA01C28AF5E008FFC74 /* fontsizeglyph.cpp in Sources */,
+				A598EEEC1C28B069008FFC74 /* xrefnode.cpp in Sources */,
+				A598EEAE1C28B047008FFC74 /* html.cpp in Sources */,
+				A57D148D1C2791990072F543 /* pageanalyze.cpp in Sources */,
+				A598EEE71C28B069008FFC74 /* statenode.cpp in Sources */,
+				A598EEE31C28B069008FFC74 /* numbernode.cpp in Sources */,
+				A598EEFB1C28B0C8008FFC74 /* document.cpp in Sources */,
+				A57D14911C2791990072F543 /* token.cpp in Sources */,
+				A598EE9E1C28AF5E008FFC74 /* breakglyph.cpp in Sources */,
+				A598EEE41C28B069008FFC74 /* objnode.cpp in Sources */,
+				A598EED91C28B069008FFC74 /* arraynode.cpp in Sources */,
+				A57D148A1C2791990072F543 /* generator.cpp in Sources */,
+				A598EEFC1C28B0C8008FFC74 /* font.cpp in Sources */,
+				A57D14881C2791990072F543 /* cmapparser.cpp in Sources */,
+				A598EEDD1C28B069008FFC74 /* charnode.cpp in Sources */,
+				A598EEFF1C28B0C8008FFC74 /* pagelabel.cpp in Sources */,
+				A598EEA91C28AF86008FFC74 /* graphicstate.cpp in Sources */,
+				A57D14891C2791990072F543 /* converter.cpp in Sources */,
+				A598EE9F1C28AF5E008FFC74 /* fontglyph.cpp in Sources */,
+				A598EEA11C28AF5E008FFC74 /* glyph.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A57D14631C2790FF0072F543 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A57D14641C2790FF0072F543 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A57D14661C2790FF0072F543 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A57D14671C2790FF0072F543 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A57D14591C2790FF0072F543 /* Build configuration list for PBXProject "pdftools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A57D14631C2790FF0072F543 /* Debug */,
+				A57D14641C2790FF0072F543 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A57D14651C2790FF0072F543 /* Build configuration list for PBXNativeTarget "pdftools" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A57D14661C2790FF0072F543 /* Debug */,
+				A57D14671C2790FF0072F543 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A57D14561C2790FF0072F543 /* Project object */;
+}

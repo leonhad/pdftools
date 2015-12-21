@@ -431,7 +431,11 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
                     (*stream_value).write(value, total);
                     delete[] value;
                 } else {
-                    error_message(string("Invalid filter ") + filter->name());
+                    if (filter) {
+                        error_message(string("Invalid filter ") + filter->name());
+                    } else {
+                        error_message(string("Filter not found"));
+                    }
                 }
             }
         }
