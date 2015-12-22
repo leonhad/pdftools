@@ -75,9 +75,8 @@ RootNode *Parser::parse()
 void Parser::object_streams(RootNode *root_node)
 {
     size_t size = root_node->size();
-    int i;
 
-    for (i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         ObjNode *root_object = dynamic_cast<ObjNode *> (root_node->get(i));
         if (root_object) {
             MapNode *map = dynamic_cast<MapNode *> (root_object->value());

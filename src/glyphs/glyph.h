@@ -22,9 +22,9 @@ public:
     void add_child(Glyph *glyph);
     void execute(Html *document, Context *context);
 
-    virtual void do_glyph(Html *document);
-    virtual void start_glyph(Html *document);
-    virtual void end_glyph(Html *document);
+    virtual void do_glyph(Html *);
+    virtual void start_glyph(Html *);
+    virtual void end_glyph(Html *);
 
     void set_last(Glyph *glyph);
 };

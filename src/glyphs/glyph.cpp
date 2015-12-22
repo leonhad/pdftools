@@ -32,7 +32,7 @@ void Glyph::execute(Html *document, Context *context)
     if (size > 0) {
         m_last_glyph = this;
     }
-    for (int i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++) {
         m_childs[i]->set_last(m_last_glyph);
         m_childs[i]->execute(document, context);
         m_last_glyph = m_childs[i];
@@ -45,14 +45,14 @@ void Glyph::set_last(Glyph *glyph)
     m_last_glyph = glyph;
 }
 
-void Glyph::do_glyph(Html *document)
+void Glyph::do_glyph(Html *)
 {
 }
 
-void Glyph::start_glyph(Html *document)
+void Glyph::start_glyph(Html *)
 {
 }
 
-void Glyph::end_glyph(Html *document)
+void Glyph::end_glyph(Html *)
 {
 }

@@ -32,13 +32,13 @@ void XML::add_doctype(const string& name, const string& public_id, const string&
 void XML::end_document() {
 }
 
-void XML::add_attribute(const string& attribute, const string& value) {
+void XML::add_attribute(const string& , const string& ) {
 }
 
-void XML::add_element(const string& value) {
+void XML::add_element(const string& ) {
 }
 
-void XML::start_tag(const string& tag_name) {
+void XML::start_tag(const string& ) {
 }
 
 void XML::end_tag() {

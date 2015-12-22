@@ -246,7 +246,7 @@ string charset_to_utf8(string &str)
         string converted;
         size_t size = str.length();
 
-        for (int loop = 0; loop < size; loop++) {
+        for (size_t loop = 0; loop < size; loop++) {
             uint8_t c = str[loop];
             const char *new_char = doc_encoding_table[c];
             converted += new_char;

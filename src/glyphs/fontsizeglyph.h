@@ -10,7 +10,7 @@ private:
 public:
     FontSizeGlyph(double size);
     
-    virtual void do_glyph(Html *document);
+    virtual void do_glyph(Html *);
 };
 
 #endif

@@ -107,7 +107,7 @@ RootNode *PageParser::parse()
                 break;
             }
             size_t size = values.size();
-            for (int loop = 0; loop < size; loop++) {
+            for (size_t loop = 0; loop < size; loop++) {
                 if (values[loop]) {
                     delete values[loop];
                 }
@@ -176,7 +176,7 @@ TreeNode *PageParser::text_sequence(vector<TreeNode *> &values)
 {
     TextNode *text = new TextNode;
     size_t size = values.size();
-    for (int loop = 0; loop < size; loop++) {
+    for (size_t loop = 0; loop < size; loop++) {
         StringNode *node = dynamic_cast<StringNode *> (values[loop]);
         if (node) {
             text->add(node->value());
@@ -189,11 +189,11 @@ void PageParser::tjup_sequence(RootNode *root, vector<TreeNode *> &values)
 {
     match(TJ_UP);
     size_t size = values.size();
-    for (int loop = 0; loop < size; loop++) {
+    for (size_t loop = 0; loop < size; loop++) {
         ArrayNode *array = dynamic_cast<ArrayNode *> (values[loop]);
         if (array) {
             size_t array_size = array->size();
-            for (int y = 0; y < array_size; y++) {
+            for (size_t y = 0; y < array_size; y++) {
                 StringNode *node = dynamic_cast<StringNode *> (array->value(y));
                 if (node) {
                     TextNode *text = new TextNode;
