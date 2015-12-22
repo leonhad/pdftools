@@ -29,7 +29,7 @@ public:
     const char *title();
     
     size_t size();
-    Outline *child(int index);
+    Outline *child(size_t index);
 };
 
 #endif

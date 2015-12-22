@@ -33,7 +33,7 @@ size_t Outline::size()
     return m_childs.size();
 }
 
-Outline *Outline::child(int index)
+Outline *Outline::child(size_t index)
 {
     return m_childs[index];
 }

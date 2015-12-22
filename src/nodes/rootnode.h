@@ -15,7 +15,7 @@ public:
     virtual ~RootNode();
     
     void add_child(TreeNode *child);
-    TreeNode *get(int index);
+    TreeNode *get(size_t index);
     size_t size();
 };
 

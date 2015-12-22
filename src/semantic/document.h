@@ -51,7 +51,7 @@ public:
     
     void add_page(Page *page);
     void add_page_label(PageLabel *label);
-    Page *page(int index);
+    Page *page(size_t index);
     size_t pages();
     Page *page(int id, int generation);
     

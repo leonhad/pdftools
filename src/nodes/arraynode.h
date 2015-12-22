@@ -15,7 +15,7 @@ public:
     virtual ~ArrayNode();
 
     void push(TreeNode *value);
-    TreeNode *value(int index);
+    TreeNode *value(size_t index);
     size_t size();
 };
 

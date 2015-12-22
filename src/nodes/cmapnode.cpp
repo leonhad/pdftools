@@ -38,7 +38,7 @@ size_t CMapNode::nodes()
     return m_charnodes.size();
 }
 
-CharNode *CMapNode::node(int index)
+CharNode *CMapNode::node(size_t index)
 {
     return m_charnodes.at(index);
 }

@@ -20,7 +20,7 @@ void RootNode::add_child(TreeNode *child)
     m_child.push_back(child);
 }
 
-TreeNode *RootNode::get(int index)
+TreeNode *RootNode::get(size_t index)
 {
     return m_child[index];
 }

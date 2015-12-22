@@ -31,7 +31,7 @@ public:
     
     bool open(const string& output);
     void close();
-    void add_source(const char *filename, const char *buffer, int length = 0);
+    void add_source(const char *filename, const char *buffer, size_t length = 0);
     
 private:
     void write_central_file();

@@ -111,7 +111,7 @@ void Document::add_page_label(PageLabel* label)
     m_page_label.push_back(label);
 }
 
-Page *Document::page(int index)
+Page *Document::page(size_t index)
 {
     return m_pages[index];
 }

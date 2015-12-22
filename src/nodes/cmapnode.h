@@ -23,7 +23,7 @@ public:
     
     CodeSpaceNode *code_space();
     size_t nodes();
-    CharNode *node(int index);
+    CharNode *node(size_t index);
 };
 
 #endif

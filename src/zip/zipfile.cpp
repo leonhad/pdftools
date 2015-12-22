@@ -50,7 +50,7 @@ void ZipFile::close()
     }
 }
 
-void ZipFile::add_source(const char *filename, const char *buffer, int length)
+void ZipFile::add_source(const char *filename, const char *buffer, size_t length)
 {
     if (length == 0) {
         length = strlen((char *)buffer);
@@ -109,7 +109,7 @@ void ZipFile::add_source(const char *filename, const char *buffer, int length)
 void ZipFile::write_central_file()
 {
     size_t size = m_files.size();
-    m_cd_address = m_output.tellp();
+    m_cd_address = (uint32_t)m_output.tellp();
 
     for (size_t i = 0; i < size; i++) {
         appended_files file = m_files[i];

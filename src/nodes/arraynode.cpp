@@ -15,7 +15,7 @@ ArrayNode::~ArrayNode()
     }
 }
 
-TreeNode *ArrayNode::value(int index)
+TreeNode *ArrayNode::value(size_t index)
 {
     return m_values[index];
 }
