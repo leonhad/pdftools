@@ -2,6 +2,7 @@
 #define PARSER_H
 
 #include <fstream>
+#include <stdexcept>
 #include "token.h"
 #include "genericparser.h"
 
@@ -17,8 +18,8 @@ private:
     ifstream m_filestream;
 
 public:
-    Parser(const string& filein);
-    ~Parser();
+    Parser(const string& filein) throw(exception);
+    virtual ~Parser();
 
     RootNode *parse();
     bool is_valid();

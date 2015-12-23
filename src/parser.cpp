@@ -8,17 +8,17 @@
 
 using namespace std;
 
-const string _pdf_versions[] {
-    "PDF-1.1",
-    "PDF-1.2",
-    "PDF-1.3",
-    "PDF-1.4",
-    "PDF-1.5",
-    "PDF-1.6",
-    "PDF-1.7"
-};
+bool pdf_versions(const string &version) {
+    return version == "PDF-1.1"
+            || version == "PDF-1.2"
+            || version == "PDF-1.3"
+            || version ==  "PDF-1.4"
+            || version ==  "PDF-1.5"
+            || version ==  "PDF-1.6"
+            || version ==  "PDF-1.7";
+}
 
-Parser::Parser(const string& filein) : GenericParser(),m_filein {filein}
+Parser::Parser(const string& filein) throw(exception) : GenericParser(), m_filein {filein}
 {
     m_linear = false;
     
@@ -27,6 +27,8 @@ Parser::Parser(const string& filein) : GenericParser(),m_filein {filein}
     
     if (is_valid()) {
         next_token();
+    } else {
+        throw ios_base::failure("Invalid input file.");
     }
 }
 
@@ -222,17 +224,12 @@ bool Parser::is_valid()
 
 bool Parser::verify_version()
 {
-    int loop;
     if (m_token) {
         string line = m_token->value();
-        for (loop = 0; loop < 7; loop++) {
-            if (line == _pdf_versions[loop]) {
-                m_version = _pdf_versions[loop];
-                match(NAME);
-                return true;
-            }
+        if (pdf_versions(line)) {
+            match(NAME);
+            return true;
         }
     }
     return false;
 }
-

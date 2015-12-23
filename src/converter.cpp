@@ -12,8 +12,7 @@
 
 using namespace std;
 
-Converter::Converter(const string& filein, const string& fileout, const string& format) : m_filein{filein}, m_format{format},
-    m_syntax_tree{nullptr}, m_document{nullptr}
+Converter::Converter(const string& filein, const string& fileout, const string& format) noexcept : m_filein{filein}, m_format{format}
 {
     if (fileout.empty()) {
         m_fileout = filein;
@@ -28,12 +27,12 @@ Converter::Converter(const string& filein, const string& fileout, const string& 
     }
 }
 
-Converter::~Converter() {
+Converter::~Converter() noexcept {
     if (m_document) delete m_document;
     if (m_syntax_tree) delete m_syntax_tree;
 }
 
-void Converter::convert() {
+void Converter::convert() throw(std::exception) {
     Parser parser(m_filein.c_str());
     Analyze analyze(m_filein.c_str());
 

@@ -8,6 +8,7 @@
 #include <string>
 #include <cstdio>
 #include <cstdlib>
+#include <stdexcept>
 #include <getopt.h>
 
 using namespace std;
@@ -91,8 +92,12 @@ int main(int argc, char *argv[])
         return EXIT_FAILURE;
     } else {
         for (int loop = optind; loop < argc; loop++) {
-            Converter converter(argv[loop], fileout, format);
-            converter.convert();
+            try {
+                Converter converter(argv[loop], fileout, format);
+                converter.convert();
+            } catch(exception &e) {
+                error_message(e.what());
+            }
         }
     }
     return EXIT_SUCCESS;

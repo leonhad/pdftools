@@ -2,25 +2,24 @@
 #define CONVERTER_H
 
 #include <string>
-
-using namespace std;
+#include <stdexcept>
 
 class Document;
 class RootNode;
 
 class Converter {
 private:
-    const string m_filein;
-    const string m_format;
-    string m_fileout;
-    RootNode *m_syntax_tree;
-    Document *m_document;
+    const std::string m_filein;
+    const std::string m_format;
+    std::string m_fileout;
+    RootNode *m_syntax_tree = nullptr;
+    Document *m_document = nullptr;
     
 public:
-    Converter(const string& filein, const string& fileout, const string& format);
-    ~Converter();
+    Converter(const std::string& filein, const std::string& fileout, const std::string& format) noexcept;
+    ~Converter() noexcept;
     
-    void convert();
+    void convert() throw(std::exception);
 };
 
 #endif
