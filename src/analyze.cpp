@@ -430,9 +430,11 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
                     delete[] value;
                 } else {
                     if (filter) {
-                        error_message(string("Invalid filter ") + filter->name());
+                        string msg{"Invalid filter "};
+                        msg += filter->name();
+                        error_message(filter->name().c_str());
                     } else {
-                        error_message(string("Filter not found"));
+                        error_message("Filter not found");
                     }
                 }
             }
@@ -440,7 +442,9 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
     } else if (!filter) {
         (*stream_value).write(stream, total);
     } else {
-        error_message(string("Invalid filter ") + filter->name());
+        string msg{"Invalid filter "};
+        msg += filter->name();
+        error_message(msg.c_str());
     }
     delete[] stream;
 }

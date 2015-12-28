@@ -7,8 +7,8 @@
 
 using namespace std;
 
-void error_message(string msg);
-void verbose_message(string msg);
+void error_message(const char *msg);
+void verbose_message(const char *msg);
 void set_verbose_mode(const bool verbose);
 bool verbose_mode();
 char *flat_decode(char *compressed, int size, int &deflated);

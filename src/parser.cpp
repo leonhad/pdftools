@@ -108,7 +108,9 @@ void Parser::object_streams(RootNode *root_node)
                     } else if (!filter) {
                         uncompressed = stream;
                     } else {
-                        error_message(string("compression not supported: ") + filter->name());
+                        string msg{"compression not supported: "};
+                        msg += filter->name();
+                        error_message(msg.c_str());
                         return;
                     }
                     stringstream stream_value;

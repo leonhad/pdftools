@@ -7,7 +7,6 @@
 #include "semantic/document.h"
 #include "nodes/nodes.h"
 #include <iostream>
-#include <sstream>
 #include <fstream>
 
 using namespace std;
@@ -37,21 +36,27 @@ void Converter::convert() throw(std::exception) {
     Analyze analyze(m_filein.c_str());
 
     if (!parser.is_valid()) {
-        error_message(string(m_filein).append(" not found."));
+        string msg{m_filein};
+        msg += " not found.";
+        error_message(msg.c_str());
     } else {
         m_syntax_tree = parser.parse();
         m_document = analyze.analyze_tree(m_syntax_tree);
         if (m_document) {
-            stringstream msg;
-            msg << "Parsing file " << m_filein << " ";
-            msg << "Pages: " << m_document->pages();
-            msg << " - " << "Title: ";
+            string msg;
+            msg += "Parsing file ";
+            msg += m_filein;
+            msg += " ";
+            msg += "Pages: ";
+            msg += m_document->pages();
+            msg += " - ";
+            msg += "Title: ";
             if (m_document->title().empty()) {
-                msg << "no title";
+                msg += "no title";
             } else {
-                msg << m_document->title();
+                msg += m_document->title();
             }
-            verbose_message(msg.str());
+            verbose_message(msg.c_str());
 
             // Generate output file
             Generator *instance = Generator::get_instance(m_format.c_str());

@@ -59,14 +59,14 @@ const char *doc_encoding_table[256] = {
     "\x00f8", "\x00f9", "\x00fa", "\x00fb", "\x00fc", "\x00fd", "\x00fe", "\x00ff"
 };
 
-void verbose_message(string msg)
+void verbose_message(const char *msg)
 {
     if (_verbose) {
         cout << PACKAGE_NAME << ": " << msg << endl;
     }
 }
 
-void error_message(string msg)
+void error_message(const char *msg)
 {
     cerr << PACKAGE_NAME << ": " << msg << endl;
 }

@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
                 string msg = "format ";
                 msg += format;
                 msg += " not supported.";
-                error_message(msg);
+                error_message(msg.c_str());
                 error = true;
                 break;
             }
