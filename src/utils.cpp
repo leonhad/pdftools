@@ -81,7 +81,7 @@ bool verbose_mode()
     return _verbose;
 }
 
-char *deflate(const char *raw, int size, int &writed)
+char *deflate(const char *raw, size_t size, uint32_t &writed)
 {
     z_stream zstream;
     vector<buffer_struct> values;
@@ -96,7 +96,7 @@ char *deflate(const char *raw, int size, int &writed)
     if (err != Z_OK) {
         return NULL;
     }
-    zstream.avail_in = size;
+    zstream.avail_in = (uInt)size;
     zstream.next_in = (Bytef *) raw;
 
     int total = 0;

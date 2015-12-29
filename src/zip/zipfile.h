@@ -10,9 +10,9 @@ using namespace std;
 
 struct appended_files {
     string name;
-    int length;
+    uint32_t length;
     bool compressed;
-    int compressed_size;
+    uint32_t compressed_size;
     uint32_t date;
     uint32_t crc;
     uint32_t position;
