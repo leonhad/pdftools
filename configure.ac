@@ -1,6 +1,6 @@
 m4_include([stdcxx11.m4])
 AC_PREREQ(2.62)
-AC_INIT([pdftools],[0.4.0],[leonhad@gmail.com],[pdftools],[http://code.google.com/p/pdftools/])
+AC_INIT([pdftools],[0.4.1],[leonhad@gmail.com],[pdftools],[https://github.com/leonhad/pdftools])
 AM_INIT_AUTOMAKE([-Wall tar-ustar])
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADER([config.h])
@@ -33,12 +33,7 @@ AC_CHECK_LIB([z], [gzread], , [AC_MSG_ERROR([zlib not found, see http://www.zlib
 AC_CHECK_LIB([iconv], [iconv_open])
 
 # Checks for header files.
-# AC_HEADER_STDC
 AC_CHECK_HEADERS([iconv.h],,AC_MSG_ERROR(libiconv is missing))
-
-# Checks for typedefs, structures, and compiler characteristics.
-# AC_HEADER_STDBOOL
-# AC_C_CONST
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile

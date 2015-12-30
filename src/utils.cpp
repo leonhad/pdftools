@@ -6,12 +6,7 @@
 #include <zlib.h>
 #include <iconv.h>
 #include <errno.h>
-
-#ifdef CONFIG_H
-#include "config.h"
-#else
-#define PACKAGE_NAME "pdftools"
-#endif
+#include "../config.h"
 
 using namespace std;
 

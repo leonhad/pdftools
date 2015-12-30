@@ -6,10 +6,6 @@
 #include <vector>
 #include <iostream>
 
-#if HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 using namespace std;
 
 static const char *spaces = " \t\f";
@@ -26,27 +22,27 @@ struct reserved_words {
 };
 
 static reserved_words words[] = { { OBJ, "obj" }, { END_OBJ, "endobj" }, {
-        END_PDF, "EOF" }, { XREF, "xref" }, { TRUE, "true" },
-        { FALSE, "false" }, { STREAM, "stream" }, { END_STREAM, "endstream" }, {
-                START_XREF, "startxref" }, { TRAILER, "trailer" }, { BT, "BT" },
-        { ET, "ET" }, { MP, "MP" }, { DP, "DP" }, { BMC, "BMC" },
-        { BDC, "BDC" }, { EMC, "EMC" }, { BX, "BX" }, { EX, "EX" }, { TJ_UP,
-                "TJ" }, { TJ_LO, "Tj" }, { QUOTE, "'" }, { DOUBLE_QUOTE, "\"" },
-        { GS, "gs" }, { TF, "Tf" }, { TW, "Tw" }, { TZ, "Tz" }, { TL, "TL" }, {
-                T_AST, "T*" }, { TR, "Tr" }, { TS, "Ts" }, { TC, "Tc" }, { TM,
-                "Tm" }, { D0, "d0" }, { D1, "d1" }, { SH, "sh" }, { N, "n" }, {
+    END_PDF, "EOF" }, { XREF, "xref" }, { TRUE, "true" },
+    { FALSE, "false" }, { STREAM, "stream" }, { END_STREAM, "endstream" }, {
+        START_XREF, "startxref" }, { TRAILER, "trailer" }, { BT, "BT" },
+    { ET, "ET" }, { MP, "MP" }, { DP, "DP" }, { BMC, "BMC" },
+    { BDC, "BDC" }, { EMC, "EMC" }, { BX, "BX" }, { EX, "EX" }, { TJ_UP,
+        "TJ" }, { TJ_LO, "Tj" }, { QUOTE, "'" }, { DOUBLE_QUOTE, "\"" },
+    { GS, "gs" }, { TF, "Tf" }, { TW, "Tw" }, { TZ, "Tz" }, { TL, "TL" }, {
+        T_AST, "T*" }, { TR, "Tr" }, { TS, "Ts" }, { TC, "Tc" }, { TM,
+            "Tm" }, { D0, "d0" }, { D1, "d1" }, { SH, "sh" }, { N, "n" }, {
                 TD_LO, "Td" }, { TD_UP, "TD" }, { SCN_UP, "SCN" }, { SCN_LO,
-                "scn" }, { SC_UP, "SC" }, { SC_LO, "sc" }, { G_LO, "g" }, {
-                G_UP, "G" }, { RE, "re" }, { RI, "ri" }, { CS_UP, "CS" }, {
-                CS_LO, "cs" }, { W_LO, "w" }, { W_UP, "W" }, { W_AST, "W*" }, {
-                Q_UP, "Q" }, { Q_LO, "q" }, { F_AST, "f*" }, { F_UP, "F" }, {
-                F_LO, "f" }, { RG_UP, "RG" }, { RG_LO, "rg" }, { M_LO, "m" }, {
-                M_UP, "M" }, { K_LO, "k" }, { K_UP, "K" }, { J_LO, "j" }, {
-                J_UP, "J" }, { S_LO, "s" }, { S_UP, "S" }, { C, "c" }, { CM,
-                "cm" }, { DO, "Do" }, { L, "l" }, { D, "d" }, { H, "h" }, { V,
-                "v" }, { Y, "y" }, { I, "i" }, { BI, "BI" }, { ID, "ID" }, {
-                B_UP, "B" }, { B_UP_AST, "B*" }, { B_LO, "b" },
-        { B_LO_AST, "b*" }, { EI, "EI" } };
+                    "scn" }, { SC_UP, "SC" }, { SC_LO, "sc" }, { G_LO, "g" }, {
+                        G_UP, "G" }, { RE, "re" }, { RI, "ri" }, { CS_UP, "CS" }, {
+                            CS_LO, "cs" }, { W_LO, "w" }, { W_UP, "W" }, { W_AST, "W*" }, {
+                                Q_UP, "Q" }, { Q_LO, "q" }, { F_AST, "f*" }, { F_UP, "F" }, {
+                                    F_LO, "f" }, { RG_UP, "RG" }, { RG_LO, "rg" }, { M_LO, "m" }, {
+                                        M_UP, "M" }, { K_LO, "k" }, { K_UP, "K" }, { J_LO, "j" }, {
+                                            J_UP, "J" }, { S_LO, "s" }, { S_UP, "S" }, { C, "c" }, { CM,
+                                                "cm" }, { DO, "Do" }, { L, "l" }, { D, "d" }, { H, "h" }, { V,
+                                                    "v" }, { Y, "y" }, { I, "i" }, { BI, "BI" }, { ID, "ID" }, {
+                                                        B_UP, "B" }, { B_UP_AST, "B*" }, { B_LO, "b" },
+    { B_LO_AST, "b*" }, { EI, "EI" } };
 
 inline unsigned int xtod(char c)
 {
