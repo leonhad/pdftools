@@ -8,7 +8,7 @@
 
 using namespace std;
 
-bool pdf_versions(const string &version) {
+inline bool pdf_versions(const string &version) {
     return version == "PDF-1.1"
             || version == "PDF-1.2"
             || version == "PDF-1.3"

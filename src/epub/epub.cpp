@@ -10,13 +10,7 @@
 #include "../semantic/document.h"
 #include "../semantic/context.h"
 #include "../semantic/page.h"
-
-#ifdef CONFIG_H
-#include "config.h"
-#else
-#define PACKAGE_URL "pdftools"
-#define PACKAGE_STRING "pdftools"
-#endif
+#include "../../config.h"
 
 using namespace std;
 
