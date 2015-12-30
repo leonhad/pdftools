@@ -1,8 +1,8 @@
-m4_include([stdcxx11.m4])
 AC_PREREQ(2.62)
 AC_INIT([pdftools],[0.4.1],[leonhad@gmail.com],[pdftools],[https://github.com/leonhad/pdftools])
-AM_INIT_AUTOMAKE([-Wall tar-ustar])
+AM_INIT_AUTOMAKE([-Wall tar-ustar no-define nostdinc ])
 AC_CONFIG_SRCDIR([config.h.in])
+AC_CONFIG_MACRO_DIR([.])
 AC_CONFIG_HEADER([config.h])
 
 DEBUG_CFLAGS="-O3 -DNDEBUG -pedantic -Wall -funroll-loops"
@@ -19,7 +19,7 @@ CXXFLAGS="$DEBUG_CFLAGS $CXXFLAGS"
 # Checks for programs.
 AC_LANG([C++])
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX_11
+AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AM_PROG_AR
