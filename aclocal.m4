@@ -1210,4 +1210,5 @@ AC_SUBST([am__tar])
 AC_SUBST([am__untar])
 ]) # _AM_PROG_TAR
 
+m4_include([m4_ax_check_zlib.m4])
 m4_include([m4_ax_cxx_compile_stdcxx.m4])

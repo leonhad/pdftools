@@ -29,7 +29,7 @@ AM_CONDITIONAL(HELP2MAN, [test "$HELP2MAN" != :])
 AM_PROG_INSTALL_STRIP
 
 # Checks for libraries.
-AC_CHECK_LIB([z], [gzread], , [AC_MSG_ERROR([zlib not found, see http://www.zlib.net])])
+AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find Zlib support])])
 AC_CHECK_LIB([iconv], [iconv_open])
 
 # Checks for header files.
