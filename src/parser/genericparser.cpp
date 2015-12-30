@@ -1,6 +1,6 @@
 #include "genericparser.h"
-#include "nodes/nodes.h"
-#include "utils.h"
+#include "../nodes/nodes.h"
+#include "../utils.h"
 
 GenericParser::GenericParser() : m_scanner{new Scanner}, m_token{nullptr}
 {

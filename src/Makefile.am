@@ -1,38 +1,27 @@
-SUBDIRS = nodes glyphs semantic zip xml html epub graphics
+SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
 
 bin_PROGRAMS = pdftools
 pdftools_SOURCES = main.cpp \
-	parser.cpp \
-	scanner.cpp \
-	token.cpp \
 	utils.cpp \
 	analyze.cpp \
-	converter.cpp \
-	generator.cpp \
-	pageparser.cpp \
 	pageanalyze.cpp \
-	cmapparser.cpp \
-	genericparser.cpp
+	converter.cpp \
+	generator.cpp
 
 dist_man_MANS = pdftools.1
 
 noinst_HEADERS = \
-	parser.h \
-	scanner.h \
-	token.h \
 	utils.h \
 	analyze.h \
-	converter.h \
-	generator.h \
-	pageparser.h \
 	pageanalyze.h \
-	cmapparser.h \
-	genericparser.h
+	converter.h \
+	generator.h
 
 pdftools_CXXFLAGS = 
 
 pdftools_LDADD = \
 	semantic/libsemantic.a \
+	parser/libparser.a \
 	epub/libepub.a \
 	zip/libzip.a \
 	html/libhtml.a \

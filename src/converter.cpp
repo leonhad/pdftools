@@ -1,15 +1,16 @@
 #include "converter.h"
-#include "parser.h"
+#include "parser/parser.h"
 #include "utils.h"
 #include "analyze.h"
 #include "generator.h"
-#include "scanner.h"
+#include "parser/scanner.h"
 #include "semantic/document.h"
 #include "nodes/nodes.h"
 #include <iostream>
 #include <fstream>
 
 using namespace std;
+using namespace parser;
 
 Converter::Converter(const string& filein, const string& fileout, const string& format) noexcept : m_filein{filein}, m_format{format}
 {

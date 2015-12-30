@@ -1,8 +1,8 @@
 #include "cmapparser.h"
-#include "utils.h"
+#include "../utils.h"
 #include "scanner.h"
 #include "token.h"
-#include "nodes/nodes.h"
+#include "../nodes/nodes.h"
 #include <cstring>
 
 CMapParser::CMapParser(istream *stream)

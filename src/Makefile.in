@@ -102,17 +102,13 @@ CONFIG_CLEAN_FILES = pdftools.h2m
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_pdftools_OBJECTS = pdftools-main.$(OBJEXT) \
-	pdftools-parser.$(OBJEXT) pdftools-scanner.$(OBJEXT) \
-	pdftools-token.$(OBJEXT) pdftools-utils.$(OBJEXT) \
-	pdftools-analyze.$(OBJEXT) pdftools-converter.$(OBJEXT) \
-	pdftools-generator.$(OBJEXT) pdftools-pageparser.$(OBJEXT) \
-	pdftools-pageanalyze.$(OBJEXT) pdftools-cmapparser.$(OBJEXT) \
-	pdftools-genericparser.$(OBJEXT)
+am_pdftools_OBJECTS = pdftools-main.$(OBJEXT) pdftools-utils.$(OBJEXT) \
+	pdftools-analyze.$(OBJEXT) pdftools-pageanalyze.$(OBJEXT) \
+	pdftools-converter.$(OBJEXT) pdftools-generator.$(OBJEXT)
 pdftools_OBJECTS = $(am_pdftools_OBJECTS)
-pdftools_DEPENDENCIES = semantic/libsemantic.a epub/libepub.a \
-	zip/libzip.a html/libhtml.a xml/libxml.a glyphs/libglyphs.a \
-	graphics/libgraphics.a nodes/libnodes.a
+pdftools_DEPENDENCIES = semantic/libsemantic.a parser/libparser.a \
+	epub/libepub.a zip/libzip.a html/libhtml.a xml/libxml.a \
+	glyphs/libglyphs.a graphics/libgraphics.a nodes/libnodes.a
 pdftools_LINK = $(CXXLD) $(pdftools_CXXFLAGS) $(CXXFLAGS) \
 	$(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
@@ -346,37 +342,26 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = nodes glyphs semantic zip xml html epub graphics
+SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
 pdftools_SOURCES = main.cpp \
-	parser.cpp \
-	scanner.cpp \
-	token.cpp \
 	utils.cpp \
 	analyze.cpp \
-	converter.cpp \
-	generator.cpp \
-	pageparser.cpp \
 	pageanalyze.cpp \
-	cmapparser.cpp \
-	genericparser.cpp
+	converter.cpp \
+	generator.cpp
 
 dist_man_MANS = pdftools.1
 noinst_HEADERS = \
-	parser.h \
-	scanner.h \
-	token.h \
 	utils.h \
 	analyze.h \
-	converter.h \
-	generator.h \
-	pageparser.h \
 	pageanalyze.h \
-	cmapparser.h \
-	genericparser.h
+	converter.h \
+	generator.h
 
 pdftools_CXXFLAGS = 
 pdftools_LDADD = \
 	semantic/libsemantic.a \
+	parser/libparser.a \
 	epub/libepub.a \
 	zip/libzip.a \
 	html/libhtml.a \
@@ -475,16 +460,10 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-analyze.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-cmapparser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-converter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-generator.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-genericparser.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-pageanalyze.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-pageparser.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-parser.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-scanner.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-token.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-utils.Po@am__quote@
 
 .cpp.o:
@@ -515,48 +494,6 @@ pdftools-main.obj: main.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
 
-pdftools-parser.o: parser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-parser.o -MD -MP -MF $(DEPDIR)/pdftools-parser.Tpo -c -o pdftools-parser.o `test -f 'parser.cpp' || echo '$(srcdir)/'`parser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-parser.Tpo $(DEPDIR)/pdftools-parser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='parser.cpp' object='pdftools-parser.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-parser.o `test -f 'parser.cpp' || echo '$(srcdir)/'`parser.cpp
-
-pdftools-parser.obj: parser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-parser.obj -MD -MP -MF $(DEPDIR)/pdftools-parser.Tpo -c -o pdftools-parser.obj `if test -f 'parser.cpp'; then $(CYGPATH_W) 'parser.cpp'; else $(CYGPATH_W) '$(srcdir)/parser.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-parser.Tpo $(DEPDIR)/pdftools-parser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='parser.cpp' object='pdftools-parser.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-parser.obj `if test -f 'parser.cpp'; then $(CYGPATH_W) 'parser.cpp'; else $(CYGPATH_W) '$(srcdir)/parser.cpp'; fi`
-
-pdftools-scanner.o: scanner.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-scanner.o -MD -MP -MF $(DEPDIR)/pdftools-scanner.Tpo -c -o pdftools-scanner.o `test -f 'scanner.cpp' || echo '$(srcdir)/'`scanner.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-scanner.Tpo $(DEPDIR)/pdftools-scanner.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='scanner.cpp' object='pdftools-scanner.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-scanner.o `test -f 'scanner.cpp' || echo '$(srcdir)/'`scanner.cpp
-
-pdftools-scanner.obj: scanner.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-scanner.obj -MD -MP -MF $(DEPDIR)/pdftools-scanner.Tpo -c -o pdftools-scanner.obj `if test -f 'scanner.cpp'; then $(CYGPATH_W) 'scanner.cpp'; else $(CYGPATH_W) '$(srcdir)/scanner.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-scanner.Tpo $(DEPDIR)/pdftools-scanner.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='scanner.cpp' object='pdftools-scanner.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-scanner.obj `if test -f 'scanner.cpp'; then $(CYGPATH_W) 'scanner.cpp'; else $(CYGPATH_W) '$(srcdir)/scanner.cpp'; fi`
-
-pdftools-token.o: token.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-token.o -MD -MP -MF $(DEPDIR)/pdftools-token.Tpo -c -o pdftools-token.o `test -f 'token.cpp' || echo '$(srcdir)/'`token.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-token.Tpo $(DEPDIR)/pdftools-token.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='token.cpp' object='pdftools-token.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-token.o `test -f 'token.cpp' || echo '$(srcdir)/'`token.cpp
-
-pdftools-token.obj: token.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-token.obj -MD -MP -MF $(DEPDIR)/pdftools-token.Tpo -c -o pdftools-token.obj `if test -f 'token.cpp'; then $(CYGPATH_W) 'token.cpp'; else $(CYGPATH_W) '$(srcdir)/token.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-token.Tpo $(DEPDIR)/pdftools-token.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='token.cpp' object='pdftools-token.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-token.obj `if test -f 'token.cpp'; then $(CYGPATH_W) 'token.cpp'; else $(CYGPATH_W) '$(srcdir)/token.cpp'; fi`
-
 pdftools-utils.o: utils.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-utils.o -MD -MP -MF $(DEPDIR)/pdftools-utils.Tpo -c -o pdftools-utils.o `test -f 'utils.cpp' || echo '$(srcdir)/'`utils.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-utils.Tpo $(DEPDIR)/pdftools-utils.Po
@@ -585,6 +522,20 @@ pdftools-analyze.obj: analyze.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-analyze.obj `if test -f 'analyze.cpp'; then $(CYGPATH_W) 'analyze.cpp'; else $(CYGPATH_W) '$(srcdir)/analyze.cpp'; fi`
 
+pdftools-pageanalyze.o: pageanalyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-pageanalyze.o -MD -MP -MF $(DEPDIR)/pdftools-pageanalyze.Tpo -c -o pdftools-pageanalyze.o `test -f 'pageanalyze.cpp' || echo '$(srcdir)/'`pageanalyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-pageanalyze.Tpo $(DEPDIR)/pdftools-pageanalyze.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pageanalyze.cpp' object='pdftools-pageanalyze.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-pageanalyze.o `test -f 'pageanalyze.cpp' || echo '$(srcdir)/'`pageanalyze.cpp
+
+pdftools-pageanalyze.obj: pageanalyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-pageanalyze.obj -MD -MP -MF $(DEPDIR)/pdftools-pageanalyze.Tpo -c -o pdftools-pageanalyze.obj `if test -f 'pageanalyze.cpp'; then $(CYGPATH_W) 'pageanalyze.cpp'; else $(CYGPATH_W) '$(srcdir)/pageanalyze.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-pageanalyze.Tpo $(DEPDIR)/pdftools-pageanalyze.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pageanalyze.cpp' object='pdftools-pageanalyze.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-pageanalyze.obj `if test -f 'pageanalyze.cpp'; then $(CYGPATH_W) 'pageanalyze.cpp'; else $(CYGPATH_W) '$(srcdir)/pageanalyze.cpp'; fi`
+
 pdftools-converter.o: converter.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-converter.o -MD -MP -MF $(DEPDIR)/pdftools-converter.Tpo -c -o pdftools-converter.o `test -f 'converter.cpp' || echo '$(srcdir)/'`converter.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-converter.Tpo $(DEPDIR)/pdftools-converter.Po
@@ -612,62 +563,6 @@ pdftools-generator.obj: generator.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='generator.cpp' object='pdftools-generator.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-generator.obj `if test -f 'generator.cpp'; then $(CYGPATH_W) 'generator.cpp'; else $(CYGPATH_W) '$(srcdir)/generator.cpp'; fi`
-
-pdftools-pageparser.o: pageparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-pageparser.o -MD -MP -MF $(DEPDIR)/pdftools-pageparser.Tpo -c -o pdftools-pageparser.o `test -f 'pageparser.cpp' || echo '$(srcdir)/'`pageparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-pageparser.Tpo $(DEPDIR)/pdftools-pageparser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pageparser.cpp' object='pdftools-pageparser.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-pageparser.o `test -f 'pageparser.cpp' || echo '$(srcdir)/'`pageparser.cpp
-
-pdftools-pageparser.obj: pageparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-pageparser.obj -MD -MP -MF $(DEPDIR)/pdftools-pageparser.Tpo -c -o pdftools-pageparser.obj `if test -f 'pageparser.cpp'; then $(CYGPATH_W) 'pageparser.cpp'; else $(CYGPATH_W) '$(srcdir)/pageparser.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-pageparser.Tpo $(DEPDIR)/pdftools-pageparser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pageparser.cpp' object='pdftools-pageparser.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-pageparser.obj `if test -f 'pageparser.cpp'; then $(CYGPATH_W) 'pageparser.cpp'; else $(CYGPATH_W) '$(srcdir)/pageparser.cpp'; fi`
-
-pdftools-pageanalyze.o: pageanalyze.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-pageanalyze.o -MD -MP -MF $(DEPDIR)/pdftools-pageanalyze.Tpo -c -o pdftools-pageanalyze.o `test -f 'pageanalyze.cpp' || echo '$(srcdir)/'`pageanalyze.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-pageanalyze.Tpo $(DEPDIR)/pdftools-pageanalyze.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pageanalyze.cpp' object='pdftools-pageanalyze.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-pageanalyze.o `test -f 'pageanalyze.cpp' || echo '$(srcdir)/'`pageanalyze.cpp
-
-pdftools-pageanalyze.obj: pageanalyze.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-pageanalyze.obj -MD -MP -MF $(DEPDIR)/pdftools-pageanalyze.Tpo -c -o pdftools-pageanalyze.obj `if test -f 'pageanalyze.cpp'; then $(CYGPATH_W) 'pageanalyze.cpp'; else $(CYGPATH_W) '$(srcdir)/pageanalyze.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-pageanalyze.Tpo $(DEPDIR)/pdftools-pageanalyze.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pageanalyze.cpp' object='pdftools-pageanalyze.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-pageanalyze.obj `if test -f 'pageanalyze.cpp'; then $(CYGPATH_W) 'pageanalyze.cpp'; else $(CYGPATH_W) '$(srcdir)/pageanalyze.cpp'; fi`
-
-pdftools-cmapparser.o: cmapparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-cmapparser.o -MD -MP -MF $(DEPDIR)/pdftools-cmapparser.Tpo -c -o pdftools-cmapparser.o `test -f 'cmapparser.cpp' || echo '$(srcdir)/'`cmapparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-cmapparser.Tpo $(DEPDIR)/pdftools-cmapparser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='cmapparser.cpp' object='pdftools-cmapparser.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-cmapparser.o `test -f 'cmapparser.cpp' || echo '$(srcdir)/'`cmapparser.cpp
-
-pdftools-cmapparser.obj: cmapparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-cmapparser.obj -MD -MP -MF $(DEPDIR)/pdftools-cmapparser.Tpo -c -o pdftools-cmapparser.obj `if test -f 'cmapparser.cpp'; then $(CYGPATH_W) 'cmapparser.cpp'; else $(CYGPATH_W) '$(srcdir)/cmapparser.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-cmapparser.Tpo $(DEPDIR)/pdftools-cmapparser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='cmapparser.cpp' object='pdftools-cmapparser.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-cmapparser.obj `if test -f 'cmapparser.cpp'; then $(CYGPATH_W) 'cmapparser.cpp'; else $(CYGPATH_W) '$(srcdir)/cmapparser.cpp'; fi`
-
-pdftools-genericparser.o: genericparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-genericparser.o -MD -MP -MF $(DEPDIR)/pdftools-genericparser.Tpo -c -o pdftools-genericparser.o `test -f 'genericparser.cpp' || echo '$(srcdir)/'`genericparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-genericparser.Tpo $(DEPDIR)/pdftools-genericparser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='genericparser.cpp' object='pdftools-genericparser.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-genericparser.o `test -f 'genericparser.cpp' || echo '$(srcdir)/'`genericparser.cpp
-
-pdftools-genericparser.obj: genericparser.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-genericparser.obj -MD -MP -MF $(DEPDIR)/pdftools-genericparser.Tpo -c -o pdftools-genericparser.obj `if test -f 'genericparser.cpp'; then $(CYGPATH_W) 'genericparser.cpp'; else $(CYGPATH_W) '$(srcdir)/genericparser.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-genericparser.Tpo $(DEPDIR)/pdftools-genericparser.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='genericparser.cpp' object='pdftools-genericparser.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-genericparser.obj `if test -f 'genericparser.cpp'; then $(CYGPATH_W) 'genericparser.cpp'; else $(CYGPATH_W) '$(srcdir)/genericparser.cpp'; fi`
 install-man1: $(dist_man_MANS)
 	@$(NORMAL_INSTALL)
 	@list1=''; \

@@ -8,16 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A57D14871C2791990072F543 /* analyze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14681C2791990072F543 /* analyze.cpp */; };
-		A57D14881C2791990072F543 /* cmapparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146A1C2791990072F543 /* cmapparser.cpp */; };
 		A57D14891C2791990072F543 /* converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146C1C2791990072F543 /* converter.cpp */; };
 		A57D148A1C2791990072F543 /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146F1C2791990072F543 /* generator.cpp */; };
-		A57D148B1C2791990072F543 /* genericparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14711C2791990072F543 /* genericparser.cpp */; };
 		A57D148C1C2791990072F543 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14761C2791990072F543 /* main.cpp */; };
 		A57D148D1C2791990072F543 /* pageanalyze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14781C2791990072F543 /* pageanalyze.cpp */; };
-		A57D148E1C2791990072F543 /* pageparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D147A1C2791990072F543 /* pageparser.cpp */; };
-		A57D148F1C2791990072F543 /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D147C1C2791990072F543 /* parser.cpp */; };
-		A57D14901C2791990072F543 /* scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D147E1C2791990072F543 /* scanner.cpp */; };
-		A57D14911C2791990072F543 /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14811C2791990072F543 /* token.cpp */; };
 		A57D14921C2791990072F543 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14831C2791990072F543 /* utils.cpp */; };
 		A57D14941C2792C20072F543 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A57D14931C2792C20072F543 /* libz.tbd */; };
 		A57D14961C2792D90072F543 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A57D14951C2792D90072F543 /* libiconv.tbd */; };
@@ -59,6 +53,12 @@
 		A598EEFF1C28B0C8008FFC74 /* pagelabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEF81C28B0C8008FFC74 /* pagelabel.cpp */; };
 		A598EF031C28B0E8008FFC74 /* xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EF011C28B0E8008FFC74 /* xml.cpp */; };
 		A598EF071C28B10C008FFC74 /* zipfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EF051C28B10C008FFC74 /* zipfile.cpp */; };
+		A5E0F0A71C336ABE00160E3B /* cmapparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F09D1C336ABE00160E3B /* cmapparser.cpp */; };
+		A5E0F0A81C336ABE00160E3B /* genericparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F09F1C336ABE00160E3B /* genericparser.cpp */; };
+		A5E0F0A91C336ABE00160E3B /* pageparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0A11C336ABE00160E3B /* pageparser.cpp */; };
+		A5E0F0AA1C336ABE00160E3B /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0A31C336ABE00160E3B /* parser.cpp */; };
+		A5E0F0AB1C336ABE00160E3B /* scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0A51C336ABE00160E3B /* scanner.cpp */; };
+		A5E0F0AF1C34399800160E3B /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0AD1C34399800160E3B /* token.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,25 +77,13 @@
 		A57D145E1C2790FF0072F543 /* pdftools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdftools; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57D14681C2791990072F543 /* analyze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analyze.cpp; sourceTree = SOURCE_ROOT; };
 		A57D14691C2791990072F543 /* analyze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analyze.h; sourceTree = SOURCE_ROOT; };
-		A57D146A1C2791990072F543 /* cmapparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cmapparser.cpp; sourceTree = SOURCE_ROOT; };
-		A57D146B1C2791990072F543 /* cmapparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cmapparser.h; sourceTree = SOURCE_ROOT; };
 		A57D146C1C2791990072F543 /* converter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = converter.cpp; sourceTree = SOURCE_ROOT; };
 		A57D146D1C2791990072F543 /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = SOURCE_ROOT; };
 		A57D146F1C2791990072F543 /* generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generator.cpp; sourceTree = SOURCE_ROOT; };
 		A57D14701C2791990072F543 /* generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = generator.h; sourceTree = SOURCE_ROOT; };
-		A57D14711C2791990072F543 /* genericparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = genericparser.cpp; sourceTree = SOURCE_ROOT; };
-		A57D14721C2791990072F543 /* genericparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genericparser.h; sourceTree = SOURCE_ROOT; };
 		A57D14761C2791990072F543 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
 		A57D14781C2791990072F543 /* pageanalyze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pageanalyze.cpp; sourceTree = SOURCE_ROOT; };
 		A57D14791C2791990072F543 /* pageanalyze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pageanalyze.h; sourceTree = SOURCE_ROOT; };
-		A57D147A1C2791990072F543 /* pageparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pageparser.cpp; sourceTree = SOURCE_ROOT; };
-		A57D147B1C2791990072F543 /* pageparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pageparser.h; sourceTree = SOURCE_ROOT; };
-		A57D147C1C2791990072F543 /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = parser.cpp; sourceTree = SOURCE_ROOT; };
-		A57D147D1C2791990072F543 /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = SOURCE_ROOT; };
-		A57D147E1C2791990072F543 /* scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scanner.cpp; sourceTree = SOURCE_ROOT; };
-		A57D147F1C2791990072F543 /* scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scanner.h; sourceTree = SOURCE_ROOT; };
-		A57D14811C2791990072F543 /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = SOURCE_ROOT; };
-		A57D14821C2791990072F543 /* token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = SOURCE_ROOT; };
 		A57D14831C2791990072F543 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = SOURCE_ROOT; };
 		A57D14841C2791990072F543 /* utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utils.h; sourceTree = SOURCE_ROOT; };
 		A57D14931C2792C20072F543 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -178,6 +166,18 @@
 		A598EF021C28B0E8008FFC74 /* xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xml.h; path = xml/xml.h; sourceTree = SOURCE_ROOT; };
 		A598EF051C28B10C008FFC74 /* zipfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = zipfile.cpp; path = zip/zipfile.cpp; sourceTree = SOURCE_ROOT; };
 		A598EF061C28B10C008FFC74 /* zipfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zipfile.h; path = zip/zipfile.h; sourceTree = SOURCE_ROOT; };
+		A5E0F09D1C336ABE00160E3B /* cmapparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cmapparser.cpp; path = parser/cmapparser.cpp; sourceTree = SOURCE_ROOT; };
+		A5E0F09E1C336ABE00160E3B /* cmapparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cmapparser.h; path = parser/cmapparser.h; sourceTree = SOURCE_ROOT; };
+		A5E0F09F1C336ABE00160E3B /* genericparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = genericparser.cpp; path = parser/genericparser.cpp; sourceTree = SOURCE_ROOT; };
+		A5E0F0A01C336ABE00160E3B /* genericparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = genericparser.h; path = parser/genericparser.h; sourceTree = SOURCE_ROOT; };
+		A5E0F0A11C336ABE00160E3B /* pageparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pageparser.cpp; path = parser/pageparser.cpp; sourceTree = SOURCE_ROOT; };
+		A5E0F0A21C336ABE00160E3B /* pageparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pageparser.h; path = parser/pageparser.h; sourceTree = SOURCE_ROOT; };
+		A5E0F0A31C336ABE00160E3B /* parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = parser.cpp; path = parser/parser.cpp; sourceTree = SOURCE_ROOT; };
+		A5E0F0A41C336ABE00160E3B /* parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = parser.h; path = parser/parser.h; sourceTree = SOURCE_ROOT; };
+		A5E0F0A51C336ABE00160E3B /* scanner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scanner.cpp; path = parser/scanner.cpp; sourceTree = SOURCE_ROOT; };
+		A5E0F0A61C336ABE00160E3B /* scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scanner.h; path = parser/scanner.h; sourceTree = SOURCE_ROOT; };
+		A5E0F0AD1C34399800160E3B /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = token.cpp; path = parser/token.cpp; sourceTree = SOURCE_ROOT; };
+		A5E0F0AE1C34399800160E3B /* token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = token.h; path = parser/token.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +214,7 @@
 		A57D14601C2790FF0072F543 /* pdftools */ = {
 			isa = PBXGroup;
 			children = (
+				A5E0F0AC1C336AC400160E3B /* parser */,
 				A598EF081C28B111008FFC74 /* zip */,
 				A598EF041C28B0EE008FFC74 /* xml */,
 				A598EF001C28B0CD008FFC74 /* semantic */,
@@ -224,25 +225,13 @@
 				A57D149D1C2793BF0072F543 /* epub */,
 				A57D14681C2791990072F543 /* analyze.cpp */,
 				A57D14691C2791990072F543 /* analyze.h */,
-				A57D146A1C2791990072F543 /* cmapparser.cpp */,
-				A57D146B1C2791990072F543 /* cmapparser.h */,
 				A57D146C1C2791990072F543 /* converter.cpp */,
 				A57D146D1C2791990072F543 /* converter.h */,
 				A57D146F1C2791990072F543 /* generator.cpp */,
 				A57D14701C2791990072F543 /* generator.h */,
-				A57D14711C2791990072F543 /* genericparser.cpp */,
-				A57D14721C2791990072F543 /* genericparser.h */,
 				A57D14761C2791990072F543 /* main.cpp */,
 				A57D14781C2791990072F543 /* pageanalyze.cpp */,
 				A57D14791C2791990072F543 /* pageanalyze.h */,
-				A57D147A1C2791990072F543 /* pageparser.cpp */,
-				A57D147B1C2791990072F543 /* pageparser.h */,
-				A57D147C1C2791990072F543 /* parser.cpp */,
-				A57D147D1C2791990072F543 /* parser.h */,
-				A57D147E1C2791990072F543 /* scanner.cpp */,
-				A57D147F1C2791990072F543 /* scanner.h */,
-				A57D14811C2791990072F543 /* token.cpp */,
-				A57D14821C2791990072F543 /* token.h */,
 				A57D14831C2791990072F543 /* utils.cpp */,
 				A57D14841C2791990072F543 /* utils.h */,
 			);
@@ -383,6 +372,25 @@
 			name = zip;
 			sourceTree = "<group>";
 		};
+		A5E0F0AC1C336AC400160E3B /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				A5E0F0AD1C34399800160E3B /* token.cpp */,
+				A5E0F0AE1C34399800160E3B /* token.h */,
+				A5E0F09D1C336ABE00160E3B /* cmapparser.cpp */,
+				A5E0F09E1C336ABE00160E3B /* cmapparser.h */,
+				A5E0F09F1C336ABE00160E3B /* genericparser.cpp */,
+				A5E0F0A01C336ABE00160E3B /* genericparser.h */,
+				A5E0F0A11C336ABE00160E3B /* pageparser.cpp */,
+				A5E0F0A21C336ABE00160E3B /* pageparser.h */,
+				A5E0F0A31C336ABE00160E3B /* parser.cpp */,
+				A5E0F0A41C336ABE00160E3B /* parser.h */,
+				A5E0F0A51C336ABE00160E3B /* scanner.cpp */,
+				A5E0F0A61C336ABE00160E3B /* scanner.h */,
+			);
+			name = parser;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -446,10 +454,8 @@
 				A598EEEB1C28B069008FFC74 /* treenode.cpp in Sources */,
 				A598EEFE1C28B0C8008FFC74 /* page.cpp in Sources */,
 				A598EEEA1C28B069008FFC74 /* textnode.cpp in Sources */,
-				A57D148B1C2791990072F543 /* genericparser.cpp in Sources */,
 				A598EEDC1C28B069008FFC74 /* breaknode.cpp in Sources */,
 				A598EEAA1C28AF86008FFC74 /* state.cpp in Sources */,
-				A57D148E1C2791990072F543 /* pageparser.cpp in Sources */,
 				A598EEE21C28B069008FFC74 /* namenode.cpp in Sources */,
 				A598EF031C28B0E8008FFC74 /* xml.cpp in Sources */,
 				A598EEFA1C28B0C8008FFC74 /* context.cpp in Sources */,
@@ -465,34 +471,36 @@
 				A598EEE91C28B069008FFC74 /* textmatrixnode.cpp in Sources */,
 				A598EEE11C28B069008FFC74 /* mapnode.cpp in Sources */,
 				A57D148C1C2791990072F543 /* main.cpp in Sources */,
-				A57D14901C2791990072F543 /* scanner.cpp in Sources */,
 				A598EEA21C28AF5E008FFC74 /* paragraphglyph.cpp in Sources */,
-				A57D148F1C2791990072F543 /* parser.cpp in Sources */,
 				A598EEFD1C28B0C8008FFC74 /* outline.cpp in Sources */,
 				A598EEDF1C28B069008FFC74 /* codespacenode.cpp in Sources */,
 				A598EEE01C28B069008FFC74 /* fontnode.cpp in Sources */,
+				A5E0F0AB1C336ABE00160E3B /* scanner.cpp in Sources */,
 				A598EEDA1C28B069008FFC74 /* bdcnode.cpp in Sources */,
+				A5E0F0A91C336ABE00160E3B /* pageparser.cpp in Sources */,
 				A598EEDB1C28B069008FFC74 /* booleannode.cpp in Sources */,
 				A598EEA01C28AF5E008FFC74 /* fontsizeglyph.cpp in Sources */,
+				A5E0F0AF1C34399800160E3B /* token.cpp in Sources */,
 				A598EEEC1C28B069008FFC74 /* xrefnode.cpp in Sources */,
 				A598EEAE1C28B047008FFC74 /* html.cpp in Sources */,
 				A57D148D1C2791990072F543 /* pageanalyze.cpp in Sources */,
 				A598EEE71C28B069008FFC74 /* statenode.cpp in Sources */,
 				A598EEE31C28B069008FFC74 /* numbernode.cpp in Sources */,
 				A598EEFB1C28B0C8008FFC74 /* document.cpp in Sources */,
-				A57D14911C2791990072F543 /* token.cpp in Sources */,
 				A598EE9E1C28AF5E008FFC74 /* breakglyph.cpp in Sources */,
+				A5E0F0A71C336ABE00160E3B /* cmapparser.cpp in Sources */,
 				A598EEE41C28B069008FFC74 /* objnode.cpp in Sources */,
 				A598EED91C28B069008FFC74 /* arraynode.cpp in Sources */,
 				A57D148A1C2791990072F543 /* generator.cpp in Sources */,
 				A598EEFC1C28B0C8008FFC74 /* font.cpp in Sources */,
-				A57D14881C2791990072F543 /* cmapparser.cpp in Sources */,
 				A598EEDD1C28B069008FFC74 /* charnode.cpp in Sources */,
+				A5E0F0AA1C336ABE00160E3B /* parser.cpp in Sources */,
 				A598EEFF1C28B0C8008FFC74 /* pagelabel.cpp in Sources */,
 				A598EEA91C28AF86008FFC74 /* graphicstate.cpp in Sources */,
 				A57D14891C2791990072F543 /* converter.cpp in Sources */,
 				A598EE9F1C28AF5E008FFC74 /* fontglyph.cpp in Sources */,
 				A598EEA11C28AF5E008FFC74 /* glyph.cpp in Sources */,
+				A5E0F0A81C336ABE00160E3B /* genericparser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

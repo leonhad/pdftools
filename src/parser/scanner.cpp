@@ -1,5 +1,5 @@
 #include "scanner.h"
-#include "utils.h"
+#include "../utils.h"
 #include <fstream>
 #include <cstring>
 #include <cstdlib>

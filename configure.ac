@@ -40,6 +40,7 @@ AC_CONFIG_FILES([Makefile
                  src/pdftools.h2m
                  src/nodes/Makefile
                  src/glyphs/Makefile
+                 src/parser/Makefile
                  src/semantic/Makefile
                  src/xml/Makefile
                  src/zip/Makefile

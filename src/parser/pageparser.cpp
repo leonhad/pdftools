@@ -1,8 +1,8 @@
 #include "pageparser.h"
-#include "utils.h"
+#include "../utils.h"
 #include "token.h"
-#include "nodes/nodes.h"
-#include "glyphs/glyphs.h"
+#include "../nodes/nodes.h"
+#include "../glyphs/glyphs.h"
 #include <iostream>
 
 using namespace std;

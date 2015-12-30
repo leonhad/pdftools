@@ -1,12 +1,13 @@
 #include "parser.h"
 #include "scanner.h"
-#include "utils.h"
-#include "nodes/nodes.h"
+#include "../utils.h"
+#include "../nodes/nodes.h"
 #include <string>
 #include <sstream>
 #include <iostream>
 
 using namespace std;
+using namespace parser;
 
 inline bool pdf_versions(const string &version) {
     return version == "PDF-1.1"
