@@ -10,13 +10,13 @@ using namespace std;
 class Scanner {
 private:
     istream *m_filein;
-    const char *m_error;
+    const char *m_error = nullptr;
     Token m_current;
-    bool m_charset_conversion;
+    bool m_charset_conversion = true;
 
 public:
-    Scanner();
-    ~Scanner();
+    Scanner() = default;
+    ~Scanner() = default;
 
     Token *next_token();
     void set_istream(istream *stream);

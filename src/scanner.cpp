@@ -44,7 +44,7 @@ static reserved_words words[] = { { OBJ, "obj" }, { END_OBJ, "endobj" }, {
                                                         B_UP, "B" }, { B_UP_AST, "B*" }, { B_LO, "b" },
     { B_LO_AST, "b*" }, { EI, "EI" } };
 
-inline unsigned int xtod(char c)
+constexpr unsigned int xtod(char c)
 {
     if (c >= '0' && c <= '9')
         return c - '0';
@@ -53,16 +53,6 @@ inline unsigned int xtod(char c)
     if (c >= 'a' && c <= 'f')
         return c - 'a' + 10;
     return 0; // not a hex digit
-}
-
-Scanner::Scanner()
-{
-    m_error = NULL;
-    m_charset_conversion = true;
-}
-
-Scanner::~Scanner()
-{
 }
 
 void Scanner::disable_charset_conversion()
