@@ -7,6 +7,7 @@
 #include "semantic/document.h"
 #include "nodes/nodes.h"
 #include <iostream>
+#include <sstream>
 #include <fstream>
 
 using namespace std;
@@ -14,6 +15,7 @@ using namespace parser;
 
 Converter::Converter(const string& filein, const string& fileout, const string& format) noexcept : m_filein{filein}, m_format{format}
 {
+    // Calculate the output file name
     if (fileout.empty()) {
         m_fileout = filein;
         auto last_dot = m_fileout.find_last_of('.');
@@ -44,20 +46,14 @@ void Converter::convert() throw(std::exception) {
         m_syntax_tree = parser.parse();
         m_document = analyze.analyze_tree(m_syntax_tree);
         if (m_document) {
-            string msg;
-            msg += "Parsing file ";
-            msg += m_filein;
-            msg += " ";
-            msg += "Pages: ";
-            msg += m_document->pages();
-            msg += " - ";
-            msg += "Title: ";
+            stringstream msg;
+            msg << "Parsing file " << m_filein << " " << "Pages: " << m_document->pages() << " - " << "Title: ";
             if (m_document->title().empty()) {
-                msg += "no title";
+                msg << "no title";
             } else {
-                msg += m_document->title();
+                msg << m_document->title();
             }
-            verbose_message(msg.c_str());
+            verbose_message(msg.str().c_str());
 
             // Generate output file
             Generator *instance = Generator::get_instance(m_format.c_str());

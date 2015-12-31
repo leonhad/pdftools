@@ -12,7 +12,7 @@ class XML;
 
 class EPUB : public Generator {
 private:
-        Document *m_document;
+    Document *m_document;
     ZipFile *m_zipfile;
     int m_order;
     
