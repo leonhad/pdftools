@@ -5,20 +5,22 @@
 
 class TreeNode;
 
-class GenericParser {
-protected:
-    Scanner *m_scanner;
-    Token *m_token;
-
-public:
-    GenericParser();
-    virtual ~GenericParser();
-
-protected:
-    TreeNode *value_sequence();
-    bool match(TokenType type);
-    void next_token();
-};
+namespace parser {
+    class GenericParser {
+    protected:
+        Scanner m_scanner;
+        Token *m_token = nullptr;
+        
+    public:
+        GenericParser() = default;
+        virtual ~GenericParser() = default;
+        
+    protected:
+        TreeNode *value_sequence();
+        bool match(TokenType type);
+        void next_token();
+    };
+    
+}
 
 #endif
-

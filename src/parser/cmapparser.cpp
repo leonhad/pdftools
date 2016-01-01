@@ -5,11 +5,14 @@
 #include "../nodes/nodes.h"
 #include <cstring>
 
+using namespace std;
+using namespace parser;
+
 CMapParser::CMapParser(istream *stream)
 {
-    m_scanner->disable_charset_conversion();
-    m_scanner->set_istream(stream);
-    m_root = NULL;
+    m_scanner.disable_charset_conversion();
+    m_scanner.set_istream(stream);
+    m_root = nullptr;
 }
 
 CMapParser::~CMapParser()
@@ -47,7 +50,7 @@ CMapNode *CMapParser::parse()
     //begincmap
     match(NAME);
 
-    while (m_scanner->good()) {
+    while (m_scanner.good()) {
         switch (m_token->type()) {
         case NAME:
             if (m_token->value() == "/CMapName") {

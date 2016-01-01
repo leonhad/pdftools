@@ -13,24 +13,28 @@ class RootNode;
 class TreeNode;
 class Token;
 
-class PageParser: public GenericParser {
-private:
-    RootNode *m_root;
-
-public:
-    PageParser(istream *stream);
-    ~PageParser();
-
-    RootNode *parse();
-
-private:
-    TreeNode *tm_sequence(vector<TreeNode *> &values);
-    TreeNode *font_sequence(vector<TreeNode *> &values);
-    TreeNode *bi_sequence();
-    BDCNode *bdc_sequence(vector<TreeNode *> &values, RootNode *parent);
-    TreeNode *text_sequence(vector<TreeNode *> &values);
-    void tjup_sequence(RootNode *root, vector<TreeNode *> &values);
-
-};
+namespace parser {
+    
+    class PageParser: public GenericParser {
+    private:
+        RootNode *m_root;
+        
+    public:
+        PageParser(istream *stream);
+        ~PageParser();
+        
+        RootNode *parse();
+        
+    private:
+        TreeNode *tm_sequence(vector<TreeNode *> &values);
+        TreeNode *font_sequence(vector<TreeNode *> &values);
+        TreeNode *bi_sequence();
+        BDCNode *bdc_sequence(vector<TreeNode *> &values, RootNode *parent);
+        TreeNode *text_sequence(vector<TreeNode *> &values);
+        void tjup_sequence(RootNode *root, vector<TreeNode *> &values);
+        
+    };
+    
+}
 
 #endif

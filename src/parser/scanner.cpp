@@ -60,6 +60,11 @@ void Scanner::disable_charset_conversion()
     m_charset_conversion = false;
 }
 
+istream *Scanner::get_istream()
+{
+    return m_filein;
+}
+
 void Scanner::set_istream(istream *stream)
 {
     m_filein = stream;
@@ -133,7 +138,7 @@ char *Scanner::get_image_stream()
         }
     }
     // FIXME save image stream
-    return NULL;
+    return nullptr;
 }
 
 char *Scanner::get_stream(int length)

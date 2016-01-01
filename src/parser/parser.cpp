@@ -24,7 +24,7 @@ Parser::Parser(const string& filein) throw(exception) : GenericParser(), m_filei
     m_linear = false;
     
     m_filestream.open(filein, ios::binary);
-    m_scanner->set_istream(&m_filestream);
+    m_scanner.set_istream(&m_filestream);
     
     if (is_valid()) {
         next_token();
@@ -44,7 +44,7 @@ RootNode *Parser::parse()
     bool error = false;
     match(PERCENT);
     if (verify_version()) {
-        while (m_scanner->good() && !error) {
+        while (m_scanner.good() && !error) {
             switch (m_token->type()) {
             case PERCENT:
                 comment_sequence();
@@ -69,7 +69,7 @@ RootNode *Parser::parse()
     }
     m_filestream.close();
     m_filestream.open(m_filein, ios::binary);
-    m_scanner->set_istream(&m_filestream);
+    m_scanner.set_istream(&m_filestream);
     object_streams(root);
     m_filestream.close();
     return root;
@@ -98,8 +98,8 @@ void Parser::object_streams(RootNode *root_node)
                     }
                     char *uncompressed = NULL;
                     
-                    m_scanner->to_pos(root_object->stream_pos());
-                    char *stream = (char *)m_scanner->get_stream(length);
+                    m_scanner.to_pos(root_object->stream_pos());
+                    char *stream = (char *)m_scanner.get_stream(length);
 
                     int total = length;
                     NameNode *filter = dynamic_cast<NameNode *> (map->get("/Filter"));
@@ -119,10 +119,9 @@ void Parser::object_streams(RootNode *root_node)
                     stream_value.seekg(0);
                     delete [] uncompressed;
 
-                    Scanner scanner;
-                    Scanner *temp = m_scanner;
-                    m_scanner = &scanner;
-                    scanner.set_istream(&stream_value);
+                    size_t pos = m_scanner.pos();
+                    istream *temp = m_scanner.get_istream();
+                    m_scanner.set_istream(&stream_value);
 
                     vector<int> ids;
                     int loop;
@@ -138,7 +137,8 @@ void Parser::object_streams(RootNode *root_node)
                         new_obj->set_value(value_sequence());
                         root_node->add_child(new_obj);
                     }
-                    m_scanner = temp;
+                                        m_scanner.set_istream(temp);
+                    m_scanner.to_pos(pos);
                 }
             }
         }
@@ -147,7 +147,7 @@ void Parser::object_streams(RootNode *root_node)
 
 void Parser::comment_sequence()
 {
-    m_scanner->ignore_line();
+    m_scanner.ignore_line();
     next_token();
 }
 
@@ -176,7 +176,7 @@ TreeNode * Parser::xref_sequence()
             xref->add_node(id, generation, address, name.at(0));
             id++;
         }
-    } while (m_scanner->good() && (m_token->type() != TRAILER));
+    } while (m_scanner.good() && (m_token->type() != TRAILER));
     match(TRAILER);
     xref->set_trailer(value_sequence());
     return xref;
@@ -211,7 +211,7 @@ TreeNode *Parser::object_sequence()
                 length = number->value();
             }
         }
-        node->set_stream_pos(m_scanner->ignore_stream(length));
+        node->set_stream_pos(m_scanner.ignore_stream(length));
         next_token();
         match(END_STREAM);
     }

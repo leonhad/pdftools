@@ -20,6 +20,7 @@ public:
 
     Token *next_token();
     void set_istream(istream *stream);
+    istream *get_istream();
     bool good();
     const char *error();
 
