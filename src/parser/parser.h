@@ -19,7 +19,7 @@ namespace parser {
         std::string m_version;
         
     public:
-        Parser(std::ifstream *filein) throw(exception);
+        Parser(std::ifstream *filein) throw(std::exception);
         virtual ~Parser() noexcept = default;
         
         RootNode *parse();

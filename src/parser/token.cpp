@@ -1,58 +1,29 @@
 #include "token.h"
-#include <cstring>
+#include <cstdlib>
 
 using namespace std;
 
-Token::Token()
-{
-    m_type = ENDFILE;
-}
-void Token::set_value(string value)
+void Token::set_value(string value) noexcept
 {
     m_value = value;
 }
 
-void Token::set_type(TokenType type)
+void Token::set_type(TokenType type) noexcept
 {
     m_type = type;
 }
 
-double Token::to_number()
+double Token::to_number() const noexcept
 {
-    bool in_integer = true;
-    bool negative = false;
-    double decimals = 1;
-    double value = 0;
-    string::iterator it = m_value.begin();
-
-    while (it != m_value.end()) {
-        if ((*it) >= '0' && (*it) <= '9') {
-            if (in_integer) {
-                value *= 10;
-                value += (*it) - '0';
-            } else {
-                decimals /= 10;
-                value += decimals * (*it);
-            }
-        } else if (*it == '.') {
-            in_integer = false;
-        } else if (*it == '-') {
-            negative = true;
-        }
-        it++;
-    }
-    if (negative) {
-        value *= -1;
-    }
-    return value;
+    return atof(m_value.c_str());
 }
 
-string Token::value()
+string Token::value() const noexcept
 {
     return m_value;
 }
 
-TokenType Token::type()
+TokenType Token::type() const noexcept
 {
     return m_type;
 }

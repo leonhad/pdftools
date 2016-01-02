@@ -3,8 +3,6 @@
 
 #include <string>
 
-using namespace std;
-
 enum TokenType {
     ENDFILE, ERROR, START_ARRAY, END_ARRAY, TRUE, FALSE,
     NAME, NUM, STRING, PERCENT, START_DICT, END_DICT, NEW_LINE,
@@ -67,17 +65,18 @@ struct ReservedWords {
 
 class Token {
 private:
-    TokenType m_type;
-    string m_value;
+    TokenType m_type = ENDFILE;
+    std::string m_value;
 
 public:
-    Token();
+    Token() noexcept = default;
+    ~Token() noexcept = default;
 
-    void set_value(string value);
-    void set_type(TokenType type);
-    double to_number();
-    string value();
-    TokenType type();
+    void set_value(std::string value) noexcept;
+    void set_type(TokenType type) noexcept;
+    double to_number() const noexcept;
+    std::string value() const noexcept;
+    TokenType type() const noexcept;
 };
 
 #endif
