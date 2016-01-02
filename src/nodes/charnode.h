@@ -4,18 +4,17 @@
 #include <string>
 #include "treenode.h"
 
-using namespace std;
-
 class CharNode : public TreeNode {
 private:
-    string m_char;
-    string m_unicode;
+    std::string m_char;
+    std::string m_unicode;
     
 public:
-    CharNode(string character, string unicode);
+    CharNode(std::string character, std::string unicode) noexcept;
+    virtual ~CharNode() noexcept = default;
     
-    string character();
-    string unicode();
+    std::string character() const noexcept;
+    std::string unicode() const noexcept;
 };
 
 #endif

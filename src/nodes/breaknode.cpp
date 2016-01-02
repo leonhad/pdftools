@@ -1,5 +1,5 @@
 #include "breaknode.h"
 
-BreakNode::BreakNode() : TreeNode()
+BreakNode::BreakNode() noexcept : TreeNode()
 {
 }

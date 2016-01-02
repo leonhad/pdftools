@@ -4,21 +4,20 @@
 #include "treenode.h"
 #include <string>
 
-using namespace std;
-
-class CodeSpaceNode : TreeNode {
+class CodeSpaceNode : public TreeNode {
 private:
-    string m_start;
-    string m_finish;
+    std::string m_start;
+    std::string m_finish;
     
 public:
-    CodeSpaceNode();
+    CodeSpaceNode() noexcept;
+    virtual ~CodeSpaceNode() noexcept = default;
     
-    void set_start(string start);
-    void set_finish(string finish);
+    void set_start(std::string start) noexcept;
+    void set_finish(std::string finish) noexcept;
     
-    string start();
-    string finish();
+    std::string start() const noexcept;
+    std::string finish() const noexcept;
 };
 
 #endif

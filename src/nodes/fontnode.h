@@ -4,20 +4,19 @@
 #include "treenode.h"
 #include <string>
 
-using namespace std;
-
 class FontNode : public TreeNode {
 private:
-    string m_name;
+    std::string m_name;
     int m_size;
 
 public:
-    FontNode();
+    FontNode() noexcept;
+    virtual ~FontNode() noexcept = default;
     
-    string name();
-    int size();
-    void set_name(string name);
-    void set_size(int size);
+    std::string name() const noexcept;
+    int size() const noexcept;
+    void set_name(std::string name) noexcept;
+    void set_size(int size) noexcept;
 };
 
 #endif

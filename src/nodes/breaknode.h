@@ -5,7 +5,8 @@
 
 class BreakNode : public TreeNode {
 public:
-    BreakNode();
+    BreakNode() noexcept;
+    virtual ~BreakNode() noexcept = default;
 };
 
 #endif

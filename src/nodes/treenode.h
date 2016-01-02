@@ -3,8 +3,8 @@
 
 class TreeNode {
 public:
-    TreeNode();
-    virtual ~TreeNode();
+    TreeNode() noexcept = default;
+    virtual ~TreeNode() noexcept = default;
 };
 
 #endif

@@ -6,21 +6,19 @@
 #include <string>
 #include <vector>
 
-using namespace std;
-
 class MapNode : public TreeNode {
 private:
-    map<string, TreeNode *> m_values;
+    std::map<std::string, TreeNode *> m_values;
     
 public:
-    MapNode();
-    ~MapNode();
+    MapNode() noexcept;
+    virtual ~MapNode() noexcept;
     
-    void push(string name, TreeNode *value);
-    map<string, TreeNode *> values();
-    vector<string> names();
+    void push(std::string name, TreeNode *value) noexcept;
+    std::map<std::string, TreeNode *> values() const noexcept;
+    std::vector<std::string> names() const noexcept;
     
-    TreeNode *get(string name);
+    TreeNode *get(std::string name) const noexcept;
 };
 
 #endif

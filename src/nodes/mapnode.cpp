@@ -5,32 +5,32 @@
 
 using namespace std;
 
-MapNode::MapNode() : TreeNode()
+MapNode::MapNode() noexcept : TreeNode()
 {
 }
 
-MapNode::~MapNode()
+MapNode::~MapNode() noexcept
 {
-    map<string, TreeNode*>::iterator i = m_values.begin();
+    auto i = m_values.begin();
     while (i != m_values.end()) {
         delete (*i).second;
         i++;
     }
 }
 
-TreeNode *MapNode::get(string name)
+TreeNode *MapNode::get(string name) const noexcept
 {
     try {
         return m_values.at(name);
     } catch (out_of_range &) {
+        return nullptr;
     }
-    return NULL;
 }
 
-vector<string> MapNode::names()
+vector<string> MapNode::names() const noexcept
 {
     vector<string> names;
-    map<string, TreeNode*>::iterator i = m_values.begin();
+    auto i = m_values.begin();
     while (i != m_values.end()) {
         names.push_back((*i).first);
         i++;
@@ -38,12 +38,12 @@ vector<string> MapNode::names()
     return names;
 }
 
-map<string, TreeNode *> MapNode::values()
+map<string, TreeNode *> MapNode::values() const noexcept
 {
     return m_values;
 }
 
-void MapNode::push(string name, TreeNode *value)
+void MapNode::push(string name, TreeNode *value) noexcept
 {
     m_values[name] = value;
 }

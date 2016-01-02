@@ -7,7 +7,6 @@ libnodes_a_SOURCES = \
 	namenode.cpp \
 	refnode.cpp \
 	numbernode.cpp \
-	treenode.cpp \
 	arraynode.cpp \
 	rootnode.cpp \
 	booleannode.cpp \

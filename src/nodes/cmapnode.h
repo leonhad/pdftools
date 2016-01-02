@@ -4,26 +4,24 @@
 #include "treenode.h"
 #include <vector>
 
-using namespace std;
-
 class CodeSpaceNode;
 class CharNode;
 
 class CMapNode : public TreeNode {
 private:
-    vector<CharNode *> m_charnodes;
-    CodeSpaceNode *m_codespace;
+    std::vector<CharNode *> m_charnodes;
+    CodeSpaceNode *m_codespace = nullptr;
 
 public:
-    CMapNode();
-    ~CMapNode();
+    CMapNode() noexcept;
+    ~CMapNode() noexcept;
     
-    void add(CharNode *node);
-    void set_codespace(CodeSpaceNode *codespace);
+    void add(CharNode *node) noexcept;
+    void set_codespace(CodeSpaceNode *codespace) noexcept;
     
-    CodeSpaceNode *code_space();
-    size_t nodes();
-    CharNode *node(size_t index);
+    CodeSpaceNode *code_space() const noexcept;
+    size_t nodes() const noexcept;
+    CharNode *node(size_t index) const noexcept;
 };
 
 #endif

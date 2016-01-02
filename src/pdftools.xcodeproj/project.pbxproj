@@ -43,7 +43,6 @@
 		A598EEE81C28B069008FFC74 /* stringnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EECF1C28B069008FFC74 /* stringnode.cpp */; };
 		A598EEE91C28B069008FFC74 /* textmatrixnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED11C28B069008FFC74 /* textmatrixnode.cpp */; };
 		A598EEEA1C28B069008FFC74 /* textnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED31C28B069008FFC74 /* textnode.cpp */; };
-		A598EEEB1C28B069008FFC74 /* treenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED51C28B069008FFC74 /* treenode.cpp */; };
 		A598EEEC1C28B069008FFC74 /* xrefnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EED71C28B069008FFC74 /* xrefnode.cpp */; };
 		A598EEFA1C28B0C8008FFC74 /* context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEEE1C28B0C8008FFC74 /* context.cpp */; };
 		A598EEFB1C28B0C8008FFC74 /* document.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A598EEF01C28B0C8008FFC74 /* document.cpp */; };
@@ -146,7 +145,6 @@
 		A598EED21C28B069008FFC74 /* textmatrixnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textmatrixnode.h; path = nodes/textmatrixnode.h; sourceTree = SOURCE_ROOT; };
 		A598EED31C28B069008FFC74 /* textnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textnode.cpp; path = nodes/textnode.cpp; sourceTree = SOURCE_ROOT; };
 		A598EED41C28B069008FFC74 /* textnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textnode.h; path = nodes/textnode.h; sourceTree = SOURCE_ROOT; };
-		A598EED51C28B069008FFC74 /* treenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = treenode.cpp; path = nodes/treenode.cpp; sourceTree = SOURCE_ROOT; };
 		A598EED61C28B069008FFC74 /* treenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = treenode.h; path = nodes/treenode.h; sourceTree = SOURCE_ROOT; };
 		A598EED71C28B069008FFC74 /* xrefnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xrefnode.cpp; path = nodes/xrefnode.cpp; sourceTree = SOURCE_ROOT; };
 		A598EED81C28B069008FFC74 /* xrefnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xrefnode.h; path = nodes/xrefnode.h; sourceTree = SOURCE_ROOT; };
@@ -327,7 +325,6 @@
 				A598EED21C28B069008FFC74 /* textmatrixnode.h */,
 				A598EED31C28B069008FFC74 /* textnode.cpp */,
 				A598EED41C28B069008FFC74 /* textnode.h */,
-				A598EED51C28B069008FFC74 /* treenode.cpp */,
 				A598EED61C28B069008FFC74 /* treenode.h */,
 				A598EED71C28B069008FFC74 /* xrefnode.cpp */,
 				A598EED81C28B069008FFC74 /* xrefnode.h */,
@@ -451,7 +448,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A598EEEB1C28B069008FFC74 /* treenode.cpp in Sources */,
 				A598EEFE1C28B0C8008FFC74 /* page.cpp in Sources */,
 				A598EEEA1C28B069008FFC74 /* textnode.cpp in Sources */,
 				A598EEDC1C28B069008FFC74 /* breaknode.cpp in Sources */,

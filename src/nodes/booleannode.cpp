@@ -1,15 +1,11 @@
 #include "booleannode.h"
 
-BooleanNode::BooleanNode(bool value)
+BooleanNode::BooleanNode(bool value) noexcept
 {
     m_value = value;
 }
 
-BooleanNode::~BooleanNode()
-{
-}
-
-bool BooleanNode::value()
+bool BooleanNode::value() const noexcept
 {
     return m_value;
 }

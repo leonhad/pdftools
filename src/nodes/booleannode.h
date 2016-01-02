@@ -8,10 +8,10 @@ private:
     bool m_value;
 
 public:
-    BooleanNode(bool value);
-    ~BooleanNode();
+    BooleanNode(bool value) noexcept;
+    virtual ~BooleanNode() noexcept = default;
 
-    bool value();
+    bool value() const noexcept;
 };
 
 #endif

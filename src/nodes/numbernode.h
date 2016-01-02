@@ -8,10 +8,10 @@ private:
     double m_value;
 
 public:
-    NumberNode(double value);
-    virtual ~NumberNode();
+    NumberNode(double value) noexcept;
+    virtual ~NumberNode() noexcept = default;
     
-    double value();
+    double value() const noexcept;
 };
 
 #endif

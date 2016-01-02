@@ -4,17 +4,15 @@
 #include <string>
 #include "treenode.h"
 
-using namespace std;
-
 class NameNode : public TreeNode {
 private:
-    string m_name;
+    std::string m_name;
 
 public:
-    NameNode(string name);
-    virtual ~NameNode();
+    NameNode(std::string name) noexcept;
+    virtual ~NameNode() noexcept = default;
     
-    string name();
+    std::string name() const noexcept;
 };
 
 #endif

@@ -4,19 +4,17 @@
 #include "treenode.h"
 #include <vector>
 
-using namespace std;
-
 class ArrayNode : public TreeNode {
 private:
-    vector<TreeNode *> m_values;
+    std::vector<TreeNode *> m_values;
 
 public:
-    ArrayNode();
-    virtual ~ArrayNode();
+    ArrayNode() noexcept;
+    virtual ~ArrayNode() noexcept;
 
-    void push(TreeNode *value);
-    TreeNode *value(size_t index);
-    size_t size();
+    void push(TreeNode *value) noexcept;
+    TreeNode *value(size_t index) const noexcept;
+    size_t size() const noexcept;
 };
 
 #endif

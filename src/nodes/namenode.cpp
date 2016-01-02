@@ -1,16 +1,13 @@
 #include "namenode.h"
 
-NameNode::NameNode(std::string name) : TreeNode()
+using namespace std;
+
+NameNode::NameNode(std::string name) noexcept : TreeNode()
 {
     m_name = name;
 }
 
-NameNode::~NameNode()
-{
-
-}
-
-string NameNode::name()
+string NameNode::name() const noexcept
 {
     return m_name;
 }
