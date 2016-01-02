@@ -13,14 +13,15 @@ private:
     double m_f;
     
 public:
-    TextMatrixNode(double a, double b, double c, double d, double e, double f);
+    TextMatrixNode(double a, double b, double c, double d, double e, double f) noexcept;
+    virtual ~TextMatrixNode() noexcept = default;
     
-    double a();
-    double b();
-    double c();
-    double d();
-    double e();
-    double f();
+    double a() const noexcept;
+    double b() const noexcept;
+    double c() const noexcept;
+    double d() const noexcept;
+    double e() const noexcept;
+    double f() const noexcept;
 };
 
 #endif

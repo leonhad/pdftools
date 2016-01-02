@@ -11,10 +11,8 @@ MapNode::MapNode() noexcept : TreeNode()
 
 MapNode::~MapNode() noexcept
 {
-    auto i = m_values.begin();
-    while (i != m_values.end()) {
-        delete (*i).second;
-        i++;
+    for (auto &i : m_values) {
+        delete i.second;
     }
 }
 
@@ -30,11 +28,8 @@ TreeNode *MapNode::get(string name) const noexcept
 vector<string> MapNode::names() const noexcept
 {
     vector<string> names;
-    auto i = m_values.begin();
-    while (i != m_values.end()) {
-        names.push_back((*i).first);
-        i++;
-    }
+    names.reserve(m_values.size());
+    transform(m_values.begin(), m_values.end(), back_inserter(names), [](auto &pair) {return pair.first;});
     return names;
 }
 

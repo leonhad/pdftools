@@ -10,9 +10,8 @@ CMapNode::CMapNode() noexcept : TreeNode()
 
 CMapNode::~CMapNode() noexcept
 {
-    vector<CharNode *>::iterator i;
-    for (i = m_charnodes.begin(); i != m_charnodes.end(); i++) {
-        delete *i;
+    for (auto &i : m_charnodes) {
+        delete i;
     }
     if (m_codespace) {
         delete m_codespace;

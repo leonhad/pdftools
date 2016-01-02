@@ -1,15 +1,13 @@
 #include "stringnode.h"
 
-StringNode::StringNode(string value) : TreeNode()
+using namespace std;
+
+StringNode::StringNode(string value) noexcept : TreeNode()
 {
     m_value = value;
 }
 
-StringNode::~StringNode()
-{
-}
-
-string StringNode::value()
+string StringNode::value() const noexcept
 {
     return m_value;
 }

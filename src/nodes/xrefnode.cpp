@@ -2,29 +2,28 @@
 
 using namespace std;
 
-XREFNode::XREFNode() : TreeNode()
+XREFNode::XREFNode() noexcept : TreeNode()
 {
-    m_trailer = 0;
 }
 
-XREFNode::~XREFNode()
+XREFNode::~XREFNode() noexcept
 {
     if (m_trailer) {
         delete m_trailer;
     }
 }
 
-void XREFNode::set_trailer(TreeNode *trailer)
+void XREFNode::set_trailer(TreeNode *trailer) noexcept
 {
     m_trailer = trailer;
 }
 
-TreeNode *XREFNode::trailer()
+TreeNode *XREFNode::trailer() const noexcept
 {
     return m_trailer;
 }
 
-void XREFNode::add_node(uint16_t id, uint16_t generation, uint32_t address, char status)
+void XREFNode::add_node(uint16_t id, uint16_t generation, uint32_t address, char status) noexcept
 {
     object_reference xref;
     xref.id = id;

@@ -1,6 +1,6 @@
 #include "textmatrixnode.h"
 
-TextMatrixNode::TextMatrixNode(double a, double b, double c, double d, double e, double f) : TreeNode()
+TextMatrixNode::TextMatrixNode(double a, double b, double c, double d, double e, double f) noexcept : TreeNode()
 {
     m_a = a;
     m_b = b;
@@ -10,32 +10,32 @@ TextMatrixNode::TextMatrixNode(double a, double b, double c, double d, double e,
     m_f = f;
 }
 
-double TextMatrixNode::a()
+double TextMatrixNode::a() const noexcept
 {
     return m_a;
 }
 
-double TextMatrixNode::b()
+double TextMatrixNode::b() const noexcept
 {
     return m_b;
 }
 
-double TextMatrixNode::c()
+double TextMatrixNode::c() const noexcept
 {
     return m_c;
 }
 
-double TextMatrixNode::d()
+double TextMatrixNode::d() const noexcept
 {
     return m_d;
 }
 
-double TextMatrixNode::e()
+double TextMatrixNode::e() const noexcept
 {
     return m_e;
 }
 
-double TextMatrixNode::f()
+double TextMatrixNode::f() const noexcept
 {
     return m_f;
 }

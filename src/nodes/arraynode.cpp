@@ -8,10 +8,8 @@ ArrayNode::ArrayNode() noexcept : TreeNode()
 
 ArrayNode::~ArrayNode() noexcept
 {
-    auto i = m_values.begin();
-    while (i != m_values.end()) {
-        delete *i;
-        i++;
+    for (auto &i : m_values) {
+        delete i;
     }
 }
 

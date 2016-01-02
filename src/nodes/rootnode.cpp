@@ -2,30 +2,28 @@
 
 using namespace std;
 
-RootNode::RootNode() : TreeNode()
+RootNode::RootNode() noexcept : TreeNode()
 {
 }
 
-RootNode::~RootNode()
+RootNode::~RootNode() noexcept
 {
-    vector<TreeNode*>::iterator i = m_child.begin();
-    while (i != m_child.end()) {
-        delete *i;
-        i++;
+    for (auto &i : m_child) {
+        delete i;
     }
 }
 
-void RootNode::add_child(TreeNode *child)
+void RootNode::add_child(TreeNode *child) noexcept
 {
     m_child.push_back(child);
 }
 
-TreeNode *RootNode::get(size_t index)
+TreeNode *RootNode::get(size_t index) const noexcept
 {
     return m_child[index];
 }
 
-size_t RootNode::size()
+size_t RootNode::size() const noexcept
 {
     return m_child.size();
 }

@@ -9,11 +9,11 @@ private:
     int m_generation;
 
 public:
-    RefNode(int id, int generation);
-    virtual ~RefNode();
+    RefNode(int id, int generation) noexcept;
+    virtual ~RefNode() noexcept = default;
     
-    int id();
-    int generation();
+    int id() const noexcept;
+    int generation() const noexcept;
 };
 
 #endif

@@ -8,9 +8,10 @@ private:
     bool m_save;
 
 public:
-    StateNode(bool save);
+    StateNode(bool save) noexcept;
+    virtual ~StateNode() noexcept = default;
 
-    bool save();
+    bool save() const noexcept;
 };
 
 #endif

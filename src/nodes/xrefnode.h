@@ -15,16 +15,16 @@ struct object_reference {
 class XREFNode : public TreeNode {
 private:
     std::vector<object_reference> m_references;
-    TreeNode *m_trailer;
+    TreeNode *m_trailer = nullptr;
 
 public:
-    XREFNode();
-    virtual ~XREFNode();
+    XREFNode() noexcept;
+    virtual ~XREFNode() noexcept;
 
-    void add_node(uint16_t id, uint16_t generation, uint32_t address, char status);
-    void set_trailer(TreeNode *trailer);
+    void add_node(uint16_t id, uint16_t generation, uint32_t address, char status) noexcept;
+    void set_trailer(TreeNode *trailer) noexcept;
 
-    TreeNode *trailer();
+    TreeNode *trailer() const noexcept;
 };
 
 #endif

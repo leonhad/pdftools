@@ -11,9 +11,11 @@ private:
     string m_value;
     
 public:
-    TextNode();
-    void add(string text);
-    string text();
+    TextNode() noexcept;
+    virtual ~TextNode() noexcept = default;
+    
+    void add(string text) noexcept;
+    string text() const noexcept;
 };
 
 #endif
