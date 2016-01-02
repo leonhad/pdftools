@@ -12,7 +12,6 @@ private:
     const std::string m_filein;
     const std::string m_format;
     std::string m_fileout;
-    RootNode *m_syntax_tree = nullptr;
     Document *m_document = nullptr;
     
 public:

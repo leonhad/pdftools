@@ -4,6 +4,16 @@
 
 using namespace parser;
 
+GenericParser::GenericParser(std::istream *filein) noexcept
+{
+    m_scanner = new Scanner{filein};
+}
+
+GenericParser::~GenericParser() noexcept
+{
+    if (m_scanner) delete m_scanner;
+}
+
 bool GenericParser::match(TokenType type)
 {
     if (m_token && m_token->type() == type) {
@@ -24,7 +34,7 @@ bool GenericParser::match(TokenType type)
 
 void GenericParser::next_token()
 {
-    m_token = m_scanner.next_token();
+    m_token = m_scanner->next_token();
 }
 
 TreeNode *GenericParser::value_sequence()
@@ -33,7 +43,7 @@ TreeNode *GenericParser::value_sequence()
         match(START_DICT);
         MapNode *map = new MapNode;
 
-        while (m_scanner.good() && m_token && m_token->type() != END_DICT) {
+        while (m_scanner->good() && m_token && m_token->type() != END_DICT) {
             string name = m_token->value();
             match(NAME);
             TreeNode *value = value_sequence();
@@ -61,7 +71,7 @@ TreeNode *GenericParser::value_sequence()
         return new StringNode(value);
     } else if (m_token->type() == NUM) {
         double value = m_token->to_number();
-        size_t pos = m_scanner.pos();
+        size_t pos = m_scanner->pos();
         match(NUM);
 
         if (m_token->type() == NUM) {
@@ -71,17 +81,17 @@ TreeNode *GenericParser::value_sequence()
                 match(NAME);
                 return new RefNode(value, generation);
             } else {
-                m_scanner.to_pos(pos);
+                m_scanner->to_pos(pos);
             }
         } else {
-            m_scanner.to_pos(pos);
+            m_scanner->to_pos(pos);
         }
         next_token();
         return new NumberNode(value);
     } else if (m_token->type() == START_ARRAY) {
         ArrayNode *array = new ArrayNode;
         match(START_ARRAY);
-        while (m_scanner.good() && m_token->type() != END_ARRAY) {
+        while (m_scanner->good() && m_token->type() != END_ARRAY) {
             array->push(value_sequence());
         }
         match(END_ARRAY);

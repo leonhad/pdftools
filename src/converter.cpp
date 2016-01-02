@@ -31,40 +31,31 @@ Converter::Converter(const string& filein, const string& fileout, const string& 
 
 Converter::~Converter() noexcept {
     if (m_document) delete m_document;
-    if (m_syntax_tree) delete m_syntax_tree;
 }
 
 void Converter::convert() throw(std::exception) {
-    Parser parser(m_filein.c_str());
     Analyze analyze(m_filein.c_str());
 
-    if (!parser.is_valid()) {
-        string msg{m_filein};
-        msg += " not found.";
-        error_message(msg.c_str());
-    } else {
-        m_syntax_tree = parser.parse();
-        m_document = analyze.analyze_tree(m_syntax_tree);
-        if (m_document) {
-            stringstream msg;
-            msg << "Parsing file " << m_filein << " " << "Pages: " << m_document->pages() << " - " << "Title: ";
-            if (m_document->title().empty()) {
-                msg << "no title";
-            } else {
-                msg << m_document->title();
-            }
-            verbose_message(msg.str().c_str());
-
-            // Generate output file
-            Generator *instance = Generator::get_instance(m_format.c_str());
-            if (instance) {
-                if (!instance->generate(m_document, m_fileout.c_str())) {
-                    error_message("Cannot generate output file");
-                }
-                delete instance;
-            }
+    m_document = analyze.analyze_tree();
+    if (m_document) {
+        stringstream msg;
+        msg << "Parsing file " << m_filein << " " << "Pages: " << m_document->pages() << " - " << "Title: ";
+        if (m_document->title().empty()) {
+            msg << "no title";
         } else {
-            error_message("Invalid input file");
+            msg << m_document->title();
         }
+        verbose_message(msg.str().c_str());
+        
+        // Generate output file
+        Generator *instance = Generator::get_instance(m_format.c_str());
+        if (instance) {
+            if (!instance->generate(m_document, m_fileout.c_str())) {
+                error_message("Cannot generate output file");
+            }
+            delete instance;
+        }
+    } else {
+        error_message("Invalid input file");
     }
 }

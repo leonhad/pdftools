@@ -17,7 +17,7 @@ namespace parser {
         
     public:
         CMapParser(istream *stream);
-        ~CMapParser();
+        virtual ~CMapParser();
         
         CMapNode *parse();
         

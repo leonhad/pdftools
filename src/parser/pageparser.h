@@ -17,7 +17,7 @@ namespace parser {
     
     class PageParser: public GenericParser {
     private:
-        RootNode *m_root;
+        RootNode *m_root = nullptr;
         
     public:
         PageParser(istream *stream);

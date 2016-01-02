@@ -1,6 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include <string>
 #include <fstream>
 #include <stdexcept>
 #include "token.h"
@@ -15,16 +16,13 @@ namespace parser {
     class Parser : public GenericParser {
     private:
         bool m_linear;
-        string m_version;
-        const string m_filein;
-        ifstream m_filestream;
+        std::string m_version;
         
     public:
-        Parser(const string& filein) throw(exception);
-        virtual ~Parser();
+        Parser(std::ifstream *filein) throw(exception);
+        virtual ~Parser() noexcept = default;
         
         RootNode *parse();
-        bool is_valid();
         
     private:
         bool verify_version();

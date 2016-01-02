@@ -1,6 +1,7 @@
 #include "analyze.h"
 #include "utils.h"
 #include "parser/scanner.h"
+#include "parser/parser.h"
 #include "parser/pageparser.h"
 #include "pageanalyze.h"
 #include "parser/cmapparser.h"
@@ -19,15 +20,19 @@
 using namespace std;
 using namespace parser;
 
-Analyze::Analyze(const string& filein) : m_filein{filein},
-    m_document{nullptr}, m_tree{nullptr},  m_scanner{new Scanner}, m_page_tree{nullptr}
+Analyze::Analyze(const string& filein) throw(exception) : m_filein{filein}
 {
+    m_filestream.open(filein, ios::binary);
+    
+    if (!m_filestream.is_open()) {
+        throw ios_base::failure("Invalid input file.");
+    }
 }
 
-Analyze::~Analyze()
+Analyze::~Analyze() noexcept
 {
-    if (m_scanner) {
-        delete m_scanner;
+    if (m_filestream.is_open()) {
+        m_filestream.close();
     }
 }
 
@@ -198,8 +203,8 @@ TreeNode *Analyze::get_named_value(string name)
     try {
         return m_names.at(name);
     } catch (out_of_range &) {
+        return nullptr;
     }
-    return NULL;
 }
 
 void Analyze::analyze_outlines(MapNode *values, Outline * parent)
@@ -270,13 +275,15 @@ void Analyze::analyze_outline(ArrayNode *values, Outline *outline)
     }
 }
 
-Document *Analyze::analyze_tree(RootNode * tree)
+Document *Analyze::analyze_tree()
 {
-    if (!tree) {
+    Parser parser(&m_filestream);
+    
+    m_tree = parser.parse();
+    if (!m_tree) {
         // Invalid tree
-        return NULL;
+        return nullptr;
     }
-    m_tree = tree;
     m_document = new Document;
 
     analyze_xref();
@@ -401,10 +408,11 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
 
     ifstream filein;
     filein.open(m_filein, ios::binary);
-    m_scanner->set_istream(&filein);
-    m_scanner->to_pos(obj->stream_pos());
+    
+    Scanner scanner{&m_filestream};
+    scanner.to_pos(obj->stream_pos());
 
-    char *stream = m_scanner->get_stream(length);
+    char *stream = scanner.get_stream(length);
     filein.close();
 
     int total = length;

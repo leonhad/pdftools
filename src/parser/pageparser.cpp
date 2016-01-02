@@ -8,18 +8,14 @@
 using namespace std;
 using namespace parser;
 
-PageParser::PageParser(istream *stream) : GenericParser()
+PageParser::PageParser(istream *stream) : GenericParser{stream}
 {
-    m_scanner.disable_charset_conversion();
-    m_scanner.set_istream(stream);
-    m_root = NULL;
+    m_scanner->disable_charset_conversion();
 }
 
 PageParser::~PageParser()
 {
-    if (m_root) {
-        delete m_root;
-    }
+    if (m_root) delete m_root;
 }
 
 RootNode *PageParser::parse()
@@ -34,7 +30,7 @@ RootNode *PageParser::parse()
     values.reserve(10);
 
     next_token();
-    while (m_scanner.good()) {
+    while (m_scanner->good()) {
         TreeNode *value = value_sequence();
         if (value) {
             values.push_back(value);
@@ -166,7 +162,7 @@ TreeNode *PageParser::bi_sequence()
         TreeNode *value = value_sequence();
         delete value;
     }
-    m_scanner.get_image_stream();
+    m_scanner->get_image_stream();
     next_token();
     match(EI);
     return nullptr;

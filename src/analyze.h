@@ -6,10 +6,8 @@
 #include <sstream>
 #include <fstream>
 #include <string>
+#include <stdexcept>
 
-using namespace std;
-
-class Scanner;
 class Outline;
 class Document;
 class RootNode;
@@ -23,18 +21,18 @@ class Page;
 
 class Analyze {
 private:
-    const string m_filein;
-    Document *m_document;
-    RootNode *m_tree;
-    Scanner *m_scanner;
-    TreeNode *m_page_tree;
-    map<string, TreeNode *> m_names;
+    const std::string m_filein;
+    std::ifstream m_filestream;
+    Document *m_document = nullptr;
+    RootNode *m_tree = nullptr;
+    TreeNode *m_page_tree = nullptr;
+    std::map<std::string, TreeNode *> m_names;
 
 public:
-    Analyze(const string& filein);
-    ~Analyze();
+    Analyze(const std::string& filein) throw(std::exception);
+    ~Analyze() noexcept;
 
-    Document *analyze_tree(RootNode *tree);
+    Document *analyze_tree();
 
 private:
     void analyze_xref();
@@ -46,18 +44,18 @@ private:
     void analyze_pages(TreeNode *page, ArrayNode *mediabox = NULL);
     Font *analyze_font(MapNode *fontmap);
 
-    Page *process_page(int id, int generation, stringstream *stream_value, MapNode *catalog, ArrayNode * mediabox);
+    Page *process_page(int id, int generation, std::stringstream *stream_value, MapNode *catalog, ArrayNode * mediabox);
 
-    string get_string_value(TreeNode *value);
+    std::string get_string_value(TreeNode *value);
     double get_number_value(TreeNode *value, int default_value = 0);
 
     ObjNode *get_object(int id, int generation);
     ObjNode *get_object(RefNode *ref);
     TreeNode *get_real_value(TreeNode *value);
     TreeNode *get_real_obj_value(TreeNode *value);
-    TreeNode *get_named_value(string name);
-    void get_stream(ArrayNode *array, stringstream *stream_value);
-    void get_stream(ObjNode *obj, stringstream *stream_value);
+    TreeNode *get_named_value(std::string name);
+    void get_stream(ArrayNode *array, std::stringstream *stream_value);
+    void get_stream(ObjNode *obj, std::stringstream *stream_value);
 };
 
 #endif

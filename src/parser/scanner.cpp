@@ -55,19 +55,13 @@ constexpr unsigned int xtod(char c)
     return 0; // not a hex digit
 }
 
+Scanner::Scanner(istream *m_filein) noexcept : m_filein{m_filein}
+{
+}
+
 void Scanner::disable_charset_conversion()
 {
     m_charset_conversion = false;
-}
-
-istream *Scanner::get_istream()
-{
-    return m_filein;
-}
-
-void Scanner::set_istream(istream *stream)
-{
-    m_filein = stream;
 }
 
 size_t Scanner::pos()

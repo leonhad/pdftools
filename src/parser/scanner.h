@@ -5,22 +5,18 @@
 #include <stdint.h>
 #include "token.h"
 
-using namespace std;
-
 class Scanner {
 private:
-    istream *m_filein;
+    std::istream *m_filein;
     const char *m_error = nullptr;
     Token m_current;
     bool m_charset_conversion = true;
 
 public:
-    Scanner() = default;
+    Scanner(std::istream *m_filein) noexcept;
     ~Scanner() = default;
 
     Token *next_token();
-    void set_istream(istream *stream);
-    istream *get_istream();
     bool good();
     const char *error();
 
