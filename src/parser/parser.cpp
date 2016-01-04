@@ -59,6 +59,7 @@ RootNode *Parser::parse()
     } else {
         error_message("invalid input file");
     }
+    m_scanner->clear();
     object_streams(root);
     return root;
 }
@@ -189,7 +190,7 @@ TreeNode *Parser::object_sequence()
     match(OBJ);
     node->set_value(value_sequence());
     if (m_token && m_token->type() == STREAM) {
-        int length = 0;
+        int length = -1;
         MapNode *map = dynamic_cast<MapNode *> (node->value());
         if (map) {
             NumberNode *number = dynamic_cast<NumberNode *> (map->get("/Length"));

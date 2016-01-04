@@ -69,6 +69,11 @@ size_t Scanner::pos()
     return m_filein->tellg();
 }
 
+void Scanner::clear() noexcept
+{
+    m_filein->clear();
+}
+
 void Scanner::to_pos(size_t pos)
 {
 #ifdef DEBUG
@@ -80,7 +85,7 @@ void Scanner::to_pos(size_t pos)
     if (m_filein->good()) {
         m_filein->seekg(pos, ios::beg);
     } else {
-        error_message("Stream is not good for use.");
+        error_message("Stream not good for use.");
     }
 }
 
@@ -95,7 +100,7 @@ size_t Scanner::ignore_stream(int length)
     //unget_char();
     size_t ret = m_filein->tellg();
 
-    if (length > 0) {
+    if (length >= 0) {
         m_filein->ignore(length);
     } else {
         while (m_filein->good()) {
@@ -105,11 +110,15 @@ size_t Scanner::ignore_stream(int length)
                 memset(buff, 0, sizeof(buff));
                 m_filein->read(buff, sizeof(buff) - 1);
 
+                // restore state, need by the parser anyway
+                m_filein->seekg(pos);
+
                 if (strcmp("ndstream", buff) == 0) {
+                    // restore the endstrea token
+                    unget_char();
                     break;
                 }
                 // not the endstream
-                m_filein->seekg(pos);
             }
         }
     }

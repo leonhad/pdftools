@@ -28,6 +28,7 @@ public:
     char *get_image_stream();
     void disable_charset_conversion();
 
+    void clear() noexcept;
 private:
     void unget_char();
     bool is_space(const char c);

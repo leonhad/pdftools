@@ -58,6 +58,7 @@
 		A5E0F0AA1C336ABE00160E3B /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0A31C336ABE00160E3B /* parser.cpp */; };
 		A5E0F0AB1C336ABE00160E3B /* scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0A51C336ABE00160E3B /* scanner.cpp */; };
 		A5E0F0AF1C34399800160E3B /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0AD1C34399800160E3B /* token.cpp */; };
+		A5E0F0B21C3B340B00160E3B /* genericexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0B01C3B340B00160E3B /* genericexception.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -176,6 +177,8 @@
 		A5E0F0A61C336ABE00160E3B /* scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scanner.h; path = parser/scanner.h; sourceTree = SOURCE_ROOT; };
 		A5E0F0AD1C34399800160E3B /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = token.cpp; path = parser/token.cpp; sourceTree = SOURCE_ROOT; };
 		A5E0F0AE1C34399800160E3B /* token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = token.h; path = parser/token.h; sourceTree = SOURCE_ROOT; };
+		A5E0F0B01C3B340B00160E3B /* genericexception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = genericexception.cpp; sourceTree = SOURCE_ROOT; };
+		A5E0F0B11C3B340B00160E3B /* genericexception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genericexception.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +230,8 @@
 				A57D146D1C2791990072F543 /* converter.h */,
 				A57D146F1C2791990072F543 /* generator.cpp */,
 				A57D14701C2791990072F543 /* generator.h */,
+				A5E0F0B01C3B340B00160E3B /* genericexception.cpp */,
+				A5E0F0B11C3B340B00160E3B /* genericexception.h */,
 				A57D14761C2791990072F543 /* main.cpp */,
 				A57D14781C2791990072F543 /* pageanalyze.cpp */,
 				A57D14791C2791990072F543 /* pageanalyze.h */,
@@ -487,6 +492,7 @@
 				A5E0F0A71C336ABE00160E3B /* cmapparser.cpp in Sources */,
 				A598EEE41C28B069008FFC74 /* objnode.cpp in Sources */,
 				A598EED91C28B069008FFC74 /* arraynode.cpp in Sources */,
+				A5E0F0B21C3B340B00160E3B /* genericexception.cpp in Sources */,
 				A57D148A1C2791990072F543 /* generator.cpp in Sources */,
 				A598EEFC1C28B0C8008FFC74 /* font.cpp in Sources */,
 				A598EEDD1C28B069008FFC74 /* charnode.cpp in Sources */,
