@@ -1,8 +1,9 @@
-#include "cmapparser.h"
+#include "../nodes/nodes.h"
 #include "../utils.h"
 #include "scanner.h"
 #include "token.h"
-#include "../nodes/nodes.h"
+#include "cmapparser.h"
+#include <cstring>
 
 using namespace std;
 using namespace parser;

@@ -1,8 +1,9 @@
 #ifndef ROOTNODE_H
 #define ROOTNODE_H
 
-#include <vector>
 #include "treenode.h"
+#include <vector>
+#include <cstddef>
 
 class RootNode : public TreeNode {
 private:

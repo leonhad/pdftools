@@ -3,6 +3,7 @@
 
 #include "treenode.h"
 #include <vector>
+#include <cstddef>
 
 class ArrayNode : public TreeNode {
 private:

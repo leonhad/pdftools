@@ -3,6 +3,7 @@
 
 #include "treenode.h"
 #include <vector>
+#include <cstdint>
 
 class CodeSpaceNode;
 class CharNode;

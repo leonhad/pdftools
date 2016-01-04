@@ -1,5 +1,5 @@
 TEMPLATE = app
-CONFIG += console c++11
+CONFIG += console c++14
 CONFIG -= app_bundle
 CONFIG -= qt
 
@@ -7,15 +7,9 @@ LIBS += -lz -liconv
 
 SOURCES += main.cpp \
     analyze.cpp \
-    cmapparser.cpp \
     converter.cpp \
     generator.cpp \
-    genericparser.cpp \
     pageanalyze.cpp \
-    pageparser.cpp \
-    parser.cpp \
-    scanner.cpp \
-    token.cpp \
     utils.cpp \
     epub/epub.cpp \
     glyphs/breakglyph.cpp \
@@ -45,7 +39,6 @@ SOURCES += main.cpp \
     nodes/stringnode.cpp \
     nodes/textmatrixnode.cpp \
     nodes/textnode.cpp \
-    nodes/treenode.cpp \
     nodes/xrefnode.cpp \
     semantic/context.cpp \
     semantic/document.cpp \
@@ -54,19 +47,19 @@ SOURCES += main.cpp \
     semantic/page.cpp \
     semantic/pagelabel.cpp \
     xml/xml.cpp \
-    zip/zipfile.cpp
+    zip/zipfile.cpp \
+    parser/cmapparser.cpp \
+    parser/genericparser.cpp \
+    parser/pageparser.cpp \
+    parser/parser.cpp \
+    parser/scanner.cpp \
+    parser/token.cpp
 
 HEADERS += \
     analyze.h \
-    cmapparser.h \
     converter.h \
     generator.h \
-    genericparser.h \
     pageanalyze.h \
-    pageparser.h \
-    parser.h \
-    scanner.h \
-    token.h \
     utils.h \
     epub/epub.h \
     glyphs/breakglyph.h \
@@ -107,4 +100,10 @@ HEADERS += \
     semantic/page.h \
     semantic/pagelabel.h \
     xml/xml.h \
-    zip/zipfile.h
+    zip/zipfile.h \
+    parser/cmapparser.h \
+    parser/genericparser.h \
+    parser/pageparser.h \
+    parser/parser.h \
+    parser/scanner.h \
+    parser/token.h

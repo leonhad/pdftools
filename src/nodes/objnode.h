@@ -3,7 +3,8 @@
 
 #include "treenode.h"
 #include <vector>
-#include <stdint.h>
+#include <cstdint>
+#include <cstddef>
 
 using namespace std;
 

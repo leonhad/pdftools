@@ -1,8 +1,8 @@
 #ifndef NAMENODE_H
 #define NAMENODE_H
 
-#include <string>
 #include "treenode.h"
+#include <string>
 
 class NameNode : public TreeNode {
 private:

@@ -1,8 +1,8 @@
 #ifndef CHARNODE_H
 #define CHARNODE_H
 
-#include <string>
 #include "treenode.h"
+#include <string>
 
 class CharNode : public TreeNode {
 private:
