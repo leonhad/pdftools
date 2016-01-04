@@ -128,7 +128,7 @@ TreeNode *PageParser::tm_sequence(vector<TreeNode *> &values)
         
         return new TextMatrixNode(a->value(), b->value(), c->value(), d->value(), e->value(), f->value());
     }
-    return NULL;
+    return nullptr;
 }
 
 TreeNode *PageParser::font_sequence(vector<TreeNode *> &values)
@@ -149,7 +149,7 @@ TreeNode *PageParser::font_sequence(vector<TreeNode *> &values)
         return font;
     } else {
         error_message("Error parsing font object");
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -213,7 +213,7 @@ BDCNode *PageParser::bdc_sequence(vector<TreeNode *> &values, RootNode *parent)
     }
     node->set_value(values[1]);
     // avoid double delete
-    values[1] = NULL;
+    values[1] = nullptr;
 
     return node;
 }

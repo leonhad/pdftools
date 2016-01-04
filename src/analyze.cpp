@@ -293,7 +293,7 @@ Document *Analyze::analyze_tree()
     analyze_xref();
     if (m_document->encrypted()) {
         error_message("Encrypted file is not supported");
-        return NULL;
+        return nullptr;
     } else {
         analyze_info();
         analyze_root();

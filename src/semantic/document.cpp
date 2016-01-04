@@ -6,11 +6,11 @@
 
 Document::Document()
 {
-    m_root = NULL;
-    m_info = NULL;
+    m_root = nullptr;
+    m_info = nullptr;
     m_encrypted = false;
     m_tree_root = false;
-    m_outlines = NULL;
+    m_outlines = nullptr;
     m_lang = "en";
 }
 
@@ -60,7 +60,7 @@ Font *Document::get_font(const char *name)
         }
         f++;
     }
-    return NULL;
+    return nullptr;
 }
 
 void Document::set_encrypted(bool encrypt)
@@ -83,7 +83,7 @@ Page *Document::page(int id, int generation)
         }
         i++;
     }
-    return NULL;
+    return nullptr;
 }
 
 void Document::set_outline(Outline *outline)

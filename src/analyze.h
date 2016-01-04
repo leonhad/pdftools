@@ -39,9 +39,9 @@ private:
     void analyze_info();
     void analyze_root();
     void analyze_names(MapNode *values);
-    void analyze_outlines(MapNode *values, Outline *parent = NULL);
+    void analyze_outlines(MapNode *values, Outline *parent = nullptr);
     void analyze_outline(ArrayNode *values, Outline *outline);
-    void analyze_pages(TreeNode *page, ArrayNode *mediabox = NULL);
+    void analyze_pages(TreeNode *page, ArrayNode *mediabox = nullptr);
     Font *analyze_font(MapNode *fontmap);
 
     Page *process_page(int id, int generation, std::stringstream *stream_value, MapNode *catalog, ArrayNode * mediabox);

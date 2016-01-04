@@ -89,7 +89,7 @@ char *deflate(const char *raw, size_t size, uint32_t &writed)
 
     int err = deflateInit2(&zstream, Z_BEST_COMPRESSION, Z_DEFLATED, -MAX_WBITS, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY);
     if (err != Z_OK) {
-        return NULL;
+        return nullptr;
     }
     zstream.avail_in = (uInt)size;
     zstream.next_in = (Bytef *) raw;

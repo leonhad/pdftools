@@ -9,12 +9,12 @@
 
 Page::Page(Document *parent)
 {
-    m_media_box = NULL;
-    m_crop_box = NULL;
+    m_media_box = nullptr;
+    m_crop_box = nullptr;
     m_document = parent;
     m_id = 0;
     m_generation = 0;
-    m_root = NULL;
+    m_root = nullptr;
 }
 
 Page::~Page()

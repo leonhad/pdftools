@@ -9,7 +9,7 @@
 PageAnalyze::PageAnalyze(Document *document)
 {
     m_document = document;
-    m_font = NULL;
+    m_font = nullptr;
 }
 
 PageAnalyze::~PageAnalyze()

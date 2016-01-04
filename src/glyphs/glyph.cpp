@@ -3,7 +3,7 @@
 
 Glyph::Glyph()
 {
-    m_last_glyph = NULL;
+    m_last_glyph = nullptr;
 }
 
 Glyph::~Glyph()

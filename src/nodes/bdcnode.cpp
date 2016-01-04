@@ -2,7 +2,7 @@
 
 BDCNode::BDCNode(RootNode *parent) : RootNode()
 {
-    m_value = NULL;
+    m_value = nullptr;
     m_parent = parent;
 }
 

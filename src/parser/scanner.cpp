@@ -210,7 +210,7 @@ Token *Scanner::next_token()
     TokenType current_token = ENDFILE;
     StateType state = START;
     int inner_string = 0;
-    m_error = NULL;
+    m_error = nullptr;
 
     bool save;
     while (state != DONE && m_filein->good()) {

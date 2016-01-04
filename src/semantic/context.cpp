@@ -7,8 +7,8 @@
 Context::Context(Document *document)
 {
     m_document = document;
-    m_page = NULL;
-    m_font = NULL;
+    m_page = nullptr;
+    m_font = nullptr;
     m_font_changed = false;
     m_use_font = false;
     m_font_size = 1;
