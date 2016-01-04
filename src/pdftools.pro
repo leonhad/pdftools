@@ -53,7 +53,8 @@ SOURCES += main.cpp \
     parser/pageparser.cpp \
     parser/parser.cpp \
     parser/scanner.cpp \
-    parser/token.cpp
+    parser/token.cpp \
+    genericexception.cpp
 
 HEADERS += \
     analyze.h \
@@ -106,4 +107,5 @@ HEADERS += \
     parser/pageparser.h \
     parser/parser.h \
     parser/scanner.h \
-    parser/token.h
+    parser/token.h \
+    genericexception.h

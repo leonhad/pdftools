@@ -15,7 +15,7 @@
 #include <iostream>
 #include <zlib.h>
 #include <cstdlib>
-#include <stdexcept>
+#include "genericexception.h"
 
 using namespace std;
 using namespace parser;
@@ -23,9 +23,9 @@ using namespace parser;
 Analyze::Analyze(const string& filein) throw(exception) : m_filein{filein}
 {
     m_filestream.open(filein, ios::binary);
-    
+
     if (!m_filestream.is_open()) {
-        throw ios_base::failure("Invalid input file.");
+        throw GenericException("Invalid input file name: " + filein);
     }
 }
 
