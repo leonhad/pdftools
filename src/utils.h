@@ -5,6 +5,8 @@
 #include <cstdint>
 
 void error_message(const char *msg);
+void error_message(const std::string &msg);
+void verbose_message(const std::string &msg);
 void verbose_message(const char *msg);
 void set_verbose_mode(const bool verbose);
 bool verbose_mode();

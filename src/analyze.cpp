@@ -277,9 +277,7 @@ void Analyze::analyze_outline(ArrayNode *values, Outline *outline)
 
 Document *Analyze::analyze_tree()
 {
-    stringstream msg;
-    msg << "Parsing file " << m_filein;
-    verbose_message(msg.str().c_str());
+    verbose_message("Parsing file " + m_filein);
     
     Parser parser(&m_filestream);
     
@@ -443,9 +441,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
                     delete[] value;
                 } else {
                     if (filter) {
-                        string msg{"Invalid filter "};
-                        msg += filter->name();
-                        error_message(filter->name().c_str());
+                        error_message("Invalid filter " + filter->name());
                     } else {
                         error_message("Filter not found");
                     }
@@ -455,9 +451,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
     } else if (!filter) {
         (*stream_value).write(stream, total);
     } else {
-        string msg{"Invalid filter "};
-        msg += filter->name();
-        error_message(msg.c_str());
+        error_message("Invalid filter " + filter->name());
     }
     delete[] stream;
 }

@@ -61,9 +61,21 @@ void verbose_message(const char *msg)
     }
 }
 
+void verbose_message(const string &msg)
+{
+    if (_verbose) {
+        verbose_message(msg.c_str());
+    }
+}
+
 void error_message(const char *msg)
 {
     cerr << PACKAGE_NAME << ": " << msg << endl;
+}
+
+void error_message(const string &msg)
+{
+    error_message(msg.c_str());
 }
 
 void set_verbose_mode(const bool verbose)
