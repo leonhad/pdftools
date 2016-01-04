@@ -84,7 +84,7 @@ void Parser::object_streams(RootNode *root_node)
                     if (number) {
                         length = length_node->value();
                     }
-                    char *uncompressed = NULL;
+                    char *uncompressed = nullptr;
                     
                     m_scanner->to_pos(root_object->stream_pos());
                     char *stream = (char *)m_scanner->get_stream(length);

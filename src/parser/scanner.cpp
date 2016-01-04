@@ -71,7 +71,17 @@ size_t Scanner::pos()
 
 void Scanner::to_pos(size_t pos)
 {
-    m_filein->seekg(pos, ios::beg);
+#ifdef DEBUG
+    ifstream *stream = dynamic_cast<ifstream *>(m_filein);
+    if (stream && !stream->is_open()) {
+        error_message("Stream not open!");
+    }
+#endif
+    if (m_filein->good()) {
+        m_filein->seekg(pos, ios::beg);
+    } else {
+        error_message("Stream is not good for use.");
+    }
 }
 
 size_t Scanner::ignore_stream(int length)

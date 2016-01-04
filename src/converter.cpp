@@ -39,7 +39,7 @@ void Converter::convert() throw(std::exception) {
     m_document = analyze.analyze_tree();
     if (m_document) {
         stringstream msg;
-        msg << "Parsing file " << m_filein << " " << "Pages: " << m_document->pages() << " - " << "Title: ";
+        msg << "Analyzing file " << m_filein << " " << "Pages: " << m_document->pages() << " - " << "Title: ";
         if (m_document->title().empty()) {
             msg << "no title";
         } else {

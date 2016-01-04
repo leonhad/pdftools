@@ -277,6 +277,10 @@ void Analyze::analyze_outline(ArrayNode *values, Outline *outline)
 
 Document *Analyze::analyze_tree()
 {
+    stringstream msg;
+    msg << "Parsing file " << m_filein;
+    verbose_message(msg.str().c_str());
+    
     Parser parser(&m_filestream);
     
     m_tree = parser.parse();
@@ -519,7 +523,7 @@ TreeNode *Analyze::get_real_obj_value(TreeNode * value)
         if (node) {
             return node->value();
         }
-        return NULL;
+        return nullptr;
     }
     return value;
 }
@@ -545,7 +549,7 @@ double Analyze::get_number_value(TreeNode *value, int default_value)
 ObjNode *Analyze::get_object(RefNode * ref)
 {
     if (!ref) {
-        return NULL;
+        return nullptr;
     }
     return get_object(ref->id(), ref->generation());
 }
@@ -553,7 +557,7 @@ ObjNode *Analyze::get_object(RefNode * ref)
 ObjNode *Analyze::get_object(int id, int generation)
 {
     size_t size = m_tree->size();
-    ObjNode *ret = NULL;
+    ObjNode *ret = nullptr;
     bool done = false;
 
     for (size_t i = 0; i < size; i++) {
