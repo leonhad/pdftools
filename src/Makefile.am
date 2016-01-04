@@ -6,7 +6,8 @@ pdftools_SOURCES = main.cpp \
 	analyze.cpp \
 	pageanalyze.cpp \
 	converter.cpp \
-	generator.cpp
+	generator.cpp \
+	genericexception.cpp
 
 dist_man_MANS = pdftools.1
 
@@ -15,7 +16,8 @@ noinst_HEADERS = \
 	analyze.h \
 	pageanalyze.h \
 	converter.h \
-	generator.h
+	generator.h \
+	genericexception.h
 
 pdftools_CXXFLAGS = 
 

@@ -105,7 +105,8 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_pdftools_OBJECTS = pdftools-main.$(OBJEXT) pdftools-utils.$(OBJEXT) \
 	pdftools-analyze.$(OBJEXT) pdftools-pageanalyze.$(OBJEXT) \
-	pdftools-converter.$(OBJEXT) pdftools-generator.$(OBJEXT)
+	pdftools-converter.$(OBJEXT) pdftools-generator.$(OBJEXT) \
+	pdftools-genericexception.$(OBJEXT)
 pdftools_OBJECTS = $(am_pdftools_OBJECTS)
 pdftools_DEPENDENCIES = semantic/libsemantic.a parser/libparser.a \
 	epub/libepub.a zip/libzip.a html/libhtml.a xml/libxml.a \
@@ -350,7 +351,8 @@ pdftools_SOURCES = main.cpp \
 	analyze.cpp \
 	pageanalyze.cpp \
 	converter.cpp \
-	generator.cpp
+	generator.cpp \
+	genericexception.cpp
 
 dist_man_MANS = pdftools.1
 noinst_HEADERS = \
@@ -358,7 +360,8 @@ noinst_HEADERS = \
 	analyze.h \
 	pageanalyze.h \
 	converter.h \
-	generator.h
+	generator.h \
+	genericexception.h
 
 pdftools_CXXFLAGS = 
 pdftools_LDADD = \
@@ -464,6 +467,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-analyze.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-converter.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-generator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-genericexception.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-pageanalyze.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pdftools-utils.Po@am__quote@
@@ -565,6 +569,20 @@ pdftools-generator.obj: generator.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='generator.cpp' object='pdftools-generator.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-generator.obj `if test -f 'generator.cpp'; then $(CYGPATH_W) 'generator.cpp'; else $(CYGPATH_W) '$(srcdir)/generator.cpp'; fi`
+
+pdftools-genericexception.o: genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-genericexception.o -MD -MP -MF $(DEPDIR)/pdftools-genericexception.Tpo -c -o pdftools-genericexception.o `test -f 'genericexception.cpp' || echo '$(srcdir)/'`genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-genericexception.Tpo $(DEPDIR)/pdftools-genericexception.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='genericexception.cpp' object='pdftools-genericexception.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-genericexception.o `test -f 'genericexception.cpp' || echo '$(srcdir)/'`genericexception.cpp
+
+pdftools-genericexception.obj: genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -MT pdftools-genericexception.obj -MD -MP -MF $(DEPDIR)/pdftools-genericexception.Tpo -c -o pdftools-genericexception.obj `if test -f 'genericexception.cpp'; then $(CYGPATH_W) 'genericexception.cpp'; else $(CYGPATH_W) '$(srcdir)/genericexception.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/pdftools-genericexception.Tpo $(DEPDIR)/pdftools-genericexception.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='genericexception.cpp' object='pdftools-genericexception.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(pdftools_CXXFLAGS) $(CXXFLAGS) -c -o pdftools-genericexception.obj `if test -f 'genericexception.cpp'; then $(CYGPATH_W) 'genericexception.cpp'; else $(CYGPATH_W) '$(srcdir)/genericexception.cpp'; fi`
 install-man1: $(dist_man_MANS)
 	@$(NORMAL_INSTALL)
 	@list1=''; \
