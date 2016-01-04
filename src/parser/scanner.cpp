@@ -86,6 +86,9 @@ void Scanner::to_pos(size_t pos)
 
 size_t Scanner::ignore_stream(int length)
 {
+    // endstream buffer (ndstream + \0)
+    char buff[9];
+
     // Ignore first new line
     while (m_filein->good() && next_char() != '\n') {
     }
@@ -96,22 +99,16 @@ size_t Scanner::ignore_stream(int length)
         m_filein->ignore(length);
     } else {
         while (m_filein->good()) {
-            int ret = m_filein->get();
-            if ((ret == '\n' || ret == '\r') && m_filein->good()) {
+            char next = m_filein->get();
+            if (next == 'e' && m_filein->good()) {
                 size_t pos = m_filein->tellg();
-                int next = m_filein->get();
-                // treat '\r\n', '\r' or '\n'
-                if (next == 'e' || m_filein->get() == 'e') {
-                    m_filein->unget();
-                    Token *token = next_token();
-                    if (token != NULL && token->type() == END_STREAM) {
-                        // endstream: do not save the and char 
-                        // and return the token start position
-                        m_filein->seekg(pos);
-                        break;
-                    }
+                memset(buff, 0, sizeof(buff));
+                m_filein->read(buff, sizeof(buff) - 1);
+
+                if (strcmp("ndstream", buff) == 0) {
+                    break;
                 }
-                // not endstream
+                // not the endstream
                 m_filein->seekg(pos);
             }
         }
