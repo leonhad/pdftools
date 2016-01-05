@@ -3,6 +3,7 @@
 #include <fstream>
 #include <cstring>
 #include <cstdlib>
+#include <cctype>
 #include <vector>
 #include <iostream>
 
@@ -56,7 +57,7 @@ constexpr unsigned int xtod(const char c) noexcept
 
 constexpr bool is_space(const char c) noexcept
 {
-    return isspace(c) || (c == EOF);
+    return (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f') || (c == '\r') || (c == EOF);
 }
 
 Scanner::Scanner(istream *m_filein) noexcept : m_filein{m_filein}
