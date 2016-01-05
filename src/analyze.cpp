@@ -290,7 +290,7 @@ Document *Analyze::analyze_tree() throw(exception)
 
     analyze_xref();
     if (m_document->encrypted()) {
-        throw GenericException("Encrypted file is not supported");
+        throw GenericException{"Encrypted file is not supported"};
     } else {
         analyze_info();
         analyze_root();

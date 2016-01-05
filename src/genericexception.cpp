@@ -6,7 +6,7 @@ GenericException::GenericException(string msg) noexcept : m_msg{msg}
 {
 }
 
-GenericException::GenericException(GenericException && ex) noexcept : m_msg{move(ex.m_msg)}
+GenericException::GenericException(GenericException &&ex) noexcept : m_msg{move(ex.m_msg)}
 {
 }
 

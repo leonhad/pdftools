@@ -11,7 +11,7 @@ private:
 
 public:
     GenericException(std::string msg) noexcept;
-    GenericException(GenericException && ex) noexcept;
+    GenericException(GenericException &&ex) noexcept;
     virtual ~GenericException() noexcept = default;
 
     virtual const char* what() const noexcept override;
