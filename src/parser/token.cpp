@@ -1,5 +1,4 @@
 #include "token.h"
-#include <cstdlib>
 
 using namespace std;
 
@@ -15,7 +14,7 @@ void Token::set_type(TokenType type) noexcept
 
 double Token::to_number() const noexcept
 {
-    return atof(m_value.c_str());
+    return stof(m_value);
 }
 
 string Token::value() const noexcept

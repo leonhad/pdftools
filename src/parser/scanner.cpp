@@ -8,11 +8,9 @@
 
 using namespace std;
 
-static const char *spaces = " \t\f";
 static const char *special_chars = "\r\n<()/[]>";
-static const char *numbers = "0123456789-+.";
 
-enum StateType {
+enum class StateType {
     START, INNUM, INNAME, INSTRING, INHEXSTR, DONE
 };
 
@@ -21,30 +19,31 @@ struct reserved_words {
     const char *name;
 };
 
-static reserved_words words[] = { { OBJ, "obj" }, { END_OBJ, "endobj" }, {
-    END_PDF, "EOF" }, { XREF, "xref" }, { TRUE, "true" },
-    { FALSE, "false" }, { STREAM, "stream" }, { END_STREAM, "endstream" }, {
-        START_XREF, "startxref" }, { TRAILER, "trailer" }, { BT, "BT" },
-    { ET, "ET" }, { MP, "MP" }, { DP, "DP" }, { BMC, "BMC" },
-    { BDC, "BDC" }, { EMC, "EMC" }, { BX, "BX" }, { EX, "EX" }, { TJ_UP,
-        "TJ" }, { TJ_LO, "Tj" }, { QUOTE, "'" }, { DOUBLE_QUOTE, "\"" },
-    { GS, "gs" }, { TF, "Tf" }, { TW, "Tw" }, { TZ, "Tz" }, { TL, "TL" }, {
-        T_AST, "T*" }, { TR, "Tr" }, { TS, "Ts" }, { TC, "Tc" }, { TM,
-            "Tm" }, { D0, "d0" }, { D1, "d1" }, { SH, "sh" }, { N, "n" }, {
-                TD_LO, "Td" }, { TD_UP, "TD" }, { SCN_UP, "SCN" }, { SCN_LO,
-                    "scn" }, { SC_UP, "SC" }, { SC_LO, "sc" }, { G_LO, "g" }, {
-                        G_UP, "G" }, { RE, "re" }, { RI, "ri" }, { CS_UP, "CS" }, {
-                            CS_LO, "cs" }, { W_LO, "w" }, { W_UP, "W" }, { W_AST, "W*" }, {
-                                Q_UP, "Q" }, { Q_LO, "q" }, { F_AST, "f*" }, { F_UP, "F" }, {
-                                    F_LO, "f" }, { RG_UP, "RG" }, { RG_LO, "rg" }, { M_LO, "m" }, {
-                                        M_UP, "M" }, { K_LO, "k" }, { K_UP, "K" }, { J_LO, "j" }, {
-                                            J_UP, "J" }, { S_LO, "s" }, { S_UP, "S" }, { C, "c" }, { CM,
-                                                "cm" }, { DO, "Do" }, { L, "l" }, { D, "d" }, { H, "h" }, { V,
-                                                    "v" }, { Y, "y" }, { I, "i" }, { BI, "BI" }, { ID, "ID" }, {
-                                                        B_UP, "B" }, { B_UP_AST, "B*" }, { B_LO, "b" },
-    { B_LO_AST, "b*" }, { EI, "EI" } };
+const static reserved_words words[] = { { TokenType::OBJ, "obj" }, { TokenType::END_OBJ, "endobj" },
+    { TokenType::END_PDF, "EOF" }, { TokenType::XREF, "xref" }, { TokenType::TRUE, "true" }, { TokenType::FALSE, "false" },
+    { TokenType::STREAM, "stream" }, { TokenType::END_STREAM, "endstream" }, { TokenType::START_XREF, "startxref" },
+    { TokenType::TRAILER, "trailer" }, { TokenType::BT, "BT" }, { TokenType::ET, "ET" }, { TokenType::MP, "MP" }, { TokenType::DP, "DP" },
+    { TokenType::BMC, "BMC" }, { TokenType::BDC, "BDC" }, { TokenType::EMC, "EMC" }, { TokenType::BX, "BX" }, { TokenType::EX, "EX" },
+    { TokenType::TJ_UP, "TJ" }, { TokenType::TJ_LO, "Tj" }, { TokenType::QUOTE, "'" }, { TokenType::DOUBLE_QUOTE, "\"" },
+    { TokenType::GS, "gs" }, { TokenType::TF, "Tf" }, { TokenType::TW, "Tw" }, { TokenType::TZ, "Tz" }, { TokenType::TL, "TL" },
+    { TokenType::T_AST, "T*" }, { TokenType::TR, "Tr" }, { TokenType::TS, "Ts" }, { TokenType::TC, "Tc" }, { TokenType::TM, "Tm" },
+    { TokenType::D0, "d0" }, { TokenType::D1, "d1" }, { TokenType::SH, "sh" }, { TokenType::N, "n" }, { TokenType::TD_LO, "Td" },
+    { TokenType::TD_UP, "TD" }, { TokenType::SCN_UP, "SCN" }, { TokenType::SCN_LO, "scn" }, { TokenType::SC_UP, "SC" },
+    { TokenType::SC_LO, "sc" }, { TokenType::G_LO, "g" }, { TokenType::G_UP, "G" }, { TokenType::RE, "re" }, { TokenType::RI, "ri" },
+    { TokenType::CS_UP, "CS" }, { TokenType::CS_LO, "cs" }, { TokenType::W_LO, "w" }, { TokenType::W_UP, "W" }, { TokenType::W_AST, "W*" },
+    { TokenType::Q_UP, "Q" }, { TokenType::Q_LO, "q" }, { TokenType::F_AST, "f*" }, { TokenType::F_UP, "F" }, { TokenType::F_LO, "f" },
+    { TokenType::RG_UP, "RG" }, { TokenType::RG_LO, "rg" }, { TokenType::M_LO, "m" }, { TokenType::M_UP, "M" }, { TokenType::K_LO, "k" },
+    { TokenType::K_UP, "K" }, { TokenType::J_LO, "j" }, { TokenType::J_UP, "J" }, { TokenType::S_LO, "s" }, { TokenType::S_UP, "S" },
+    { TokenType::C, "c" }, { TokenType::CM, "cm" }, { TokenType::DO, "Do" }, { TokenType::L, "l" }, { TokenType::D, "d" }, { TokenType::H, "h" },
+    { TokenType::V, "v" }, { TokenType::Y, "y" }, { TokenType::I, "i" }, { TokenType::BI, "BI" }, { TokenType::ID, "ID" }, { TokenType::B_UP, "B" },
+    { TokenType::B_UP_AST, "B*" }, { TokenType::B_LO, "b" }, { TokenType::B_LO_AST, "b*" }, { TokenType::EI, "EI" } };
 
-constexpr unsigned int xtod(char c)
+constexpr bool isnum(const char c) noexcept
+{
+    return (c >= '0' && c <= '9') || (c == '-') || (c == '+') || (c == '.');
+}
+
+constexpr unsigned int xtod(const char c) noexcept
 {
     if (c >= '0' && c <= '9')
         return c - '0';
@@ -53,6 +52,11 @@ constexpr unsigned int xtod(char c)
     if (c >= 'a' && c <= 'f')
         return c - 'a' + 10;
     return 0; // not a hex digit
+}
+
+constexpr bool is_space(const char c) noexcept
+{
+    return isspace(c) || (c == EOF);
 }
 
 Scanner::Scanner(istream *m_filein) noexcept : m_filein{m_filein}
@@ -97,7 +101,6 @@ size_t Scanner::ignore_stream(int length)
     // Ignore first new line
     while (m_filein->good() && next_char() != '\n') {
     }
-    //unget_char();
     size_t ret = m_filein->tellg();
 
     if (length >= 0) {
@@ -197,11 +200,6 @@ void Scanner::unget_char()
     m_filein->unget();
 }
 
-bool Scanner::is_space(const char c)
-{
-    return strchr(spaces, c) || (c == '\n') || (c == '\r') || (c == EOF);
-}
-
 TokenType Scanner::reserved_lookup(const char *s)
 {
     int size = sizeof(words) / sizeof(reserved_words);
@@ -210,97 +208,98 @@ TokenType Scanner::reserved_lookup(const char *s)
             return words[i].type;
         }
     }
-    return NAME;
+    return TokenType::NAME;
 }
 
 Token *Scanner::next_token()
 {
     string token_string;
-    TokenType current_token = ENDFILE;
-    StateType state = START;
-    int inner_string = 0;
+    TokenType current_token{TokenType::ENDFILE};
+    StateType state{StateType::START};
+    int inner_string{0};
     m_error = nullptr;
 
     bool save;
-    while (state != DONE && m_filein->good()) {
+    while (state != StateType::DONE && m_filein->good()) {
         char c = next_char();
         save = true;
         switch (state) {
-        case START:
-            if (strchr(numbers, c)) {
-                state = INNUM;
+        case StateType::START:
+            if (isnum(c)) {
+                state = StateType::INNUM;
             } else if (c == '%') {
-                current_token = PERCENT;
-                state = DONE;
+                current_token = TokenType::PERCENT;
+                state = StateType::DONE;
             } else if (c == '[') {
-                current_token = START_ARRAY;
-                state = DONE;
+                current_token = TokenType::START_ARRAY;
+                state = StateType::DONE;
             } else if (c == ']') {
-                current_token = END_ARRAY;
-                state = DONE;
+                current_token = TokenType::END_ARRAY;
+                state = StateType::DONE;
             } else if (c == '>') {
                 wchar_t next = next_char();
                 if (next != '>') {
                     unget_char();
                     save = false;
-                    current_token = ERROR;
+                    current_token = TokenType::ERROR;
                 } else {
                     token_string += '>';
-                    current_token = END_DICT;
+                    current_token = TokenType::END_DICT;
                 }
-                state = DONE;
+                state = StateType::DONE;
             } else if (c == '(') {
                 save = false;
-                state = INSTRING;
+                state = StateType::INSTRING;
             } else if (c == '<') {
                 wchar_t next = next_char();
                 if (next != '<') {
                     unget_char();
                     save = false;
-                    state = INHEXSTR;
+                    state = StateType::INHEXSTR;
                 } else {
                     token_string += '<';
-                    state = DONE;
-                    current_token = START_DICT;
+                    state = StateType::DONE;
+                    current_token = TokenType::START_DICT;
                 }
             } else if (is_space(c)) {
                 save = false;
             } else if (isalpha(c) || c == '/' || c == '\'' || c == '"') {
-                state = INNAME;
+                state = StateType::INNAME;
             } else if (c == '\n' || c == '\r') {
-                state = DONE;
-                current_token = NEW_LINE;
+                state = StateType::DONE;
+                current_token = TokenType::NEW_LINE;
             } else if (c == EOF) {
-                state = DONE;
-                current_token = ENDFILE;
+                state = StateType::DONE;
+                current_token = TokenType::ENDFILE;
             } else {
                 string msg = "Invalid char ";
                 msg += c;
                 error_message(msg.c_str());
-                state = DONE;
+                state = StateType::DONE;
                 save = false;
-                current_token = ERROR;
+                current_token = TokenType::ERROR;
             }
             break;
-        case INNUM:
+        case StateType::INNUM:
             if (!isdigit(c) && (c != '.')) {
                 /* backup in the input */
                 unget_char();
                 save = false;
-                state = DONE;
-                current_token = NUM;
+                state = StateType::DONE;
+                current_token = TokenType::NUM;
             }
             break;
-        case INHEXSTR:
+        case StateType::INHEXSTR:
             if (is_space(c)) {
                 save = false;
             } else if (c == '>') {
                 save = false;
-                state = DONE;
+                state = StateType::DONE;
 
                 unsigned int loop;
-                string string;
+                string str;
 
+                // FIXME review this
                 for (loop = 0; loop < token_string.length(); loop++) {
                     unsigned int h = xtod(token_string.at(loop)) << 4;
                     unsigned int l = 0;
@@ -308,17 +307,17 @@ Token *Scanner::next_token()
                     if (loop < token_string.length()) {
                         l = xtod(token_string.at(loop));
                     }
-                    string.push_back(h + l);
+                    str.push_back(h + l);
                 }
                 if (m_charset_conversion) {
-                    token_string = charset_to_utf8(string);
+                    token_string = charset_to_utf8(str);
                 } else {
-                    token_string = string;
+                    token_string = str;
                 }
-                current_token = STRING;
+                current_token = TokenType::STRING;
             }
             break;
-        case INSTRING:
+        case StateType::INSTRING:
             if (c == '(') {
                 inner_string++;
             } else if (c == '\\') {
@@ -335,26 +334,26 @@ Token *Scanner::next_token()
                         token_string = charset_to_utf8(token_string);
                     }
                     save = false;
-                    state = DONE;
-                    current_token = STRING;
+                    state = StateType::DONE;
+                    current_token = TokenType::STRING;
                 }
             }
             break;
-        case INNAME:
+        case StateType::INNAME:
             if (is_space(c) || strchr(special_chars, c)) {
                 save = false;
                 unget_char();
-                state = DONE;
+                state = StateType::DONE;
                 current_token = reserved_lookup(token_string.c_str());
             }
             break;
-        case DONE:
+        case StateType::DONE:
             break;
         default:
             /* should never happen */
             error_message("Invalid scanner state");
-            state = DONE;
-            current_token = ERROR;
+            state = StateType::DONE;
+            current_token = TokenType::ERROR;
             break;
         }
         if (save) {

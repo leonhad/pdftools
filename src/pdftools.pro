@@ -5,6 +5,8 @@ CONFIG -= qt
 
 LIBS += -lz -liconv
 
+debug:QMAKE_CXXFLAGS += -DDEBUG
+
 SOURCES += main.cpp \
     analyze.cpp \
     converter.cpp \

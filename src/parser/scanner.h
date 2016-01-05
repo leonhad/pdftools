@@ -31,7 +31,6 @@ public:
     void clear() noexcept;
 private:
     void unget_char();
-    bool is_space(const char c);
     char next_char();
     TokenType reserved_lookup(const char *s);
 };

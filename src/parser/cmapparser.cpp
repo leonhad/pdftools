@@ -33,60 +33,60 @@ CMapNode *CMapParser::parse()
     next_token();
 
     // /CIDInit
-    match(NAME);
+    match(TokenType::NAME);
     // /ProcSet
-    match(NAME);
+    match(TokenType::NAME);
     // findresource
-    match(NAME);
+    match(TokenType::NAME);
     // begin
-    match(NAME);
+    match(TokenType::NAME);
     // 12
-    match(NUM);
+    match(TokenType::NUM);
     // dict
-    match(NAME);
+    match(TokenType::NAME);
     // begin
-    match(NAME);
+    match(TokenType::NAME);
     //begincmap
-    match(NAME);
+    match(TokenType::NAME);
 
     while (m_scanner->good()) {
         switch (m_token->type()) {
-        case NAME:
+        case TokenType::NAME:
             if (m_token->value() == "/CMapName") {
-                match(NAME);
+                match(TokenType::NAME);
                 // /Name
-                match(NAME);
+                match(TokenType::NAME);
                 // def
-                match(NAME);
+                match(TokenType::NAME);
             } else if (m_token->value() == "/CMapType") {
-                match(NAME);
+                match(TokenType::NAME);
                 // 2
-                match(NUM);
+                match(TokenType::NUM);
                 // def
-                match(NAME);
+                match(TokenType::NAME);
             } else if (m_token->value() == "/CIDSystemInfo") {
-                match(NAME);
+                match(TokenType::NAME);
                 delete value_sequence();
                 // def
-                match(NAME);
+                match(TokenType::NAME);
             } else {
-                match(NAME);
+                match(TokenType::NAME);
             }
             break;
-        case NUM:
+        case TokenType::NUM:
             val = m_token->to_number();
-            match(NUM);
+            match(TokenType::NUM);
             if (m_token->value() == "beginbfchar") {
-                match(NAME);
+                match(TokenType::NAME);
                 bfchar_sequence(val);
             } else if (m_token->value() == "begincodespacerange") {
-                match(NAME);
+                match(TokenType::NAME);
                 m_root->set_codespace(codespace_sequence());
             } else if (m_token->value() == "beginbfrange") {
-                match(NAME);
+                match(TokenType::NAME);
                 bfrange_sequence(val);
             } else {
-                match(NAME);
+                match(TokenType::NAME);
                 error_message("invalid mode");
             }
             break;
@@ -102,11 +102,11 @@ CodeSpaceNode *CMapParser::codespace_sequence()
 {
     CodeSpaceNode *ret = new CodeSpaceNode;
     ret->set_start(m_token->value());
-    match(STRING);
+    match(TokenType::STRING);
     ret->set_finish(m_token->value());
-    match(STRING);
+    match(TokenType::STRING);
     // endcodespacerange
-    match(NAME);
+    match(TokenType::NAME);
     return ret;
 }
 
@@ -114,21 +114,21 @@ void CMapParser::bfchar_sequence(const int count)
 {
     for (int loop = 0; loop < count; loop++) {
         string character = m_token->value();
-        match(STRING);
+        match(TokenType::STRING);
         string unicode = m_token->value();
-        match(STRING);
+        match(TokenType::STRING);
         m_root->add(new CharNode(character, unicode));
     }
-    match(NAME);
+    match(TokenType::NAME);
 }
 
 void CMapParser::bfrange_sequence(const int count)
 {
     for (int loop = 0; loop < count; loop++) {
         string start = m_token->value();
-        match(STRING);
+        match(TokenType::STRING);
         string end = m_token->value();
-        match(STRING);
+        match(TokenType::STRING);
         TreeNode *node = value_sequence();
         StringNode *name = dynamic_cast<StringNode *>(node);
         if (name) {
@@ -169,5 +169,5 @@ void CMapParser::bfrange_sequence(const int count)
             }
         }
     }
-    match(NAME);
+    match(TokenType::NAME);
 }

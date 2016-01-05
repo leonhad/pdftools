@@ -275,7 +275,7 @@ void Analyze::analyze_outline(ArrayNode *values, Outline *outline)
     }
 }
 
-Document *Analyze::analyze_tree()
+Document *Analyze::analyze_tree() throw(exception)
 {
     verbose_message("Parsing file " + m_filein);
     
@@ -290,8 +290,7 @@ Document *Analyze::analyze_tree()
 
     analyze_xref();
     if (m_document->encrypted()) {
-        error_message("Encrypted file is not supported");
-        return nullptr;
+        throw GenericException("Encrypted file is not supported");
     } else {
         analyze_info();
         analyze_root();

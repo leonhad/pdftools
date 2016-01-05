@@ -39,13 +39,13 @@ void GenericParser::next_token()
 
 TreeNode *GenericParser::value_sequence()
 {
-    if (m_token->type() == START_DICT) {
-        match(START_DICT);
+    if (m_token->type() == TokenType::START_DICT) {
+        match(TokenType::START_DICT);
         MapNode *map = new MapNode;
 
-        while (m_scanner->good() && m_token && m_token->type() != END_DICT) {
+        while (m_scanner->good() && m_token && m_token->type() != TokenType::END_DICT) {
             string name = m_token->value();
-            match(NAME);
+            match(TokenType::NAME);
             TreeNode *value = value_sequence();
             NameNode *n = dynamic_cast<NameNode *>(value);
             if (n && n->name()[0] != '/') {
@@ -53,32 +53,32 @@ TreeNode *GenericParser::value_sequence()
             }
             map->push(name, value);
         }
-        match(END_DICT);
+        match(TokenType::END_DICT);
         return map;
-    } else if (m_token->type() == TRUE) {
-        match(TRUE);
+    } else if (m_token->type() == TokenType::TRUE) {
+        match(TokenType::TRUE);
         return new BooleanNode(true);
-    } else if (m_token->type() == FALSE) {
-        match(FALSE);
+    } else if (m_token->type() == TokenType::FALSE) {
+        match(TokenType::FALSE);
         return new BooleanNode(false);
-    } else if (m_token->type() == NAME) {
+    } else if (m_token->type() == TokenType::NAME) {
         string name = m_token->value();
-        match(NAME);
+        match(TokenType::NAME);
         return new NameNode(name);
-    } else if (m_token->type() == STRING) {
+    } else if (m_token->type() == TokenType::STRING) {
         string value = m_token->value();
-        match(STRING);
+        match(TokenType::STRING);
         return new StringNode(value);
-    } else if (m_token->type() == NUM) {
+    } else if (m_token->type() == TokenType::NUM) {
         double value = m_token->to_number();
         size_t pos = m_scanner->pos();
-        match(NUM);
+        match(TokenType::NUM);
 
-        if (m_token->type() == NUM) {
+        if (m_token->type() == TokenType::NUM) {
             double generation = m_token->to_number();
-            match(NUM);
-            if (m_token->type() == NAME && m_token->value() == "R") {
-                match(NAME);
+            match(TokenType::NUM);
+            if (m_token->type() == TokenType::NAME && m_token->value() == "R") {
+                match(TokenType::NAME);
                 return new RefNode(value, generation);
             } else {
                 m_scanner->to_pos(pos);
@@ -88,13 +88,13 @@ TreeNode *GenericParser::value_sequence()
         }
         next_token();
         return new NumberNode(value);
-    } else if (m_token->type() == START_ARRAY) {
+    } else if (m_token->type() == TokenType::START_ARRAY) {
         ArrayNode *array = new ArrayNode;
-        match(START_ARRAY);
-        while (m_scanner->good() && m_token->type() != END_ARRAY) {
+        match(TokenType::START_ARRAY);
+        while (m_scanner->good() && m_token->type() != TokenType::END_ARRAY) {
             array->push(value_sequence());
         }
-        match(END_ARRAY);
+        match(TokenType::END_ARRAY);
         return array;
     }
     return nullptr;

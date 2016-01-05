@@ -34,20 +34,20 @@ RootNode *Parser::parse()
 {
     RootNode *root = new RootNode();
     bool error = false;
-    match(PERCENT);
+    match(TokenType::PERCENT);
     if (verify_version()) {
         while (m_scanner->good() && !error) {
             switch (m_token->type()) {
-            case PERCENT:
+            case TokenType::PERCENT:
                 comment_sequence();
                 break;
-            case NUM:
+            case TokenType::NUM:
                 root->add_child(object_sequence());
                 break;
-            case XREF:
+            case TokenType::XREF:
                 root->add_child(xref_sequence());
                 break;
-            case START_XREF:
+            case TokenType::START_XREF:
                 startxref_sequence();
                 break;
             default:
@@ -141,55 +141,55 @@ void Parser::comment_sequence()
 TreeNode * Parser::xref_sequence()
 {
     XREFNode *xref = new XREFNode;
-    match(XREF);
+    match(TokenType::XREF);
 
     do {
         uint16_t id = (uint16_t) m_token->to_number();
-        match(NUM);
+        match(TokenType::NUM);
         int count = (int) m_token->to_number();
-        match(NUM);
+        match(TokenType::NUM);
 
         for (int loop = 0; loop < count; loop++) {
             uint32_t address = (int) m_token->to_number();
-            match(NUM);
+            match(TokenType::NUM);
             uint16_t generation = (int) m_token->to_number();
-            match(NUM);
+            match(TokenType::NUM);
             string name = m_token->value();
-            if (m_token->type() == F_LO) {
-                match(F_LO);
+            if (m_token->type() == TokenType::F_LO) {
+                match(TokenType::F_LO);
             } else {
-                match(N);
+                match(TokenType::N);
             }
             xref->add_node(id, generation, address, name.at(0));
             id++;
         }
-    } while (m_scanner->good() && (m_token->type() != TRAILER));
-    match(TRAILER);
+    } while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
+    match(TokenType::TRAILER);
     xref->set_trailer(value_sequence());
     return xref;
 }
 
 void Parser::startxref_sequence()
 {
-    match(START_XREF);
-    match(NUM);
+    match(TokenType::START_XREF);
+    match(TokenType::NUM);
 
-    match(PERCENT);
-    match(PERCENT);
-    match(END_PDF);
+    match(TokenType::PERCENT);
+    match(TokenType::PERCENT);
+    match(TokenType::END_PDF);
 }
 
 TreeNode *Parser::object_sequence()
 {
     float number = m_token->to_number();
-    match(NUM);
+    match(TokenType::NUM);
     float generation_nunber = m_token->to_number();
-    match(NUM);
+    match(TokenType::NUM);
 
     ObjNode *node = new ObjNode((int) number, (int) generation_nunber);
-    match(OBJ);
+    match(TokenType::OBJ);
     node->set_value(value_sequence());
-    if (m_token && m_token->type() == STREAM) {
+    if (m_token && m_token->type() == TokenType::STREAM) {
         int length = -1;
         MapNode *map = dynamic_cast<MapNode *> (node->value());
         if (map) {
@@ -200,9 +200,9 @@ TreeNode *Parser::object_sequence()
         }
         node->set_stream_pos(m_scanner->ignore_stream(length));
         next_token();
-        match(END_STREAM);
+        match(TokenType::END_STREAM);
     }
-    match(END_OBJ);
+    match(TokenType::END_OBJ);
 
     return node;
 }
@@ -212,7 +212,7 @@ bool Parser::verify_version()
     if (m_token) {
         string line = m_token->value();
         if (pdf_versions(line)) {
-            match(NAME);
+            match(TokenType::NAME);
             return true;
         }
     }

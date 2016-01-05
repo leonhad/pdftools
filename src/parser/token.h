@@ -3,7 +3,7 @@
 
 #include <string>
 
-enum TokenType {
+enum class TokenType {
     ENDFILE, ERROR, START_ARRAY, END_ARRAY, TRUE, FALSE,
     NAME, NUM, STRING, PERCENT, START_DICT, END_DICT, NEW_LINE,
 
@@ -58,14 +58,9 @@ enum TokenType {
     BX, EX
 };
 
-struct ReservedWords {
-    const char *word;
-    TokenType token;
-};
-
 class Token {
 private:
-    TokenType m_type = ENDFILE;
+    TokenType m_type = TokenType::ENDFILE;
     std::string m_value;
 
 public:

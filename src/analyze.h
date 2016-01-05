@@ -32,7 +32,7 @@ public:
     Analyze(const std::string& filein) throw(std::exception);
     ~Analyze() noexcept;
 
-    Document *analyze_tree();
+    Document *analyze_tree() throw(std::exception);
 
 private:
     void analyze_xref();
