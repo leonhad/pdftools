@@ -3039,7 +3039,7 @@ fi
 ac_config_headers="$ac_config_headers config.h"
 
 
-DEBUG_CFLAGS="-O3 -DNDEBUG -pedantic -Wall -funroll-loops"
+DEBUG_CFLAGS="-O3 -DNDEBUG"
 # Check whether --enable-debug was given.
 if test "${enable_debug+set}" = set; then :
   enableval=$enable_debug;   if test "$enable_debug" = "yes"; then
