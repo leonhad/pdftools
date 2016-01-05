@@ -3,15 +3,19 @@
 
 #include "treenode.h"
 
-class NumberNode : public TreeNode {
-private:
-    double m_value;
+namespace node {
 
-public:
-    NumberNode(double value) noexcept;
-    virtual ~NumberNode() noexcept = default;
-    
-    double value() const noexcept;
-};
+    class NumberNode : public TreeNode {
+    private:
+        double m_value;
+
+    public:
+        NumberNode(double value) noexcept;
+        virtual ~NumberNode() noexcept = default;
+
+        double value() const noexcept;
+    };
+
+}
 
 #endif

@@ -7,56 +7,61 @@
 #include <iostream>
 
 using namespace std;
+using namespace parser;
 
-static const char *special_chars = "\r\n<()/[]>";
+namespace parser {
 
-enum class StateType {
-    START, INNUM, INNAME, INSTRING, INHEXSTR, DONE
-};
+    static const char *special_chars = "\r\n<()/[]>";
 
-struct reserved_words {
-    TokenType type;
-    const char *name;
-};
+    enum class StateType {
+        START, INNUM, INNAME, INSTRING, INHEXSTR, DONE
+    };
 
-const static reserved_words words[] = { { TokenType::OBJ, "obj" }, { TokenType::END_OBJ, "endobj" },
-    { TokenType::END_PDF, "EOF" }, { TokenType::XREF, "xref" }, { TokenType::TRUE, "true" }, { TokenType::FALSE, "false" },
-    { TokenType::STREAM, "stream" }, { TokenType::END_STREAM, "endstream" }, { TokenType::START_XREF, "startxref" },
-    { TokenType::TRAILER, "trailer" }, { TokenType::BT, "BT" }, { TokenType::ET, "ET" }, { TokenType::MP, "MP" }, { TokenType::DP, "DP" },
-    { TokenType::BMC, "BMC" }, { TokenType::BDC, "BDC" }, { TokenType::EMC, "EMC" }, { TokenType::BX, "BX" }, { TokenType::EX, "EX" },
-    { TokenType::TJ_UP, "TJ" }, { TokenType::TJ_LO, "Tj" }, { TokenType::QUOTE, "'" }, { TokenType::DOUBLE_QUOTE, "\"" },
-    { TokenType::GS, "gs" }, { TokenType::TF, "Tf" }, { TokenType::TW, "Tw" }, { TokenType::TZ, "Tz" }, { TokenType::TL, "TL" },
-    { TokenType::T_AST, "T*" }, { TokenType::TR, "Tr" }, { TokenType::TS, "Ts" }, { TokenType::TC, "Tc" }, { TokenType::TM, "Tm" },
-    { TokenType::D0, "d0" }, { TokenType::D1, "d1" }, { TokenType::SH, "sh" }, { TokenType::N, "n" }, { TokenType::TD_LO, "Td" },
-    { TokenType::TD_UP, "TD" }, { TokenType::SCN_UP, "SCN" }, { TokenType::SCN_LO, "scn" }, { TokenType::SC_UP, "SC" },
-    { TokenType::SC_LO, "sc" }, { TokenType::G_LO, "g" }, { TokenType::G_UP, "G" }, { TokenType::RE, "re" }, { TokenType::RI, "ri" },
-    { TokenType::CS_UP, "CS" }, { TokenType::CS_LO, "cs" }, { TokenType::W_LO, "w" }, { TokenType::W_UP, "W" }, { TokenType::W_AST, "W*" },
-    { TokenType::Q_UP, "Q" }, { TokenType::Q_LO, "q" }, { TokenType::F_AST, "f*" }, { TokenType::F_UP, "F" }, { TokenType::F_LO, "f" },
-    { TokenType::RG_UP, "RG" }, { TokenType::RG_LO, "rg" }, { TokenType::M_LO, "m" }, { TokenType::M_UP, "M" }, { TokenType::K_LO, "k" },
-    { TokenType::K_UP, "K" }, { TokenType::J_LO, "j" }, { TokenType::J_UP, "J" }, { TokenType::S_LO, "s" }, { TokenType::S_UP, "S" },
-    { TokenType::C, "c" }, { TokenType::CM, "cm" }, { TokenType::DO, "Do" }, { TokenType::L, "l" }, { TokenType::D, "d" }, { TokenType::H, "h" },
-    { TokenType::V, "v" }, { TokenType::Y, "y" }, { TokenType::I, "i" }, { TokenType::BI, "BI" }, { TokenType::ID, "ID" }, { TokenType::B_UP, "B" },
-    { TokenType::B_UP_AST, "B*" }, { TokenType::B_LO, "b" }, { TokenType::B_LO_AST, "b*" }, { TokenType::EI, "EI" } };
+    struct reserved_words {
+        TokenType type;
+        const char *name;
+    };
 
-constexpr bool isnum(const char c) noexcept
-{
-    return (c >= '0' && c <= '9') || (c == '-') || (c == '+') || (c == '.');
-}
+    const static reserved_words words[] = { { TokenType::OBJ, "obj" }, { TokenType::END_OBJ, "endobj" },
+        { TokenType::END_PDF, "EOF" }, { TokenType::XREF, "xref" }, { TokenType::TRUE, "true" }, { TokenType::FALSE, "false" },
+        { TokenType::STREAM, "stream" }, { TokenType::END_STREAM, "endstream" }, { TokenType::START_XREF, "startxref" },
+        { TokenType::TRAILER, "trailer" }, { TokenType::BT, "BT" }, { TokenType::ET, "ET" }, { TokenType::MP, "MP" }, { TokenType::DP, "DP" },
+        { TokenType::BMC, "BMC" }, { TokenType::BDC, "BDC" }, { TokenType::EMC, "EMC" }, { TokenType::BX, "BX" }, { TokenType::EX, "EX" },
+        { TokenType::TJ_UP, "TJ" }, { TokenType::TJ_LO, "Tj" }, { TokenType::QUOTE, "'" }, { TokenType::DOUBLE_QUOTE, "\"" },
+        { TokenType::GS, "gs" }, { TokenType::TF, "Tf" }, { TokenType::TW, "Tw" }, { TokenType::TZ, "Tz" }, { TokenType::TL, "TL" },
+        { TokenType::T_AST, "T*" }, { TokenType::TR, "Tr" }, { TokenType::TS, "Ts" }, { TokenType::TC, "Tc" }, { TokenType::TM, "Tm" },
+        { TokenType::D0, "d0" }, { TokenType::D1, "d1" }, { TokenType::SH, "sh" }, { TokenType::N, "n" }, { TokenType::TD_LO, "Td" },
+        { TokenType::TD_UP, "TD" }, { TokenType::SCN_UP, "SCN" }, { TokenType::SCN_LO, "scn" }, { TokenType::SC_UP, "SC" },
+        { TokenType::SC_LO, "sc" }, { TokenType::G_LO, "g" }, { TokenType::G_UP, "G" }, { TokenType::RE, "re" }, { TokenType::RI, "ri" },
+        { TokenType::CS_UP, "CS" }, { TokenType::CS_LO, "cs" }, { TokenType::W_LO, "w" }, { TokenType::W_UP, "W" }, { TokenType::W_AST, "W*" },
+        { TokenType::Q_UP, "Q" }, { TokenType::Q_LO, "q" }, { TokenType::F_AST, "f*" }, { TokenType::F_UP, "F" }, { TokenType::F_LO, "f" },
+        { TokenType::RG_UP, "RG" }, { TokenType::RG_LO, "rg" }, { TokenType::M_LO, "m" }, { TokenType::M_UP, "M" }, { TokenType::K_LO, "k" },
+        { TokenType::K_UP, "K" }, { TokenType::J_LO, "j" }, { TokenType::J_UP, "J" }, { TokenType::S_LO, "s" }, { TokenType::S_UP, "S" },
+        { TokenType::C, "c" }, { TokenType::CM, "cm" }, { TokenType::DO, "Do" }, { TokenType::L, "l" }, { TokenType::D, "d" }, { TokenType::H, "h" },
+        { TokenType::V, "v" }, { TokenType::Y, "y" }, { TokenType::I, "i" }, { TokenType::BI, "BI" }, { TokenType::ID, "ID" }, { TokenType::B_UP, "B" },
+        { TokenType::B_UP_AST, "B*" }, { TokenType::B_LO, "b" }, { TokenType::B_LO_AST, "b*" }, { TokenType::EI, "EI" } };
 
-constexpr unsigned int xtod(const char c) noexcept
-{
-    if (c >= '0' && c <= '9')
-        return c - '0';
-    if (c >= 'A' && c <= 'F')
-        return c - 'A' + 10;
-    if (c >= 'a' && c <= 'f')
-        return c - 'a' + 10;
-    return 0; // not a hex digit
-}
+    constexpr bool isnum(const char c) noexcept
+    {
+        return (c >= '0' && c <= '9') || (c == '-') || (c == '+') || (c == '.');
+    }
 
-constexpr bool is_space(const char c) noexcept
-{
-    return isspace(c) || (c == EOF);
+    constexpr unsigned int xtod(const char c) noexcept
+    {
+        if (c >= '0' && c <= '9')
+            return c - '0';
+        if (c >= 'A' && c <= 'F')
+            return c - 'A' + 10;
+        if (c >= 'a' && c <= 'f')
+            return c - 'a' + 10;
+        return 0; // not a hex digit
+    }
+
+    constexpr bool is_space(const char c) noexcept
+    {
+        return isspace(c) || (c == EOF);
+    }
+
 }
 
 Scanner::Scanner(istream *m_filein) noexcept : m_filein{m_filein}
@@ -80,12 +85,6 @@ void Scanner::clear() noexcept
 
 void Scanner::to_pos(size_t pos)
 {
-#ifdef DEBUG
-    ifstream *stream = dynamic_cast<ifstream *>(m_filein);
-    if (stream && !stream->is_open()) {
-        error_message("Stream not open!");
-    }
-#endif
     if (m_filein->good()) {
         m_filein->seekg(pos, ios::beg);
     } else {
@@ -142,8 +141,8 @@ char *Scanner::get_image_stream()
             int next = m_filein->get();
             // treat '\r\n', '\r' or '\n'
             if (next == 'E' || m_filein->get() == 'I') {
-                m_filein->unget();
-                m_filein->unget();
+                unget_char();
+                unget_char();
                 break;
             }
             // not endstream
@@ -161,7 +160,7 @@ char *Scanner::get_stream(int length)
     return stream;
 }
 
-char Scanner::next_char()
+char Scanner::next_char() noexcept
 {
     char ret = EOF;
 
@@ -172,35 +171,29 @@ char Scanner::next_char()
             if (second == '\n') {
                 return '\n';
             }
-            m_filein->unget();
+            unget_char();
         }
     }
     return ret;
 }
 
-bool Scanner::good()
+bool Scanner::good() noexcept
 {
     return m_filein->good();
 }
 
 void Scanner::ignore_line()
 {
-    while (next_char() != '\n')
-        ;
-    unget_char();
+    while (next_char() != '\n') {
+    }
 }
 
-const char *Scanner::error()
-{
-    return m_error;
-}
-
-void Scanner::unget_char()
+void Scanner::unget_char() noexcept
 {
     m_filein->unget();
 }
 
-TokenType Scanner::reserved_lookup(const char *s)
+TokenType Scanner::reserved_lookup(const char *s) noexcept
 {
     int size = sizeof(words) / sizeof(reserved_words);
     for (int i = 0; i < size; i++) {
@@ -217,7 +210,6 @@ Token *Scanner::next_token()
     TokenType current_token{TokenType::ENDFILE};
     StateType state{StateType::START};
     int inner_string{0};
-    m_error = nullptr;
 
     bool save;
     while (state != StateType::DONE && m_filein->good()) {

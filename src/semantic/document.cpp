@@ -4,6 +4,8 @@
 #include "page.h"
 #include "pagelabel.h"
 
+using namespace node;
+
 Document::Document()
 {
     m_root = nullptr;

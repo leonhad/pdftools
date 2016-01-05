@@ -56,7 +56,8 @@ SOURCES += main.cpp \
     parser/parser.cpp \
     parser/scanner.cpp \
     parser/token.cpp \
-    genericexception.cpp
+    genericexception.cpp \
+    nodes/treenode.cpp
 
 HEADERS += \
     analyze.h \

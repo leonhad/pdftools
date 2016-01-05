@@ -6,32 +6,32 @@
 #include <istream>
 #include <vector>
 
-using namespace std;
-
-class BDCNode;
-class RootNode;
-class TreeNode;
-class Token;
+namespace node {
+    class BDCNode;
+    class RootNode;
+    class TreeNode;
+    class Token;
+}
 
 namespace parser {
     
     class PageParser: public GenericParser {
     private:
-        RootNode *m_root = nullptr;
+        node::RootNode *m_root = nullptr;
         
     public:
-        PageParser(istream *stream);
+        PageParser(std::istream *stream);
         ~PageParser();
         
-        RootNode *parse();
+        node::RootNode *parse();
         
     private:
-        TreeNode *tm_sequence(vector<TreeNode *> &values);
-        TreeNode *font_sequence(vector<TreeNode *> &values);
-        TreeNode *bi_sequence();
-        BDCNode *bdc_sequence(vector<TreeNode *> &values, RootNode *parent);
-        TreeNode *text_sequence(vector<TreeNode *> &values);
-        void tjup_sequence(RootNode *root, vector<TreeNode *> &values);
+        node::TreeNode *tm_sequence(std::vector<node::TreeNode *> &values);
+        node::TreeNode *font_sequence(std::vector<node::TreeNode *> &values);
+        node::TreeNode *bi_sequence();
+        node::BDCNode *bdc_sequence(std::vector<node::TreeNode *> &values, node::RootNode *parent);
+        node::TreeNode *text_sequence(std::vector<node::TreeNode *> &values);
+        void tjup_sequence(node::RootNode *root, std::vector<node::TreeNode *> &values);
         
     };
     

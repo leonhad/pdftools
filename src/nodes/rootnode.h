@@ -5,17 +5,21 @@
 #include <vector>
 #include <cstddef>
 
-class RootNode : public TreeNode {
-private:
-    std::vector<TreeNode *> m_child;
+namespace node {
 
-public:
-    RootNode() noexcept;
-    virtual ~RootNode() noexcept;
-    
-    void add_child(TreeNode *child) noexcept;
-    TreeNode *get(size_t index) const noexcept;
-    size_t size() const noexcept;
-};
+    class RootNode : public TreeNode {
+    private:
+        std::vector<TreeNode *> m_child;
+
+    public:
+        RootNode() noexcept;
+        virtual ~RootNode() noexcept;
+
+        void add_child(TreeNode *child) noexcept;
+        TreeNode *get(size_t index) const noexcept;
+        size_t size() const noexcept;
+    };
+
+}
 
 #endif

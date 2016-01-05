@@ -3,10 +3,17 @@
 
 #include "graphics/graphicstate.h"
 #include "glyphs/glyphs.h"
-#include "nodes/nodes.h"
 
 class Font;
 class Document;
+
+namespace node {
+    class TreeNode;
+    class TextNode;
+    class RootNode;
+    class FontNode;
+    class TextMatrixNode;
+}
 
 class PageAnalyze {
 private:
@@ -19,13 +26,13 @@ public:
     PageAnalyze(Document *document);
     ~PageAnalyze();
 
-    Glyph *analyze_tree(RootNode *tree);
+    Glyph *analyze_tree(node::RootNode *tree);
 
 private:
-    void analyze_tree(RootNode *tree, Glyph *parent);
-    void analyze_text(TextNode *text, Glyph *parent);
-    FontSizeGlyph *analyze_text_matrix(TextMatrixNode *text_matrix);
-    FontGlyph *analyze_font(FontNode *font);
+    void analyze_tree(node::RootNode *tree, Glyph *parent);
+    void analyze_text(node::TextNode *text, Glyph *parent);
+    FontSizeGlyph *analyze_text_matrix(node::TextMatrixNode *text_matrix);
+    FontGlyph *analyze_font(node::FontNode *font);
 };
 
 #endif

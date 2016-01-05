@@ -3,15 +3,19 @@
 
 #include "treenode.h"
 
-class StateNode : public TreeNode {
-private:
-    bool m_save;
+namespace node {
 
-public:
-    StateNode(bool save) noexcept;
-    virtual ~StateNode() noexcept = default;
+    class StateNode : public TreeNode {
+    private:
+        bool m_save;
 
-    bool save() const noexcept;
-};
+    public:
+        StateNode(bool save) noexcept;
+        virtual ~StateNode() noexcept = default;
+
+        bool save() const noexcept;
+    };
+
+}
 
 #endif

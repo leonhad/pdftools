@@ -1,5 +1,7 @@
 #include "statenode.h"
 
+using namespace node;
+
 StateNode::StateNode(bool save) noexcept : TreeNode(), m_save{save}
 {
 }

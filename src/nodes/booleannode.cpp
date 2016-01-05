@@ -1,5 +1,7 @@
 #include "booleannode.h"
 
+using namespace node;
+
 BooleanNode::BooleanNode(bool value) noexcept
 {
     m_value = value;

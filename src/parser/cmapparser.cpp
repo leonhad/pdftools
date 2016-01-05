@@ -7,6 +7,7 @@
 
 using namespace std;
 using namespace parser;
+using namespace node;
 
 CMapParser::CMapParser(istream *stream) : GenericParser{stream}
 {

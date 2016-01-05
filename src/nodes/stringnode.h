@@ -1,18 +1,22 @@
 #ifndef STRINGNODE_H
 #define STRINGNODE_H
 
-#include <string>
 #include "treenode.h"
+#include <string>
 
-class StringNode : public TreeNode {
-private:
-    std::string m_value;
+namespace node {
 
-public:
-    StringNode(std::string value) noexcept;
-    virtual ~StringNode() noexcept = default;
-    
-    std::string value() const noexcept;
-};
+    class StringNode : public TreeNode {
+    private:
+        std::string m_value;
+
+    public:
+        StringNode(std::string value) noexcept;
+        virtual ~StringNode() noexcept = default;
+
+        std::string value() const noexcept;
+    };
+
+}
 
 #endif

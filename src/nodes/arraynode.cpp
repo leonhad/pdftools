@@ -1,6 +1,7 @@
 #include "arraynode.h"
 
 using namespace std;
+using namespace node;
 
 ArrayNode::ArrayNode() noexcept : TreeNode()
 {

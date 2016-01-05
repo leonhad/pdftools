@@ -3,15 +3,19 @@
 
 #include "treenode.h"
 
-class BooleanNode : public TreeNode {
-private:
-    bool m_value;
+namespace node {
 
-public:
-    BooleanNode(bool value) noexcept;
-    virtual ~BooleanNode() noexcept = default;
+    class BooleanNode : public TreeNode {
+    private:
+        bool m_value;
 
-    bool value() const noexcept;
-};
+    public:
+        BooleanNode(bool value) noexcept;
+        virtual ~BooleanNode() noexcept = default;
+
+        bool value() const noexcept;
+    };
+
+}
 
 #endif

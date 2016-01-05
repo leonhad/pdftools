@@ -1,5 +1,7 @@
 #include "refnode.h"
 
+using namespace node;
+
 RefNode::RefNode(int id, int generation) noexcept : TreeNode()
 {
     m_id = id;

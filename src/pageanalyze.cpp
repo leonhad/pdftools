@@ -6,6 +6,8 @@
 #include "semantic/document.h"
 #include <cstdlib>
 
+using namespace node;
+
 PageAnalyze::PageAnalyze(Document *document)
 {
     m_document = document;

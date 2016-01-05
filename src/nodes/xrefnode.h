@@ -5,26 +5,30 @@
 #include <vector>
 #include <stdint.h>
 
-struct object_reference {
-    uint32_t address;
-    uint16_t id;
-    uint16_t generation;
-    char status;
-};
+namespace node {
 
-class XREFNode : public TreeNode {
-private:
-    std::vector<object_reference> m_references;
-    TreeNode *m_trailer = nullptr;
+    struct object_reference {
+        uint32_t address;
+        uint16_t id;
+        uint16_t generation;
+        char status;
+    };
 
-public:
-    XREFNode() noexcept;
-    virtual ~XREFNode() noexcept;
+    class XREFNode : public TreeNode {
+    private:
+        std::vector<object_reference> m_references;
+        TreeNode *m_trailer = nullptr;
 
-    void add_node(uint16_t id, uint16_t generation, uint32_t address, char status) noexcept;
-    void set_trailer(TreeNode *trailer) noexcept;
+    public:
+        XREFNode() noexcept;
+        virtual ~XREFNode() noexcept;
 
-    TreeNode *trailer() const noexcept;
-};
+        void add_node(uint16_t id, uint16_t generation, uint32_t address, char status) noexcept;
+        void set_trailer(TreeNode *trailer) noexcept;
+
+        TreeNode *trailer() const noexcept;
+    };
+
+}
 
 #endif

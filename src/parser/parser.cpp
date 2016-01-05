@@ -8,6 +8,7 @@
 
 using namespace std;
 using namespace parser;
+using namespace node;
 
 inline bool pdf_versions(const string &version) {
     return version == "PDF-1.1"

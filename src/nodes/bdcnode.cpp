@@ -1,5 +1,8 @@
 #include "bdcnode.h"
 
+using namespace std;
+using namespace node;
+
 BDCNode::BDCNode(RootNode *parent) : RootNode()
 {
     m_value = nullptr;

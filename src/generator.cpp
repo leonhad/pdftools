@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <cstring>
 
+using namespace std;
+
 Generator::Generator()
 {
 }

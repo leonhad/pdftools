@@ -5,6 +5,7 @@
 #include "treenode.h"
 
 using namespace std;
+using namespace node;
 
 MapNode::MapNode() noexcept : TreeNode()
 {

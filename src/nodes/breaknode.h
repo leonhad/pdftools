@@ -3,10 +3,14 @@
 
 #include "treenode.h"
 
-class BreakNode : public TreeNode {
-public:
-    BreakNode() noexcept;
-    virtual ~BreakNode() noexcept = default;
-};
+namespace node {
+
+    class BreakNode : public TreeNode {
+    public:
+        BreakNode() noexcept;
+        virtual ~BreakNode() noexcept = default;
+    };
+
+}
 
 #endif

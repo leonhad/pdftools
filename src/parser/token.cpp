@@ -1,6 +1,7 @@
 #include "token.h"
 
 using namespace std;
+using namespace parser;
 
 void Token::set_value(string value) noexcept
 {

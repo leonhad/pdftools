@@ -19,6 +19,7 @@
 
 using namespace std;
 using namespace parser;
+using namespace node;
 
 Analyze::Analyze(const string& filein) throw(exception) : m_filein{filein}
 {
@@ -289,14 +290,10 @@ Document *Analyze::analyze_tree() throw(exception)
     m_document = new Document;
 
     analyze_xref();
-    if (m_document->encrypted()) {
-        throw GenericException{"Encrypted file is not supported"};
-    } else {
-        analyze_info();
-        analyze_root();
-        analyze_pages(m_page_tree);
-        return m_document;
-    }
+    analyze_info();
+    analyze_root();
+    analyze_pages(m_page_tree);
+    return m_document;
 }
 
 Page *Analyze::process_page(int id, int generation, stringstream *stream_value, MapNode *catalog, ArrayNode *)

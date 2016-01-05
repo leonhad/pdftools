@@ -2,6 +2,7 @@
 #include <cstdlib>
 
 using namespace std;
+using namespace node;
 
 ObjNode::ObjNode(int id, int generation) noexcept : TreeNode(), m_id{id}, m_generation{generation}
 {

@@ -3,17 +3,21 @@
 
 #include "treenode.h"
 
-class RefNode : public TreeNode {
-private:
-    int m_id;
-    int m_generation;
+namespace node {
 
-public:
-    RefNode(int id, int generation) noexcept;
-    virtual ~RefNode() noexcept = default;
-    
-    int id() const noexcept;
-    int generation() const noexcept;
-};
+    class RefNode : public TreeNode {
+    private:
+        int m_id;
+        int m_generation;
+
+    public:
+        RefNode(int id, int generation) noexcept;
+        virtual ~RefNode() noexcept = default;
+
+        int id() const noexcept;
+        int generation() const noexcept;
+    };
+
+}
 
 #endif

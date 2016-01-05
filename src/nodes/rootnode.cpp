@@ -1,6 +1,7 @@
 #include "rootnode.h"
 
 using namespace std;
+using namespace node;
 
 RootNode::RootNode() noexcept : TreeNode()
 {

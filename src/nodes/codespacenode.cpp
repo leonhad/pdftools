@@ -1,6 +1,7 @@
 #include "codespacenode.h"
 
 using namespace std;
+using namespace node;
 
 CodeSpaceNode::CodeSpaceNode() noexcept : TreeNode()
 {

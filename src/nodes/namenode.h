@@ -4,15 +4,19 @@
 #include "treenode.h"
 #include <string>
 
-class NameNode : public TreeNode {
-private:
-    std::string m_name;
+namespace node {
 
-public:
-    NameNode(std::string name) noexcept;
-    virtual ~NameNode() noexcept = default;
-    
-    std::string name() const noexcept;
-};
+    class NameNode : public TreeNode {
+    private:
+        std::string m_name;
+
+    public:
+        NameNode(std::string name) noexcept;
+        virtual ~NameNode() noexcept = default;
+
+        std::string name() const noexcept;
+    };
+
+}
 
 #endif

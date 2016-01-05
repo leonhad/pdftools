@@ -1,6 +1,7 @@
 #include "fontnode.h"
 
 using namespace std;
+using namespace node;
 
 FontNode::FontNode() noexcept : TreeNode()
 {

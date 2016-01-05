@@ -2,7 +2,9 @@
 #include "../nodes/nodes.h"
 #include "../utils.h"
 
+using namespace std;
 using namespace parser;
+using namespace node;
 
 GenericParser::GenericParser(std::istream *filein) noexcept
 {

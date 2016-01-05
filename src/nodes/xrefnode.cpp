@@ -1,6 +1,7 @@
 #include "xrefnode.h"
 
 using namespace std;
+using namespace node;
 
 XREFNode::XREFNode() noexcept : TreeNode()
 {

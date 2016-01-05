@@ -3,6 +3,7 @@
 #include "charnode.h"
 
 using namespace std;
+using namespace node;
 
 CMapNode::CMapNode() noexcept : TreeNode()
 {

@@ -1,5 +1,6 @@
 noinst_LIBRARIES = libnodes.a
 libnodes_a_SOURCES = \
+	treenode.cpp \
 	objnode.cpp \
 	xrefnode.cpp \
 	mapnode.cpp \
@@ -21,6 +22,7 @@ libnodes_a_SOURCES = \
 	textmatrixnode.cpp
 
 noinst_HEADERS = \
+	treenode.h \
 	objnode.h \
 	xrefnode.h \
 	mapnode.h \

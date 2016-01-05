@@ -1,5 +1,8 @@
 #include "textnode.h"
 
+using namespace std;
+using namespace node;
+
 TextNode::TextNode() noexcept : TreeNode()
 {
 }

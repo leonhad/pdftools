@@ -5,26 +5,28 @@
 #include "genericparser.h"
 #include <istream>
 
-class TreeNode;
-class CMapNode;
-class CodeSpaceNode;
+namespace node {
+    class TreeNode;
+    class CMapNode;
+    class CodeSpaceNode;
+}
 
 namespace parser {
     
     class CMapParser : public GenericParser {
     private:
-        CMapNode *m_root;
+        node::CMapNode *m_root;
         
     public:
         CMapParser(std::istream *stream);
         virtual ~CMapParser();
         
-        CMapNode *parse();
+        node::CMapNode *parse();
         
     private:
         void bfchar_sequence(const int count);
         void bfrange_sequence(const int count);
-        CodeSpaceNode *codespace_sequence();
+        node::CodeSpaceNode *codespace_sequence();
     };
     
 }

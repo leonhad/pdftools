@@ -5,17 +5,21 @@
 #include <vector>
 #include <cstddef>
 
-class ArrayNode : public TreeNode {
-private:
-    std::vector<TreeNode *> m_values;
+namespace node {
 
-public:
-    ArrayNode() noexcept;
-    virtual ~ArrayNode() noexcept;
+    class ArrayNode : public TreeNode {
+    private:
+        std::vector<TreeNode *> m_values;
 
-    void push(TreeNode *value) noexcept;
-    TreeNode *value(size_t index) const noexcept;
-    size_t size() const noexcept;
-};
+    public:
+        ArrayNode() noexcept;
+        virtual ~ArrayNode() noexcept;
+
+        void push(TreeNode *value) noexcept;
+        TreeNode *value(size_t index) const noexcept;
+        size_t size() const noexcept;
+    };
+
+}
 
 #endif

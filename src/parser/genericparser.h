@@ -1,10 +1,12 @@
 #ifndef GENERICPARSER_H
 #define GENERICPARSER_H
 
-#include <sstream>
 #include "scanner.h"
+#include <sstream>
 
-class TreeNode;
+namespace node {
+    class TreeNode;
+}
 
 namespace parser {
     class GenericParser {
@@ -17,7 +19,7 @@ namespace parser {
         virtual ~GenericParser() noexcept;
         
     protected:
-        TreeNode *value_sequence();
+        node::TreeNode *value_sequence();
         bool match(TokenType type);
         void next_token();
     };

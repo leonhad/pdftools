@@ -108,12 +108,12 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libnodes_a_AR = $(AR) $(ARFLAGS)
 libnodes_a_LIBADD =
-am_libnodes_a_OBJECTS = libnodes_a-objnode.$(OBJEXT) \
-	libnodes_a-xrefnode.$(OBJEXT) libnodes_a-mapnode.$(OBJEXT) \
-	libnodes_a-stringnode.$(OBJEXT) libnodes_a-namenode.$(OBJEXT) \
-	libnodes_a-refnode.$(OBJEXT) libnodes_a-numbernode.$(OBJEXT) \
-	libnodes_a-arraynode.$(OBJEXT) libnodes_a-rootnode.$(OBJEXT) \
-	libnodes_a-booleannode.$(OBJEXT) \
+am_libnodes_a_OBJECTS = libnodes_a-treenode.$(OBJEXT) \
+	libnodes_a-objnode.$(OBJEXT) libnodes_a-xrefnode.$(OBJEXT) \
+	libnodes_a-mapnode.$(OBJEXT) libnodes_a-stringnode.$(OBJEXT) \
+	libnodes_a-namenode.$(OBJEXT) libnodes_a-refnode.$(OBJEXT) \
+	libnodes_a-numbernode.$(OBJEXT) libnodes_a-arraynode.$(OBJEXT) \
+	libnodes_a-rootnode.$(OBJEXT) libnodes_a-booleannode.$(OBJEXT) \
 	libnodes_a-breaknode.$(OBJEXT) libnodes_a-bdcnode.$(OBJEXT) \
 	libnodes_a-textnode.$(OBJEXT) libnodes_a-fontnode.$(OBJEXT) \
 	libnodes_a-charnode.$(OBJEXT) libnodes_a-cmapnode.$(OBJEXT) \
@@ -282,6 +282,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LIBRARIES = libnodes.a
 libnodes_a_SOURCES = \
+	treenode.cpp \
 	objnode.cpp \
 	xrefnode.cpp \
 	mapnode.cpp \
@@ -303,6 +304,7 @@ libnodes_a_SOURCES = \
 	textmatrixnode.cpp
 
 noinst_HEADERS = \
+	treenode.h \
 	objnode.h \
 	xrefnode.h \
 	mapnode.h \
@@ -392,6 +394,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libnodes_a-stringnode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libnodes_a-textmatrixnode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libnodes_a-textnode.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libnodes_a-treenode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libnodes_a-xrefnode.Po@am__quote@
 
 .cpp.o:
@@ -407,6 +410,20 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+libnodes_a-treenode.o: treenode.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_a_CXXFLAGS) $(CXXFLAGS) -MT libnodes_a-treenode.o -MD -MP -MF $(DEPDIR)/libnodes_a-treenode.Tpo -c -o libnodes_a-treenode.o `test -f 'treenode.cpp' || echo '$(srcdir)/'`treenode.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libnodes_a-treenode.Tpo $(DEPDIR)/libnodes_a-treenode.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='treenode.cpp' object='libnodes_a-treenode.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_a_CXXFLAGS) $(CXXFLAGS) -c -o libnodes_a-treenode.o `test -f 'treenode.cpp' || echo '$(srcdir)/'`treenode.cpp
+
+libnodes_a-treenode.obj: treenode.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_a_CXXFLAGS) $(CXXFLAGS) -MT libnodes_a-treenode.obj -MD -MP -MF $(DEPDIR)/libnodes_a-treenode.Tpo -c -o libnodes_a-treenode.obj `if test -f 'treenode.cpp'; then $(CYGPATH_W) 'treenode.cpp'; else $(CYGPATH_W) '$(srcdir)/treenode.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libnodes_a-treenode.Tpo $(DEPDIR)/libnodes_a-treenode.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='treenode.cpp' object='libnodes_a-treenode.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_a_CXXFLAGS) $(CXXFLAGS) -c -o libnodes_a-treenode.obj `if test -f 'treenode.cpp'; then $(CYGPATH_W) 'treenode.cpp'; else $(CYGPATH_W) '$(srcdir)/treenode.cpp'; fi`
 
 libnodes_a-objnode.o: objnode.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libnodes_a_CXXFLAGS) $(CXXFLAGS) -MT libnodes_a-objnode.o -MD -MP -MF $(DEPDIR)/libnodes_a-objnode.Tpo -c -o libnodes_a-objnode.o `test -f 'objnode.cpp' || echo '$(srcdir)/'`objnode.cpp

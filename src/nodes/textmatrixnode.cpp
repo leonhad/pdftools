@@ -1,5 +1,7 @@
 #include "textmatrixnode.h"
 
+using namespace node;
+
 TextMatrixNode::TextMatrixNode(double a, double b, double c, double d, double e, double f) noexcept : TreeNode()
 {
     m_a = a;

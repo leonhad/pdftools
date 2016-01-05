@@ -1,6 +1,7 @@
 #include "charnode.h"
 
 using namespace std;
+using namespace node;
 
 CharNode::CharNode(string character, string unicode) noexcept : TreeNode()
 {

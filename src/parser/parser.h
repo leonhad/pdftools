@@ -1,15 +1,16 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "token.h"
+#include "genericparser.h"
 #include <string>
 #include <fstream>
 #include <stdexcept>
-#include "token.h"
-#include "genericparser.h"
 
-class Scanner;
-class TreeNode;
-class RootNode;
+namespace node {
+    class TreeNode;
+    class RootNode;
+}
 
 namespace parser {
     
@@ -22,16 +23,16 @@ namespace parser {
         Parser(std::ifstream *filein) throw(std::exception);
         virtual ~Parser() noexcept = default;
         
-        RootNode *parse();
+        node::RootNode *parse();
         
     private:
         bool verify_version();
-        void object_streams(RootNode *root);
+        void object_streams(node::RootNode *root);
         void startxref_sequence();
         
         void comment_sequence();
-        TreeNode *object_sequence();
-        TreeNode *xref_sequence();
+        node::TreeNode *object_sequence();
+        node::TreeNode *xref_sequence();
     };
     
 }
