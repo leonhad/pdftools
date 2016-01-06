@@ -1,7 +1,15 @@
+2016-01-06  Leonardo Alves da Costa <leonhad@gmail.com>
+
+		* Fixed octal string parser.
+		* Fixed error messages.
+		* Migrated do c++14.
+		* Removed help2man dependency.
+		* Fixed the basic documentation.
+
 2012-01-11  Leonardo Alves da Costa <leonhad@gmail.com>
 
-        * Create the autotools infraestructure
+		* Create the autotools infraestructure.
 
 2012-01-05  Fernando Ribeiro  <fernando.ribeiro@gmail.com>
 
-        * Project debianized
+		* Project debianized.

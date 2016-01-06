@@ -18,7 +18,7 @@ official site
 
 <http://www.pkware.com/documents/casestudies/APPNOTE.TXT>
 
-Licensing
+# Licensing
 
 PDFTools is released under the General Public License version 3 (GPLv3+).
 Additionally, Autoconf includes a licensing exception in some of its
