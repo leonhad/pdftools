@@ -59,7 +59,7 @@ namespace parser {
 
     constexpr bool is_space(const char c) noexcept
     {
-        return isspace(c) || (c == EOF);
+        return (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f') || (c == '\r') || (c == EOF);
     }
 
 }
