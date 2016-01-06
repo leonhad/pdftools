@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
             cout << "  -v, --version\t\t\t\tdisplay the version information" << endl;
             cout << "  --verbose\t\t\t\trun in verbose mode" << endl;
             cout << endl;
-            cout << "Report bugs to <http://code.google.com/p/pdftools/issues/list>" << endl;
+            cout << "Report bugs to <https://github.com/leonhad/pdftools/issues>" << endl;
             return EXIT_SUCCESS;
         case 'v':
             cout << PACKAGE_STRING << endl;
