@@ -1,0 +1,49 @@
+.\" Man pages for PDF Tools.
+.TH PDFTOOLS "1" "January 2016" "pdftools @PACKAGE_VERSION@" "User Commands"
+.SH NAME
+pdftools - is a high level tools to convert PDF files to ePUB format.
+.SH SYNOPSIS
+.B pdftools
+[\fI\,options\/\fR] \fI\,file\/\fR...
+.SH DESCRIPTION
+.B pdftools
+is a high level tools to convert PDF files to ePUB format.
+.PP
+
+.PP
+.SH OPTIONS
+.TP
+Mandatory arguments to long options are mandatory for short options too.
+.TP
+\fB\-f\fR <format>, \fB\-\-format=\fR<format>
+output file format [epub]
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+display this information and quit
+.TP
+\fB\-o\fR <file>
+set the output file
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+display the version information
+.TP
+\fB\-\-verbose\fR
+run in verbose mode
+.PP
+
+.SH AUTHOR
+Written by Leonardo Alves da Costa.
+.SH "REPORTING BUGS"
+Report bugs to <https://github.com/leonhad/pdftools/issues>
+.PP
+
+.br
+Copyright \(co 2014 Leonardo Alves da Costa.
+.br
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+.br
+This is free software: you are free to change and redistribute it.
+.br
+There is NO WARRANTY, to the extent permitted by law.
+.PP
+

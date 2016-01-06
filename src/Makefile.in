@@ -99,7 +99,7 @@ DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
 	$(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
-CONFIG_CLEAN_FILES = pdftools.h2m
+CONFIG_CLEAN_FILES = pdftools.1
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(man1dir)"
 PROGRAMS = $(bin_PROGRAMS)
@@ -221,7 +221,7 @@ ETAGS = etags
 CTAGS = ctags
 DIST_SUBDIRS = $(SUBDIRS)
 am__DIST_COMMON = $(dist_man_MANS) $(srcdir)/Makefile.in \
-	$(srcdir)/pdftools.h2m.in $(top_srcdir)/depcomp
+	$(srcdir)/pdftools.1.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 am__relativize = \
   dir0=`pwd`; \
@@ -275,7 +275,6 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 GREP = @GREP@
 HAVE_CXX14 = @HAVE_CXX14@
-HELP2MAN = @HELP2MAN@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -409,7 +408,7 @@ $(top_srcdir)/configure:  $(am__configure_deps)
 $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
-pdftools.h2m: $(top_builddir)/config.status $(srcdir)/pdftools.h2m.in
+pdftools.1: $(top_builddir)/config.status $(srcdir)/pdftools.1.in
 	cd $(top_builddir) && $(SHELL) ./config.status $(subdir)/$@
 install-binPROGRAMS: $(bin_PROGRAMS)
 	@$(NORMAL_INSTALL)
@@ -909,10 +908,6 @@ uninstall-man: uninstall-man1
 
 .PRECIOUS: Makefile
 
-
-@HELP2MAN_TRUE@pdftools.1: pdftools$(EXEEXT) pdftools.h2m
-@HELP2MAN_TRUE@	@echo generating help file $@...
-@HELP2MAN_TRUE@	@$(HELP2MAN) --output=$@ -N -i pdftools.h2m ./pdftools$(EXEEXT)
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
