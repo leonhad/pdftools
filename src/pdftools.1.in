@@ -8,6 +8,9 @@ pdftools - is a high level tools to convert PDF files to ePUB format.
 .SH DESCRIPTION
 .B pdftools
 is a high level tools to convert PDF files to ePUB format.
+.TP
+Because of legal issues, this tool don't support encrypted files.
+
 .PP
 
 .PP

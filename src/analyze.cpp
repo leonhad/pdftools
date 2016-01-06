@@ -291,9 +291,13 @@ Document *Analyze::analyze_tree() throw(exception)
 
     analyze_xref();
     analyze_info();
-    analyze_root();
-    analyze_pages(m_page_tree);
-    return m_document;
+    if (m_document->encrypted()) {
+        throw GenericException("Encrypted file is not supported.");
+    } else {
+        analyze_root();
+        analyze_pages(m_page_tree);
+        return m_document;
+    }
 }
 
 Page *Analyze::process_page(int id, int generation, stringstream *stream_value, MapNode *catalog, ArrayNode *)
