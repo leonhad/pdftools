@@ -5,12 +5,12 @@ AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_MACRO_DIR([.])
 AC_CONFIG_HEADER([config.h])
 
-DEBUG_CFLAGS="-O3 -DNDEBUG -pedantic -Wall -funroll-loops"
+DEBUG_CFLAGS="-O3 -DNDEBUG -Wall"
 dnl This mechanism allows one to enable debug compilations...
 AC_ARG_ENABLE(debug,
 [  --enable-debug     enable debugging and disable optimization],
 [  if test "$enable_debug" = "yes"; then
-      DEBUG_CFLAGS="-g3 -DDEBUG -pedantic -Wall -fno-inline"
+      DEBUG_CFLAGS="-O0 -g3 -DDEBUG -Wall -fno-inline"
    fi
 ])
 AM_CONDITIONAL(ENABLE_DEBUG, test "$enable_debug" = "yes")
