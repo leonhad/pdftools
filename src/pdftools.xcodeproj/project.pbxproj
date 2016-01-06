@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A54AE5BF1C3DC0E800363BFA /* treenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A54AE5BE1C3DC0E800363BFA /* treenode.cpp */; };
 		A57D14871C2791990072F543 /* analyze.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D14681C2791990072F543 /* analyze.cpp */; };
 		A57D14891C2791990072F543 /* converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146C1C2791990072F543 /* converter.cpp */; };
 		A57D148A1C2791990072F543 /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A57D146F1C2791990072F543 /* generator.cpp */; };
@@ -74,6 +75,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A54AE5BE1C3DC0E800363BFA /* treenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = treenode.cpp; path = nodes/treenode.cpp; sourceTree = SOURCE_ROOT; };
+		A54AE5C01C3DC11E00363BFA /* textnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textnode.h; path = nodes/textnode.h; sourceTree = SOURCE_ROOT; };
 		A57D145E1C2790FF0072F543 /* pdftools */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = pdftools; sourceTree = BUILT_PRODUCTS_DIR; };
 		A57D14681C2791990072F543 /* analyze.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = analyze.cpp; sourceTree = SOURCE_ROOT; };
 		A57D14691C2791990072F543 /* analyze.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = analyze.h; sourceTree = SOURCE_ROOT; };
@@ -145,7 +148,6 @@
 		A598EED11C28B069008FFC74 /* textmatrixnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textmatrixnode.cpp; path = nodes/textmatrixnode.cpp; sourceTree = SOURCE_ROOT; };
 		A598EED21C28B069008FFC74 /* textmatrixnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textmatrixnode.h; path = nodes/textmatrixnode.h; sourceTree = SOURCE_ROOT; };
 		A598EED31C28B069008FFC74 /* textnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textnode.cpp; path = nodes/textnode.cpp; sourceTree = SOURCE_ROOT; };
-		A598EED41C28B069008FFC74 /* textnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textnode.h; path = nodes/textnode.h; sourceTree = SOURCE_ROOT; };
 		A598EED61C28B069008FFC74 /* treenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = treenode.h; path = nodes/treenode.h; sourceTree = SOURCE_ROOT; };
 		A598EED71C28B069008FFC74 /* xrefnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xrefnode.cpp; path = nodes/xrefnode.cpp; sourceTree = SOURCE_ROOT; };
 		A598EED81C28B069008FFC74 /* xrefnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xrefnode.h; path = nodes/xrefnode.h; sourceTree = SOURCE_ROOT; };
@@ -293,6 +295,8 @@
 		A598EEED1C28B070008FFC74 /* nodes */ = {
 			isa = PBXGroup;
 			children = (
+				A54AE5C01C3DC11E00363BFA /* textnode.h */,
+				A54AE5BE1C3DC0E800363BFA /* treenode.cpp */,
 				A598EEB01C28B069008FFC74 /* arraynode.cpp */,
 				A598EEB11C28B069008FFC74 /* arraynode.h */,
 				A598EEB21C28B069008FFC74 /* bdcnode.cpp */,
@@ -329,7 +333,6 @@
 				A598EED11C28B069008FFC74 /* textmatrixnode.cpp */,
 				A598EED21C28B069008FFC74 /* textmatrixnode.h */,
 				A598EED31C28B069008FFC74 /* textnode.cpp */,
-				A598EED41C28B069008FFC74 /* textnode.h */,
 				A598EED61C28B069008FFC74 /* treenode.h */,
 				A598EED71C28B069008FFC74 /* xrefnode.cpp */,
 				A598EED81C28B069008FFC74 /* xrefnode.h */,
@@ -495,6 +498,7 @@
 				A5E0F0B21C3B340B00160E3B /* genericexception.cpp in Sources */,
 				A57D148A1C2791990072F543 /* generator.cpp in Sources */,
 				A598EEFC1C28B0C8008FFC74 /* font.cpp in Sources */,
+				A54AE5BF1C3DC0E800363BFA /* treenode.cpp in Sources */,
 				A598EEDD1C28B069008FFC74 /* charnode.cpp in Sources */,
 				A5E0F0AA1C336ABE00160E3B /* parser.cpp in Sources */,
 				A598EEFF1C28B0C8008FFC74 /* pagelabel.cpp in Sources */,
