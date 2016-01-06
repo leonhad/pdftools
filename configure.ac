@@ -24,9 +24,6 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AM_PROG_AR
 AC_PROG_RANLIB
-AC_CHECK_TOOL(HELP2MAN, help2man, :)
-AM_CONDITIONAL(HELP2MAN, [test "$HELP2MAN" != :])
-AM_PROG_INSTALL_STRIP
 
 # Checks for libraries.
 AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find Zlib support])])
@@ -37,7 +34,7 @@ AC_CHECK_HEADERS([iconv.h],,AC_MSG_ERROR(libiconv is missing))
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-                 src/pdftools.h2m
+                 src/pdftools.1
                  src/nodes/Makefile
                  src/glyphs/Makefile
                  src/parser/Makefile
