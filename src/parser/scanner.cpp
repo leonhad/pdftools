@@ -4,6 +4,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <vector>
+#include <string>
 #include <iostream>
 
 using namespace std;
@@ -46,17 +47,6 @@ namespace parser {
         return (c >= '0' && c <= '9') || (c == '-') || (c == '+') || (c == '.');
     }
 
-    constexpr unsigned int xtod(const char c) noexcept
-    {
-        if (c >= '0' && c <= '9')
-            return c - '0';
-        if (c >= 'A' && c <= 'F')
-            return c - 'A' + 10;
-        if (c >= 'a' && c <= 'f')
-            return c - 'a' + 10;
-        return 0; // not a hex digit
-    }
-
     constexpr bool is_space(const char c) noexcept
     {
         return (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f') || (c == '\r') || (c == EOF);
@@ -68,12 +58,12 @@ Scanner::Scanner(istream *m_filein) noexcept : m_filein{m_filein}
 {
 }
 
-void Scanner::disable_charset_conversion()
+void Scanner::disable_charset_conversion() noexcept
 {
     m_charset_conversion = false;
 }
 
-size_t Scanner::pos()
+size_t Scanner::pos() const noexcept
 {
     return m_filein->tellg();
 }
@@ -83,7 +73,7 @@ void Scanner::clear() noexcept
     m_filein->clear();
 }
 
-void Scanner::to_pos(size_t pos)
+void Scanner::to_pos(size_t pos) noexcept
 {
     if (m_filein->good()) {
         m_filein->seekg(pos, ios::beg);
@@ -92,7 +82,7 @@ void Scanner::to_pos(size_t pos)
     }
 }
 
-size_t Scanner::ignore_stream(int length)
+size_t Scanner::ignore_stream(int length) noexcept
 {
     // endstream buffer (ndstream + \0)
     char buff[9];
@@ -127,7 +117,7 @@ size_t Scanner::ignore_stream(int length)
     return ret;
 }
 
-char *Scanner::get_image_stream()
+char *Scanner::get_image_stream() noexcept
 {
     // Ignore first new line
     while (m_filein->good() && next_char() != '\n') {
@@ -153,7 +143,7 @@ char *Scanner::get_image_stream()
     return nullptr;
 }
 
-char *Scanner::get_stream(int length)
+char *Scanner::get_stream(int length) noexcept
 {
     char *stream = new char[length];
     m_filein->read((char *) stream, length);
@@ -177,12 +167,12 @@ char Scanner::next_char() noexcept
     return ret;
 }
 
-bool Scanner::good() noexcept
+bool Scanner::good() const noexcept
 {
     return m_filein->good();
 }
 
-void Scanner::ignore_line()
+void Scanner::ignore_line() noexcept
 {
     while (next_char() != '\n') {
     }
@@ -204,7 +194,7 @@ TokenType Scanner::reserved_lookup(const char *s) noexcept
     return TokenType::NAME;
 }
 
-Token *Scanner::next_token()
+Token *Scanner::next_token() noexcept
 {
     string token_string;
     TokenType current_token{TokenType::ENDFILE};
@@ -288,18 +278,10 @@ Token *Scanner::next_token()
                 save = false;
                 state = StateType::DONE;
 
-                unsigned int loop;
                 string str;
 
-                // FIXME review this
-                for (loop = 0; loop < token_string.length(); loop++) {
-                    unsigned int h = xtod(token_string.at(loop)) << 4;
-                    unsigned int l = 0;
-                    loop++;
-                    if (loop < token_string.length()) {
-                        l = xtod(token_string.at(loop));
-                    }
-                    str.push_back(h + l);
+                for (unsigned int loop = 0; loop < token_string.length(); loop += 2) {
+                    str.push_back(static_cast<char>(stoi(token_string.substr(loop, 2), nullptr, 16)));
                 }
                 if (m_charset_conversion) {
                     token_string = charset_to_utf8(str);
@@ -315,6 +297,12 @@ Token *Scanner::next_token()
             } else if (c == '\\') {
                 // save the next char
                 c = next_char();
+                if (c >= '0' && c <= '9') {
+                    string value{c};
+                    value += next_char();
+                    value += next_char();
+                    c = static_cast<char>(stoi(value, nullptr, 8));
+                }
                 if (c == '\n' || c == '\r') {
                     save = false;
                 }
