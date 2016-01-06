@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
             }
             break;
         case 'h':
-            cout << PACKAGE_NAME << " is a high level tools to convert PDF files to AZW or ePUB formats." << endl;
+            cout << PACKAGE_NAME << " is a high level tools to convert PDF files to ePUB format." << endl;
             cout << endl;
             cout << "Usage: " << PACKAGE_NAME << " [options] file..." << endl;
             cout << "Options:" << endl;
@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
             cout << "  -v, --version\t\t\t\tdisplay the version information" << endl;
             cout << "  --verbose\t\t\t\trun in verbose mode" << endl;
             cout << endl;
+            cout << "In conformance on copyright issues, this tool don't support encrypted files." << endl;
             cout << "Report bugs to <https://github.com/leonhad/pdftools/issues>" << endl;
             return EXIT_SUCCESS;
         case 'v':
