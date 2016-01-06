@@ -3036,11 +3036,11 @@ fi
 ac_config_headers="$ac_config_headers config.h"
 
 
-DEBUG_CFLAGS="-O3 -DNDEBUG -Wall"
+DEBUG_CFLAGS="-O3 -DNDEBUG"
 # Check whether --enable-debug was given.
 if test "${enable_debug+set}" = set; then :
   enableval=$enable_debug;   if test "$enable_debug" = "yes"; then
-      DEBUG_CFLAGS="-O0 -g3 -DDEBUG -Wall -fno-inline"
+      DEBUG_CFLAGS="-O0 -g3 -DDEBUG -fno-inline"
    fi
 
 fi
@@ -3053,7 +3053,7 @@ else
   ENABLE_DEBUG_FALSE=
 fi
 
-CXXFLAGS="$DEBUG_CFLAGS $CXXFLAGS"
+CXXFLAGS="$DEBUG_CFLAGS"
 
 # Checks for programs.
 ac_ext=cpp
@@ -4658,6 +4658,147 @@ $as_echo "#define HAVE_CXX14 1" >>confdefs.h
 
 
   fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C++ compiler accepts -march=nocona" >&5
+$as_echo_n "checking whether C++ compiler accepts -march=nocona... " >&6; }
+if ${ax_cv_check_cxxflags___march_nocona+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+  ax_check_save_flags=$CXXFLAGS
+  CXXFLAGS="$CXXFLAGS  -march=nocona"
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_compile "$LINENO"; then :
+  ax_cv_check_cxxflags___march_nocona=yes
+else
+  ax_cv_check_cxxflags___march_nocona=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+  CXXFLAGS=$ax_check_save_flags
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_cv_check_cxxflags___march_nocona" >&5
+$as_echo "$ax_cv_check_cxxflags___march_nocona" >&6; }
+if test "x$ax_cv_check_cxxflags___march_nocona" = xyes; then :
+  CXXFLAGS="$CXXFLAGS -march=nocona"
+else
+  :
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C++ compiler accepts -mtune=core2" >&5
+$as_echo_n "checking whether C++ compiler accepts -mtune=core2... " >&6; }
+if ${ax_cv_check_cxxflags___mtune_core2+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+  ax_check_save_flags=$CXXFLAGS
+  CXXFLAGS="$CXXFLAGS  -mtune=core2"
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_compile "$LINENO"; then :
+  ax_cv_check_cxxflags___mtune_core2=yes
+else
+  ax_cv_check_cxxflags___mtune_core2=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+  CXXFLAGS=$ax_check_save_flags
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_cv_check_cxxflags___mtune_core2" >&5
+$as_echo "$ax_cv_check_cxxflags___mtune_core2" >&6; }
+if test "x$ax_cv_check_cxxflags___mtune_core2" = xyes; then :
+  CXXFLAGS="$CXXFLAGS -mtune=core2"
+else
+  :
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C++ compiler accepts -Wall" >&5
+$as_echo_n "checking whether C++ compiler accepts -Wall... " >&6; }
+if ${ax_cv_check_cxxflags___Wall+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+  ax_check_save_flags=$CXXFLAGS
+  CXXFLAGS="$CXXFLAGS  -Wall"
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_compile "$LINENO"; then :
+  ax_cv_check_cxxflags___Wall=yes
+else
+  ax_cv_check_cxxflags___Wall=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+  CXXFLAGS=$ax_check_save_flags
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_cv_check_cxxflags___Wall" >&5
+$as_echo "$ax_cv_check_cxxflags___Wall" >&6; }
+if test "x$ax_cv_check_cxxflags___Wall" = xyes; then :
+  CXXFLAGS="$CXXFLAGS -Wall"
+else
+  :
+fi
+
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking whether C++ compiler accepts -pipe" >&5
+$as_echo_n "checking whether C++ compiler accepts -pipe... " >&6; }
+if ${ax_cv_check_cxxflags___pipe+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+
+  ax_check_save_flags=$CXXFLAGS
+  CXXFLAGS="$CXXFLAGS  -pipe"
+  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_cxx_try_compile "$LINENO"; then :
+  ax_cv_check_cxxflags___pipe=yes
+else
+  ax_cv_check_cxxflags___pipe=no
+fi
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+  CXXFLAGS=$ax_check_save_flags
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_cv_check_cxxflags___pipe" >&5
+$as_echo "$ax_cv_check_cxxflags___pipe" >&6; }
+if test "x$ax_cv_check_cxxflags___pipe" = xyes; then :
+  CXXFLAGS="$CXXFLAGS -pipe"
+else
+  :
+fi
+
 
 
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether ${MAKE-make} sets \$(MAKE)" >&5

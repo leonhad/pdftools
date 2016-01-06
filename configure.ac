@@ -5,21 +5,26 @@ AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_MACRO_DIR([.])
 AC_CONFIG_HEADER([config.h])
 
-DEBUG_CFLAGS="-O3 -DNDEBUG -Wall"
+DEBUG_CFLAGS="-O3 -DNDEBUG"
 dnl This mechanism allows one to enable debug compilations...
 AC_ARG_ENABLE(debug,
 [  --enable-debug     enable debugging and disable optimization],
 [  if test "$enable_debug" = "yes"; then
-      DEBUG_CFLAGS="-O0 -g3 -DDEBUG -Wall -fno-inline"
+      DEBUG_CFLAGS="-O0 -g3 -DDEBUG -fno-inline"
    fi
 ])
 AM_CONDITIONAL(ENABLE_DEBUG, test "$enable_debug" = "yes")
-CXXFLAGS="$DEBUG_CFLAGS $CXXFLAGS"
+CXXFLAGS="$DEBUG_CFLAGS"
 
 # Checks for programs.
 AC_LANG([C++])
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
+AX_CHECK_COMPILE_FLAG([-march=nocona], [CXXFLAGS="$CXXFLAGS -march=nocona"])
+AX_CHECK_COMPILE_FLAG([-mtune=core2], [CXXFLAGS="$CXXFLAGS -mtune=core2"])
+AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
+AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
+
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AM_PROG_AR
