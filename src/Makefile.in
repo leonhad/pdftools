@@ -373,8 +373,7 @@ pdftools_LDADD = \
 	xml/libxml.a \
 	glyphs/libglyphs.a \
 	graphics/libgraphics.a \
-	nodes/libnodes.a \
-	$(XML_LIBS) -liconv
+	nodes/libnodes.a
 
 all: all-recursive
 

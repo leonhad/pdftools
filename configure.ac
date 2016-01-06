@@ -14,7 +14,7 @@ AC_ARG_ENABLE(debug,
    fi
 ])
 AM_CONDITIONAL(ENABLE_DEBUG, test "$enable_debug" = "yes")
-CXXFLAGS="$DEBUG_CFLAGS"
+CXXFLAGS="$DEBUG_CFLAGS $CXXFLAGS"
 
 # Checks for programs.
 AC_LANG([C++])
@@ -32,7 +32,6 @@ AC_PROG_RANLIB
 
 # Checks for libraries.
 AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find Zlib support])])
-AC_CHECK_LIB([iconv], [iconv_open])
 
 # Checks for header files.
 AC_CHECK_HEADERS([iconv.h],,AC_MSG_ERROR(libiconv is missing))

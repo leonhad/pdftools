@@ -1,6 +1,7 @@
 SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
 
 bin_PROGRAMS = pdftools
+
 pdftools_SOURCES = main.cpp \
 	utils.cpp \
 	analyze.cpp \
@@ -30,6 +31,5 @@ pdftools_LDADD = \
 	xml/libxml.a \
 	glyphs/libglyphs.a \
 	graphics/libgraphics.a \
-	nodes/libnodes.a \
-	$(XML_LIBS) -liconv
+	nodes/libnodes.a
 
