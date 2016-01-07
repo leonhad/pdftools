@@ -16,12 +16,14 @@ AC_ARG_ENABLE(debug,
 AM_CONDITIONAL(ENABLE_DEBUG, test "$enable_debug" = "yes")
 CXXFLAGS="$DEBUG_CFLAGS $CXXFLAGS"
 
+AC_CANONICAL_HOST
+
 # Checks for programs.
 AC_LANG([C++])
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
-AX_CHECK_COMPILE_FLAG([-march=nocona], [CXXFLAGS="$CXXFLAGS -march=nocona"])
-AX_CHECK_COMPILE_FLAG([-mtune=core2], [CXXFLAGS="$CXXFLAGS -mtune=core2"])
+# AX_CHECK_COMPILE_FLAG([-march=nocona], [CXXFLAGS="$CXXFLAGS -march=nocona"])
+# AX_CHECK_COMPILE_FLAG([-mtune=core2], [CXXFLAGS="$CXXFLAGS -mtune=core2"])
 AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
 
@@ -31,10 +33,29 @@ AM_PROG_AR
 AC_PROG_RANLIB
 
 # Checks for libraries.
-AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find Zlib support])])
+AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find zlib support])])
 
-# Checks for header files.
-AC_CHECK_HEADERS([iconv.h],,AC_MSG_ERROR(libiconv is missing))
+AC_CHECK_HEADER([iconv.h],, [AC_MSG_ERROR([Could not find libiconv])])
+AC_CACHE_CHECK([for libiconv], [am_cv_func_iconv], [
+    am_cv_func_iconv="no, consider installing GNU libiconv"
+    am_cv_lib_iconv=no
+    AC_TRY_LINK([#include <stdlib.h>
+#include <iconv.h>],
+      [iconv_t cd = iconv_open("","");
+       iconv(cd,NULL,NULL,NULL,NULL);
+       iconv_close(cd);],
+      am_cv_func_iconv=yes)
+    if test "$am_cv_func_iconv" != yes; then
+      am_save_LIBS="$LIBS"
+      LIBS="$LIBS -liconv"
+      AC_TRY_LINK([#include <stdlib.h>
+#include <iconv.h>],
+        [iconv_t cd = iconv_open("","");
+         iconv(cd,NULL,NULL,NULL,NULL);
+         iconv_close(cd);],am_cv_func_iconv=yes,
+        LIBS="$am_save_LIBS")
+    fi
+  ])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
