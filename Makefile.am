@@ -6,4 +6,4 @@ EXTRA_DIST = \
 	COPYING.APPNOTE \
 	COPYING.ZLIB \
 	README.md \
-	m4
+	debian
