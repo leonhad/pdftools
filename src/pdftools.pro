@@ -3,9 +3,13 @@ CONFIG += console c++11
 CONFIG -= app_bundle
 CONFIG -= qt
 
-LIBS += -lz -liconv
+LIBS += -lz
 
-debug:QMAKE_CXXFLAGS += -DDEBUG
+!linux {
+    LIBS += -liconv
+}
+
+debug:DEFINES += DEBUG
 
 SOURCES += main.cpp \
     analyze.cpp \
