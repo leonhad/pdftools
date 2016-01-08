@@ -3,11 +3,11 @@
 using namespace std;
 using namespace parser;
 
-void Token::Token() noexcept
+Token::Token() noexcept
 {
 }
 
-void Token::~Token() noexcept
+Token::~Token() noexcept
 {
 }
 

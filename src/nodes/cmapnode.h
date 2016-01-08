@@ -3,7 +3,7 @@
 
 #include "treenode.h"
 #include <vector>
-#include <cstdint>
+#include <cstring>
 
 namespace node {
 

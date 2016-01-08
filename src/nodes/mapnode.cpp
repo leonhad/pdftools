@@ -31,7 +31,9 @@ vector<string> MapNode::names() const noexcept
 {
     vector<string> names;
     names.reserve(m_values.size());
-    transform(m_values.begin(), m_values.end(), back_inserter(names), [](auto &pair) {return pair.first;});
+    for (const auto &p : m_values) {
+        names.push_back(p.first);
+    }
     return names;
 }
 
