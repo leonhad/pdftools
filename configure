@@ -6331,7 +6331,7 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_func_iconv" >&5
 $as_echo "$am_cv_func_iconv" >&6; }
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/pdftools.1 src/nodes/Makefile src/glyphs/Makefile src/parser/Makefile src/semantic/Makefile src/xml/Makefile src/zip/Makefile src/html/Makefile src/epub/Makefile src/graphics/Makefile"
+ac_config_files="$ac_config_files Makefile src/Makefile src/pdftools.1 src/nodes/Makefile src/glyphs/Makefile src/parser/Makefile src/semantic/Makefile src/xml/Makefile src/zip/Makefile src/html/Makefile src/epub/Makefile src/graphics/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -7069,18 +7069,18 @@ do
   case $ac_config_target in
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "depfiles") CONFIG_COMMANDS="$CONFIG_COMMANDS depfiles" ;;
-    "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
-    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
-    "src/pdftools.1") CONFIG_FILES="$CONFIG_FILES src/pdftools.1" ;;
-    "src/nodes/Makefile") CONFIG_FILES="$CONFIG_FILES src/nodes/Makefile" ;;
-    "src/glyphs/Makefile") CONFIG_FILES="$CONFIG_FILES src/glyphs/Makefile" ;;
-    "src/parser/Makefile") CONFIG_FILES="$CONFIG_FILES src/parser/Makefile" ;;
-    "src/semantic/Makefile") CONFIG_FILES="$CONFIG_FILES src/semantic/Makefile" ;;
-    "src/xml/Makefile") CONFIG_FILES="$CONFIG_FILES src/xml/Makefile" ;;
-    "src/zip/Makefile") CONFIG_FILES="$CONFIG_FILES src/zip/Makefile" ;;
-    "src/html/Makefile") CONFIG_FILES="$CONFIG_FILES src/html/Makefile" ;;
-    "src/epub/Makefile") CONFIG_FILES="$CONFIG_FILES src/epub/Makefile" ;;
-    "src/graphics/Makefile") CONFIG_FILES="$CONFIG_FILES src/graphics/Makefile" ;;
+    "Makefile") CONFIG_FILES="$CONFIG_FILES Makefile" ;;
+    "src/Makefile") CONFIG_FILES="$CONFIG_FILES src/Makefile" ;;
+    "src/pdftools.1") CONFIG_FILES="$CONFIG_FILES src/pdftools.1" ;;
+    "src/nodes/Makefile") CONFIG_FILES="$CONFIG_FILES src/nodes/Makefile" ;;
+    "src/glyphs/Makefile") CONFIG_FILES="$CONFIG_FILES src/glyphs/Makefile" ;;
+    "src/parser/Makefile") CONFIG_FILES="$CONFIG_FILES src/parser/Makefile" ;;
+    "src/semantic/Makefile") CONFIG_FILES="$CONFIG_FILES src/semantic/Makefile" ;;
+    "src/xml/Makefile") CONFIG_FILES="$CONFIG_FILES src/xml/Makefile" ;;
+    "src/zip/Makefile") CONFIG_FILES="$CONFIG_FILES src/zip/Makefile" ;;
+    "src/html/Makefile") CONFIG_FILES="$CONFIG_FILES src/html/Makefile" ;;
+    "src/epub/Makefile") CONFIG_FILES="$CONFIG_FILES src/epub/Makefile" ;;
+    "src/graphics/Makefile") CONFIG_FILES="$CONFIG_FILES src/graphics/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac
