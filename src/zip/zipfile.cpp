@@ -148,7 +148,7 @@ void ZipFile::write_central_file()
         write16(0);
         write32(0x81A40000);
         write32(file.position);
-        write_string(file.name.c_str());
+        write_string(file.name);
     }
     m_cd_size = ((uint32_t) m_output.tellp()) - m_cd_address;
 }

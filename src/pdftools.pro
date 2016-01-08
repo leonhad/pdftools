@@ -61,7 +61,9 @@ SOURCES += main.cpp \
     parser/scanner.cpp \
     parser/token.cpp \
     genericexception.cpp \
-    nodes/treenode.cpp
+    nodes/treenode.cpp \
+    xml/xmltag.cpp \
+    xml/element.cpp
 
 HEADERS += \
     analyze.h \
@@ -115,4 +117,6 @@ HEADERS += \
     parser/parser.h \
     parser/scanner.h \
     parser/token.h \
-    genericexception.h
+    genericexception.h \
+    xml/xmltag.h \
+    xml/element.h

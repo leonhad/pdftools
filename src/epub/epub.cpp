@@ -67,7 +67,7 @@ void EPUB::generate_container()
 
     xml.end_document();
     string content = xml.content();
-    m_zipfile->add_source("META-INF/container.xml", content.c_str());
+    m_zipfile->add_source("META-INF/container.xml", content.c_str(), content.size());
 }
 
 void EPUB::generate_content(const string& output)

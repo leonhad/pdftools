@@ -101,7 +101,8 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libxml_a_AR = $(AR) $(ARFLAGS)
 libxml_a_LIBADD =
-am_libxml_a_OBJECTS = libxml_a-xml.$(OBJEXT)
+am_libxml_a_OBJECTS = libxml_a-xml.$(OBJEXT) libxml_a-xmltag.$(OBJEXT) \
+	libxml_a-element.$(OBJEXT)
 libxml_a_OBJECTS = $(am_libxml_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -270,10 +271,14 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LIBRARIES = libxml.a
 libxml_a_SOURCES = \
-	xml.cpp
+	xml.cpp \
+	xmltag.cpp \
+	element.cpp
 
 noinst_HEADERS = \
-	xml.h
+	xml.h \
+	xmltag.h \
+	element.h
 
 libxml_a_CXXFLAGS = 
 all: all-am
@@ -325,7 +330,9 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxml_a-element.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxml_a-xml.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libxml_a-xmltag.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -354,6 +361,34 @@ libxml_a-xml.obj: xml.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='xml.cpp' object='libxml_a-xml.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -c -o libxml_a-xml.obj `if test -f 'xml.cpp'; then $(CYGPATH_W) 'xml.cpp'; else $(CYGPATH_W) '$(srcdir)/xml.cpp'; fi`
+
+libxml_a-xmltag.o: xmltag.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -MT libxml_a-xmltag.o -MD -MP -MF $(DEPDIR)/libxml_a-xmltag.Tpo -c -o libxml_a-xmltag.o `test -f 'xmltag.cpp' || echo '$(srcdir)/'`xmltag.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxml_a-xmltag.Tpo $(DEPDIR)/libxml_a-xmltag.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='xmltag.cpp' object='libxml_a-xmltag.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -c -o libxml_a-xmltag.o `test -f 'xmltag.cpp' || echo '$(srcdir)/'`xmltag.cpp
+
+libxml_a-xmltag.obj: xmltag.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -MT libxml_a-xmltag.obj -MD -MP -MF $(DEPDIR)/libxml_a-xmltag.Tpo -c -o libxml_a-xmltag.obj `if test -f 'xmltag.cpp'; then $(CYGPATH_W) 'xmltag.cpp'; else $(CYGPATH_W) '$(srcdir)/xmltag.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxml_a-xmltag.Tpo $(DEPDIR)/libxml_a-xmltag.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='xmltag.cpp' object='libxml_a-xmltag.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -c -o libxml_a-xmltag.obj `if test -f 'xmltag.cpp'; then $(CYGPATH_W) 'xmltag.cpp'; else $(CYGPATH_W) '$(srcdir)/xmltag.cpp'; fi`
+
+libxml_a-element.o: element.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -MT libxml_a-element.o -MD -MP -MF $(DEPDIR)/libxml_a-element.Tpo -c -o libxml_a-element.o `test -f 'element.cpp' || echo '$(srcdir)/'`element.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxml_a-element.Tpo $(DEPDIR)/libxml_a-element.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='element.cpp' object='libxml_a-element.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -c -o libxml_a-element.o `test -f 'element.cpp' || echo '$(srcdir)/'`element.cpp
+
+libxml_a-element.obj: element.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -MT libxml_a-element.obj -MD -MP -MF $(DEPDIR)/libxml_a-element.Tpo -c -o libxml_a-element.obj `if test -f 'element.cpp'; then $(CYGPATH_W) 'element.cpp'; else $(CYGPATH_W) '$(srcdir)/element.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libxml_a-element.Tpo $(DEPDIR)/libxml_a-element.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='element.cpp' object='libxml_a-element.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libxml_a_CXXFLAGS) $(CXXFLAGS) -c -o libxml_a-element.obj `if test -f 'element.cpp'; then $(CYGPATH_W) 'element.cpp'; else $(CYGPATH_W) '$(srcdir)/element.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

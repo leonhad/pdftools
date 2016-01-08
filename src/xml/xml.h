@@ -1,29 +1,32 @@
 #ifndef XML_H
 #define XML_H
 
+#include "xmltag.h"
 #include <string>
-
-using namespace std;
 
 class XML {
 private:
-    string m_buffer;
-    
+    XmlTag *m_root = nullptr;
+    XmlTag *m_last_tag = nullptr;
+    std::string m_version;
+    std::string m_charset;
+
+    std::string m_doctype_name;
+    std::string m_public_id;
+    std::string m_sys_id;
+
 public:
-    XML();
-    ~XML();
+    XML() noexcept;
+    ~XML() noexcept;
     
-    void start_document(const string&, const string& charset);
-    void add_doctype(const string& name, const string& public_id, const string& sys_id);
-    void add_attribute(const string& attribute, const string& value);
-    void add_element(const string& value);
-    void start_tag(const string& tag_name);
-    void end_tag();
-    void end_document();
-    
-    inline string content() const {
-        return m_buffer;
-    }
+    void start_document(const std::string& version, const std::string& charset) noexcept;
+    void add_doctype(const std::string& name, const std::string& public_id, const std::string& sys_id) noexcept;
+    void add_attribute(const std::string& id, const std::string& value) noexcept;
+    void add_element(const std::string& value) noexcept;
+    void start_tag(const std::string& tag_name) noexcept;
+    void end_tag() noexcept;
+    void end_document() noexcept;
+    const std::string content() const noexcept;
 };
 
 #endif
