@@ -7,6 +7,7 @@
 #include <iconv.h>
 #include <errno.h>
 #include "../config.h"
+#include "genericexception.h"
 
 using namespace std;
 
@@ -88,7 +89,7 @@ bool verbose_mode()
     return _verbose;
 }
 
-char *deflate(const char *raw, size_t size, uint32_t &writed)
+char *compress(const char *raw, size_t size, uint32_t &writed) throw(exception)
 {
     z_stream zstream;
     vector<buffer_struct> values;
@@ -99,9 +100,9 @@ char *deflate(const char *raw, size_t size, uint32_t &writed)
     zstream.zfree = Z_NULL;
     zstream.opaque = Z_NULL;
 
-    int err = deflateInit2(&zstream, Z_BEST_COMPRESSION, Z_DEFLATED, -MAX_WBITS, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY);
+    int err = deflateInit2(&zstream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, -MAX_WBITS, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY);
     if (err != Z_OK) {
-        return nullptr;
+        throw GenericException("Error in deflate init.");
     }
     zstream.avail_in = (uInt)size;
     zstream.next_in = (Bytef *) raw;
@@ -113,15 +114,15 @@ char *deflate(const char *raw, size_t size, uint32_t &writed)
         zstream.next_out = (Bytef *) b.buffer;
 
         err = deflate(&zstream, Z_FINISH);
-        if (err) {
+        if (err != Z_OK && err != Z_STREAM_END) {
             // stop on error
-            break;
+            throw GenericException("Error in deflate.");
         }
         b.size = MAX_BUFFER_SIZE - zstream.avail_out;
 
         total += b.size;
         values.push_back(b);
-    } while (zstream.avail_out == 0);
+    } while (err == Z_OK);
 
     deflateEnd(&zstream);
 

@@ -7,31 +7,29 @@
 
 using namespace std;
 
+ZipFile::ZipFile()
+{
+}
+
+ZipFile::~ZipFile()
+{
+    close();
+}
+
 uint32_t ZipFile::current_datetime() const
 {
     time_t rawtime;
     struct tm * t;
-    
+
     time(&rawtime);
     t = localtime(&rawtime);
-    
+
     if (t->tm_year >= 1980)
         t->tm_year -= 1980;
     else if (t->tm_year >= 80)
         t->tm_year -= 80;
     return (uint32_t) ((t->tm_mday + (32 * (t->tm_mon + 1)) + (512 * t->tm_year)) << 16) |
     ((t->tm_sec / 2) + (32 * t->tm_min) + (2048 * t->tm_hour));
-}
-
-ZipFile::ZipFile()
-{
-    m_cd_address = 0;
-    m_cd_size = 0;
-}
-
-ZipFile::~ZipFile()
-{
-    close();
 }
 
 bool ZipFile::open(const string& output)
@@ -65,11 +63,18 @@ void ZipFile::add_source(const char *filename, const char *buffer, size_t length
     uint32_t crc = (uint32_t)::crc32(0L, Z_NULL, 0);
     file.crc = (uint32_t)::crc32(crc, (Bytef *) buffer, (uInt)length);
     
-    char *deflate_buffer = deflate(buffer, length, file.compressed_size);
-    
-    if (file.compressed_size < file.length) {
-        file.compressed = true;
-    } else {
+    char *deflate_buffer = nullptr;
+    try {
+        deflate_buffer = compress(buffer, length, file.compressed_size);
+
+        if (file.compressed_size < file.length) {
+            file.compressed = true;
+        } else {
+            file.compressed = false;
+            file.compressed_size = file.length;
+        }
+    } catch(exception &e) {
+        // File in deflate
         file.compressed = false;
         file.compressed_size = file.length;
     }
