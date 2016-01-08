@@ -3,6 +3,14 @@
 using namespace std;
 using namespace parser;
 
+void Token::Token() noexcept
+{
+}
+
+void Token::~Token() noexcept
+{
+}
+
 void Token::set_value(string value) noexcept
 {
     m_value = value;

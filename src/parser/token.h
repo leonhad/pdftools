@@ -66,8 +66,8 @@ namespace parser {
         std::string m_value;
 
     public:
-        Token() noexcept = default;
-        ~Token() noexcept = default;
+        Token() noexcept;
+        ~Token() noexcept;
 
         void set_value(std::string value) noexcept;
         void set_type(TokenType type) noexcept;
