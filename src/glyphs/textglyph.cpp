@@ -20,6 +20,6 @@ void TextGlyph::do_glyph(Html *document)
     } else {
         text = m_text;
     }
-    document->add_element(text.c_str());
+    document->add_element(text + " ");
     document->end_tag();
 }

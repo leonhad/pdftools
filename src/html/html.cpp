@@ -43,7 +43,7 @@ void Html::set_title(const string& title)
 
 void Html::add_font(int size, bool bold, bool italic, bool fixed)
 {
-    m_xml.start_tag("span");
+    m_xml.start_tag("font");
 
     stringstream css;
     if (size <= 8) {

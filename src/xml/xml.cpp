@@ -25,7 +25,7 @@ const string XML::content() const noexcept
             m_buffer << " PUBLIC \"" << m_public_id << "\"";
         }
         if (!m_sys_id.empty()) {
-            m_buffer << "\"" << m_sys_id << "\"";
+            m_buffer << " \"" << m_sys_id << "\"";
         }
         m_buffer << ">" << endl;
     }
