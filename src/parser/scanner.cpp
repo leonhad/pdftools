@@ -106,8 +106,8 @@ size_t Scanner::ignore_stream(int length) noexcept
                 m_filein->seekg(pos);
 
                 if (strcmp("ndstream", buff) == 0) {
-                    // restore the endstrea token
-                    unget_char();
+                    // restore the endstream token
+                    m_filein->seekg(pos - 1);
                     break;
                 }
                 // not the endstream

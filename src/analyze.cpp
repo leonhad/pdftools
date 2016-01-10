@@ -524,6 +524,10 @@ TreeNode *Analyze::get_real_obj_value(TreeNode * value)
 
 string Analyze::get_string_value(TreeNode * value)
 {
+    RefNode *ref = dynamic_cast<RefNode *>(value);
+    if (ref) {
+        return get_string_value(get_object(ref)->value());
+    }
     StringNode *str = dynamic_cast<StringNode *>(value);
     if (str) {
         return str->value();
