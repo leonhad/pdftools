@@ -537,6 +537,10 @@ string Analyze::get_string_value(TreeNode * value)
 
 double Analyze::get_number_value(TreeNode *value, int default_value)
 {
+    RefNode *ref = dynamic_cast<RefNode *>(value);
+    if (ref) {
+        return get_number_value(get_object(ref)->value());
+    }
     NumberNode *num = dynamic_cast<NumberNode *>(value);
     if (num) {
         return num->value();
