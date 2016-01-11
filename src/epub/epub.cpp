@@ -46,6 +46,7 @@ void EPUB::generate_css()
     css << ".f14 {font-size: 14pt}\n";
     css << ".f16 {font-size: 16pt}\n";
     css << ".f18 {font-size: 18pt}\n";
+    css << "div {display:inline}\n";
     m_zipfile->add_source("style.css", css.str().c_str());
 }
 
