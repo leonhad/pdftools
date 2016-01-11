@@ -160,6 +160,12 @@ void EPUB::generate_content(const string& output)
     xml.add_attribute("idref", "part1");
     xml.end_tag();
 
+//    <itemref idref="cover" linear="no"/>
+//        <itemref idref="titlepage" linear="yes"/>
+//        <itemref idref="brief-toc" linear="yes"/>
+//        <itemref linear="yes" idref="xpreface_001"/>
+//    <itemref idref="toc" linear="no"/>
+
     xml.end_tag();
 
     xml.end_tag();
@@ -173,15 +179,13 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
     Page *page = m_document->page(outline->id(), outline->generation());
 
     if (page) {
-        stringstream id;
-        id << "navPoint-" << m_order;
-        stringstream playorder;
-        playorder << m_order;
+        string playorder{to_string(m_order)};
+        string id{"navPoint-" + playorder};
         m_order++;
 
         xml->start_tag("navPoint");
-        xml->add_attribute("id", id.str());
-        xml->add_attribute("playOrder", playorder.str());
+        xml->add_attribute("id", page->link());
+        xml->add_attribute("playOrder", playorder);
 
         xml->start_tag("navLabel");
         xml->start_tag("text");
@@ -190,9 +194,7 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
         xml->end_tag();
 
         xml->start_tag("content");
-        if (page->link()) {
-            xml->add_attribute("src", page->link());
-        }
+        xml->add_attribute("src", "pages.html#" + page->link());
         xml->end_tag();
     }
     size_t size = outline->size();
@@ -236,7 +238,7 @@ void EPUB::generate_toc(const string& output)
 
     xml.start_tag("docTitle");
     xml.start_tag("text");
-    xml.add_element(m_document->title().c_str());
+    xml.add_element(m_document->title());
     xml.end_tag();
     xml.end_tag();
 
@@ -264,6 +266,7 @@ void EPUB::generate_toc(const string& output)
     xml.end_tag();
     xml.end_document();
     string content = xml.content();
+
     m_zipfile->add_source("toc.ncx", content.c_str());
 }
 
@@ -272,7 +275,7 @@ void EPUB::generate_pages()
     Html html;
     html.start_document();
     html.start_header();
-    html.set_title(m_document->title().c_str());
+    html.set_title(m_document->title());
     html.set_link("stylesheet", "text/css", "style.css");
     html.end_tag();
     html.start_body();
@@ -286,7 +289,7 @@ void EPUB::generate_pages()
     html.end_tag();
     html.end_document();
 
-    m_zipfile->add_source("pages.html", html.content().c_str());
+    m_zipfile->add_source("pages.html", html.content().c_str(), html.content().size());
 }
 
 void EPUB::generate_page(Page *page)
@@ -304,7 +307,7 @@ void EPUB::generate_page(Page *page)
     html.end_tag();
     html.end_document();
 
-    m_zipfile->add_source(page->link(), html.content().c_str());
+    m_zipfile->add_source(page->link().c_str(), html.content().c_str(), html.content().length());
 }
 
 bool EPUB::generate(Document* document, const string& output)
@@ -316,8 +319,8 @@ bool EPUB::generate(Document* document, const string& output)
         generate_css();
         generate_container();
         generate_content(output);
-        generate_pages();
         generate_toc(output);
+        generate_pages();
         m_zipfile->close();
     } else {
         return false;

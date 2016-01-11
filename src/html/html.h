@@ -23,11 +23,12 @@ public:
     
     void add_paragraph();
     void add_font(int size, bool bold, bool italic, bool fixed);
-    void add_element(const std::string& element);
+    void add_element(const std::string &element);
+    void add_section(const std::string &name);
     
     void set_title(const std::string& title);
     void set_link(const std::string& rel, const std::string& type, const std::string& href);
-    
+
     inline const std::string content() const {
         return m_xml.content();
     }

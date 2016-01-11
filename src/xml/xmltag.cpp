@@ -28,13 +28,13 @@ std::string XmlTag::to_XML() const noexcept
         buffer << " " << value.first << "=\"" << value.second << "\"";
     }
 
-    buffer << ">\n";
+    buffer << ">";
 
     for (XmlTag *tag : m_children) {
         buffer << tag->to_XML();
     }
 
-    buffer << "</" << m_name << ">";
+    buffer << "</" << m_name << ">" << endl;
     return buffer.str();
 }
 

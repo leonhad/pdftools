@@ -43,18 +43,15 @@ void Page::execute(Html *html)
 {
 	Context *context = new Context(m_document);
     context->set_current_page(this);
+    html->add_section(link());
     m_root->execute(html, context);
+    html->end_tag();
     delete context;
 }
 
-void Page::set_link(char *link)
+const string Page::link()
 {
-    m_link = link;
-}
-
-const char *Page::link()
-{
-    return m_link.c_str();
+    return m_link;
 }
 
 void Page::set_media_box(int a, int b, int c, int d)
@@ -79,6 +76,8 @@ void Page::set_destination(int id, int generation)
 {
     m_id = id;
     m_generation = generation;
+
+    m_link = "section" + to_string(id) + "_" + to_string(generation);
 }
 
 int Page::id()

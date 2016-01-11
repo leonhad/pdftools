@@ -32,8 +32,7 @@ public:
     void set_root(Glyph *root);
     int id();
     int generation();
-    void set_link(char *link);
-    const char *link();
+    const string link();
 
     void execute(Html *html);
     

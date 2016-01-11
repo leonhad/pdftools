@@ -90,6 +90,13 @@ void Html::add_element(const string& value)
     m_xml.add_element(value);
 }
 
+void Html::add_section(const std::string &name)
+{
+    m_xml.start_tag("div");
+    m_xml.add_attribute("class", "section");
+    m_xml.add_attribute("id", name);
+}
+
 void Html::end_tag()
 {
     m_xml.end_tag();

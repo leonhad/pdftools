@@ -49,7 +49,7 @@ namespace parser {
 
     constexpr bool is_space(const char c) noexcept
     {
-        return (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f') || (c == '\r') || (c == EOF);
+        return (c == '\0') || (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f') || (c == '\r') || (c == EOF);
     }
 
 }
@@ -300,11 +300,39 @@ Token *Scanner::next_token() noexcept
                 if (c >= '0' && c <= '9') {
                     string value{c};
                     value += next_char();
-                    value += next_char();
+                    char c3 = next_char();
+                    if (isnum(c3)) {
+                        // for \99 only
+                        value += c3;
+                    }
                     c = static_cast<char>(stoi(value, nullptr, 8));
                 }
-                if (c == '\n' || c == '\r') {
+                switch(c) {
+                case 'n':
+                    c = '\n';
+                    break;
+                case 'r':
+                    c = '\r';
+                    break;
+                case 't':
+                    c = '\t';
+                    break;
+                case 'b':
+                    c = '\b';
+                    break;
+                case 'f':
+                    c = '\f';
+                    break;
+                case '(':
+                case ')':
+                case '\\':
+                    // keep the same char
+                    break;
+                case '\n':
+                case '\r':
+                default:
                     save = false;
+                    break;
                 }
             } else if (c == ')') {
                 if (inner_string > 0) {
