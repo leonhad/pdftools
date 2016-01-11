@@ -1,8 +1,5 @@
 #include "epub.h"
 #include "../utils.h"
-#include <cstring>
-#include <iostream>
-#include <sstream>
 #include "../xml/xml.h"
 #include "../html/html.h"
 #include "../zip/zipfile.h"
@@ -11,6 +8,10 @@
 #include "../semantic/context.h"
 #include "../semantic/page.h"
 #include "../../config.h"
+#include <cstring>
+#include <iostream>
+#include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -139,11 +140,22 @@ void EPUB::generate_content(const string& output)
     xml.add_attribute("media-type", "application/x-dtbncx+xml");
     xml.end_tag();
 
-    xml.start_tag("item");
-    xml.add_attribute("id", "part1");
-    xml.add_attribute("href", "pages.html");
-    xml.add_attribute("media-type", "application/xhtml+xml");
-    xml.end_tag();
+//    xml.start_tag("item");
+//    xml.add_attribute("id", "part1");
+//    xml.add_attribute("href", "pages.html");
+//    xml.add_attribute("media-type", "application/xhtml+xml");
+//    xml.end_tag();
+
+    for (size_t loop = 0; loop < m_document->pages(); loop++) {
+        Page *page = m_document->page(loop);
+
+        xml.start_tag("item");
+        xml.add_attribute("id", page->link());
+        xml.add_attribute("href", page->link() + ".html");
+        xml.add_attribute("media-type", "application/xhtml+xml");
+        xml.end_tag();
+    }
+
 
     xml.start_tag("item");
     xml.add_attribute("id", "css");
@@ -156,9 +168,14 @@ void EPUB::generate_content(const string& output)
     xml.start_tag("spine");
     xml.add_attribute("toc", "ncx");
 
-    xml.start_tag("itemref");
-    xml.add_attribute("idref", "part1");
-    xml.end_tag();
+    for (size_t loop = 0; loop < m_document->pages(); loop++) {
+        Page *page = m_document->page(loop);
+
+        xml.start_tag("itemref");
+        xml.add_attribute("idref", page->link());
+        xml.add_attribute("linear", "yes");
+        xml.end_tag();
+    }
 
 //    <itemref idref="cover" linear="no"/>
 //        <itemref idref="titlepage" linear="yes"/>
@@ -184,8 +201,8 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
         m_order++;
 
         xml->start_tag("navPoint");
-        xml->add_attribute("id", page->link());
-        xml->add_attribute("playOrder", playorder);
+        xml->add_attribute("id", playorder);
+        //xml->add_attribute("playOrder", playorder);
 
         xml->start_tag("navLabel");
         xml->start_tag("text");
@@ -194,7 +211,7 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
         xml->end_tag();
 
         xml->start_tag("content");
-        xml->add_attribute("src", "pages.html#" + page->link());
+        xml->add_attribute("src", page->link() + ".html");
         xml->end_tag();
     }
     size_t size = outline->size();
@@ -272,24 +289,27 @@ void EPUB::generate_toc(const string& output)
 
 void EPUB::generate_pages()
 {
-    Html html;
-    html.start_document();
-    html.start_header();
-    html.set_title(m_document->title());
-    html.set_link("stylesheet", "text/css", "style.css");
-    html.end_tag();
-    html.start_body();
-
     Page *page;
     size_t size = m_document->pages();
     for (size_t i = 0; i < size; i++) {
         page = m_document->page(i);
-        page->execute(&html);
-    }
-    html.end_tag();
-    html.end_document();
 
-    m_zipfile->add_source("pages.html", html.content().c_str(), html.content().size());
+        Html html;
+        html.start_document();
+        html.start_header();
+        html.set_title(m_document->title());
+        html.set_link("stylesheet", "text/css", "style.css");
+        html.end_tag();
+        html.start_body();
+
+        page->execute(&html);
+
+        html.end_tag();
+        html.end_document();
+
+        string fileout{page->link() + ".html"};
+        m_zipfile->add_source(fileout.c_str(), html.content().c_str(), html.content().size());
+    }
 }
 
 void EPUB::generate_page(Page *page)
