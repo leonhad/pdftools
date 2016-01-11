@@ -2,7 +2,7 @@
 # See debian/rules-dh if you prefer the new dh syntax.
 package = pdftools
 
-CXXFLAGS = -Wall
+CXXFLAGS = -Wall -std=c++11
 
 ifeq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
   CXXFLAGS += -O3
