@@ -180,8 +180,8 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
         m_order++;
 
         xml->start_tag("navPoint");
-        xml->add_attribute("id", id.str().c_str());
-        xml->add_attribute("playOrder", playorder.str().c_str());
+        xml->add_attribute("id", id.str());
+        xml->add_attribute("playOrder", playorder.str());
 
         xml->start_tag("navLabel");
         xml->start_tag("text");
@@ -294,7 +294,7 @@ void EPUB::generate_page(Page *page)
     Html html;
     html.start_document();
     html.start_header();
-    html.set_title("teste de título");
+    html.set_title("Page title.");
     html.end_tag();
 
     html.start_body();

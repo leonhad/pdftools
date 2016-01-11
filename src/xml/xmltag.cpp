@@ -28,7 +28,7 @@ std::string XmlTag::to_XML() const noexcept
         buffer << " " << value.first << "=\"" << value.second << "\"";
     }
 
-    buffer << ">";
+    buffer << ">\n";
 
     for (XmlTag *tag : m_children) {
         buffer << tag->to_XML();
