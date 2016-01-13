@@ -1,3 +1,5 @@
+#include "../config.h"
+#include "genericexception.h"
 #include "utils.h"
 #include <iostream>
 #include <cstdlib>
@@ -6,8 +8,7 @@
 #include <zlib.h>
 #include <iconv.h>
 #include <errno.h>
-#include "../config.h"
-#include "genericexception.h"
+#include <sstream>
 
 using namespace std;
 
@@ -251,15 +252,15 @@ string charset_to_utf8(string &str)
             iconv_close(conv_desc);
         }
     } else {
-        string converted;
+        stringstream converted;
         size_t size = str.length();
 
         for (size_t loop = 0; loop < size; loop++) {
             uint8_t c = str[loop];
             const char *new_char = doc_encoding_table[c];
-            converted += new_char;
+            converted << new_char;
         }
-        return converted;
+        return converted.str();
     }
     return ret;
 }
