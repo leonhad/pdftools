@@ -12,6 +12,10 @@ src/pdftools
 
 test/testsuit
 
+*.log
+
+*.trs
+
 *.Po
 
 *.o
