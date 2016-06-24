@@ -10,7 +10,7 @@ dnl This mechanism allows one to enable debug compilations...
 AC_ARG_ENABLE(debug,
 [  --enable-debug     enable debugging and disable optimization],
 [  if test "$enable_debug" = "yes"; then
-      DEBUG_CFLAGS="-O0 -g3 -DDEBUG -fno-inline"
+      DEBUG_CFLAGS="-O0 -g3 -DDEBUG -fno-inline -fdiagnostics-show-option"
    fi
 ])
 AM_CONDITIONAL(ENABLE_DEBUG, test "$enable_debug" = "yes")
