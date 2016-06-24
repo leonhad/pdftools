@@ -1,6 +1,7 @@
 AC_PREREQ(2.62)
 AC_INIT([pdftools],[0.4.1],[leonhad@gmail.com],[pdftools],[https://github.com/leonhad/pdftools])
 AM_INIT_AUTOMAKE([-Wall tar-ustar no-define nostdinc ])
+AM_PATH_CPPUNIT(1.9.6)
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADER([config.h])
@@ -69,5 +70,6 @@ AC_CONFIG_FILES([Makefile
                  src/html/Makefile
                  src/epub/Makefile
                  src/graphics/Makefile
+                 test/Makefile
 ])
 AC_OUTPUT
