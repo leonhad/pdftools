@@ -1,40 +1,59 @@
+#include <iostream>
+
+#include <cppunit/TestRunner.h>
+#include <cppunit/TestResult.h>
+#include <cppunit/XmlOutputter.h>
+#include <cppunit/TestResultCollector.h>
 #include <cppunit/extensions/HelperMacros.h>
-#include <cppunit/ui/text/TestRunner.h>
-#include <cppunit/CompilerOutputter.h>
+#include <cppunit/BriefTestProgressListener.h>
+#include <cppunit/extensions/TestFactoryRegistry.h>
 
-class ComplexNumberTest: public CppUnit::TestFixture {
-CPPUNIT_TEST_SUITE( ComplexNumberTest );
-
-	CPPUNIT_TEST(testEquality);
-
-	CPPUNIT_TEST_SUITE_END();
+class ComplexNumberTest: public CppUnit::TestFixture
+{
+    CPPUNIT_TEST_SUITE(ComplexNumberTest);
+    CPPUNIT_TEST(testEquality);
+    CPPUNIT_TEST_SUITE_END();
 
 public:
-	void setUp() {
+    void setUp()
+    {
 
-	}
+    }
 
-	void tearDown() {
-	}
+    void tearDown()
+    {
+    }
 
-	void testEquality() {
-		CPPUNIT_ASSERT(1 == 1);
-	}
+protected:
+    void testEquality()
+    {
+        CPPUNIT_ASSERT(1 == 1);
+    }
 };
 
 CPPUNIT_TEST_SUITE_REGISTRATION(ComplexNumberTest);
 
-int main(int argc, char **argv) {
-	CppUnit::TextUi::TestRunner runner;
-	CppUnit::TestFactoryRegistry &registry =
-			CppUnit::TestFactoryRegistry::getRegistry();
+int main(int argc, char **argv)
+{
+    // Create the event manager and test controller
+    CPPUNIT_NS::TestResult controller;
 
-	runner.addTest(registry.makeTest());
+    // Add a listener that collects test result
+    CPPUNIT_NS::TestResultCollector result;
+    controller.addListener(&result);
 
-	runner.setOutputter( new CppUnit::CompilerOutputter( &runner.result(),
-	                                                       std::cerr ) );
+    // Add a listener that print dots as test run.
+    CPPUNIT_NS::BriefTestProgressListener progress;
+    controller.addListener(&progress);
 
-	runner.run();
-	bool wasSuccessful = runner.run("", false);
-	return !wasSuccessful;
+    // Add the top suite to the test runner
+    CPPUNIT_NS::TestRunner runner;
+    runner.addTest( CPPUNIT_NS::TestFactoryRegistry::getRegistry().makeTest());
+    runner.run(controller);
+
+    std::ofstream xmlout("cppunit.xml");
+    CPPUNIT_NS::XmlOutputter xmlOutputter(&result, xmlout);
+    xmlOutputter.write();
+
+    return result.wasSuccessful() ? 0 : 1;
 }
