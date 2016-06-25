@@ -2,6 +2,8 @@
 
 .*
 
+cppunit.xmL
+
 config.h
 
 config.log
