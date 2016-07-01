@@ -1,5 +1,9 @@
 /out
 
+*.gcda
+
+*.gcno
+
 .*
 
 cppunit.xmL
