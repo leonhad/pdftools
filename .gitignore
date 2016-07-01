@@ -1,5 +1,7 @@
 /out
 
+*.gcov
+
 *.gcda
 
 *.gcno

@@ -109,7 +109,10 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 am__EXEEXT_1 = testsuit$(EXEEXT)
 PROGRAMS = $(bin_PROGRAMS)
-am_testsuit_OBJECTS = testsuit-main.$(OBJEXT)
+am_testsuit_OBJECTS = testsuit-main.$(OBJEXT) testsuit-utils.$(OBJEXT) \
+	testsuit-analyze.$(OBJEXT) testsuit-pageanalyze.$(OBJEXT) \
+	testsuit-converter.$(OBJEXT) testsuit-generator.$(OBJEXT) \
+	testsuit-genericexception.$(OBJEXT)
 testsuit_OBJECTS = $(am_testsuit_OBJECTS)
 testsuit_LDADD = $(LDADD)
 testsuit_LINK = $(CXXLD) $(testsuit_CXXFLAGS) $(CXXFLAGS) \
@@ -544,7 +547,13 @@ testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
 	zip/libziptest.a
 
 testsuit_SOURCES = \
-	main.cpp
+	main.cpp \
+	../src/utils.cpp \
+	../src/analyze.cpp \
+	../src/pageanalyze.cpp \
+	../src/converter.cpp \
+	../src/generator.cpp \
+	../src/genericexception.cpp
 
 noinst_HEADERS = 
 MOSTLYCLEANFILES = \
@@ -639,7 +648,13 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsuit-analyze.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsuit-converter.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsuit-generator.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsuit-genericexception.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsuit-main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsuit-pageanalyze.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/testsuit-utils.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -668,6 +683,90 @@ testsuit-main.obj: main.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='main.cpp' object='testsuit-main.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-main.obj `if test -f 'main.cpp'; then $(CYGPATH_W) 'main.cpp'; else $(CYGPATH_W) '$(srcdir)/main.cpp'; fi`
+
+testsuit-utils.o: ../src/utils.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-utils.o -MD -MP -MF $(DEPDIR)/testsuit-utils.Tpo -c -o testsuit-utils.o `test -f '../src/utils.cpp' || echo '$(srcdir)/'`../src/utils.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-utils.Tpo $(DEPDIR)/testsuit-utils.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/utils.cpp' object='testsuit-utils.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-utils.o `test -f '../src/utils.cpp' || echo '$(srcdir)/'`../src/utils.cpp
+
+testsuit-utils.obj: ../src/utils.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-utils.obj -MD -MP -MF $(DEPDIR)/testsuit-utils.Tpo -c -o testsuit-utils.obj `if test -f '../src/utils.cpp'; then $(CYGPATH_W) '../src/utils.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/utils.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-utils.Tpo $(DEPDIR)/testsuit-utils.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/utils.cpp' object='testsuit-utils.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-utils.obj `if test -f '../src/utils.cpp'; then $(CYGPATH_W) '../src/utils.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/utils.cpp'; fi`
+
+testsuit-analyze.o: ../src/analyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-analyze.o -MD -MP -MF $(DEPDIR)/testsuit-analyze.Tpo -c -o testsuit-analyze.o `test -f '../src/analyze.cpp' || echo '$(srcdir)/'`../src/analyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-analyze.Tpo $(DEPDIR)/testsuit-analyze.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/analyze.cpp' object='testsuit-analyze.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-analyze.o `test -f '../src/analyze.cpp' || echo '$(srcdir)/'`../src/analyze.cpp
+
+testsuit-analyze.obj: ../src/analyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-analyze.obj -MD -MP -MF $(DEPDIR)/testsuit-analyze.Tpo -c -o testsuit-analyze.obj `if test -f '../src/analyze.cpp'; then $(CYGPATH_W) '../src/analyze.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/analyze.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-analyze.Tpo $(DEPDIR)/testsuit-analyze.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/analyze.cpp' object='testsuit-analyze.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-analyze.obj `if test -f '../src/analyze.cpp'; then $(CYGPATH_W) '../src/analyze.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/analyze.cpp'; fi`
+
+testsuit-pageanalyze.o: ../src/pageanalyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-pageanalyze.o -MD -MP -MF $(DEPDIR)/testsuit-pageanalyze.Tpo -c -o testsuit-pageanalyze.o `test -f '../src/pageanalyze.cpp' || echo '$(srcdir)/'`../src/pageanalyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-pageanalyze.Tpo $(DEPDIR)/testsuit-pageanalyze.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/pageanalyze.cpp' object='testsuit-pageanalyze.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-pageanalyze.o `test -f '../src/pageanalyze.cpp' || echo '$(srcdir)/'`../src/pageanalyze.cpp
+
+testsuit-pageanalyze.obj: ../src/pageanalyze.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-pageanalyze.obj -MD -MP -MF $(DEPDIR)/testsuit-pageanalyze.Tpo -c -o testsuit-pageanalyze.obj `if test -f '../src/pageanalyze.cpp'; then $(CYGPATH_W) '../src/pageanalyze.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/pageanalyze.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-pageanalyze.Tpo $(DEPDIR)/testsuit-pageanalyze.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/pageanalyze.cpp' object='testsuit-pageanalyze.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-pageanalyze.obj `if test -f '../src/pageanalyze.cpp'; then $(CYGPATH_W) '../src/pageanalyze.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/pageanalyze.cpp'; fi`
+
+testsuit-converter.o: ../src/converter.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-converter.o -MD -MP -MF $(DEPDIR)/testsuit-converter.Tpo -c -o testsuit-converter.o `test -f '../src/converter.cpp' || echo '$(srcdir)/'`../src/converter.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-converter.Tpo $(DEPDIR)/testsuit-converter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/converter.cpp' object='testsuit-converter.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-converter.o `test -f '../src/converter.cpp' || echo '$(srcdir)/'`../src/converter.cpp
+
+testsuit-converter.obj: ../src/converter.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-converter.obj -MD -MP -MF $(DEPDIR)/testsuit-converter.Tpo -c -o testsuit-converter.obj `if test -f '../src/converter.cpp'; then $(CYGPATH_W) '../src/converter.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/converter.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-converter.Tpo $(DEPDIR)/testsuit-converter.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/converter.cpp' object='testsuit-converter.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-converter.obj `if test -f '../src/converter.cpp'; then $(CYGPATH_W) '../src/converter.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/converter.cpp'; fi`
+
+testsuit-generator.o: ../src/generator.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-generator.o -MD -MP -MF $(DEPDIR)/testsuit-generator.Tpo -c -o testsuit-generator.o `test -f '../src/generator.cpp' || echo '$(srcdir)/'`../src/generator.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-generator.Tpo $(DEPDIR)/testsuit-generator.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/generator.cpp' object='testsuit-generator.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-generator.o `test -f '../src/generator.cpp' || echo '$(srcdir)/'`../src/generator.cpp
+
+testsuit-generator.obj: ../src/generator.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-generator.obj -MD -MP -MF $(DEPDIR)/testsuit-generator.Tpo -c -o testsuit-generator.obj `if test -f '../src/generator.cpp'; then $(CYGPATH_W) '../src/generator.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/generator.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-generator.Tpo $(DEPDIR)/testsuit-generator.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/generator.cpp' object='testsuit-generator.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-generator.obj `if test -f '../src/generator.cpp'; then $(CYGPATH_W) '../src/generator.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/generator.cpp'; fi`
+
+testsuit-genericexception.o: ../src/genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-genericexception.o -MD -MP -MF $(DEPDIR)/testsuit-genericexception.Tpo -c -o testsuit-genericexception.o `test -f '../src/genericexception.cpp' || echo '$(srcdir)/'`../src/genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-genericexception.Tpo $(DEPDIR)/testsuit-genericexception.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/genericexception.cpp' object='testsuit-genericexception.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-genericexception.o `test -f '../src/genericexception.cpp' || echo '$(srcdir)/'`../src/genericexception.cpp
+
+testsuit-genericexception.obj: ../src/genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -MT testsuit-genericexception.obj -MD -MP -MF $(DEPDIR)/testsuit-genericexception.Tpo -c -o testsuit-genericexception.obj `if test -f '../src/genericexception.cpp'; then $(CYGPATH_W) '../src/genericexception.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/genericexception.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/testsuit-genericexception.Tpo $(DEPDIR)/testsuit-genericexception.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/genericexception.cpp' object='testsuit-genericexception.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(testsuit_CXXFLAGS) $(CXXFLAGS) -c -o testsuit-genericexception.obj `if test -f '../src/genericexception.cpp'; then $(CYGPATH_W) '../src/genericexception.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/genericexception.cpp'; fi`
 
 # This directory's subdirectories are mostly independent; you can cd
 # into them and run 'make' without going through this Makefile.

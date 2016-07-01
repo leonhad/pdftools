@@ -19,7 +19,13 @@ testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
 
 
 testsuit_SOURCES = \
-	main.cpp
+	main.cpp \
+	../src/utils.cpp \
+	../src/analyze.cpp \
+	../src/pageanalyze.cpp \
+	../src/converter.cpp \
+	../src/generator.cpp \
+	../src/genericexception.cpp
 
 noinst_HEADERS = 
 

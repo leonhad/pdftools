@@ -8,30 +8,7 @@
 #include <cppunit/BriefTestProgressListener.h>
 #include <cppunit/extensions/TestFactoryRegistry.h>
 
-class ComplexNumberTest: public CppUnit::TestFixture
-{
-    CPPUNIT_TEST_SUITE(ComplexNumberTest);
-    CPPUNIT_TEST(testEquality);
-    CPPUNIT_TEST_SUITE_END();
-
-public:
-    void setUp()
-    {
-
-    }
-
-    void tearDown()
-    {
-    }
-
-protected:
-    void testEquality()
-    {
-        CPPUNIT_ASSERT(1 == 1);
-    }
-};
-
-CPPUNIT_TEST_SUITE_REGISTRATION(ComplexNumberTest);
+#include "zip/zipfiletest.h"
 
 int main(int argc, char **argv)
 {
