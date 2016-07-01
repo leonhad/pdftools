@@ -341,6 +341,9 @@ noinst_HEADERS = \
 	nodes.h
 
 libnodes_a_CXXFLAGS = 
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov
+
 all: all-am
 
 .SUFFIXES:
@@ -810,6 +813,7 @@ install-strip:
 	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
 	fi
 mostlyclean-generic:
+	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
 

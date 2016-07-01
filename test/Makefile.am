@@ -24,3 +24,6 @@ testsuit_SOURCES = \
 noinst_HEADERS = 
 
 bin_PROGRAMS = testsuit
+
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov

@@ -33,3 +33,5 @@ pdftools_LDADD = \
 	graphics/libgraphics.a \
 	nodes/libnodes.a
 
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov

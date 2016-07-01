@@ -8,3 +8,6 @@ noinst_HEADERS = \
 	state.h
 
 libgraphics_a_CXXFLAGS = 
+
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov

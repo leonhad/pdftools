@@ -388,6 +388,9 @@ pdftools_LDADD = \
 	graphics/libgraphics.a \
 	nodes/libnodes.a
 
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov
+
 all: all-recursive
 
 .SUFFIXES:
@@ -821,6 +824,7 @@ install-strip:
 	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
 	fi
 mostlyclean-generic:
+	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
 

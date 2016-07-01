@@ -10,3 +10,6 @@ noinst_HEADERS = \
 	element.h
 
 libxml_a_CXXFLAGS = 
+
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov

@@ -6,3 +6,6 @@ noinst_HEADERS = \
 	zipfile.h
 
 libzip_a_CXXFLAGS = 
+
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov

@@ -17,3 +17,6 @@ noinst_HEADERS = \
 	token.h	
 
 libparser_a_CXXFLAGS = 
+
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov

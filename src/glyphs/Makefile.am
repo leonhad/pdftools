@@ -17,3 +17,6 @@ noinst_HEADERS = \
 	fontsizeglyph.h
 
 libglyphs_a_CXXFLAGS =
+
+MOSTLYCLEANFILES = \
+	*.gcda *.gcno *.gcov
