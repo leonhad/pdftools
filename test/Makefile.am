@@ -1,9 +1,22 @@
+SUBDIRS = zip
+
 TESTS = testsuit
 check_PROGRAMS = $(TESTS)
 
-testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS)
+testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src
 
-testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl
+testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
+	../src/semantic/libsemantic.a \
+	../src/parser/libparser.a \
+	../src/epub/libepub.a \
+	../src/zip/libzip.a \
+	../src/html/libhtml.a \
+	../src/xml/libxml.a \
+	../src/glyphs/libglyphs.a \
+	../src/graphics/libgraphics.a \
+	../src/nodes/libnodes.a \
+	zip/libziptest.a
+
 
 testsuit_SOURCES = \
 	main.cpp
