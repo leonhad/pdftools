@@ -1,5 +1,5 @@
 #include "zipfiletest.h"
-#include <zip/zipfile.h>
+#include "../../src/zip/zipfile.h"
 
 void ZipTest::setUp()
 {
@@ -13,3 +13,4 @@ void ZipTest::testInstance()
 {
     ZipFile zip;
 }
+

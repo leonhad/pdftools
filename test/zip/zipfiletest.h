@@ -17,6 +17,4 @@ protected:
     void testInstance();
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION(ZipTest);
-
 #endif

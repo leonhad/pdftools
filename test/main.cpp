@@ -10,6 +10,8 @@
 
 #include "zip/zipfiletest.h"
 
+CPPUNIT_TEST_SUITE_REGISTRATION(ZipTest);
+
 int main(int argc, char **argv)
 {
     // Create the event manager and test controller
