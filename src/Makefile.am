@@ -1,6 +1,7 @@
 SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
 
-bin_PROGRAMS = pdftools
+bin_PROGRAMS = pdftools testsuit
+TESTS = testsuit
 
 pdftools_SOURCES = main.cpp \
 	utils.cpp \
@@ -32,6 +33,21 @@ pdftools_LDADD = \
 	glyphs/libglyphs.a \
 	graphics/libgraphics.a \
 	nodes/libnodes.a
+
+testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src
+
+testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
+	$(pdftools_LDADD) \
+	zip/libziptest.a
+
+testsuit_SOURCES = \
+	testsuit.cpp \
+	utils.cpp \
+	analyze.cpp \
+	pageanalyze.cpp \
+	converter.cpp \
+	generator.cpp \
+	genericexception.cpp
 
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov

@@ -27,8 +27,6 @@ testsuit_SOURCES = \
 	../src/generator.cpp \
 	../src/genericexception.cpp
 
-noinst_HEADERS = 
-
 bin_PROGRAMS = testsuit
 
 MOSTLYCLEANFILES = \

@@ -3200,8 +3200,7 @@ DEBUG_CFLAGS="-O3 -DNDEBUG"
 # Check whether --enable-debug was given.
 if test "${enable_debug+set}" = set; then :
   enableval=$enable_debug;   if test "$enable_debug" = "yes"; then
-      DEBUG_CFLAGS=" --coverage -fprofile-arcs -ftest-coverage -fPIC -O0 -g3 -DDEBUG -fno-inline -fdiagnostics-show-option"
-      LDD_FLAGS += " --coverage"
+      DEBUG_CFLAGS="-fprofile-arcs -ftest-coverage -fPIC -O0 -g3 -DDEBUG -fno-inline -fdiagnostics-show-option"
    fi
 
 fi
@@ -6481,7 +6480,7 @@ fi
 { $as_echo "$as_me:${as_lineno-$LINENO}: result: $am_cv_func_iconv" >&5
 $as_echo "$am_cv_func_iconv" >&6; }
 
-ac_config_files="$ac_config_files Makefile src/Makefile src/pdftools.1 src/nodes/Makefile src/glyphs/Makefile src/parser/Makefile src/semantic/Makefile src/xml/Makefile src/zip/Makefile src/html/Makefile src/epub/Makefile src/graphics/Makefile test/zip/Makefile test/Makefile"
+ac_config_files="$ac_config_files Makefile src/Makefile src/pdftools.1 src/nodes/Makefile src/glyphs/Makefile src/parser/Makefile src/semantic/Makefile src/xml/Makefile src/zip/Makefile src/html/Makefile src/epub/Makefile src/graphics/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -7231,8 +7230,6 @@ do
     "src/html/Makefile") CONFIG_FILES="$CONFIG_FILES src/html/Makefile" ;;
     "src/epub/Makefile") CONFIG_FILES="$CONFIG_FILES src/epub/Makefile" ;;
     "src/graphics/Makefile") CONFIG_FILES="$CONFIG_FILES src/graphics/Makefile" ;;
-    "test/zip/Makefile") CONFIG_FILES="$CONFIG_FILES test/zip/Makefile" ;;
-    "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

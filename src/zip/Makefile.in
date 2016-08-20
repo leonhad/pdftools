@@ -113,6 +113,10 @@ libzip_a_AR = $(AR) $(ARFLAGS)
 libzip_a_LIBADD =
 am_libzip_a_OBJECTS = libzip_a-zipfile.$(OBJEXT)
 libzip_a_OBJECTS = $(am_libzip_a_OBJECTS)
+libziptest_a_AR = $(AR) $(ARFLAGS)
+libziptest_a_LIBADD =
+am_libziptest_a_OBJECTS = libziptest_a-zipfiletest.$(OBJEXT)
+libziptest_a_OBJECTS = $(am_libziptest_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -146,8 +150,8 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libzip_a_SOURCES)
-DIST_SOURCES = $(libzip_a_SOURCES)
+SOURCES = $(libzip_a_SOURCES) $(libziptest_a_SOURCES)
+DIST_SOURCES = $(libzip_a_SOURCES) $(libziptest_a_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -282,14 +286,18 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LIBRARIES = libzip.a
+noinst_LIBRARIES = libzip.a libziptest.a
 libzip_a_SOURCES = \
 	zipfile.cpp
 
 noinst_HEADERS = \
-	zipfile.h
+	zipfile.h zipfiletest.h
 
 libzip_a_CXXFLAGS = 
+libziptest_a_SOURCES = \
+	zipfiletest.cpp
+
+libziptest_a_CXXFLAGS = 
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov
 
@@ -335,6 +343,11 @@ libzip.a: $(libzip_a_OBJECTS) $(libzip_a_DEPENDENCIES) $(EXTRA_libzip_a_DEPENDEN
 	$(AM_V_AR)$(libzip_a_AR) libzip.a $(libzip_a_OBJECTS) $(libzip_a_LIBADD)
 	$(AM_V_at)$(RANLIB) libzip.a
 
+libziptest.a: $(libziptest_a_OBJECTS) $(libziptest_a_DEPENDENCIES) $(EXTRA_libziptest_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libziptest.a
+	$(AM_V_AR)$(libziptest_a_AR) libziptest.a $(libziptest_a_OBJECTS) $(libziptest_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libziptest.a
+
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 
@@ -342,6 +355,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libzip_a-zipfile.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libziptest_a-zipfiletest.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -370,6 +384,20 @@ libzip_a-zipfile.obj: zipfile.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='zipfile.cpp' object='libzip_a-zipfile.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzip_a_CXXFLAGS) $(CXXFLAGS) -c -o libzip_a-zipfile.obj `if test -f 'zipfile.cpp'; then $(CYGPATH_W) 'zipfile.cpp'; else $(CYGPATH_W) '$(srcdir)/zipfile.cpp'; fi`
+
+libziptest_a-zipfiletest.o: zipfiletest.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libziptest_a_CXXFLAGS) $(CXXFLAGS) -MT libziptest_a-zipfiletest.o -MD -MP -MF $(DEPDIR)/libziptest_a-zipfiletest.Tpo -c -o libziptest_a-zipfiletest.o `test -f 'zipfiletest.cpp' || echo '$(srcdir)/'`zipfiletest.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libziptest_a-zipfiletest.Tpo $(DEPDIR)/libziptest_a-zipfiletest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='zipfiletest.cpp' object='libziptest_a-zipfiletest.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libziptest_a_CXXFLAGS) $(CXXFLAGS) -c -o libziptest_a-zipfiletest.o `test -f 'zipfiletest.cpp' || echo '$(srcdir)/'`zipfiletest.cpp
+
+libziptest_a-zipfiletest.obj: zipfiletest.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libziptest_a_CXXFLAGS) $(CXXFLAGS) -MT libziptest_a-zipfiletest.obj -MD -MP -MF $(DEPDIR)/libziptest_a-zipfiletest.Tpo -c -o libziptest_a-zipfiletest.obj `if test -f 'zipfiletest.cpp'; then $(CYGPATH_W) 'zipfiletest.cpp'; else $(CYGPATH_W) '$(srcdir)/zipfiletest.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libziptest_a-zipfiletest.Tpo $(DEPDIR)/libziptest_a-zipfiletest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='zipfiletest.cpp' object='libziptest_a-zipfiletest.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libziptest_a_CXXFLAGS) $(CXXFLAGS) -c -o libziptest_a-zipfiletest.obj `if test -f 'zipfiletest.cpp'; then $(CYGPATH_W) 'zipfiletest.cpp'; else $(CYGPATH_W) '$(srcdir)/zipfiletest.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
