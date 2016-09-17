@@ -3,6 +3,8 @@ SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
 bin_PROGRAMS = pdftools testsuit
 TESTS = testsuit
 
+check_PROGRAMS = $(TESTS)
+
 pdftools_SOURCES = main.cpp \
 	utils.cpp \
 	analyze.cpp \

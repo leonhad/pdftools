@@ -21,6 +21,7 @@ AC_CANONICAL_HOST
 
 # Checks for programs.
 AC_LANG([C++])
+AM_PATH_CPPUNIT(1.13.2)
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
 # AX_CHECK_COMPILE_FLAG([-march=nocona], [CXXFLAGS="$CXXFLAGS -march=nocona"])

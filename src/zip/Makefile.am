@@ -11,7 +11,7 @@ libzip_a_CXXFLAGS =
 libziptest_a_SOURCES = \
 	zipfiletest.cpp
 
-libziptest_a_CXXFLAGS =
+libziptest_a_CXXFLAGS = $(CPPUNIT_CFLAGS)
 
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov
