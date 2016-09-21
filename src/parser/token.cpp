@@ -3,6 +3,7 @@
 using namespace std;
 using namespace parser;
 
+
 Token::Token() noexcept
 {
 }
