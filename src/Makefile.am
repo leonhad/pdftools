@@ -43,7 +43,7 @@ testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
 	zip/libziptest.a
 
 testsuit_SOURCES = \
-	testsuit.cpp \
+	suittest.cpp \
 	utils.cpp \
 	analyze.cpp \
 	pageanalyze.cpp \
