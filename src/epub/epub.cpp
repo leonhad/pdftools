@@ -200,7 +200,7 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
 
         xml->start_tag("navPoint");
         xml->add_attribute("id", playorder);
-    
+
         xml->start_tag("navLabel");
         xml->start_tag("text");
         xml->add_element(outline->title());
