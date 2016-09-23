@@ -26,7 +26,7 @@
 #include "../semantic/document.h"
 #include "../semantic/context.h"
 #include "../semantic/page.h"
-#include "../../config.h"
+#include <config.h>
 #include <cstring>
 #include <iostream>
 #include <sstream>

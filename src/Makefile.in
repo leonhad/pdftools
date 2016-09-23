@@ -548,7 +548,8 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
-pdftools_SOURCES = main.cpp \
+pdftools_SOURCES = \
+	main.cpp \
 	utils.cpp \
 	analyze.cpp \
 	pageanalyze.cpp \
@@ -565,7 +566,7 @@ noinst_HEADERS = \
 	generator.h \
 	genericexception.h
 
-pdftools_CXXFLAGS = 
+pdftools_CXXFLAGS = -I..
 pdftools_LDADD = \
 	semantic/libsemantic.a \
 	parser/libparser.a \
@@ -577,7 +578,7 @@ pdftools_LDADD = \
 	graphics/libgraphics.a \
 	nodes/libnodes.a
 
-testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src
+testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src -I..
 testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
 	$(pdftools_LDADD) \
 	zip/libziptest.a

@@ -5,7 +5,8 @@ TESTS = testsuit
 
 check_PROGRAMS = $(TESTS)
 
-pdftools_SOURCES = main.cpp \
+pdftools_SOURCES = \
+	main.cpp \
 	utils.cpp \
 	analyze.cpp \
 	pageanalyze.cpp \
@@ -23,7 +24,7 @@ noinst_HEADERS = \
 	generator.h \
 	genericexception.h
 
-pdftools_CXXFLAGS = 
+pdftools_CXXFLAGS = -I..
 
 pdftools_LDADD = \
 	semantic/libsemantic.a \
@@ -36,7 +37,7 @@ pdftools_LDADD = \
 	graphics/libgraphics.a \
 	nodes/libnodes.a
 
-testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src
+testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src -I..
 
 testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
 	$(pdftools_LDADD) \
