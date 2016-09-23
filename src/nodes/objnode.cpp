@@ -23,51 +23,54 @@
 using namespace std;
 using namespace node;
 
-ObjNode::ObjNode(int id, int generation) noexcept : TreeNode(), m_id{id}, m_generation{generation}
+ObjNode::ObjNode(int id, int generation)
+    : TreeNode(), m_id(id), m_generation(generation), m_stream_pos(0), m_value(nullptr)
 {
 }
 
-ObjNode::~ObjNode() noexcept
+ObjNode::~ObjNode()
 {
-    if (m_value) {
+    if (m_value)
+    {
         delete m_value;
     }
 }
 
-int ObjNode::id() const noexcept
+int ObjNode::id() const
 {
     return m_id;
 }
 
-int ObjNode::generation() const noexcept
+int ObjNode::generation() const
 {
     return m_generation;
 }
 
-TreeNode *ObjNode::value() const noexcept
+TreeNode *ObjNode::value() const
 {
     return m_value;
 }
 
-bool ObjNode::this_object(int id, int generation) const noexcept
+bool ObjNode::thisObject(int id, int generation) const
 {
     return m_id == id && m_generation == generation;
 }
 
-void ObjNode::set_value(TreeNode *value) noexcept
+void ObjNode::setValue(TreeNode *value)
 {
-    if (m_value) {
+    if (m_value)
+    {
         delete m_value;
     }
     m_value = value;
 }
 
-void ObjNode::set_stream_pos(size_t pos) noexcept
+void ObjNode::setStreamPos(size_t pos)
 {
     m_stream_pos = pos;
 }
 
-size_t ObjNode::stream_pos() const noexcept
+size_t ObjNode::streamPos() const
 {
     return m_stream_pos;
 }

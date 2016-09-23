@@ -431,7 +431,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
     filein.open(m_filein, ios::binary);
     
     Scanner scanner{&m_filestream};
-    scanner.to_pos(obj->stream_pos());
+    scanner.to_pos(obj->streamPos());
 
     char *stream = scanner.get_stream(length);
     filein.close();
@@ -584,7 +584,7 @@ ObjNode *Analyze::get_object(int id, int generation)
     for (size_t i = 0; i < size; i++) {
         if (!done) {
             ObjNode *obj = dynamic_cast<ObjNode *>(m_tree->get(i));
-            if (obj && obj->this_object(id, generation)) {
+            if (obj && obj->thisObject(id, generation)) {
                 // Value found
                 done = true;
                 ret = obj;

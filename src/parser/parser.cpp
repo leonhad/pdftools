@@ -107,7 +107,7 @@ void Parser::object_streams(RootNode *root_node)
                     }
                     char *uncompressed = nullptr;
                     
-                    m_scanner->to_pos(root_object->stream_pos());
+                    m_scanner->to_pos(root_object->streamPos());
                     char *stream = (char *)m_scanner->get_stream(length);
 
                     int total = length;
@@ -142,7 +142,7 @@ void Parser::object_streams(RootNode *root_node)
                     vector<int>::iterator id;
                     for (id = ids.begin(); id < ids.end(); id++) {
                         ObjNode *new_obj = new ObjNode(*id, 0);
-                        new_obj->set_value(value_sequence());
+                        new_obj->setValue(value_sequence());
                         root_node->add_child(new_obj);
                     }
                     m_scanner = temp;
@@ -208,7 +208,7 @@ TreeNode *Parser::object_sequence()
 
     ObjNode *node = new ObjNode((int) number, (int) generation_nunber);
     match(TokenType::OBJ);
-    node->set_value(value_sequence());
+    node->setValue(value_sequence());
     if (m_token && m_token->type() == TokenType::STREAM) {
         int length = -1;
         MapNode *map = dynamic_cast<MapNode *> (node->value());
@@ -218,7 +218,7 @@ TreeNode *Parser::object_sequence()
                 length = number->value();
             }
         }
-        node->set_stream_pos(m_scanner->ignore_stream(length));
+        node->setStreamPos(m_scanner->ignore_stream(length));
         next_token();
         match(TokenType::END_STREAM);
     }

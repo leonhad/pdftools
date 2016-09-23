@@ -32,21 +32,21 @@ namespace node {
         int m_id;
         int m_generation;
         size_t m_stream_pos;
-        TreeNode *m_value = nullptr;
+        TreeNode *m_value;
 
     public:
-        ObjNode(int id, int generation) noexcept;
-        virtual ~ObjNode() noexcept;
+        ObjNode(int id, int generation);
+        virtual ~ObjNode();
 
-        void set_value(TreeNode *value) noexcept;
-        void set_stream_pos(size_t pos) noexcept;
+        void setValue(TreeNode *value);
+        void setStreamPos(size_t pos);
 
-        int id() const noexcept;
-        int generation() const noexcept;
-        size_t stream_pos() const noexcept;
-        TreeNode *value() const noexcept;
-        bool this_object(int id, int generation) const noexcept;
-        void clear_stream() noexcept;
+        int id() const;
+        int generation() const;
+        size_t streamPos() const;
+        TreeNode *value() const;
+        bool thisObject(int id, int generation) const;
+        void clearStream();
     };
 
 }
