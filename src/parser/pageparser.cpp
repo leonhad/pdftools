@@ -146,7 +146,7 @@ TreeNode *PageParser::tm_sequence(vector<TreeNode *> &values)
         NumberNode *e = dynamic_cast<NumberNode *>(values[4]);
         NumberNode *f = dynamic_cast<NumberNode *>(values[5]);
         
-        return new TextMatrixNode(a->value(), b->value(), c->value(), d->value(), e->value(), f->value());
+        return new TextMatrixNode({a->value(), b->value(), c->value(), d->value(), e->value(), f->value()});
     }
     return nullptr;
 }

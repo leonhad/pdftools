@@ -116,6 +116,6 @@ void PageAnalyze::analyze_text(TextNode *text, Glyph *parent)
 
 FontSizeGlyph *PageAnalyze::analyze_text_matrix(TextMatrixNode *text_matrix)
 {
-    m_state.set_text_matrix(text_matrix->a(), text_matrix->b(), text_matrix->c(), text_matrix->d(), text_matrix->e(), text_matrix->f());
+    m_state.set_text_matrix(text_matrix->at(0), text_matrix->at(1), text_matrix->at(2), text_matrix->at(3), text_matrix->at(4), text_matrix->at(5));
     return new FontSizeGlyph(m_state.get_text_font());
 }
