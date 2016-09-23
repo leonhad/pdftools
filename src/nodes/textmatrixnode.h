@@ -31,7 +31,7 @@ namespace node {
         std::vector<double> values;
 
     public:
-        TextMatrixNode(std::initializer_list<double> l);
+        TextMatrixNode(const std::initializer_list<double> &list);
         virtual ~TextMatrixNode() = default;
 
         double at(int index) const;
