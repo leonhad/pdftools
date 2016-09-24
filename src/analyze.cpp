@@ -37,7 +37,7 @@
 #include "genericexception.h"
 
 using namespace std;
-using namespace parser; 
+using namespace parser;
 using namespace node;
 
 Analyze::Analyze(const string& filein) throw(exception) : m_filein(filein)
