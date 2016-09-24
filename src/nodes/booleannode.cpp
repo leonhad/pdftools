@@ -21,12 +21,12 @@
 
 using namespace node;
 
-BooleanNode::BooleanNode(bool value) noexcept
+BooleanNode::BooleanNode(bool value)
+    : m_value(value)
 {
-    m_value = value;
 }
 
-bool BooleanNode::value() const noexcept
+bool BooleanNode::value() const
 {
     return m_value;
 }

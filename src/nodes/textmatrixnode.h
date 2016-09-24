@@ -24,9 +24,10 @@
 #include <vector>
 #include <initializer_list>
 
-namespace node {
-
-    class TextMatrixNode : public TreeNode {
+namespace node
+{
+    class TextMatrixNode : public TreeNode
+    {
     private:
         std::vector<double> values;
 

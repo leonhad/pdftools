@@ -20,6 +20,8 @@
 #include "../html/html.h"
 #include "glyph.h"
 
+using namespace std;
+
 Glyph::Glyph()
     : m_context(nullptr), m_last_glyph(nullptr)
 {
@@ -54,6 +56,7 @@ void Glyph::execute(Html *document, Context *context)
     {
         m_last_glyph = this;
     }
+
     for (size_t i = 0; i < size; i++)
     {
         m_childs[i]->set_last(m_last_glyph);

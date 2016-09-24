@@ -22,14 +22,12 @@
 
 #include <vector>
 
-using namespace std;
-
 class Html;
 class Context;
 
 class Glyph {
 private:
-    vector<Glyph *> m_childs;
+    std::vector<Glyph *> m_childs;
 
 protected:
     Context *m_context;

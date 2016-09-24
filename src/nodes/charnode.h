@@ -23,21 +23,21 @@
 #include "treenode.h"
 #include <string>
 
-namespace node {
-
-    class CharNode : public TreeNode {
+namespace node
+{
+    class CharNode : public TreeNode
+    {
     private:
         std::string m_char;
         std::string m_unicode;
 
     public:
-        CharNode(std::string character, std::string unicode) noexcept;
-        virtual ~CharNode() noexcept = default;
+        CharNode(std::string character, std::string unicode);
+        virtual ~CharNode() = default;
 
-        std::string character() const noexcept;
-        std::string unicode() const noexcept;
+        std::string character() const;
+        std::string unicode() const;
     };
-
 }
 
 #endif

@@ -24,28 +24,28 @@
 #include <vector>
 #include <cstring>
 
-namespace node {
-
+namespace node
+{
     class CodeSpaceNode;
     class CharNode;
 
-    class CMapNode : public TreeNode {
+    class CMapNode : public TreeNode
+    {
     private:
         std::vector<CharNode *> m_charnodes;
-        CodeSpaceNode *m_codespace = nullptr;
+        CodeSpaceNode *m_codespace;
 
     public:
-        CMapNode() noexcept;
-        ~CMapNode() noexcept;
+        CMapNode();
+        ~CMapNode();
 
-        void add(CharNode *node) noexcept;
-        void set_codespace(CodeSpaceNode *codespace) noexcept;
+        void add(CharNode *node);
+        void set_codespace(CodeSpaceNode *codespace);
 
-        CodeSpaceNode *code_space() const noexcept;
-        size_t nodes() const noexcept;
-        CharNode *node(size_t index) const noexcept;
+        CodeSpaceNode *code_space() const;
+        size_t nodes() const;
+        CharNode *node(size_t index) const;
     };
-
 }
 
 #endif

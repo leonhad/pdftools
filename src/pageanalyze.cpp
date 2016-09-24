@@ -80,6 +80,7 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
                 {
                     analyze_tree(bdc, node_parent);
                 }
+
                 continue;
             }
         }
@@ -91,31 +92,37 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
                 analyze_tree(bdc, node_parent);
             }
         }
+
         TextMatrixNode *text_matrix = dynamic_cast<TextMatrixNode *>(node);
         if (text_matrix)
         {
             node_parent->add_child(analyze_text_matrix(text_matrix));
             continue;
         }
+
         FontNode *font = dynamic_cast<FontNode *>(node);
         if (font)
         {
             node_parent->add_child(analyze_font(font));
             continue;
         }
+
         TextNode *text = dynamic_cast<TextNode *>(node);
         if (text)
         {
             analyze_text(text, node_parent);
             continue;
         }
+
         StateNode *state = dynamic_cast<StateNode *>(node);
         if (state)
         {
             if (state->save())
             {
                 m_state.push();
-            } else {
+            }
+            else
+            {
                 m_state.pop();
             }
         }
@@ -134,6 +141,7 @@ void PageAnalyze::analyze_text(TextNode *text, Glyph *parent)
 
 FontSizeGlyph *PageAnalyze::analyze_text_matrix(TextMatrixNode *text_matrix)
 {
-    m_state.set_text_matrix(text_matrix->at(0), text_matrix->at(1), text_matrix->at(2), text_matrix->at(3), text_matrix->at(4), text_matrix->at(5));
+    m_state.set_text_matrix(text_matrix->at(0), text_matrix->at(1), text_matrix->at(2),
+                            text_matrix->at(3), text_matrix->at(4), text_matrix->at(5));
     return new FontSizeGlyph(m_state.get_text_font());
 }

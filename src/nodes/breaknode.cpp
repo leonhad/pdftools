@@ -21,6 +21,6 @@
 
 using namespace node;
 
-BreakNode::BreakNode() noexcept : TreeNode()
+BreakNode::BreakNode() : TreeNode()
 {
 }

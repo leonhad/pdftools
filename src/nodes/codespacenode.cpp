@@ -22,26 +22,27 @@
 using namespace std;
 using namespace node;
 
-CodeSpaceNode::CodeSpaceNode() noexcept : TreeNode()
+CodeSpaceNode::CodeSpaceNode()
+    : TreeNode()
 {
 }
 
-void CodeSpaceNode::set_start(string start) noexcept
+void CodeSpaceNode::set_start(string start)
 {
     m_start = start;
 }
 
-void CodeSpaceNode::set_finish(string finish) noexcept
+void CodeSpaceNode::set_finish(string finish)
 {
     m_finish = finish;
 }
 
-string CodeSpaceNode::start() const noexcept
+string CodeSpaceNode::start() const
 {
     return m_start;
 }
 
-string CodeSpaceNode::finish() const noexcept
+string CodeSpaceNode::finish() const
 {
     return m_finish;
 }

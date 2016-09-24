@@ -35,7 +35,8 @@ static bool _verbose = false;
 
 #define MAX_BUFFER_SIZE 16384
 
-struct buffer_struct {
+struct buffer_struct
+{
     char buffer[MAX_BUFFER_SIZE];
     int size;
 };
@@ -77,14 +78,16 @@ const char *doc_encoding_table[256] = {
 
 void verbose_message(const char *msg)
 {
-    if (_verbose) {
+    if (_verbose)
+    {
         cout << PACKAGE_NAME << ": " << msg << endl;
     }
 }
 
 void verbose_message(const string &msg)
 {
-    if (_verbose) {
+    if (_verbose)
+    {
         verbose_message(msg.c_str());
     }
 }
@@ -121,28 +124,33 @@ char *compress(const char *raw, size_t size, uint32_t &writed) throw(exception)
     zstream.opaque = Z_NULL;
 
     int err = deflateInit2(&zstream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, -MAX_WBITS, MAX_MEM_LEVEL, Z_DEFAULT_STRATEGY);
-    if (err != Z_OK) {
+    if (err != Z_OK)
+    {
         throw GenericException("Error in deflate init.");
     }
     zstream.avail_in = (uInt)size;
     zstream.next_in = (Bytef *) raw;
 
     int total = 0;
-    do {
+    do
+    {
         buffer_struct b;
         zstream.avail_out = MAX_BUFFER_SIZE;
         zstream.next_out = (Bytef *) b.buffer;
 
         err = deflate(&zstream, Z_FINISH);
-        if (err != Z_OK && err != Z_STREAM_END) {
+        if (err != Z_OK && err != Z_STREAM_END)
+        {
             // stop on error
             throw GenericException("Error in deflate.");
         }
+
         b.size = MAX_BUFFER_SIZE - zstream.avail_out;
 
         total += b.size;
         values.push_back(b);
-    } while (err == Z_OK);
+    }
+    while (err == Z_OK);
 
     deflateEnd(&zstream);
 
@@ -151,10 +159,12 @@ char *compress(const char *raw, size_t size, uint32_t &writed) throw(exception)
 
     int locate = 0;
     vector<buffer_struct>::iterator i;
-    for (i = values.begin(); i != values.end(); i++) {
+    for (i = values.begin(); i != values.end(); i++)
+    {
         memcpy(ret + locate, (*i).buffer, (*i).size);
         locate += (*i).size;
     }
+
     return ret;
 }
 
@@ -171,28 +181,38 @@ char *flat_decode(char *compressed, int size, int &deflated)
 
     int total = 0;
     int rsti = inflateInit(&zstream);
-    if (rsti == Z_OK) {
+    if (rsti == Z_OK)
+    {
         zstream.avail_in = size;
         zstream.next_in = (Bytef *) compressed;
 
-        do {
+        do
+        {
             buffer_struct b;
             zstream.avail_out = MAX_BUFFER_SIZE;
             zstream.next_out = (Bytef *) b.buffer;
 
             int rst2 = inflate(&zstream, Z_NO_FLUSH);
-            if (rst2 >= 0 || rst2 == Z_BUF_ERROR) {
+            if (rst2 >= 0 || rst2 == Z_BUF_ERROR)
+            {
                 b.size = MAX_BUFFER_SIZE - zstream.avail_out;\
                 total += b.size;
                 values.push_back(b);
-                if (rst2 == Z_STREAM_END) break;
-            } else {
+                if (rst2 == Z_STREAM_END)
+                {
+                    break;
+                }
+            }
+            else
+            {
                 cout << "error in decompression " << rst2 << endl;
                 // Error in decompression
                 break;
             }
-        } while (zstream.avail_out == 0);
+        }
+        while (zstream.avail_out == 0);
     }
+
     inflateEnd(&zstream);
 
     char *ret = new char[total + 1];
@@ -201,10 +221,12 @@ char *flat_decode(char *compressed, int size, int &deflated)
 
     int locate = 0;
     vector<buffer_struct>::iterator i;
-    for (i = values.begin(); i != values.end(); i++) {
+    for (i = values.begin(); i != values.end(); i++)
+    {
         memcpy(ret + locate, (*i).buffer, (*i).size);
         locate += (*i).size;
     }
+
     return ret;
 }
 
@@ -213,9 +235,12 @@ string utf16be_to_utf8(string &str)
     string ret;
     
     iconv_t conv_desc = iconv_open("UTF-8", "UTF-16BE");
-    if ((size_t) conv_desc == (size_t) - 1) {
+    if ((size_t) conv_desc == (size_t) - 1)
+    {
         /* Initialization failure. Do not convert strings */
-    } else {
+    }
+    else
+    {
         size_t len = str.length();
         size_t utf8len = len * 2;
         const size_t original = utf8len;
@@ -226,12 +251,14 @@ string utf16be_to_utf8(string &str)
 
         size_t iconv_value = iconv(conv_desc, &utf16, &len, &utf8, &utf8len);
         // Handle failures.
-        if ((int) iconv_value != -1) {
+        if ((int) iconv_value != -1)
+        {
             ret = string(utf8start, original - utf8len);
         }
         delete [] utf8start;
         iconv_close(conv_desc);
     }
+
     return ret;
 }
 
@@ -239,21 +266,26 @@ string charset_to_utf8(string &str)
 {
     string ret = str;
     bool convert_string = false;
-    if (str.length() > 2) {
+    if (str.length() > 2)
+    {
         uint8_t first = str[0];
         uint8_t second = str[1];
-        if ((first == 0xFE && second == 0xFF)
-                || (first == 0xFF && second == 0xFE)) {
+        if ((first == 0xFE && second == 0xFF) || (first == 0xFF && second == 0xFE))
+        {
             // UTF-16LE or UTF-16BE
             convert_string = true;
         }
     }
 
-    if (convert_string) {
+    if (convert_string)
+    {
         iconv_t conv_desc = iconv_open("UTF-8", "UTF-16");
-        if ((size_t) conv_desc == (size_t) - 1) {
+        if ((size_t) conv_desc == (size_t) - 1)
+        {
             /* Initialization failure. Do not convert strings */
-        } else {
+        }
+        else
+        {
             size_t len = str.length();
             size_t utf8len = len * 2;
             const size_t original = utf8len;
@@ -264,22 +296,28 @@ string charset_to_utf8(string &str)
 
             size_t iconv_value = iconv(conv_desc, &utf16, &len, & utf8, & utf8len);
             // Handle failures.
-            if ((int) iconv_value != -1) {
+            if ((int) iconv_value != -1)
+            {
                 ret = string(utf8start, original - utf8len);
             }
             delete [] utf8start;
             iconv_close(conv_desc);
         }
-    } else {
+    }
+    else
+    {
         stringstream converted;
         size_t size = str.length();
 
-        for (size_t loop = 0; loop < size; loop++) {
+        for (size_t loop = 0; loop < size; loop++)
+        {
             uint8_t c = str[loop];
             const char *new_char = doc_encoding_table[c];
             converted << new_char;
         }
+
         return converted.str();
     }
+
     return ret;
 }

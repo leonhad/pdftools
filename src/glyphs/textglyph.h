@@ -23,16 +23,15 @@
 #include "glyph.h"
 #include <string>
 
-using namespace std;
-
 class Html;
 
-class TextGlyph : public Glyph {
+class TextGlyph : public Glyph
+{
 private:
-    string m_text;
+    std::string m_text;
     
 public:
-    TextGlyph(string text);
+    TextGlyph(std::string text);
     virtual void do_glyph(Html *document);
 };
 

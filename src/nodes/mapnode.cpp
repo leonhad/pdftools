@@ -26,42 +26,48 @@
 using namespace std;
 using namespace node;
 
-MapNode::MapNode() noexcept : TreeNode()
+MapNode::MapNode() : TreeNode()
 {
 }
 
-MapNode::~MapNode() noexcept
+MapNode::~MapNode()
 {
-    for (auto &i : m_values) {
+    for (auto &i : m_values)
+    {
         delete i.second;
     }
 }
 
-TreeNode *MapNode::get(string name) const noexcept
+TreeNode *MapNode::get(string name) const
 {
-    try {
+    try
+    {
         return m_values.at(name);
-    } catch (out_of_range &) {
+    }
+    catch (out_of_range &)
+    {
         return nullptr;
     }
 }
 
-vector<string> MapNode::names() const noexcept
+vector<string> MapNode::names() const
 {
     vector<string> names;
     names.reserve(m_values.size());
-    for (const auto &p : m_values) {
+    for (const auto &p : m_values)
+    {
         names.push_back(p.first);
     }
+
     return names;
 }
 
-map<string, TreeNode *> MapNode::values() const noexcept
+map<string, TreeNode *> MapNode::values() const
 {
     return m_values;
 }
 
-void MapNode::push(string name, TreeNode *value) noexcept
+void MapNode::push(string name, TreeNode *value)
 {
     m_values[name] = value;
 }

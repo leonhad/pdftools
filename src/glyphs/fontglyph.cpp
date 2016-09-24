@@ -22,10 +22,11 @@
 #include "../html/html.h"
 #include "../semantic/context.h"
 
-FontGlyph::FontGlyph(string font, int size) : Glyph()
+using namespace std;
+
+FontGlyph::FontGlyph(string font, int size)
+    : Glyph(), m_size(size), m_font(font)
 {
-    m_font = font;
-    m_size = size;
 }
 
 void FontGlyph::do_glyph(Html *)

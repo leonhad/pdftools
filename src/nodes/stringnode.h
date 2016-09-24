@@ -23,19 +23,18 @@
 #include "treenode.h"
 #include <string>
 
-namespace node {
-
-    class StringNode : public TreeNode {
+namespace node{
+    class StringNode : public TreeNode
+    {
     private:
         std::string m_value;
 
     public:
-        StringNode(std::string value) noexcept;
-        virtual ~StringNode() noexcept = default;
+        StringNode(std::string value);
+        virtual ~StringNode() = default;
 
-        std::string value() const noexcept;
+        std::string value() const;
     };
-
 }
 
 #endif

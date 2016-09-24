@@ -62,6 +62,7 @@ void ObjNode::setValue(TreeNode *value)
     {
         delete m_value;
     }
+
     m_value = value;
 }
 

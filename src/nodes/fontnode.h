@@ -23,9 +23,10 @@
 #include "treenode.h"
 #include <string>
 
-namespace node {
-
-    class FontNode : public TreeNode {
+namespace node
+{
+    class FontNode : public TreeNode
+    {
     private:
         std::string m_name;
         int m_size;
@@ -39,7 +40,6 @@ namespace node {
         void set_name(std::string name);
         void set_size(int size);
     };
-
 }
 
 #endif

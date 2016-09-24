@@ -23,24 +23,24 @@
 #include "treenode.h"
 #include <string>
 
-namespace node {
-
-    class CodeSpaceNode : public TreeNode {
+namespace node
+{
+    class CodeSpaceNode : public TreeNode
+    {
     private:
         std::string m_start;
         std::string m_finish;
 
     public:
-        CodeSpaceNode() noexcept;
-        virtual ~CodeSpaceNode() noexcept = default;
+        CodeSpaceNode();
+        virtual ~CodeSpaceNode() = default;
 
-        void set_start(std::string start) noexcept;
-        void set_finish(std::string finish) noexcept;
+        void set_start(std::string start);
+        void set_finish(std::string finish);
 
-        std::string start() const noexcept;
-        std::string finish() const noexcept;
+        std::string start() const;
+        std::string finish() const;
     };
-
 }
 
 #endif

@@ -35,8 +35,10 @@ Generator::~Generator()
 
 Generator *Generator::get_instance(const string& format)
 {
-    if (format == "epub") {
+    if (format == "epub")
+    {
         return new EPUB;
     }
+
     return nullptr;
 }

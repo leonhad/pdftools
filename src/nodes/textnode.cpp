@@ -22,16 +22,16 @@
 using namespace std;
 using namespace node;
 
-TextNode::TextNode() noexcept : TreeNode()
+TextNode::TextNode() : TreeNode()
 {
 }
 
-void TextNode::add(string text) noexcept
+void TextNode::add(string text)
 {
     m_value += text;
 }
 
-string TextNode::text() const noexcept
+string TextNode::text() const
 {
     return m_value;
 }

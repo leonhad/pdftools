@@ -46,7 +46,9 @@ Analyze::Analyze(const string& filein) throw(exception) : m_filein(filein)
 
     if (!m_filestream.is_open())
     {
-        throw GenericException("Invalid input file name: " + filein);
+        string message{"Invalid input file name: "};
+        message += filein;
+        throw GenericException(message);
     }
 }
 

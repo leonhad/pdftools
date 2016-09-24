@@ -22,18 +22,17 @@
 using namespace std;
 using namespace node;
 
-CharNode::CharNode(string character, string unicode) noexcept : TreeNode()
+CharNode::CharNode(string character, string unicode)
+    : TreeNode(), m_char(character), m_unicode(unicode)
 {
-    m_char = character;
-    m_unicode = unicode;
 }
 
-string CharNode::character() const noexcept
+string CharNode::character() const
 {
     return m_char;
 }
 
-string CharNode::unicode() const noexcept
+string CharNode::unicode() const
 {
     return m_unicode;
 }

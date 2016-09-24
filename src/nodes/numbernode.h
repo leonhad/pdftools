@@ -22,9 +22,10 @@
 
 #include "treenode.h"
 
-namespace node {
-
-    class NumberNode : public TreeNode {
+namespace node
+{
+    class NumberNode : public TreeNode
+    {
     private:
         double m_value;
 
@@ -34,7 +35,6 @@ namespace node {
 
         double value() const;
     };
-
 }
 
 #endif

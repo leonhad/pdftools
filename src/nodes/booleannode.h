@@ -22,19 +22,19 @@
 
 #include "treenode.h"
 
-namespace node {
-
-    class BooleanNode : public TreeNode {
+namespace node
+{
+    class BooleanNode : public TreeNode
+    {
     private:
         bool m_value;
 
     public:
-        BooleanNode(bool value) noexcept;
-        virtual ~BooleanNode() noexcept = default;
+        BooleanNode(bool value);
+        virtual ~BooleanNode() = default;
 
-        bool value() const noexcept;
+        bool value() const;
     };
-
 }
 
 #endif

@@ -22,9 +22,10 @@
 
 #include "treenode.h"
 
-namespace node {
-
-    class StateNode : public TreeNode {
+namespace node
+{
+    class StateNode : public TreeNode
+    {
     private:
         bool m_save;
 
@@ -34,7 +35,6 @@ namespace node {
 
         bool save() const;
     };
-
 }
 
 #endif

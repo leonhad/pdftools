@@ -65,33 +65,54 @@ void Html::add_font(int size, bool bold, bool italic, bool fixed)
     m_xml.start_tag("div");
 
     stringstream css;
-    if (size <= 8) {
+    if (size <= 8)
+    {
         css << "f8";
-    } else if (size <= 10) {
+    }
+    else if (size <= 10)
+    {
         css << "f10";
-    } else if (size <= 12) {
+    }
+    else if (size <= 12)
+    {
         css << "f12";
-    } else if (size <= 14) {
+    }
+    else if (size <= 14)
+    {
         css << "f14";
-    } else if (size <= 16) {
+    }
+    else if (size <= 16)
+    {
         css << "f16";
-    } else {
+    }
+    else
+    {
         css << "f18";
     }
 
-    if (italic) {
+    if (italic)
+    {
         css << " i";
-    } else {
+    }
+    else
+    {
         css << " n";
     }
-    if (bold) {
+
+    if (bold)
+    {
         css << " b";
-    } else {
+    }
+    else
+    {
         css << " l";
     }
-    if (fixed) {
+
+    if (fixed)
+    {
         css << " m";
     }
+
     m_xml.add_attribute("class", css.str());
 }
 

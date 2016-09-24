@@ -24,21 +24,21 @@
 #include <vector>
 #include <cstddef>
 
-namespace node {
-
-    class RootNode : public TreeNode {
+namespace node
+{
+    class RootNode : public TreeNode
+    {
     private:
         std::vector<TreeNode *> m_child;
 
     public:
-        RootNode() noexcept;
-        virtual ~RootNode() noexcept;
+        RootNode();
+        virtual ~RootNode();
 
-        void add_child(TreeNode *child) noexcept;
-        TreeNode *get(size_t index) const noexcept;
-        size_t size() const noexcept;
+        void add_child(TreeNode *child);
+        TreeNode *get(size_t index) const;
+        size_t size() const;
     };
-
 }
 
 #endif

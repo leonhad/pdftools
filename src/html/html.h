@@ -23,7 +23,8 @@
 #include "../xml/xml.h"
 #include <string>
 
-class Html {
+class Html
+{
 private:
     XML m_xml;
     
@@ -48,7 +49,8 @@ public:
     void set_title(const std::string& title);
     void set_link(const std::string& rel, const std::string& type, const std::string& href);
 
-    inline const std::string content() const {
+    inline const std::string content() const
+    {
         return m_xml.content();
     }
 };

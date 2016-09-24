@@ -25,9 +25,10 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace node {
-
-    class ObjNode : public TreeNode {
+namespace node
+{
+    class ObjNode : public TreeNode
+    {
     private:
         int m_id;
         int m_generation;
@@ -48,7 +49,6 @@ namespace node {
         bool thisObject(int id, int generation) const;
         void clearStream();
     };
-
 }
 
 #endif

@@ -23,9 +23,10 @@
 #include "rootnode.h"
 #include <string>
 
-namespace node {
-
-    class BDCNode : public RootNode {
+namespace node
+{
+    class BDCNode : public RootNode
+    {
     private:
         RootNode *m_parent;
         TreeNode *m_value;
@@ -41,7 +42,6 @@ namespace node {
         void set_value(TreeNode *value);
         void set_name(std::string name);
     };
-
 }
 
 #endif

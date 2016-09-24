@@ -26,7 +26,8 @@
 class Font;
 class Document;
 
-namespace node {
+namespace node
+{
     class TreeNode;
     class TextNode;
     class RootNode;
@@ -34,7 +35,8 @@ namespace node {
     class TextMatrixNode;
 }
 
-class PageAnalyze {
+class PageAnalyze
+{
 private:
     GraphicState m_state;
     Document *m_document;

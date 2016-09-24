@@ -22,28 +22,29 @@
 using namespace std;
 using namespace node;
 
-RootNode::RootNode() noexcept : TreeNode()
+RootNode::RootNode() : TreeNode()
 {
 }
 
-RootNode::~RootNode() noexcept
+RootNode::~RootNode()
 {
-    for (auto &i : m_child) {
+    for (auto &i : m_child)
+    {
         delete i;
     }
 }
 
-void RootNode::add_child(TreeNode *child) noexcept
+void RootNode::add_child(TreeNode *child)
 {
     m_child.push_back(child);
 }
 
-TreeNode *RootNode::get(size_t index) const noexcept
+TreeNode *RootNode::get(size_t index) const
 {
     return m_child[index];
 }
 
-size_t RootNode::size() const noexcept
+size_t RootNode::size() const
 {
     return m_child.size();
 }

@@ -23,9 +23,11 @@
 #include "../semantic/font.h"
 #include <cstring>
 
+using namespace std;
+
 TextGlyph::TextGlyph(string text)
+    : m_text(text)
 {
-    m_text = text;
 }
 
 void TextGlyph::do_glyph(Html *document)
@@ -34,11 +36,15 @@ void TextGlyph::do_glyph(Html *document)
 
     document->add_font(current->size() * m_context->font_size(), current->bold(), current->italic(), current->fixed());
     string text;
-    if (current) {
+    if (current)
+    {
         text = current->translate(m_text);
-    } else {
+    }
+    else
+    {
         text = m_text;
     }
+
     document->add_element(text + " ");
     document->end_tag();
 }

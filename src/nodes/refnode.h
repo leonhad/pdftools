@@ -22,9 +22,10 @@
 
 #include "treenode.h"
 
-namespace node {
-
-    class RefNode : public TreeNode {
+namespace node
+{
+    class RefNode : public TreeNode
+    {
     private:
         int m_id;
         int m_generation;
@@ -36,7 +37,6 @@ namespace node {
         int id() const;
         int generation() const;
     };
-
 }
 
 #endif

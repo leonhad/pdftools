@@ -22,14 +22,14 @@
 
 #include "treenode.h"
 
-namespace node {
-
-    class BreakNode : public TreeNode {
+namespace node
+{
+    class BreakNode : public TreeNode
+    {
     public:
-        BreakNode() noexcept;
-        virtual ~BreakNode() noexcept = default;
+        BreakNode();
+        virtual ~BreakNode() = default;
     };
-
 }
 
 #endif

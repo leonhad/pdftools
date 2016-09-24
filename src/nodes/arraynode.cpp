@@ -22,28 +22,28 @@
 using namespace std;
 using namespace node;
 
-ArrayNode::ArrayNode() noexcept : TreeNode()
+ArrayNode::ArrayNode() : TreeNode()
 {
 }
 
-ArrayNode::~ArrayNode() noexcept
+ArrayNode::~ArrayNode()
 {
     for (auto &i : m_values) {
         delete i;
     }
 }
 
-TreeNode *ArrayNode::value(size_t index) const noexcept
+TreeNode *ArrayNode::value(size_t index) const
 {
     return m_values[index];
 }
 
-size_t ArrayNode::size() const noexcept
+size_t ArrayNode::size() const
 {
     return m_values.size();
 }
 
-void ArrayNode::push(TreeNode *value) noexcept
+void ArrayNode::push(TreeNode *value)
 {
     m_values.push_back(value);
 }

@@ -25,23 +25,23 @@
 #include <string>
 #include <vector>
 
-namespace node {
-
-    class MapNode : public TreeNode {
+namespace node
+{
+    class MapNode : public TreeNode
+    {
     private:
         std::map<std::string, TreeNode *> m_values;
 
     public:
-        MapNode() noexcept;
-        virtual ~MapNode() noexcept;
+        MapNode();
+        virtual ~MapNode();
 
-        void push(std::string name, TreeNode *value) noexcept;
-        std::map<std::string, TreeNode *> values() const noexcept;
-        std::vector<std::string> names() const noexcept;
+        void push(std::string name, TreeNode *value);
+        std::map<std::string, TreeNode *> values() const;
+        std::vector<std::string> names() const;
 
-        TreeNode *get(std::string name) const noexcept;
+        TreeNode *get(std::string name) const;
     };
-
 }
 
 #endif

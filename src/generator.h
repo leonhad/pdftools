@@ -24,7 +24,8 @@
 
 class Document;
 
-class Generator {
+class Generator
+{
 protected:
     Generator();
 

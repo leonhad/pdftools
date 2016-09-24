@@ -22,15 +22,15 @@
 using namespace std;
 using namespace node;
 
-BDCNode::BDCNode(RootNode *parent) : RootNode()
+BDCNode::BDCNode(RootNode *parent)
+    : RootNode(), m_parent(parent), m_value(nullptr)
 {
-    m_value = nullptr;
-    m_parent = parent;
 }
 
 BDCNode::~BDCNode()
 {
-    if (m_value) {
+    if (m_value)
+    {
         delete m_value;
     }
 }

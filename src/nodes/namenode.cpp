@@ -22,12 +22,12 @@
 using namespace std;
 using namespace node;
 
-NameNode::NameNode(std::string name) noexcept : TreeNode()
+NameNode::NameNode(std::string name)
+    : TreeNode(), m_name(name)
 {
-    m_name = name;
 }
 
-string NameNode::name() const noexcept
+string NameNode::name() const
 {
     return m_name;
 }
