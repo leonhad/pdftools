@@ -32,7 +32,8 @@
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& filein, const string& fileout, const string& format) : m_filein{filein}, m_format{format}
+Converter::Converter(const string& filein, const string& fileout, const string& format)
+    : m_filein(filein), m_format(format), m_document(nullptr)
 {
     // Calculate the output file name
     if (fileout.empty())
@@ -54,10 +55,13 @@ Converter::Converter(const string& filein, const string& fileout, const string& 
 
 Converter::~Converter()
 {
-    if (m_document) delete m_document;
+    if (m_document)
+    {
+        delete m_document;
+    }
 }
 
-void Converter::convert() throw(std::exception)
+void Converter::convert() throw (std::exception)
 {
     Analyze analyze(m_filein.c_str());
 
@@ -88,7 +92,9 @@ void Converter::convert() throw(std::exception)
 
             delete instance;
         }
-    } else {
+    }
+    else
+    {
         error_message("Invalid input file");
     }
 }

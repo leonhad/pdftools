@@ -32,7 +32,8 @@ class Document;
 class Font;
 class Page;
 
-namespace node {
+namespace node
+{
     class RootNode;
     class TreeNode;
     class MapNode;

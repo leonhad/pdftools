@@ -727,7 +727,8 @@ ObjNode *Analyze::get_object(int id, int generation)
         if (!done)
         {
             ObjNode *obj = dynamic_cast<ObjNode *>(m_tree->get(i));
-            if (obj && obj->thisObject(id, generation)) {
+            if (obj && obj->thisObject(id, generation))
+            {
                 // Value found
                 done = true;
                 ret = obj;
