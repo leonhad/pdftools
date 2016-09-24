@@ -28,9 +28,8 @@
 using namespace node;
 
 PageAnalyze::PageAnalyze(Document *document)
+    : m_document(document), m_root(nullptr)
 {
-    m_document = document;
-    m_font = nullptr;
 }
 
 PageAnalyze::~PageAnalyze()
@@ -48,54 +47,73 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
 {
     Glyph *node_parent = parent;
     size_t size = tree->size();
-    for (size_t loop = 0; loop < size; loop++) {
+    for (size_t loop = 0; loop < size; loop++)
+    {
         TreeNode *node = tree->get(loop);
 
-        if (m_document->tree_root()) {
+        if (m_document->tree_root())
+        {
             BDCNode *bdc = dynamic_cast<BDCNode *>(node);
-            if (bdc) {
-                if (bdc->name() == "/P") {
+            if (bdc)
+            {
+                if (bdc->name() == "/P")
+                {
                     ParagraphGlyph *p = new ParagraphGlyph;
                     analyze_tree(bdc, p);
                     node_parent->add_child(p);
-                } else if (bdc->name() == "/Artifact") {
+                }
+                else if (bdc->name() == "/Artifact")
+                {
                     MapNode *attr = dynamic_cast<MapNode *>(bdc->value());
                     NameNode *type = dynamic_cast<NameNode *>(attr->get("/Type"));
-                    if (type && type->name() == "/Pagination") {
+                    if (type && type->name() == "/Pagination")
+                    {
                         // Ignore
                         continue;
-                    } else {
+                    }
+                    else
+                    {
                         analyze_tree(bdc, node_parent);
                     }
-                } else {
+                }
+                else
+                {
                     analyze_tree(bdc, node_parent);
                 }
                 continue;
             }
-        } else {
+        }
+        else
+        {
             BDCNode *bdc = dynamic_cast<BDCNode *>(node);
-            if (bdc) {
+            if (bdc)
+            {
                 analyze_tree(bdc, node_parent);
             }
         }
         TextMatrixNode *text_matrix = dynamic_cast<TextMatrixNode *>(node);
-        if (text_matrix) {
+        if (text_matrix)
+        {
             node_parent->add_child(analyze_text_matrix(text_matrix));
             continue;
         }
         FontNode *font = dynamic_cast<FontNode *>(node);
-        if (font) {
+        if (font)
+        {
             node_parent->add_child(analyze_font(font));
             continue;
         }
         TextNode *text = dynamic_cast<TextNode *>(node);
-        if (text) {
+        if (text)
+        {
             analyze_text(text, node_parent);
             continue;
         }
         StateNode *state = dynamic_cast<StateNode *>(node);
-        if (state) {
-            if (state->save()) {
+        if (state)
+        {
+            if (state->save())
+            {
                 m_state.push();
             } else {
                 m_state.pop();

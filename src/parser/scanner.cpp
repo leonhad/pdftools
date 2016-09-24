@@ -61,38 +61,39 @@ namespace parser {
         { TokenType::V, "v" }, { TokenType::Y, "y" }, { TokenType::I, "i" }, { TokenType::BI, "BI" }, { TokenType::ID, "ID" }, { TokenType::B_UP, "B" },
         { TokenType::B_UP_AST, "B*" }, { TokenType::B_LO, "b" }, { TokenType::B_LO_AST, "b*" }, { TokenType::EI, "EI" } };
 
-    constexpr bool isnum(const char c) noexcept
+    constexpr bool isnum(const char c)
     {
         return (c >= '0' && c <= '9') || (c == '-') || (c == '+') || (c == '.');
     }
 
-    constexpr bool is_space(const char c) noexcept
+    constexpr bool is_space(const char c)
     {
         return (c == '\0') || (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f') || (c == '\r') || (c == EOF);
     }
 
 }
 
-Scanner::Scanner(istream *m_filein) noexcept : m_filein{m_filein}
+Scanner::Scanner(istream *m_filein)
+    : m_filein(m_filein), m_charset_conversion(true)
 {
 }
 
-void Scanner::disable_charset_conversion() noexcept
+void Scanner::disable_charset_conversion()
 {
     m_charset_conversion = false;
 }
 
-size_t Scanner::pos() const noexcept
+size_t Scanner::pos() const
 {
     return m_filein->tellg();
 }
 
-void Scanner::clear() noexcept
+void Scanner::clear()
 {
     m_filein->clear();
 }
 
-void Scanner::to_pos(size_t pos) noexcept
+void Scanner::to_pos(size_t pos)
 {
     if (m_filein->good()) {
         m_filein->seekg(pos, ios::beg);
@@ -101,7 +102,7 @@ void Scanner::to_pos(size_t pos) noexcept
     }
 }
 
-size_t Scanner::ignore_stream(int length) noexcept
+size_t Scanner::ignore_stream(int length)
 {
     // endstream buffer (ndstream + \0)
     char buff[9];
@@ -136,7 +137,7 @@ size_t Scanner::ignore_stream(int length) noexcept
     return ret;
 }
 
-char *Scanner::get_image_stream() noexcept
+char *Scanner::get_image_stream()
 {
     // Ignore first new line
     while (m_filein->good() && next_char() != '\n') {
@@ -162,14 +163,14 @@ char *Scanner::get_image_stream() noexcept
     return nullptr;
 }
 
-char *Scanner::get_stream(int length) noexcept
+char *Scanner::get_stream(int length)
 {
     char *stream = new char[length];
     m_filein->read((char *) stream, length);
     return stream;
 }
 
-char Scanner::next_char() noexcept
+char Scanner::next_char()
 {
     char ret = EOF;
 
@@ -186,23 +187,23 @@ char Scanner::next_char() noexcept
     return ret;
 }
 
-bool Scanner::good() const noexcept
+bool Scanner::good() const
 {
     return m_filein->good();
 }
 
-void Scanner::ignore_line() noexcept
+void Scanner::ignore_line()
 {
     while (next_char() != '\n') {
     }
 }
 
-void Scanner::unget_char() noexcept
+void Scanner::unget_char()
 {
     m_filein->unget();
 }
 
-TokenType Scanner::reserved_lookup(const char *s) noexcept
+TokenType Scanner::reserved_lookup(const char *s)
 {
     int size = sizeof(words) / sizeof(reserved_words);
     for (int i = 0; i < size; i++) {
@@ -213,7 +214,7 @@ TokenType Scanner::reserved_lookup(const char *s) noexcept
     return TokenType::NAME;
 }
 
-Token *Scanner::next_token() noexcept
+Token *Scanner::next_token()
 {
     string token_string;
     TokenType current_token{TokenType::ENDFILE};

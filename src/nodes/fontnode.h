@@ -31,13 +31,13 @@ namespace node {
         int m_size;
 
     public:
-        FontNode() noexcept;
-        virtual ~FontNode() noexcept = default;
+        FontNode();
+        virtual ~FontNode() = default;
 
-        std::string name() const noexcept;
-        int size() const noexcept;
-        void set_name(std::string name) noexcept;
-        void set_size(int size) noexcept;
+        std::string name() const;
+        int size() const;
+        void set_name(std::string name);
+        void set_size(int size);
     };
 
 }

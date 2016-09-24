@@ -30,28 +30,28 @@ namespace parser {
     private:
         std::istream *m_filein;
         Token m_current;
-        bool m_charset_conversion = true;
+        bool m_charset_conversion;
 
     public:
-        Scanner(std::istream *m_filein) noexcept;
+        Scanner(std::istream *m_filein);
         ~Scanner() = default;
 
-        Token *next_token() noexcept;
-        bool good() const noexcept;
+        Token *next_token();
+        bool good() const;
 
-        void ignore_line() noexcept;
-        size_t ignore_stream(int length) noexcept;
-        size_t pos() const noexcept;
-        void to_pos(size_t pos) noexcept;
-        char *get_stream(int length) noexcept;
-        char *get_image_stream() noexcept;
-        void disable_charset_conversion() noexcept;
+        void ignore_line();
+        size_t ignore_stream(int length);
+        size_t pos() const;
+        void to_pos(size_t pos);
+        char *get_stream(int length);
+        char *get_image_stream();
+        void disable_charset_conversion();
 
-        void clear() noexcept;
+        void clear();
     private:
-        void unget_char() noexcept;
-        char next_char() noexcept;
-        TokenType reserved_lookup(const char *s) noexcept;
+        void unget_char();
+        char next_char();
+        TokenType reserved_lookup(const char *s);
     };
 
 }

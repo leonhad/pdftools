@@ -21,11 +21,11 @@
 
 using namespace node;
 
-NumberNode::NumberNode(double value) noexcept : TreeNode(), m_value{value}
+NumberNode::NumberNode(double value) : TreeNode(), m_value(value)
 {
 }
 
-double NumberNode::value() const noexcept
+double NumberNode::value() const
 {
     return m_value;
 }

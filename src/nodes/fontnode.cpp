@@ -22,26 +22,27 @@
 using namespace std;
 using namespace node;
 
-FontNode::FontNode() noexcept : TreeNode()
+FontNode::FontNode()
+    : TreeNode(), m_size(0)
 {
 }
 
-string FontNode::name() const noexcept
+string FontNode::name() const
 {
     return m_name;
 }
 
-int FontNode::size() const noexcept
+int FontNode::size() const
 {
     return m_size;
 }
 
-void FontNode::set_name(string name) noexcept
+void FontNode::set_name(string name)
 {
     m_name = name;
 }
 
-void FontNode::set_size(int size) noexcept
+void FontNode::set_size(int size)
 {
     m_size = size;
 }

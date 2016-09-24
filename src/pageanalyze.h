@@ -39,7 +39,6 @@ private:
     GraphicState m_state;
     Document *m_document;
     Glyph *m_root;
-    Font *m_font;
 
 public:
     PageAnalyze(Document *document);

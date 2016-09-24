@@ -30,11 +30,11 @@ namespace node {
         int m_generation;
 
     public:
-        RefNode(int id, int generation) noexcept;
-        virtual ~RefNode() noexcept = default;
+        RefNode(int id, int generation);
+        virtual ~RefNode() = default;
 
-        int id() const noexcept;
-        int generation() const noexcept;
+        int id() const;
+        int generation() const;
     };
 
 }

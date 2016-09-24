@@ -29,10 +29,10 @@ namespace node {
         double m_value;
 
     public:
-        NumberNode(double value) noexcept;
-        virtual ~NumberNode() noexcept = default;
+        NumberNode(double value);
+        virtual ~NumberNode() = default;
 
-        double value() const noexcept;
+        double value() const;
     };
 
 }

@@ -21,18 +21,17 @@
 
 using namespace node;
 
-RefNode::RefNode(int id, int generation) noexcept : TreeNode()
+RefNode::RefNode(int id, int generation)
+    : TreeNode(), m_id(id), m_generation(generation)
 {
-    m_id = id;
-    m_generation = generation;
 }
 
-int RefNode::id() const noexcept
+int RefNode::id() const
 {
     return m_id;
 }
 
-int RefNode::generation() const noexcept
+int RefNode::generation() const
 {
     return m_generation;
 }

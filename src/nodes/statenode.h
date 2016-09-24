@@ -29,10 +29,10 @@ namespace node {
         bool m_save;
 
     public:
-        StateNode(bool save) noexcept;
-        virtual ~StateNode() noexcept = default;
+        StateNode(bool save);
+        virtual ~StateNode() = default;
 
-        bool save() const noexcept;
+        bool save() const;
     };
 
 }

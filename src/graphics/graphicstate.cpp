@@ -24,13 +24,16 @@
 using namespace std;
 
 GraphicState::GraphicState()
+    : m_font(nullptr), m_current_state(new State)
 {
-    m_current_state = new State;
 }
 
 GraphicState::~GraphicState()
 {
-    if (m_current_state) delete m_current_state;
+    if (m_current_state)
+    {
+        delete m_current_state;
+    }
 }
 
 double GraphicState::get_text_font()
