@@ -52,7 +52,7 @@ private:
 
 public:
     Analyze(const std::string& filein) throw(std::exception);
-    ~Analyze() noexcept;
+    ~Analyze();
 
     Document *analyze_tree() throw(std::exception);
 
