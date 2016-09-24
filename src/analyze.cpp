@@ -37,7 +37,7 @@
 #include "genericexception.h"
 
 using namespace std;
-using namespace parser;
+using namespace parser; 
 using namespace node;
 
 Analyze::Analyze(const string& filein) throw(exception) : m_filein(filein)
@@ -89,12 +89,9 @@ void Analyze::analyze_xref()
             }
 
             ArrayNode *array = dynamic_cast<ArrayNode *>(trailer->get("/ID"));
-            if (array)
+            if (array && array->size() == 2)
             {
-                if (array->size() == 2)
-                {
-                    m_document->set_id(get_string_value(array->value(0)), get_string_value(array->value(1)));
-                }
+                m_document->set_id(get_string_value(array->value(0)), get_string_value(array->value(1)));
             }
         }
         else
