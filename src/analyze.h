@@ -41,7 +41,8 @@ namespace node {
     class RefNode;
 }
 
-class Analyze {
+class Analyze
+{
 private:
     const std::string m_filein;
     std::ifstream m_filestream;

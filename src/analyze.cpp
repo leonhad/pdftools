@@ -317,7 +317,8 @@ void Analyze::analyze_outlines(MapNode *values, Outline * parent)
 
     outline->set_title(get_string_value(values->get("/Title")));
 
-    if (!parent) {
+    if (!parent)
+    {
         // root node
         m_document->set_outline(outline);
     }
@@ -330,12 +331,14 @@ void Analyze::analyze_outlines(MapNode *values, Outline * parent)
     }
 
     MapNode *first = dynamic_cast<MapNode *>(get_real_obj_value(values->get("/First")));
-    if (first) {
+    if (first)
+    {
         analyze_outlines(first, outline);
     }
 
     MapNode *next = dynamic_cast<MapNode *>(get_real_obj_value(values->get("/Next")));
-    if (next && parent) {
+    if (next && parent)
+    {
         analyze_outlines(next, parent);
     }
 }
@@ -463,7 +466,6 @@ Font *Analyze::analyze_font(MapNode *fontmap)
             font->set_italic(true);
         }
     }
-    // TODO check for FontWeight
 
     ObjNode *to_unicode = dynamic_cast<ObjNode *>(get_real_value(fontmap->get("/ToUnicode")));
     if (to_unicode)
@@ -483,6 +485,7 @@ Font *Analyze::analyze_font(MapNode *fontmap)
                 font->set_charmap_start(codespace->start());
                 font->set_charmap_finish(codespace->finish());
             }
+
             size_t size = root->nodes();
             for (size_t loop = 0; loop < size; loop++)
             {
@@ -528,7 +531,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
     {
         const char *value = flat_decode(stream, length, total);
         (*stream_value).write(value, total);
-        delete[] value;
+        delete [] value;
     }
     else if (filter_array)
     {
@@ -553,7 +556,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
                 {
                     const char *value = flat_decode(stream, length, total);
                     (*stream_value).write(value, total);
-                    delete[] value;
+                    delete [] value;
                 }
                 else
                 {
@@ -578,7 +581,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
         error_message("Invalid filter " + filter->name());
     }
 
-    delete[] stream;
+    delete [] stream;
 }
 
 void Analyze::analyze_pages(TreeNode *page, ArrayNode * mediabox)

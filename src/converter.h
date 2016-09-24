@@ -26,7 +26,8 @@
 class Document;
 class RootNode;
 
-class Converter {
+class Converter
+{
 private:
     const std::string m_filein;
     const std::string m_format;
@@ -34,8 +35,8 @@ private:
     Document *m_document = nullptr;
     
 public:
-    Converter(const std::string& filein, const std::string& fileout, const std::string& format) noexcept;
-    ~Converter() noexcept;
+    Converter(const std::string& filein, const std::string& fileout, const std::string& format);
+    ~Converter();
     
     void convert() throw(std::exception);
 };

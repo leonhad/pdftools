@@ -29,15 +29,33 @@ class Outline;
 class Page;
 class XML;
 
-class EPUB : public Generator {
+/**
+ * Generate an ePub file.
+ */
+class EPUB : public Generator
+{
 private:
     Document *m_document;
     ZipFile *m_zipfile;
     int m_order;
     
 public:
+    /**
+     * Creates a new instance.
+     */
     EPUB();
+
+    /**
+     * Destroy this instance.
+     */
     virtual ~EPUB();
+
+    /**
+     * Generate the ePub file.
+     *
+     * \param document the document to parse.
+     * \param output the output file.
+     */
     virtual bool generate(Document *document, const std::string& output);
 
 private:

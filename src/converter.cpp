@@ -32,46 +32,60 @@
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& filein, const string& fileout, const string& format) noexcept : m_filein{filein}, m_format{format}
+Converter::Converter(const string& filein, const string& fileout, const string& format) : m_filein{filein}, m_format{format}
 {
     // Calculate the output file name
-    if (fileout.empty()) {
+    if (fileout.empty())
+    {
         m_fileout = filein;
         auto last_dot = m_fileout.find_last_of('.');
-        if (last_dot != string::npos) {
+        if (last_dot != string::npos)
+        {
             m_fileout = m_fileout.substr(0, last_dot);
         }
         m_fileout += ".";
         m_fileout += format;
-    } else {
+    }
+    else
+    {
         m_fileout = fileout;
     }
 }
 
-Converter::~Converter() noexcept {
+Converter::~Converter()
+{
     if (m_document) delete m_document;
 }
 
-void Converter::convert() throw(std::exception) {
+void Converter::convert() throw(std::exception)
+{
     Analyze analyze(m_filein.c_str());
 
     m_document = analyze.analyze_tree();
-    if (m_document) {
+    if (m_document)
+    {
         stringstream msg;
         msg << "Analyzing file " << m_filein << " " << "Pages: " << m_document->pages() << " - " << "Title: ";
-        if (m_document->title().empty()) {
+        if (m_document->title().empty())
+        {
             msg << "no title";
-        } else {
+        }
+        else
+        {
             msg << m_document->title();
         }
+
         verbose_message(msg.str().c_str());
         
         // Generate output file
         Generator *instance = Generator::get_instance(m_format.c_str());
-        if (instance) {
-            if (!instance->generate(m_document, m_fileout.c_str())) {
+        if (instance)
+        {
+            if (!instance->generate(m_document, m_fileout.c_str()))
+            {
                 error_message("Cannot generate output file");
             }
+
             delete instance;
         }
     } else {

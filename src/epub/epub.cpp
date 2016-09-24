@@ -33,9 +33,8 @@
 
 using namespace std;
 
-EPUB::EPUB() : Generator{}, m_document{nullptr}, m_order{0}
+EPUB::EPUB() : Generator(), m_document(nullptr), m_zipfile(new ZipFile), m_order(0)
 {
-    m_zipfile = new ZipFile;
 }
 
 EPUB::~EPUB()
@@ -147,6 +146,7 @@ void EPUB::generate_content(const string& output)
     {
         xml.add_element(m_document->author().c_str());
     }
+
     xml.end_tag();
 
     xml.start_tag("dc:publisher");
@@ -230,6 +230,7 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
         xml->add_attribute("src", page->link() + ".html");
         xml->end_tag();
     }
+
     size_t size = outline->size();
     for (size_t loop = 0; loop < size; loop++)
     {
