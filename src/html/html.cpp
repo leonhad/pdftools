@@ -24,45 +24,45 @@ using namespace std;
 
 Html::Html()
 {
-    m_xml.start_document("1.0", "UTF-8");
-    m_xml.add_doctype("html", "-//W3C//DTD XHTML 1.1//EN", "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd");
+    m_xml.startDocument("1.0", "UTF-8");
+    m_xml.addDoctype("html", "-//W3C//DTD XHTML 1.1//EN", "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd");
 }
 
 Html::~Html()
 {
 }
 
-void Html::break_line()
+void Html::breakLine()
 {
-    m_xml.start_tag("br");
-    m_xml.end_tag();
+    m_xml.startTag("br");
+    m_xml.endTag();
 }
 
-void Html::add_paragraph()
+void Html::addParagraph()
 {
-    m_xml.start_tag("p");
+    m_xml.startTag("p");
 }
 
-void Html::start_header()
+void Html::startHeader()
 {
-    m_xml.start_tag("head");
+    m_xml.startTag("head");
 }
 
-void Html::start_body()
+void Html::startBody()
 {
-    m_xml.start_tag("body");
+    m_xml.startTag("body");
 }
 
-void Html::set_title(const string& title)
+void Html::setTitle(const string& title)
 {
-    m_xml.start_tag("title");
-    m_xml.add_element(title);
-    m_xml.end_tag();
+    m_xml.startTag("title");
+    m_xml.addElement(title);
+    m_xml.endTag();
 }
 
-void Html::add_font(int size, bool bold, bool italic, bool fixed)
+void Html::addFont(int size, bool bold, bool italic, bool fixed)
 {
-    m_xml.start_tag("div");
+    m_xml.startTag("div");
 
     stringstream css;
     if (size <= 8)
@@ -113,43 +113,43 @@ void Html::add_font(int size, bool bold, bool italic, bool fixed)
         css << " m";
     }
 
-    m_xml.add_attribute("class", css.str());
+    m_xml.addAttribute("class", css.str());
 }
 
-void Html::set_link(const string& rel, const string& type, const string& href)
+void Html::setLink(const string& rel, const string& type, const string& href)
 {
-    m_xml.start_tag("link");
-    m_xml.add_attribute("rel", rel);
-    m_xml.add_attribute("type", type);
-    m_xml.add_attribute("href", href);
-    m_xml.end_tag();
+    m_xml.startTag("link");
+    m_xml.addAttribute("rel", rel);
+    m_xml.addAttribute("type", type);
+    m_xml.addAttribute("href", href);
+    m_xml.endTag();
 }
 
-void Html::add_element(const string& value)
+void Html::addElement(const string& value)
 {
-    m_xml.add_element(value);
+    m_xml.addElement(value);
 }
 
-void Html::add_section(const std::string &name)
+void Html::addSection(const std::string &name)
 {
-    m_xml.start_tag("div");
-    m_xml.add_attribute("class", "section");
-    m_xml.add_attribute("id", name);
+    m_xml.startTag("div");
+    m_xml.addAttribute("class", "section");
+    m_xml.addAttribute("id", name);
 }
 
-void Html::end_tag()
+void Html::endTag()
 {
-    m_xml.end_tag();
+    m_xml.endTag();
 }
 
-void Html::start_document()
+void Html::startDocument()
 {
-    m_xml.start_tag("html");
-    m_xml.add_attribute("xmlns", "http://www.w3.org/1999/xhtml");
+    m_xml.startTag("html");
+    m_xml.addAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 }
 
-void Html::end_document()
+void Html::endDocument()
 {
-    end_tag();
-    m_xml.end_document();
+    endTag();
+    m_xml.endDocument();
 }

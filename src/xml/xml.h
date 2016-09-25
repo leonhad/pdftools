@@ -36,17 +36,17 @@ private:
     std::string m_sys_id;
 
 public:
-    XML() noexcept;
-    ~XML() noexcept;
+    XML();
+    ~XML();
 
-    void start_document(const std::string& version, const std::string& charset) noexcept;
-    void add_doctype(const std::string& name, const std::string& public_id, const std::string& sys_id) noexcept;
-    void add_attribute(const std::string& id, const std::string& value) noexcept;
-    void add_element(const std::string& value) noexcept;
-    void start_tag(const std::string& tag_name) noexcept;
-    void end_tag() noexcept;
-    void end_document() noexcept;
-    const std::string content() const noexcept;
+    void startDocument(const std::string& version, const std::string& charset);
+    void addDoctype(const std::string& name, const std::string& public_id, const std::string& sys_id);
+    void addAttribute(const std::string& id, const std::string& value);
+    void addElement(const std::string& value);
+    void startTag(const std::string& tag_name);
+    void endTag();
+    void endDocument();
+    const std::string content() const;
 };
 
 #endif

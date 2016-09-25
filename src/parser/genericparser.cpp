@@ -150,4 +150,3 @@ TreeNode *GenericParser::value_sequence()
 
     return nullptr;
 }
-

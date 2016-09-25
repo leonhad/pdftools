@@ -22,18 +22,15 @@
 
 using namespace std;
 
-Element::Element(string element) noexcept : XmlTag
-{
-    element
-}
+Element::Element(string element) : XmlTag(element)
 {
 }
 
-Element::~Element() noexcept
+Element::~Element()
 {
 }
 
-std::string Element::to_XML() const noexcept
+std::string Element::toXML() const
 {
     stringstream buffer;
     for (char c : m_name)

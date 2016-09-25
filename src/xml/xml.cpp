@@ -25,11 +25,11 @@
 
 using namespace std;
 
-XML::XML() noexcept
+XML::XML()
 {
 }
 
-XML::~XML() noexcept
+XML::~XML()
 {
     if (m_root)
     {
@@ -37,7 +37,7 @@ XML::~XML() noexcept
     }
 }
 
-const string XML::content() const noexcept
+const string XML::content() const
 {
     stringstream m_buffer;
     m_buffer << "<?xml version=\"" << m_version << "\" encoding=\"" << m_charset << "\"?>" << endl;
@@ -56,29 +56,29 @@ const string XML::content() const noexcept
     }
     if (m_root)
     {
-        m_buffer << m_root->to_XML();
+        m_buffer << m_root->toXML();
     }
     return m_buffer.str();
 }
 
-void XML::start_document(const string& version, const string& charset) noexcept
+void XML::startDocument(const string& version, const string& charset)
 {
     m_version = version;
     m_charset = charset;
 }
 
-void XML::add_doctype(const string& name, const string& public_id, const string& sys_id) noexcept
+void XML::addDoctype(const string& name, const string& public_id, const string& sys_id)
 {
     m_doctype_name = name;
     m_public_id = public_id;
     m_sys_id = sys_id;
 }
 
-void XML::end_document() noexcept
+void XML::endDocument()
 {
 }
 
-void XML::add_attribute(const string& id, const string& value) noexcept
+void XML::addAttribute(const string& id, const string& value)
 {
     if (m_last_tag)
     {
@@ -86,7 +86,7 @@ void XML::add_attribute(const string& id, const string& value) noexcept
     }
 }
 
-void XML::add_element(const string& value) noexcept
+void XML::addElement(const string& value)
 {
     if (m_last_tag)
     {
@@ -94,7 +94,7 @@ void XML::add_element(const string& value) noexcept
     }
 }
 
-void XML::start_tag(const string& tag_name) noexcept
+void XML::startTag(const string& tag_name)
 {
     XmlTag *tag = new XmlTag{tag_name};
     if (!m_root)
@@ -109,7 +109,7 @@ void XML::start_tag(const string& tag_name) noexcept
     m_last_tag = tag;
 }
 
-void XML::end_tag() noexcept
+void XML::endTag()
 {
     if (m_last_tag)
     {

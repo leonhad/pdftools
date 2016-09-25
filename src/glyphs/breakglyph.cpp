@@ -22,5 +22,5 @@
 
 void BreakGlyph::do_glyph(Html *document)
 {
-    document->break_line();
+    document->breakLine();
 }

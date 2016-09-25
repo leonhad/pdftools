@@ -22,11 +22,11 @@
 
 using namespace std;
 
-XmlTag::XmlTag(string name) noexcept : m_name(name)
+XmlTag::XmlTag(string name) : m_name(name)
 {
 }
 
-XmlTag::~XmlTag() noexcept
+XmlTag::~XmlTag()
 {
     for (XmlTag *tag : m_children)
     {
@@ -34,12 +34,12 @@ XmlTag::~XmlTag() noexcept
     }
 }
 
-string XmlTag::name() const noexcept
+string XmlTag::name() const
 {
     return m_name;
 }
 
-std::string XmlTag::to_XML() const noexcept
+std::string XmlTag::toXML() const
 {
     stringstream buffer;
     buffer << "<" << m_name;
@@ -53,29 +53,29 @@ std::string XmlTag::to_XML() const noexcept
 
     for (XmlTag *tag : m_children)
     {
-        buffer << tag->to_XML();
+        buffer << tag->toXML();
     }
 
     buffer << "</" << m_name << ">" << endl;
     return buffer.str();
 }
 
-XmlTag *XmlTag::parent() const noexcept
+XmlTag *XmlTag::parent() const
 {
     return m_parent;
 }
 
-void XmlTag::set_parent(XmlTag *parent) noexcept
+void XmlTag::set_parent(XmlTag *parent)
 {
     m_parent = parent;
 }
 
-void XmlTag::add_tag(XmlTag *tag) noexcept
+void XmlTag::add_tag(XmlTag *tag)
 {
     m_children.push_back(tag);
 }
 
-void XmlTag::add_attribute(const std::string& id, const std::string& value) noexcept
+void XmlTag::add_attribute(const std::string& id, const std::string& value)
 {
     m_atributes[id] = value;
 }

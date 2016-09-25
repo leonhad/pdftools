@@ -25,10 +25,10 @@
 class Element : public XmlTag
 {
 public:
-    Element(std::string element) noexcept;
-    virtual ~Element() noexcept;
+    Element(std::string element);
+    virtual ~Element();
 
-    virtual std::string to_XML() const noexcept override;
+    virtual std::string toXML() const override;
 };
 
 #endif

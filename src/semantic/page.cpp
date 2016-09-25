@@ -75,9 +75,9 @@ void Page::execute(Html *html)
 {
     Context *context = new Context(m_document);
     context->set_current_page(this);
-    html->add_section(link());
+    html->addSection(link());
     m_root->execute(html, context);
-    html->end_tag();
+    html->endTag();
     delete context;
 }
 

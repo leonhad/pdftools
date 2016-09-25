@@ -24,10 +24,10 @@
 
 void ParagraphGlyph::start_glyph(Html *document)
 {
-    document->add_paragraph();
+    document->addParagraph();
 }
 
 void ParagraphGlyph::end_glyph(Html *document)
 {
-    document->end_tag();
+    document->endTag();
 }

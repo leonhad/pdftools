@@ -45,13 +45,13 @@ EPUB::~EPUB()
     }
 }
 
-void EPUB::generate_mimetype()
+void EPUB::generateMimetype()
 {
     const char *mime = "application/epub+zip";
     m_zipfile->add_source("mimetype", mime);
 }
 
-void EPUB::generate_css()
+void EPUB::generateCss()
 {
     stringstream css;
     css << ".b {font-weight: bold}\n";
@@ -69,145 +69,145 @@ void EPUB::generate_css()
     m_zipfile->add_source("style.css", css.str().c_str());
 }
 
-void EPUB::generate_container()
+void EPUB::generateContainer()
 {
     XML xml;
-    xml.start_document("1.0", "UTF-8");
+    xml.startDocument("1.0", "UTF-8");
 
-    xml.start_tag("container");
-    xml.add_attribute("version", "1.0");
-    xml.add_attribute("xmlns", "urn:oasis:names:tc:opendocument:xmlns:container");
-    xml.start_tag("rootfiles");
-    xml.start_tag("rootfile");
-    xml.add_attribute("full-path", "content.opf");
-    xml.add_attribute("media-type", "application/oebps-package+xml");
-    xml.end_tag();
-    xml.end_tag();
-    xml.end_tag();
+    xml.startTag("container");
+    xml.addAttribute("version", "1.0");
+    xml.addAttribute("xmlns", "urn:oasis:names:tc:opendocument:xmlns:container");
+    xml.startTag("rootfiles");
+    xml.startTag("rootfile");
+    xml.addAttribute("full-path", "content.opf");
+    xml.addAttribute("media-type", "application/oebps-package+xml");
+    xml.endTag();
+    xml.endTag();
+    xml.endTag();
 
-    xml.end_document();
+    xml.endDocument();
     string content = xml.content();
     m_zipfile->add_source("META-INF/container.xml", content.c_str(), content.size());
 }
 
-void EPUB::generate_content(const string& output)
+void EPUB::generateContent(const string& output)
 {
     XML xml;
-    xml.start_document("1.0", "UTF-8");
+    xml.startDocument("1.0", "UTF-8");
 
-    xml.start_tag("package");
-    xml.add_attribute("xmlns", "http://www.idpf.org/2007/opf");
-    xml.add_attribute("unique-identifier", "dcidid");
-    xml.add_attribute("version", "2.0");
+    xml.startTag("package");
+    xml.addAttribute("xmlns", "http://www.idpf.org/2007/opf");
+    xml.addAttribute("unique-identifier", "dcidid");
+    xml.addAttribute("version", "2.0");
 
-    xml.start_tag("metadata");
-    xml.add_attribute("xmlns:dc", "http://purl.org/dc/elements/1.1/");
-    xml.add_attribute("xmlns:dcterms", "http://purl.org/dc/terms/");
-    xml.add_attribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    xml.add_attribute("xmlns:opf", "http://www.idpf.org/2007/opf");
+    xml.startTag("metadata");
+    xml.addAttribute("xmlns:dc", "http://purl.org/dc/elements/1.1/");
+    xml.addAttribute("xmlns:dcterms", "http://purl.org/dc/terms/");
+    xml.addAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    xml.addAttribute("xmlns:opf", "http://www.idpf.org/2007/opf");
 
-    xml.start_tag("dc:title");
+    xml.startTag("dc:title");
     if (!m_document->title().empty())
     {
-        xml.add_element(m_document->title().c_str());
+        xml.addElement(m_document->title().c_str());
     }
     else
     {
-        xml.add_element("No title");
+        xml.addElement("No title");
     }
 
-    xml.end_tag();
+    xml.endTag();
 
-    xml.start_tag("dc:language");
-    xml.add_attribute("xsi:type", "dcterms:RFC3066");
-    xml.add_element(m_document->lang().c_str());
-    xml.end_tag();
+    xml.startTag("dc:language");
+    xml.addAttribute("xsi:type", "dcterms:RFC3066");
+    xml.addElement(m_document->lang().c_str());
+    xml.endTag();
 
-    xml.start_tag("dc:identifier");
-    xml.add_attribute("id", "dcidid");
-    xml.add_attribute("opf:scheme", "URI");
-    xml.add_element(output);
-    xml.end_tag();
+    xml.startTag("dc:identifier");
+    xml.addAttribute("id", "dcidid");
+    xml.addAttribute("opf:scheme", "URI");
+    xml.addElement(output);
+    xml.endTag();
 
-    xml.start_tag("dc:subject");
-    xml.add_element(m_document->subject().c_str());
-    xml.end_tag();
+    xml.startTag("dc:subject");
+    xml.addElement(m_document->subject().c_str());
+    xml.endTag();
 
-    xml.start_tag("dc:relation");
-    xml.add_element(PACKAGE_URL);
-    xml.end_tag();
+    xml.startTag("dc:relation");
+    xml.addElement(PACKAGE_URL);
+    xml.endTag();
 
-    xml.start_tag("dc:creator");
+    xml.startTag("dc:creator");
     if (m_document->author().empty())
     {
-        xml.add_element(PACKAGE_STRING);
+        xml.addElement(PACKAGE_STRING);
     }
     else
     {
-        xml.add_element(m_document->author().c_str());
+        xml.addElement(m_document->author().c_str());
     }
 
-    xml.end_tag();
+    xml.endTag();
 
-    xml.start_tag("dc:publisher");
-    xml.add_element(PACKAGE_STRING);
-    xml.end_tag();
+    xml.startTag("dc:publisher");
+    xml.addElement(PACKAGE_STRING);
+    xml.endTag();
 
-    xml.start_tag("dc:publisher");
-    xml.add_element(m_document->author().c_str());
-    xml.end_tag();
+    xml.startTag("dc:publisher");
+    xml.addElement(m_document->author().c_str());
+    xml.endTag();
 
-    xml.end_tag();
+    xml.endTag();
 
-    xml.start_tag("manifest");
+    xml.startTag("manifest");
 
-    xml.start_tag("item");
-    xml.add_attribute("id", "ncx");
-    xml.add_attribute("href", "toc.ncx");
-    xml.add_attribute("media-type", "application/x-dtbncx+xml");
-    xml.end_tag();
+    xml.startTag("item");
+    xml.addAttribute("id", "ncx");
+    xml.addAttribute("href", "toc.ncx");
+    xml.addAttribute("media-type", "application/x-dtbncx+xml");
+    xml.endTag();
 
     for (size_t loop = 0; loop < m_document->pages(); loop++)
     {
         Page *page = m_document->page(loop);
 
-        xml.start_tag("item");
-        xml.add_attribute("id", page->link());
-        xml.add_attribute("href", page->link() + ".html");
-        xml.add_attribute("media-type", "application/xhtml+xml");
-        xml.end_tag();
+        xml.startTag("item");
+        xml.addAttribute("id", page->link());
+        xml.addAttribute("href", page->link() + ".html");
+        xml.addAttribute("media-type", "application/xhtml+xml");
+        xml.endTag();
     }
 
-    xml.start_tag("item");
-    xml.add_attribute("id", "css");
-    xml.add_attribute("href", "style.css");
-    xml.add_attribute("media-type", "text/css");
-    xml.end_tag();
+    xml.startTag("item");
+    xml.addAttribute("id", "css");
+    xml.addAttribute("href", "style.css");
+    xml.addAttribute("media-type", "text/css");
+    xml.endTag();
 
-    xml.end_tag();
+    xml.endTag();
 
-    xml.start_tag("spine");
-    xml.add_attribute("toc", "ncx");
+    xml.startTag("spine");
+    xml.addAttribute("toc", "ncx");
 
     for (size_t loop = 0; loop < m_document->pages(); loop++)
     {
         Page *page = m_document->page(loop);
 
-        xml.start_tag("itemref");
-        xml.add_attribute("idref", page->link());
-        xml.add_attribute("linear", "yes");
-        xml.end_tag();
+        xml.startTag("itemref");
+        xml.addAttribute("idref", page->link());
+        xml.addAttribute("linear", "yes");
+        xml.endTag();
     }
 
-    xml.end_tag();
+    xml.endTag();
 
-    xml.end_tag();
-    xml.end_document();
+    xml.endTag();
+    xml.endDocument();
     string content = xml.content();
     m_zipfile->add_source("content.opf", content.c_str());
 }
 
-void EPUB::generate_outline(XML *xml, Outline *outline)
+void EPUB::generateOutline(XML *xml, Outline *outline)
 {
     Page *page = m_document->page(outline->id(), outline->generation());
 
@@ -217,101 +217,101 @@ void EPUB::generate_outline(XML *xml, Outline *outline)
         string id{"navPoint-" + playorder};
         m_order++;
 
-        xml->start_tag("navPoint");
-        xml->add_attribute("id", playorder);
+        xml->startTag("navPoint");
+        xml->addAttribute("id", playorder);
 
-        xml->start_tag("navLabel");
-        xml->start_tag("text");
-        xml->add_element(outline->title());
-        xml->end_tag();
-        xml->end_tag();
+        xml->startTag("navLabel");
+        xml->startTag("text");
+        xml->addElement(outline->title());
+        xml->endTag();
+        xml->endTag();
 
-        xml->start_tag("content");
-        xml->add_attribute("src", page->link() + ".html");
-        xml->end_tag();
+        xml->startTag("content");
+        xml->addAttribute("src", page->link() + ".html");
+        xml->endTag();
     }
 
     size_t size = outline->size();
     for (size_t loop = 0; loop < size; loop++)
     {
-        generate_outline(xml, outline->child(loop));
+        generateOutline(xml, outline->child(loop));
     }
 
     if (page)
     {
-        xml->end_tag();
+        xml->endTag();
     }
 }
 
-void EPUB::generate_toc(const string& output)
+void EPUB::generateToc(const string& output)
 {
     Outline *outline = m_document->outline();
 
     XML xml;
-    xml.start_document("1.0", "UTF-8");
+    xml.startDocument("1.0", "UTF-8");
 
-    xml.start_tag("ncx");
-    xml.add_attribute("xmlns", "http://www.daisy.org/z3986/2005/ncx/");
-    xml.add_attribute("version", "2005-1");
+    xml.startTag("ncx");
+    xml.addAttribute("xmlns", "http://www.daisy.org/z3986/2005/ncx/");
+    xml.addAttribute("version", "2005-1");
 
-    xml.start_tag("head");
-    xml.start_tag("meta");
-    xml.add_attribute("name", "dtb:uid");
-    xml.add_attribute("content", output);
-    xml.end_tag();
-    xml.start_tag("meta");
-    xml.add_attribute("name", "dtb:depth");
-    xml.add_attribute("content", "2");
-    xml.end_tag();
-    xml.start_tag("meta");
-    xml.add_attribute("name", "dtb:totalPageCount");
-    xml.add_attribute("content", "0");
-    xml.end_tag();
-    xml.start_tag("meta");
-    xml.add_attribute("name", "dtb:maxPageNumber");
-    xml.add_attribute("content", "0");
-    xml.end_tag();
-    xml.end_tag();
+    xml.startTag("head");
+    xml.startTag("meta");
+    xml.addAttribute("name", "dtb:uid");
+    xml.addAttribute("content", output);
+    xml.endTag();
+    xml.startTag("meta");
+    xml.addAttribute("name", "dtb:depth");
+    xml.addAttribute("content", "2");
+    xml.endTag();
+    xml.startTag("meta");
+    xml.addAttribute("name", "dtb:totalPageCount");
+    xml.addAttribute("content", "0");
+    xml.endTag();
+    xml.startTag("meta");
+    xml.addAttribute("name", "dtb:maxPageNumber");
+    xml.addAttribute("content", "0");
+    xml.endTag();
+    xml.endTag();
 
-    xml.start_tag("docTitle");
-    xml.start_tag("text");
-    xml.add_element(m_document->title());
-    xml.end_tag();
-    xml.end_tag();
+    xml.startTag("docTitle");
+    xml.startTag("text");
+    xml.addElement(m_document->title());
+    xml.endTag();
+    xml.endTag();
 
-    xml.start_tag("navMap");
+    xml.startTag("navMap");
     if (outline)
     {
-        generate_outline(&xml, outline);
+        generateOutline(&xml, outline);
     }
     else
     {
-        xml.start_tag("navPoint");
-        xml.add_attribute("id", "navPoint-1");
-        xml.add_attribute("playOrder", "1");
+        xml.startTag("navPoint");
+        xml.addAttribute("id", "navPoint-1");
+        xml.addAttribute("playOrder", "1");
 
-        xml.start_tag("navLabel");
-        xml.start_tag("text");
-        xml.add_element("Main Title");
-        xml.end_tag();
-        xml.end_tag();
+        xml.startTag("navLabel");
+        xml.startTag("text");
+        xml.addElement("Main Title");
+        xml.endTag();
+        xml.endTag();
 
-        xml.start_tag("content");
-        xml.add_attribute("src", "pages.html");
-        xml.end_tag();
-        xml.end_tag();
+        xml.startTag("content");
+        xml.addAttribute("src", "pages.html");
+        xml.endTag();
+        xml.endTag();
     }
 
-    xml.end_tag();
+    xml.endTag();
 
-    xml.end_tag();
-    xml.end_document();
+    xml.endTag();
+    xml.endDocument();
     string content = xml.content();
 
     m_zipfile->add_source("toc.ncx", content.c_str());
 }
 
-void EPUB::generate_pages()
+void EPUB::generatePages()
 {
     size_t size = m_document->pages();
     for (size_t i = 0; i < size; i++)
@@ -319,37 +319,37 @@ void EPUB::generate_pages()
         Page *page = m_document->page(i);
 
         Html html;
-        html.start_document();
-        html.start_header();
-        html.set_title(m_document->title());
-        html.set_link("stylesheet", "text/css", "style.css");
-        html.end_tag();
-        html.start_body();
+        html.startDocument();
+        html.startHeader();
+        html.setTitle(m_document->title());
+        html.setLink("stylesheet", "text/css", "style.css");
+        html.endTag();
+        html.startBody();
 
         page->execute(&html);
 
-        html.end_tag();
-        html.end_document();
+        html.endTag();
+        html.endDocument();
 
         string fileout{page->link() + ".html"};
         m_zipfile->add_source(fileout.c_str(), html.content().c_str(), html.content().size());
     }
 }
 
-void EPUB::generate_page(Page *page)
+void EPUB::generatePage(Page *page)
 {
     Html html;
-    html.start_document();
-    html.start_header();
-    html.set_title("Page title.");
-    html.end_tag();
+    html.startDocument();
+    html.startHeader();
+    html.setTitle("Page title.");
+    html.endTag();
 
-    html.start_body();
+    html.startBody();
 
     page->execute(&html);
 
-    html.end_tag();
-    html.end_document();
+    html.endTag();
+    html.endDocument();
 
     m_zipfile->add_source(page->link().c_str(), html.content().c_str(), html.content().length());
 }
@@ -360,12 +360,12 @@ bool EPUB::generate(Document* document, const string& output)
     m_order = 1;
     if (m_zipfile->open(output))
     {
-        generate_mimetype();
-        generate_css();
-        generate_container();
-        generate_content(output);
-        generate_toc(output);
-        generate_pages();
+        generateMimetype();
+        generateCss();
+        generateContainer();
+        generateContent(output);
+        generateToc(output);
+        generatePages();
         m_zipfile->close();
     }
     else

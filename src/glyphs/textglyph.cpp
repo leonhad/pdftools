@@ -33,7 +33,7 @@ void TextGlyph::do_glyph(Html *document)
 {
     Font *current = m_context->font();
 
-    document->add_font(current->size() * m_context->font_size(), current->bold(), current->italic(), current->fixed());
+    document->addFont(current->size() * m_context->font_size(), current->bold(), current->italic(), current->fixed());
     string text;
     if (current)
     {
@@ -44,6 +44,6 @@ void TextGlyph::do_glyph(Html *document)
         text = m_text;
     }
 
-    document->add_element(text + " ");
-    document->end_tag();
+    document->addElement(text + " ");
+    document->endTag();
 }
