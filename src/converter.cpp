@@ -65,7 +65,7 @@ void Converter::convert() throw (std::exception)
 {
     Analyze analyze(m_filein.c_str());
 
-    m_document = analyze.analyze_tree();
+    m_document = analyze.analyzeTree();
     if (m_document)
     {
         stringstream msg;
