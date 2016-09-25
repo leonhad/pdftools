@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "fontsizeglyph.h"
-#include "../semantic/context.h"
+#include "semantic/context.h"
 
 FontSizeGlyph::FontSizeGlyph(double size) : Glyph()
 {

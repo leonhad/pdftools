@@ -6,7 +6,7 @@ libepub_a_SOURCES = \
 noinst_HEADERS = \
 	epub.h
 
-libepub_a_CXXFLAGS = -I../.. 
+libepub_a_CXXFLAGS = -I../.. -I..
 
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov

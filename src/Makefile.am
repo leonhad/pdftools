@@ -24,7 +24,7 @@ noinst_HEADERS = \
 	generator.h \
 	genericexception.h
 
-pdftools_CXXFLAGS = -I..
+pdftools_CXXFLAGS = -I.. -I.
 
 pdftools_LDADD = \
 	semantic/libsemantic.a \

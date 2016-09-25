@@ -18,9 +18,9 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "fontglyph.h"
-#include "../semantic/font.h"
-#include "../html/html.h"
-#include "../semantic/context.h"
+#include "semantic/font.h"
+#include "html/html.h"
+#include "semantic/context.h"
 
 using namespace std;
 
