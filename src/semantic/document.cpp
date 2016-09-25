@@ -38,23 +38,23 @@ Document::Document()
 
 Document::~Document()
 {
-    vector<Page *>::iterator i = m_pages.begin();
-    while (i != m_pages.end())
+    vector<Page *>::iterator iteratorPages = m_pages.begin();
+    while (iteratorPages != m_pages.end())
     {
-        delete *i;
-        i++;
+        delete *iteratorPages;
+        iteratorPages++;
     }
-    vector<PageLabel *>::iterator l = m_page_label.begin();
-    while (l != m_page_label.end())
+    vector<PageLabel *>::iterator iteratorLavel = m_page_label.begin();
+    while (iteratorLavel != m_page_label.end())
     {
-        delete *l;
-        l++;
+        delete *iteratorLavel;
+        iteratorLavel++;
     }
-    vector<Font *>::iterator f = m_fonts.begin();
-    while (f != m_fonts.end())
+    vector<Font *>::iterator iteratorFonts = m_fonts.begin();
+    while (iteratorFonts != m_fonts.end())
     {
-        delete *f;
-        f++;
+        delete *iteratorFonts;
+        iteratorFonts++;
     }
     if (m_outlines)
     {
@@ -103,15 +103,15 @@ bool Document::encrypted()
 
 Page *Document::page(int id, int generation)
 {
-    vector<Page *>::iterator i = m_pages.begin();
-    while (i != m_pages.end())
+    vector<Page *>::iterator iteratorPages = m_pages.begin();
+    while (iteratorPages != m_pages.end())
     {
-        Page *page = *i;
+        Page *page = *iteratorPages;
         if (page->id() == id && page->generation() == generation)
         {
             return page;
         }
-        i++;
+        iteratorPages++;
     }
     return nullptr;
 }

@@ -533,7 +533,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
     {
         const char *value = flat_decode(stream, length, total);
         (*stream_value).write(value, total);
-        delete[] value;
+        delete [] value;
     }
     else if (filter_array)
     {
@@ -558,7 +558,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
                 {
                     const char *value = flat_decode(stream, length, total);
                     (*stream_value).write(value, total);
-                    delete[] value;
+                    delete [] value;
                 }
                 else
                 {
@@ -583,7 +583,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
         error_message("Invalid filter " + filter->name());
     }
 
-    delete[] stream;
+    delete [] stream;
 }
 
 void Analyze::analyze_pages(TreeNode *page, ArrayNode * mediabox)

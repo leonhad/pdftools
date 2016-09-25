@@ -26,8 +26,7 @@
 
 using namespace std;
 
-ZipFile::ZipFile() :
-    m_cd_address(0), m_cd_size(0)
+ZipFile::ZipFile() : m_cd_address(0), m_cd_size(0)
 {
 }
 
@@ -45,9 +44,14 @@ uint32_t ZipFile::current_datetime() const
     t = localtime(&rawtime);
 
     if (t->tm_year >= 1980)
+    {
         t->tm_year -= 1980;
+    }
     else if (t->tm_year >= 80)
+    {
         t->tm_year -= 80;
+    }
+
     return (uint32_t) ((t->tm_mday + (32 * (t->tm_mon + 1)) + (512 * t->tm_year))
             << 16) | ((t->tm_sec / 2) + (32 * t->tm_min) + (2048 * t->tm_hour));
 }
@@ -142,7 +146,7 @@ void ZipFile::add_source(const char *filename, const char *buffer,
     {
         m_output.write(buffer, file.length);
     }
-    delete[] deflate_buffer;
+    delete [] deflate_buffer;
     m_files.push_back(file);
 }
 

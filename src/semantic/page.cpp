@@ -40,9 +40,20 @@ Page::Page(Document *parent)
 
 Page::~Page()
 {
-    if (m_media_box) delete [] m_media_box;
-    if (m_crop_box) delete [] m_crop_box;
-    if (m_root) delete m_root;
+    if (m_media_box)
+    {
+        delete [] m_media_box;
+    }
+
+    if (m_crop_box)
+    {
+        delete [] m_crop_box;
+    }
+
+    if (m_root)
+    {
+        delete m_root;
+    }
 }
 
 void Page::set_root(Glyph *root)

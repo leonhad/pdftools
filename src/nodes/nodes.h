@@ -23,7 +23,7 @@
 #include "treenode.h"
 #include "objnode.h"
 #include "xrefnode.h"
-#include "mapnode.h" 
+#include "mapnode.h"
 #include "namenode.h"
 #include "numbernode.h"
 #include "refnode.h"

@@ -178,7 +178,6 @@ void CMapParser::bfrange_sequence(const int count)
             b++;
             size_t size = start.size();
 
-            // TODO find a better solution
             while (strcmp(chars, end.c_str()) <= 0)
             {
                 m_root->add(new CharNode(string(chars, size), name->value()));

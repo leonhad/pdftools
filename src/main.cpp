@@ -54,7 +54,9 @@ int main(int argc, char *argv[])
 
         /* Detect the end of the options. */
         if (c == -1)
+        {
             break;
+        }
 
         switch (c)
         {

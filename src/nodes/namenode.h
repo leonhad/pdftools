@@ -20,7 +20,7 @@
 #ifndef NAMENODE_H
 #define NAMENODE_H
 
-#include "treenode.h" 
+#include "treenode.h"
 #include <string>
 
 namespace node
@@ -32,7 +32,7 @@ namespace node
         std::string m_name;
 
     public:
-        NameNode(std::string name);
+        explicit NameNode(std::string name);
         virtual ~NameNode() = default;
 
         std::string name() const;

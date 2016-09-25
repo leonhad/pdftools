@@ -31,7 +31,10 @@ XML::XML() noexcept
 
 XML::~XML() noexcept
 {
-    if (m_root) delete m_root;
+    if (m_root)
+    {
+        delete m_root;
+    }
 }
 
 const string XML::content() const noexcept

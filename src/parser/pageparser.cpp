@@ -35,7 +35,10 @@ PageParser::PageParser(istream *stream) : GenericParser{stream}
 
 PageParser::~PageParser()
 {
-    if (m_root) delete m_root;
+    if (m_root)
+    {
+        delete m_root;
+    }
 }
 
 RootNode *PageParser::parse()
