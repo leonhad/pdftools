@@ -24,8 +24,7 @@
 using namespace std;
 using namespace node;
 
-CMapNode::CMapNode()
-    : TreeNode(), m_codespace(nullptr)
+CMapNode::CMapNode() : TreeNode(), m_codespace(nullptr)
 {
 }
 

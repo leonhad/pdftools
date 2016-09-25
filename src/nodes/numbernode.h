@@ -24,6 +24,7 @@
 
 namespace node
 {
+
     class NumberNode : public TreeNode
     {
     private:

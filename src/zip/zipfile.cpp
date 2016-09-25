@@ -27,7 +27,7 @@
 using namespace std;
 
 ZipFile::ZipFile() :
-        m_cd_address(0), m_cd_size(0)
+    m_cd_address(0), m_cd_size(0)
 {
 }
 
@@ -70,7 +70,7 @@ void ZipFile::close()
 }
 
 void ZipFile::add_source(const char *filename, const char *buffer,
-        size_t length)
+                         size_t length)
 {
     if (length == 0)
     {
@@ -78,9 +78,9 @@ void ZipFile::add_source(const char *filename, const char *buffer,
     }
 
     appended_files file;
-    file.position = static_cast<uint32_t>(m_output.tellp());
+    file.position = static_cast<uint32_t> (m_output.tellp());
     file.date = current_datetime();
-    file.length = static_cast<uint32_t>(length);
+    file.length = static_cast<uint32_t> (length);
     file.name = filename;
 
     uint32_t crc = (uint32_t) ::crc32(0L, Z_NULL, 0);

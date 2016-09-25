@@ -22,8 +22,7 @@
 
 using namespace std;
 
-Glyph::Glyph()
-    : m_context(nullptr), m_last_glyph(nullptr)
+Glyph::Glyph() : m_context(nullptr), m_last_glyph(nullptr)
 {
 }
 

@@ -28,7 +28,8 @@ class Document;
 class Font;
 class Page;
 
-class Context {
+class Context
+{
 private:
     Document *m_document;
     Page *m_page;

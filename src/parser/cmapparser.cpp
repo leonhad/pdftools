@@ -36,7 +36,8 @@ CMapParser::CMapParser(istream *stream) : GenericParser{stream}
 
 CMapParser::~CMapParser()
 {
-    if (m_root) {
+    if (m_root)
+    {
         delete m_root;
     }
 }
@@ -45,7 +46,8 @@ CMapNode *CMapParser::parse()
 {
     int val;
 
-    if (m_root) {
+    if (m_root)
+    {
         delete m_root;
     }
     m_root = new CMapNode();
@@ -69,43 +71,59 @@ CMapNode *CMapParser::parse()
     //begincmap
     match(TokenType::NAME);
 
-    while (m_scanner->good()) {
-        switch (m_token->type()) {
+    while (m_scanner->good())
+    {
+        switch (m_token->type())
+        {
         case TokenType::NAME:
-            if (m_token->value() == "/CMapName") {
+            if (m_token->value() == "/CMapName")
+            {
                 match(TokenType::NAME);
                 // /Name
                 match(TokenType::NAME);
                 // def
                 match(TokenType::NAME);
-            } else if (m_token->value() == "/CMapType") {
+            }
+            else if (m_token->value() == "/CMapType")
+            {
                 match(TokenType::NAME);
                 // 2
                 match(TokenType::NUM);
                 // def
                 match(TokenType::NAME);
-            } else if (m_token->value() == "/CIDSystemInfo") {
+            }
+            else if (m_token->value() == "/CIDSystemInfo")
+            {
                 match(TokenType::NAME);
                 delete value_sequence();
                 // def
                 match(TokenType::NAME);
-            } else {
+            }
+            else
+            {
                 match(TokenType::NAME);
             }
             break;
         case TokenType::NUM:
             val = m_token->to_number();
             match(TokenType::NUM);
-            if (m_token->value() == "beginbfchar") {
+            if (m_token->value() == "beginbfchar")
+            {
                 match(TokenType::NAME);
                 bfchar_sequence(val);
-            } else if (m_token->value() == "begincodespacerange") {
+            }
+            else if (m_token->value() == "begincodespacerange")
+            {
                 match(TokenType::NAME);
                 m_root->set_codespace(codespace_sequence());
-            } else if (m_token->value() == "beginbfrange") {
+            }
+            else if (m_token->value() == "beginbfrange")
+            {
                 match(TokenType::NAME);
                 bfrange_sequence(val);
-            } else {
+            }
+            else
+            {
                 match(TokenType::NAME);
                 error_message("invalid mode");
             }
@@ -132,7 +150,8 @@ CodeSpaceNode *CMapParser::codespace_sequence()
 
 void CMapParser::bfchar_sequence(const int count)
 {
-    for (int loop = 0; loop < count; loop++) {
+    for (int loop = 0; loop < count; loop++)
+    {
         string character = m_token->value();
         match(TokenType::STRING);
         string unicode = m_token->value();
@@ -144,44 +163,56 @@ void CMapParser::bfchar_sequence(const int count)
 
 void CMapParser::bfrange_sequence(const int count)
 {
-    for (int loop = 0; loop < count; loop++) {
+    for (int loop = 0; loop < count; loop++)
+    {
         string start = m_token->value();
         match(TokenType::STRING);
         string end = m_token->value();
         match(TokenType::STRING);
         TreeNode *node = value_sequence();
-        StringNode *name = dynamic_cast<StringNode *>(node);
-        if (name) {
-            char *chars = const_cast<char *>(start.c_str());
+        StringNode *name = dynamic_cast<StringNode *> (node);
+        if (name)
+        {
+            char *chars = const_cast<char *> (start.c_str());
             char *b = chars;
             b++;
             size_t size = start.size();
 
             // TODO find a better solution
-            while (strcmp(chars, end.c_str()) <= 0) {
+            while (strcmp(chars, end.c_str()) <= 0)
+            {
                 m_root->add(new CharNode(string(chars, size), name->value()));
-                if (size == 1) {
+                if (size == 1)
+                {
                     (*chars)++;
-                } else {
+                }
+                else
+                {
                     uint16_t c = (*chars << 8) + (*b & 255);
                     c++;
                     *chars = c >> 8;
                     *b = c & 0xFF;
                 }
             }
-        } else {
+        }
+        else
+        {
             error_message("test map");
-            ArrayNode *array = dynamic_cast<ArrayNode *>(node);
-            char *chars = const_cast<char *>(start.c_str());
+            ArrayNode *array = dynamic_cast<ArrayNode *> (node);
+            char *chars = const_cast<char *> (start.c_str());
             size_t size = start.size();
             int loop2 = 0;
 
-            while (memcmp(chars, end.c_str(), size) < 0) {
-                name = dynamic_cast<StringNode *>(array->value(loop2));
+            while (memcmp(chars, end.c_str(), size) < 0)
+            {
+                name = dynamic_cast<StringNode *> (array->value(loop2));
                 m_root->add(new CharNode(string(chars, size), name->value()));
-                if (size == 1) {
+                if (size == 1)
+                {
                     (*chars)++;
-                } else {
+                }
+                else
+                {
                     uint16_t *c = (uint16_t *) chars;
                     (*c)++;
                 }

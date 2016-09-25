@@ -46,7 +46,7 @@ int main(int argc, char **argv)
 
     // Add the top suite to the test runner
     CPPUNIT_NS::TestRunner runner;
-    runner.addTest( CPPUNIT_NS::TestFactoryRegistry::getRegistry().makeTest());
+    runner.addTest(CPPUNIT_NS::TestFactoryRegistry::getRegistry().makeTest());
     runner.run(controller);
 
     std::ofstream xmlout("cppunit.xml");

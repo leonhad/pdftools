@@ -25,7 +25,8 @@
 class Html;
 class Context;
 
-class Glyph {
+class Glyph
+{
 private:
     std::vector<Glyph *> m_childs;
 

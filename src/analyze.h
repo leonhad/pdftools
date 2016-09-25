@@ -53,10 +53,10 @@ private:
     std::map<std::string, node::TreeNode *> m_names;
 
 public:
-    Analyze(const std::string& filein) throw(std::exception);
+    Analyze(const std::string& filein) throw (std::exception);
     ~Analyze();
 
-    Document *analyze_tree() throw(std::exception);
+    Document *analyze_tree() throw (std::exception);
 
 private:
     void analyze_xref();

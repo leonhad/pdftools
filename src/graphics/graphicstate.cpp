@@ -23,8 +23,7 @@
 
 using namespace std;
 
-GraphicState::GraphicState()
-    : m_font(nullptr), m_current_state(new State)
+GraphicState::GraphicState() : m_font(nullptr), m_current_state(new State)
 {
 }
 

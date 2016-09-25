@@ -28,7 +28,8 @@ ArrayNode::ArrayNode() : TreeNode()
 
 ArrayNode::~ArrayNode()
 {
-    for (auto &i : m_values) {
+    for (auto &i : m_values)
+    {
         delete i;
     }
 }

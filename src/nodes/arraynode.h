@@ -26,6 +26,7 @@
 
 namespace node
 {
+
     class ArrayNode : public TreeNode
     {
     private:

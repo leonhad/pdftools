@@ -80,7 +80,7 @@ void Converter::convert() throw (std::exception)
         }
 
         verbose_message(msg.str().c_str());
-        
+
         // Generate output file
         Generator *instance = Generator::get_instance(m_format.c_str());
         if (instance)

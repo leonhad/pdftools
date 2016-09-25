@@ -38,7 +38,7 @@ private:
     Document *m_document;
     ZipFile *m_zipfile;
     int m_order;
-    
+
 public:
     /**
      * Creates a new instance.

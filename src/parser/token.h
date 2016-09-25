@@ -22,9 +22,11 @@
 
 #include <string>
 
-namespace parser {
+namespace parser
+{
 
-    enum class TokenType {
+    enum class TokenType
+    {
         ENDFILE, ERROR, START_ARRAY, END_ARRAY, TRUE, FALSE,
         NAME, NUM, STRING, PERCENT, START_DICT, END_DICT, NEW_LINE,
 
@@ -79,7 +81,8 @@ namespace parser {
         BX, EX
     };
 
-    class Token {
+    class Token
+    {
     private:
         TokenType m_type = TokenType::ENDFILE;
         std::string m_value;

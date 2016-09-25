@@ -21,10 +21,10 @@
 
 using namespace node;
 
-TreeNode::TreeNode() noexcept
+TreeNode::TreeNode()
 {
 }
 
-TreeNode::~TreeNode() noexcept
+TreeNode::~TreeNode()
 {
 }

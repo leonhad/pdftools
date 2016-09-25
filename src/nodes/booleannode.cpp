@@ -21,8 +21,7 @@
 
 using namespace node;
 
-BooleanNode::BooleanNode(bool value)
-    : m_value(value)
+BooleanNode::BooleanNode(bool value) : m_value(value)
 {
 }
 

@@ -45,7 +45,7 @@ Page::~Page()
 
 void Page::set_root(Glyph *root)
 {
-	m_root = root;
+    m_root = root;
 }
 
 void Page::add_fontmap(string alias, string font_name)
@@ -60,7 +60,7 @@ string Page::font_name(string &alias)
 
 void Page::execute(Html *html)
 {
-	Context *context = new Context(m_document);
+    Context *context = new Context(m_document);
     context->set_current_page(this);
     html->add_section(link());
     m_root->execute(html, context);

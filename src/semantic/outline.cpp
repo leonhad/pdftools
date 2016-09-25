@@ -30,7 +30,8 @@ Outline::Outline()
 Outline::~Outline()
 {
     vector<Outline *>::iterator i = m_childs.begin();
-    while (i != m_childs.end()) {
+    while (i != m_childs.end())
+    {
         delete *i;
         i++;
     }

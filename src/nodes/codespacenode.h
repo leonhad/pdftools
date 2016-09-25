@@ -25,6 +25,7 @@
 
 namespace node
 {
+
     class CodeSpaceNode : public TreeNode
     {
     private:

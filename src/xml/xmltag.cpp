@@ -22,13 +22,14 @@
 
 using namespace std;
 
-XmlTag::XmlTag(string name) noexcept: m_name(name)
+XmlTag::XmlTag(string name) noexcept : m_name(name)
 {
 }
 
 XmlTag::~XmlTag() noexcept
 {
-    for (XmlTag *tag : m_children) {
+    for (XmlTag *tag : m_children)
+    {
         delete tag;
     }
 }
@@ -43,13 +44,15 @@ std::string XmlTag::to_XML() const noexcept
     stringstream buffer;
     buffer << "<" << m_name;
 
-    for (const auto &value : m_atributes) {
+    for (const auto &value : m_atributes)
+    {
         buffer << " " << value.first << "=\"" << value.second << "\"";
     }
 
     buffer << ">";
 
-    for (XmlTag *tag : m_children) {
+    for (XmlTag *tag : m_children)
+    {
         buffer << tag->to_XML();
     }
 

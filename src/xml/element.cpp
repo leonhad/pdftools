@@ -22,7 +22,10 @@
 
 using namespace std;
 
-Element::Element(string element) noexcept : XmlTag{element}
+Element::Element(string element) noexcept : XmlTag
+{
+    element
+}
 {
 }
 
@@ -33,8 +36,10 @@ Element::~Element() noexcept
 std::string Element::to_XML() const noexcept
 {
     stringstream buffer;
-    for (char c : m_name) {
-        switch(c) {
+    for (char c : m_name)
+    {
+        switch (c)
+        {
         case '&':
             buffer << "&amp;";
             break;

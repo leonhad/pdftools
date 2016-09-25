@@ -22,8 +22,7 @@
 using namespace std;
 using namespace node;
 
-CodeSpaceNode::CodeSpaceNode()
-    : TreeNode()
+CodeSpaceNode::CodeSpaceNode() : TreeNode()
 {
 }
 

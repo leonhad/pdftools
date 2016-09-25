@@ -24,6 +24,7 @@
 
 namespace node
 {
+
     class BooleanNode : public TreeNode
     {
     private:

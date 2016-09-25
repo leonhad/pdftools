@@ -25,7 +25,8 @@
 class Font;
 class State;
 
-class GraphicState {
+class GraphicState
+{
 private:
     Font *m_font;
     std::vector<State *> m_states;
@@ -37,7 +38,7 @@ public:
 
     void push();
     void pop();
-    
+
     void set_text_matrix(double a, double b, double c, double d, double e, double f);
     double get_text_font();
 

@@ -24,6 +24,7 @@
 
 namespace node
 {
+
     class RefNode : public TreeNode
     {
     private:

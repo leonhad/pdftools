@@ -25,7 +25,8 @@
 
 using namespace std;
 
-class Font {
+class Font
+{
 private:
     bool m_italic;
     bool m_bold;

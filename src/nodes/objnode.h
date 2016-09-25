@@ -27,6 +27,7 @@
 
 namespace node
 {
+
     class ObjNode : public TreeNode
     {
     private:

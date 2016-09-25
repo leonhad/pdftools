@@ -183,7 +183,7 @@ void EPUB::generate_content(const string& output)
     xml.add_attribute("href", "style.css");
     xml.add_attribute("media-type", "text/css");
     xml.end_tag();
-    
+
     xml.end_tag();
 
     xml.start_tag("spine");

@@ -24,9 +24,11 @@
 #include <stdint.h>
 #include "token.h"
 
-namespace parser {
+namespace parser
+{
 
-    class Scanner {
+    class Scanner
+    {
     private:
         std::istream *m_filein;
         Token m_current;

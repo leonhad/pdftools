@@ -22,13 +22,14 @@
 
 #include "glyph.h"
 
-class FontSizeGlyph : public Glyph {
+class FontSizeGlyph : public Glyph
+{
 private:
     double m_size;
 
 public:
     FontSizeGlyph(double size);
-    
+
     virtual void do_glyph(Html *);
 };
 

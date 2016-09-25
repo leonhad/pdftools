@@ -53,7 +53,7 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
 
         if (m_document->tree_root())
         {
-            BDCNode *bdc = dynamic_cast<BDCNode *>(node);
+            BDCNode *bdc = dynamic_cast<BDCNode *> (node);
             if (bdc)
             {
                 if (bdc->name() == "/P")
@@ -64,8 +64,8 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
                 }
                 else if (bdc->name() == "/Artifact")
                 {
-                    MapNode *attr = dynamic_cast<MapNode *>(bdc->value());
-                    NameNode *type = dynamic_cast<NameNode *>(attr->get("/Type"));
+                    MapNode *attr = dynamic_cast<MapNode *> (bdc->value());
+                    NameNode *type = dynamic_cast<NameNode *> (attr->get("/Type"));
                     if (type && type->name() == "/Pagination")
                     {
                         // Ignore
@@ -86,35 +86,35 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
         }
         else
         {
-            BDCNode *bdc = dynamic_cast<BDCNode *>(node);
+            BDCNode *bdc = dynamic_cast<BDCNode *> (node);
             if (bdc)
             {
                 analyze_tree(bdc, node_parent);
             }
         }
 
-        TextMatrixNode *text_matrix = dynamic_cast<TextMatrixNode *>(node);
+        TextMatrixNode *text_matrix = dynamic_cast<TextMatrixNode *> (node);
         if (text_matrix)
         {
             node_parent->add_child(analyze_text_matrix(text_matrix));
             continue;
         }
 
-        FontNode *font = dynamic_cast<FontNode *>(node);
+        FontNode *font = dynamic_cast<FontNode *> (node);
         if (font)
         {
             node_parent->add_child(analyze_font(font));
             continue;
         }
 
-        TextNode *text = dynamic_cast<TextNode *>(node);
+        TextNode *text = dynamic_cast<TextNode *> (node);
         if (text)
         {
             analyze_text(text, node_parent);
             continue;
         }
 
-        StateNode *state = dynamic_cast<StateNode *>(node);
+        StateNode *state = dynamic_cast<StateNode *> (node);
         if (state)
         {
             if (state->save())

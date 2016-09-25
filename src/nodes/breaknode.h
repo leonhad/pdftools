@@ -24,6 +24,7 @@
 
 namespace node
 {
+
     class BreakNode : public TreeNode
     {
     public:

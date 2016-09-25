@@ -27,6 +27,7 @@
 
 namespace node
 {
+
     class MapNode : public TreeNode
     {
     private:

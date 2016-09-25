@@ -112,7 +112,7 @@ bool verbose_mode()
     return _verbose;
 }
 
-char *compress(const char *raw, size_t size, uint32_t &writed) throw(exception)
+char *compress(const char *raw, size_t size, uint32_t &writed) throw (exception)
 {
     z_stream zstream;
     vector<buffer_struct> values;
@@ -128,7 +128,7 @@ char *compress(const char *raw, size_t size, uint32_t &writed) throw(exception)
     {
         throw GenericException("Error in deflate init.");
     }
-    zstream.avail_in = (uInt)size;
+    zstream.avail_in = (uInt) size;
     zstream.next_in = (Bytef *) raw;
 
     int total = 0;
@@ -233,7 +233,7 @@ char *flat_decode(char *compressed, int size, int &deflated)
 string utf16be_to_utf8(string &str)
 {
     string ret;
-    
+
     iconv_t conv_desc = iconv_open("UTF-8", "UTF-16BE");
     if ((size_t) conv_desc == (size_t) - 1)
     {

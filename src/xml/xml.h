@@ -23,7 +23,8 @@
 #include "xmltag.h"
 #include <string>
 
-class XML {
+class XML
+{
 private:
     XmlTag *m_root = nullptr;
     XmlTag *m_last_tag = nullptr;
@@ -37,7 +38,7 @@ private:
 public:
     XML() noexcept;
     ~XML() noexcept;
-    
+
     void start_document(const std::string& version, const std::string& charset) noexcept;
     void add_doctype(const std::string& name, const std::string& public_id, const std::string& sys_id) noexcept;
     void add_attribute(const std::string& id, const std::string& value) noexcept;

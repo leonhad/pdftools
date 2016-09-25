@@ -29,23 +29,27 @@ using namespace std;
 using namespace parser;
 using namespace node;
 
-inline bool pdf_versions(const string &version) {
+inline bool pdf_versions(const string &version)
+{
     return version == "PDF-1.1"
             || version == "PDF-1.2"
             || version == "PDF-1.3"
-            || version ==  "PDF-1.4"
-            || version ==  "PDF-1.5"
-            || version ==  "PDF-1.6"
-            || version ==  "PDF-1.7";
+            || version == "PDF-1.4"
+            || version == "PDF-1.5"
+            || version == "PDF-1.6"
+            || version == "PDF-1.7";
 }
 
-Parser::Parser(ifstream *filein) throw(exception) : GenericParser{filein}
+Parser::Parser(ifstream *filein) throw (exception) : GenericParser{filein}
 {
     m_linear = false;
 
-    if (filein->is_open()) {
+    if (filein->is_open())
+    {
         next_token();
-    } else {
+    }
+    else
+    {
         throw ios_base::failure("Invalid input file.");
     }
 }
@@ -55,9 +59,12 @@ RootNode *Parser::parse()
     RootNode *root = new RootNode();
     bool error = false;
     match(TokenType::PERCENT);
-    if (verify_version()) {
-        while (m_scanner->good() && !error) {
-            switch (m_token->type()) {
+    if (verify_version())
+    {
+        while (m_scanner->good() && !error)
+        {
+            switch (m_token->type())
+            {
             case TokenType::PERCENT:
                 comment_sequence();
                 break;
@@ -76,7 +83,9 @@ RootNode *Parser::parse()
                 break;
             }
         }
-    } else {
+    }
+    else
+    {
         error_message("invalid input file");
     }
     m_scanner->clear();
@@ -88,36 +97,47 @@ void Parser::object_streams(RootNode *root_node)
 {
     size_t size = root_node->size();
 
-    for (size_t i = 0; i < size; i++) {
+    for (size_t i = 0; i < size; i++)
+    {
         ObjNode *root_object = dynamic_cast<ObjNode *> (root_node->get(i));
-        if (root_object) {
+        if (root_object)
+        {
             MapNode *map = dynamic_cast<MapNode *> (root_object->value());
-            if (map) {
+            if (map)
+            {
                 NameNode *type = dynamic_cast<NameNode *> (map->get("/Type"));
-                if (type && type->name() == "/ObjStm") {
+                if (type && type->name() == "/ObjStm")
+                {
                     int qtd = 0;
                     int length = 0;
                     NumberNode *number = dynamic_cast<NumberNode *> (map->get("/N"));
-                    if (number) {
+                    if (number)
+                    {
                         qtd = number->value();
                     }
                     NumberNode *length_node = dynamic_cast<NumberNode *> (map->get("/Length"));
-                    if (number) {
+                    if (number)
+                    {
                         length = length_node->value();
                     }
                     char *uncompressed = nullptr;
-                    
+
                     m_scanner->to_pos(root_object->streamPos());
-                    char *stream = (char *)m_scanner->get_stream(length);
+                    char *stream = (char *) m_scanner->get_stream(length);
 
                     int total = length;
                     NameNode *filter = dynamic_cast<NameNode *> (map->get("/Filter"));
-                    if (filter && filter->name() == "/FlateDecode") {
+                    if (filter && filter->name() == "/FlateDecode")
+                    {
                         uncompressed = flat_decode(stream, length, total);
                         delete [] stream;
-                    } else if (!filter) {
+                    }
+                    else if (!filter)
+                    {
                         uncompressed = stream;
-                    } else {
+                    }
+                    else
+                    {
                         string msg{"compression not supported: "};
                         msg += filter->name();
                         error_message(msg.c_str());
@@ -133,14 +153,16 @@ void Parser::object_streams(RootNode *root_node)
 
                     vector<int> ids;
                     int loop;
-                    for (loop = 0; loop < qtd; loop++) {
+                    for (loop = 0; loop < qtd; loop++)
+                    {
                         next_token();
                         ids.push_back(m_token->to_number());
                         next_token();
                     }
                     next_token();
                     vector<int>::iterator id;
-                    for (id = ids.begin(); id < ids.end(); id++) {
+                    for (id = ids.begin(); id < ids.end(); id++)
+                    {
                         ObjNode *new_obj = new ObjNode(*id, 0);
                         new_obj->setValue(value_sequence());
                         root_node->add_child(new_obj);
@@ -163,27 +185,33 @@ TreeNode * Parser::xref_sequence()
     XREFNode *xref = new XREFNode;
     match(TokenType::XREF);
 
-    do {
+    do
+    {
         uint16_t id = (uint16_t) m_token->to_number();
         match(TokenType::NUM);
         int count = (int) m_token->to_number();
         match(TokenType::NUM);
 
-        for (int loop = 0; loop < count; loop++) {
+        for (int loop = 0; loop < count; loop++)
+        {
             uint32_t address = (int) m_token->to_number();
             match(TokenType::NUM);
             uint16_t generation = (int) m_token->to_number();
             match(TokenType::NUM);
             string name = m_token->value();
-            if (m_token->type() == TokenType::F_LO) {
+            if (m_token->type() == TokenType::F_LO)
+            {
                 match(TokenType::F_LO);
-            } else {
+            }
+            else
+            {
                 match(TokenType::N);
             }
             xref->add_node(id, generation, address, name.at(0));
             id++;
         }
-    } while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
+    }
+    while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
     match(TokenType::TRAILER);
     xref->set_trailer(value_sequence());
     return xref;
@@ -209,12 +237,15 @@ TreeNode *Parser::object_sequence()
     ObjNode *node = new ObjNode((int) number, (int) generation_nunber);
     match(TokenType::OBJ);
     node->setValue(value_sequence());
-    if (m_token && m_token->type() == TokenType::STREAM) {
+    if (m_token && m_token->type() == TokenType::STREAM)
+    {
         int length = -1;
         MapNode *map = dynamic_cast<MapNode *> (node->value());
-        if (map) {
+        if (map)
+        {
             NumberNode *number = dynamic_cast<NumberNode *> (map->get("/Length"));
-            if (number) {
+            if (number)
+            {
                 length = number->value();
             }
         }
@@ -229,9 +260,11 @@ TreeNode *Parser::object_sequence()
 
 bool Parser::verify_version()
 {
-    if (m_token) {
+    if (m_token)
+    {
         string line = m_token->value();
-        if (pdf_versions(line)) {
+        if (pdf_versions(line))
+        {
             match(TokenType::NAME);
             return true;
         }

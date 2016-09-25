@@ -38,21 +38,25 @@ Document::Document()
 Document::~Document()
 {
     vector<Page *>::iterator i = m_pages.begin();
-    while (i != m_pages.end()) {
+    while (i != m_pages.end())
+    {
         delete *i;
         i++;
     }
     vector<PageLabel *>::iterator l = m_page_label.begin();
-    while (l != m_page_label.end()) {
+    while (l != m_page_label.end())
+    {
         delete *l;
         l++;
     }
     vector<Font *>::iterator f = m_fonts.begin();
-    while (f != m_fonts.end()) {
+    while (f != m_fonts.end())
+    {
         delete *f;
         f++;
     }
-    if (m_outlines) {
+    if (m_outlines)
+    {
         delete m_outlines;
     }
 }
@@ -75,8 +79,10 @@ void Document::add_font(Font *font)
 Font *Document::get_font(const char *name)
 {
     vector<Font *>::iterator f = m_fonts.begin();
-    while (f != m_fonts.end()) {
-        if ((*f)->name() == name) {
+    while (f != m_fonts.end())
+    {
+        if ((*f)->name() == name)
+        {
             return *f;
         }
         f++;
@@ -97,9 +103,11 @@ bool Document::encrypted()
 Page *Document::page(int id, int generation)
 {
     vector<Page *>::iterator i = m_pages.begin();
-    while (i != m_pages.end()) {
+    while (i != m_pages.end())
+    {
         Page *page = *i;
-        if (page->id() == id && page->generation() == generation) {
+        if (page->id() == id && page->generation() == generation)
+        {
             return page;
         }
         i++;
@@ -184,7 +192,8 @@ void Document::set_author(string author)
 
 void Document::set_lang(string lang)
 {
-    if (!lang.empty()) {
+    if (!lang.empty())
+    {
         m_lang = lang;
     }
 }

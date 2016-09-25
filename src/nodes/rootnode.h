@@ -26,6 +26,7 @@
 
 namespace node
 {
+
     class RootNode : public TreeNode
     {
     private:

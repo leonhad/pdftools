@@ -38,8 +38,7 @@ int main(int argc, char *argv[])
     string fileout;
     string format = "epub";
 
-    const struct option long_options[] =
-    {
+    const struct option long_options[] = {
         {"verbose", no_argument, &verbose_flag, 1},
         {"help", no_argument, 0, 'h'},
         {"version", no_argument, 0, 'v'},
@@ -47,7 +46,7 @@ int main(int argc, char *argv[])
         {"format", required_argument, 0, 'f'},
         {0, 0, 0, 0}
     };
-        
+
     while (true)
     {
         int option_index = 0;
@@ -128,7 +127,7 @@ int main(int argc, char *argv[])
                 Converter converter(argv[loop], fileout, format);
                 converter.convert();
             }
-            catch(exception &e)
+            catch (exception &e)
             {
                 error_message(e.what());
             }

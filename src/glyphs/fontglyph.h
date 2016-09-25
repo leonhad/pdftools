@@ -23,7 +23,7 @@
 #include <string>
 #include "glyph.h"
 
-class FontGlyph: public Glyph
+class FontGlyph : public Glyph
 {
 private:
     int m_size;

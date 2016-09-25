@@ -24,6 +24,7 @@
 
 namespace node
 {
+
     class StateNode : public TreeNode
     {
     private:

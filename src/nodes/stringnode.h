@@ -23,7 +23,9 @@
 #include "treenode.h"
 #include <string>
 
-namespace node{
+namespace node
+{
+
     class StringNode : public TreeNode
     {
     private:

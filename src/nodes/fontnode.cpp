@@ -22,8 +22,7 @@
 using namespace std;
 using namespace node;
 
-FontNode::FontNode()
-    : TreeNode(), m_size(0)
+FontNode::FontNode() : TreeNode(), m_size(0)
 {
 }
 

@@ -30,7 +30,8 @@ class Document;
 class Glyph;
 class Html;
 
-class Page {
+class Page
+{
 private:
     int *m_media_box;
     int *m_crop_box;
@@ -54,7 +55,7 @@ public:
     const string link();
 
     void execute(Html *html);
-    
+
     void add_fontmap(string alias, string font_name);
     string font_name(string &alias);
 };

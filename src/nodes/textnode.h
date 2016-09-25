@@ -25,6 +25,7 @@
 
 namespace node
 {
+
     class TextNode : public TreeNode
     {
     private:

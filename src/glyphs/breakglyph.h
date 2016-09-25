@@ -22,7 +22,8 @@
 
 #include "glyph.h"
 
-class BreakGlyph : public Glyph {
+class BreakGlyph : public Glyph
+{
 public:
     virtual void do_glyph(Html *document);
 };

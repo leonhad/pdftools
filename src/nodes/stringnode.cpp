@@ -22,8 +22,7 @@
 using namespace std;
 using namespace node;
 
-StringNode::StringNode(string value)
-    : TreeNode(), m_value(value)
+StringNode::StringNode(string value) : TreeNode(), m_value(value)
 {
 }
 

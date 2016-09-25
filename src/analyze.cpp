@@ -40,7 +40,7 @@ using namespace std;
 using namespace parser;
 using namespace node;
 
-Analyze::Analyze(const string& filein) throw(exception) : m_filein(filein)
+Analyze::Analyze(const string& filein) throw (exception) : m_filein(filein)
 {
     m_filestream.open(filein, ios::binary);
 
@@ -63,14 +63,14 @@ Analyze::~Analyze()
 void Analyze::analyze_xref()
 {
     size_t size = m_tree->size();
-    
+
     for (size_t i = 0; i < size; i++)
     {
         TreeNode *value = m_tree->get(i);
-        XREFNode *xref = dynamic_cast<XREFNode *>(value);
+        XREFNode *xref = dynamic_cast<XREFNode *> (value);
         if (xref)
         {
-            MapNode *trailer = dynamic_cast<MapNode *>(xref->trailer());
+            MapNode *trailer = dynamic_cast<MapNode *> (xref->trailer());
 
             TreeNode *rootValue = get_real_value(trailer->get("/Root"));
             TreeNode *encrypt = get_real_value(trailer->get("/Encrypt"));
@@ -90,7 +90,7 @@ void Analyze::analyze_xref()
                 m_document->set_encrypted(true);
             }
 
-            ArrayNode *array = dynamic_cast<ArrayNode *>(trailer->get("/ID"));
+            ArrayNode *array = dynamic_cast<ArrayNode *> (trailer->get("/ID"));
             if (array && array->size() == 2)
             {
                 m_document->set_id(get_string_value(array->value(0)), get_string_value(array->value(1)));
@@ -98,13 +98,13 @@ void Analyze::analyze_xref()
         }
         else
         {
-            ObjNode *obj = dynamic_cast<ObjNode *>(value);
+            ObjNode *obj = dynamic_cast<ObjNode *> (value);
             if (obj)
             {
-                MapNode *values = dynamic_cast<MapNode *>(obj->value());
+                MapNode *values = dynamic_cast<MapNode *> (obj->value());
                 if (values)
                 {
-                    NameNode *type = dynamic_cast<NameNode *>(values->get("/Type"));
+                    NameNode *type = dynamic_cast<NameNode *> (values->get("/Type"));
                     // analyze only XREF Objects
                     if (type && type->name() == "/XRef")
                     {
@@ -120,7 +120,7 @@ void Analyze::analyze_xref()
                             m_document->set_info(info);
                         }
 
-                        ArrayNode *array = dynamic_cast<ArrayNode *>(values->get("/ID"));
+                        ArrayNode *array = dynamic_cast<ArrayNode *> (values->get("/ID"));
                         if (array && array->size() == 2)
                         {
                             m_document->set_id(get_string_value(array->value(0)), get_string_value(array->value(1)));
@@ -134,10 +134,10 @@ void Analyze::analyze_xref()
 
 void Analyze::analyze_info()
 {
-    ObjNode *obj = dynamic_cast<ObjNode *>(m_document->info_node());
+    ObjNode *obj = dynamic_cast<ObjNode *> (m_document->info_node());
     if (obj)
     {
-        MapNode *info = dynamic_cast<MapNode *>(obj->value());
+        MapNode *info = dynamic_cast<MapNode *> (obj->value());
         if (info)
         {
             m_document->set_title(get_string_value(info->get("/Title")));
@@ -149,15 +149,15 @@ void Analyze::analyze_info()
 
 void Analyze::analyze_root()
 {
-    ObjNode *obj_root = dynamic_cast<ObjNode *>(m_document->root_node());
+    ObjNode *obj_root = dynamic_cast<ObjNode *> (m_document->root_node());
     if (!obj_root)
     {
         // Invalid file
         return;
     }
 
-    MapNode *catalog = dynamic_cast<MapNode *>(obj_root->value());
-    NameNode *name = dynamic_cast<NameNode *>(catalog->get("/Type"));
+    MapNode *catalog = dynamic_cast<MapNode *> (obj_root->value());
+    NameNode *name = dynamic_cast<NameNode *> (catalog->get("/Type"));
     if (!name || name->name() != "/Catalog")
     {
         // Invalid file
@@ -166,17 +166,17 @@ void Analyze::analyze_root()
     m_page_tree = get_real_value(catalog->get("/Pages"));
     m_document->set_lang(get_string_value(catalog->get("/Lang")));
 
-    MapNode *names = dynamic_cast<MapNode *>(get_real_obj_value(catalog->get("/Names")));
+    MapNode *names = dynamic_cast<MapNode *> (get_real_obj_value(catalog->get("/Names")));
     if (names)
     {
-        MapNode *dests = dynamic_cast<MapNode *>(get_real_obj_value(names->get("/Dests")));
+        MapNode *dests = dynamic_cast<MapNode *> (get_real_obj_value(names->get("/Dests")));
         analyze_names(dests);
     }
 
-    MapNode *page_labels = dynamic_cast<MapNode *>(get_real_obj_value(catalog->get("/PageLabels")));
+    MapNode *page_labels = dynamic_cast<MapNode *> (get_real_obj_value(catalog->get("/PageLabels")));
     if (page_labels)
     {
-        ArrayNode *array = dynamic_cast<ArrayNode *>(get_real_value(page_labels->get("/Nums")));
+        ArrayNode *array = dynamic_cast<ArrayNode *> (get_real_value(page_labels->get("/Nums")));
         if (array)
         {
             size_t size = array->size();
@@ -184,10 +184,10 @@ void Analyze::analyze_root()
             for (size_t loop = 0; loop < size; loop += 2)
             {
                 double page = get_number_value(array->value(loop));
-                MapNode *attributes = dynamic_cast<MapNode *>(get_real_obj_value(array->value(loop + 1)));
+                MapNode *attributes = dynamic_cast<MapNode *> (get_real_obj_value(array->value(loop + 1)));
                 if (attributes)
                 {
-                    NameNode *name_type = dynamic_cast<NameNode *>(attributes->get("/S"));
+                    NameNode *name_type = dynamic_cast<NameNode *> (attributes->get("/S"));
                     page_type type = ARABIC;
                     if (name_type)
                     {
@@ -220,7 +220,7 @@ void Analyze::analyze_root()
         }
     }
 
-    MapNode *outlines = dynamic_cast<MapNode *>(get_real_obj_value(catalog->get("/Outlines")));
+    MapNode *outlines = dynamic_cast<MapNode *> (get_real_obj_value(catalog->get("/Outlines")));
     if (outlines)
     {
         analyze_outlines(outlines);
@@ -235,20 +235,20 @@ void Analyze::analyze_root()
 
 void Analyze::analyze_names(MapNode *values)
 {
-    ArrayNode *kids = dynamic_cast<ArrayNode *>(values->get("/Kids"));
+    ArrayNode *kids = dynamic_cast<ArrayNode *> (values->get("/Kids"));
     if (kids)
     {
         size_t size = kids->size();
 
         for (size_t i = 0; i < size; i++)
         {
-            MapNode *map_kids = dynamic_cast<MapNode *>(get_real_obj_value(kids->value(i)));
+            MapNode *map_kids = dynamic_cast<MapNode *> (get_real_obj_value(kids->value(i)));
             analyze_names(map_kids);
         }
     }
     else
     {
-        ArrayNode *names = dynamic_cast<ArrayNode *>(values->get("/Names"));
+        ArrayNode *names = dynamic_cast<ArrayNode *> (values->get("/Names"));
         if (names)
         {
             size_t size = names->size();
@@ -276,7 +276,7 @@ TreeNode *Analyze::get_named_value(string name)
 
 void Analyze::analyze_outlines(MapNode *values, Outline * parent)
 {
-    NameNode *type = dynamic_cast<NameNode *>(values->get("/Type"));
+    NameNode *type = dynamic_cast<NameNode *> (values->get("/Type"));
     if (type)
     {
         if (type->name() != "/Outlines")
@@ -290,28 +290,28 @@ void Analyze::analyze_outlines(MapNode *values, Outline * parent)
     string named_dest = get_string_value(values->get("/Dest"));
     if (!named_dest.empty())
     {
-        MapNode *map = dynamic_cast<MapNode *>(get_real_obj_value(get_named_value(named_dest)));
+        MapNode *map = dynamic_cast<MapNode *> (get_real_obj_value(get_named_value(named_dest)));
         if (map)
         {
-            ArrayNode *dest = dynamic_cast<ArrayNode *>(get_real_obj_value(map->get("/D")));
+            ArrayNode *dest = dynamic_cast<ArrayNode *> (get_real_obj_value(map->get("/D")));
             analyze_outline(dest, outline);
         }
     }
 
-    ArrayNode *destinations = dynamic_cast<ArrayNode *>(values->get("/Dest"));
+    ArrayNode *destinations = dynamic_cast<ArrayNode *> (values->get("/Dest"));
     if (destinations && destinations->size() > 0)
     {
         analyze_outline(destinations, outline);
     }
     else
     {
-        MapNode *actions = dynamic_cast<MapNode *>(get_real_obj_value(values->get("/A")));
+        MapNode *actions = dynamic_cast<MapNode *> (get_real_obj_value(values->get("/A")));
         if (actions)
         {
-            NameNode *subtype = dynamic_cast<NameNode *>(get_real_obj_value(actions->get("/S")));
+            NameNode *subtype = dynamic_cast<NameNode *> (get_real_obj_value(actions->get("/S")));
             if (subtype && subtype->name() == "/GoTo")
             {
-                ArrayNode *dest = dynamic_cast<ArrayNode *>(get_real_obj_value(actions->get("/D")));
+                ArrayNode *dest = dynamic_cast<ArrayNode *> (get_real_obj_value(actions->get("/D")));
                 analyze_outline(dest, outline);
             }
         }
@@ -332,13 +332,13 @@ void Analyze::analyze_outlines(MapNode *values, Outline * parent)
         }
     }
 
-    MapNode *first = dynamic_cast<MapNode *>(get_real_obj_value(values->get("/First")));
+    MapNode *first = dynamic_cast<MapNode *> (get_real_obj_value(values->get("/First")));
     if (first)
     {
         analyze_outlines(first, outline);
     }
 
-    MapNode *next = dynamic_cast<MapNode *>(get_real_obj_value(values->get("/Next")));
+    MapNode *next = dynamic_cast<MapNode *> (get_real_obj_value(values->get("/Next")));
     if (next && parent)
     {
         analyze_outlines(next, parent);
@@ -349,13 +349,13 @@ void Analyze::analyze_outline(ArrayNode *values, Outline *outline)
 {
     if (values && values->size() > 0)
     {
-        RefNode *ref = dynamic_cast<RefNode *>(values->value(0));
+        RefNode *ref = dynamic_cast<RefNode *> (values->value(0));
         if (ref)
         {
             outline->set_destination(ref->id(), ref->generation());
         }
 
-        NameNode *command = dynamic_cast<NameNode *>(values->value(1));
+        NameNode *command = dynamic_cast<NameNode *> (values->value(1));
         if (command && command->name() == "/XYZ")
         {
             double x = get_number_value(values->value(2));
@@ -365,12 +365,12 @@ void Analyze::analyze_outline(ArrayNode *values, Outline *outline)
     }
 }
 
-Document *Analyze::analyze_tree() throw(exception)
+Document *Analyze::analyze_tree() throw (exception)
 {
     verbose_message("Parsing file " + m_filein);
-    
+
     Parser parser(&m_filestream);
-    
+
     m_tree = parser.parse();
     if (!m_tree)
     {
@@ -398,10 +398,10 @@ Page *Analyze::process_page(int id, int generation, stringstream *stream_value, 
     Page *page = new Page(m_document);
     page->set_destination(id, generation);
 
-    MapNode *resources = dynamic_cast<MapNode *>(get_real_obj_value(catalog->get("/Resources")));
+    MapNode *resources = dynamic_cast<MapNode *> (get_real_obj_value(catalog->get("/Resources")));
     if (resources)
     {
-        MapNode *fonts = dynamic_cast<MapNode *>(get_real_obj_value(resources->get("/Font")));
+        MapNode *fonts = dynamic_cast<MapNode *> (get_real_obj_value(resources->get("/Font")));
         if (fonts)
         {
             vector<string> names = fonts->names();
@@ -409,7 +409,7 @@ Page *Analyze::process_page(int id, int generation, stringstream *stream_value, 
             for (size_t loop = 0; loop < size; loop++)
             {
                 string alias = names[loop];
-                MapNode *fontmap = dynamic_cast<MapNode *>(get_real_obj_value(fonts->get(alias)));
+                MapNode *fontmap = dynamic_cast<MapNode *> (get_real_obj_value(fonts->get(alias)));
                 if (fontmap)
                 {
                     Font *font = analyze_font(fontmap);
@@ -434,10 +434,10 @@ Font *Analyze::analyze_font(MapNode *fontmap)
     Font *font = new Font;
 
     font->set_name("Unnamed");
-    MapNode *descriptor = dynamic_cast<MapNode *>(get_real_obj_value(fontmap->get("/FontDescriptor")));
+    MapNode *descriptor = dynamic_cast<MapNode *> (get_real_obj_value(fontmap->get("/FontDescriptor")));
     if (descriptor)
     {
-        NameNode *name = dynamic_cast<NameNode *>(descriptor->get("/FontName"));
+        NameNode *name = dynamic_cast<NameNode *> (descriptor->get("/FontName"));
         if (name)
         {
             font->set_name(name->name());
@@ -469,7 +469,7 @@ Font *Analyze::analyze_font(MapNode *fontmap)
         }
     }
 
-    ObjNode *to_unicode = dynamic_cast<ObjNode *>(get_real_value(fontmap->get("/ToUnicode")));
+    ObjNode *to_unicode = dynamic_cast<ObjNode *> (get_real_value(fontmap->get("/ToUnicode")));
     if (to_unicode)
     {
         stringstream stream;
@@ -506,7 +506,7 @@ void Analyze::get_stream(ArrayNode *array, stringstream *stream_value)
     {
         for (size_t loop = 0; loop < array->size(); loop++)
         {
-            ObjNode *obj = dynamic_cast<ObjNode *>(get_real_value(array->value(loop)));
+            ObjNode *obj = dynamic_cast<ObjNode *> (get_real_value(array->value(loop)));
             get_stream(obj, stream_value);
         }
     }
@@ -514,14 +514,14 @@ void Analyze::get_stream(ArrayNode *array, stringstream *stream_value)
 
 void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
 {
-    MapNode *node = dynamic_cast<MapNode *>(obj->value());
-    NameNode *filter = dynamic_cast<NameNode *>(get_real_obj_value(node->get("/Filter")));
-    ArrayNode *filter_array = dynamic_cast<ArrayNode *>(get_real_obj_value(node->get("/Filter")));
+    MapNode *node = dynamic_cast<MapNode *> (obj->value());
+    NameNode *filter = dynamic_cast<NameNode *> (get_real_obj_value(node->get("/Filter")));
+    ArrayNode *filter_array = dynamic_cast<ArrayNode *> (get_real_obj_value(node->get("/Filter")));
     int length = get_number_value(get_real_obj_value(node->get("/Length")));
 
     ifstream filein;
     filein.open(m_filein, ios::binary);
-    
+
     Scanner scanner{&m_filestream};
     scanner.to_pos(obj->streamPos());
 
@@ -533,7 +533,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
     {
         const char *value = flat_decode(stream, length, total);
         (*stream_value).write(value, total);
-        delete [] value;
+        delete[] value;
     }
     else if (filter_array)
     {
@@ -543,7 +543,7 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
 #ifdef DEBUG
             for (size_t loop = 0; loop < size; loop++)
             {
-                filter = dynamic_cast<NameNode *>(get_real_value(filter_array->value(loop)));
+                filter = dynamic_cast<NameNode *> (get_real_value(filter_array->value(loop)));
                 cout << filter->name() << endl;
             }
 #endif
@@ -553,12 +553,12 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
         {
             for (size_t loop = 0; loop < size; loop++)
             {
-                filter = dynamic_cast<NameNode *>(get_real_value(filter_array->value(loop)));
+                filter = dynamic_cast<NameNode *> (get_real_value(filter_array->value(loop)));
                 if (filter && filter->name() == "/FlateDecode")
                 {
                     const char *value = flat_decode(stream, length, total);
                     (*stream_value).write(value, total);
-                    delete [] value;
+                    delete[] value;
                 }
                 else
                 {
@@ -583,26 +583,26 @@ void Analyze::get_stream(ObjNode *obj, stringstream *stream_value)
         error_message("Invalid filter " + filter->name());
     }
 
-    delete [] stream;
+    delete[] stream;
 }
 
 void Analyze::analyze_pages(TreeNode *page, ArrayNode * mediabox)
 {
-    ObjNode *obj_pages = dynamic_cast<ObjNode *>(page);
+    ObjNode *obj_pages = dynamic_cast<ObjNode *> (page);
     if (!obj_pages)
     {
         // Invalid file.
         return;
     }
 
-    MapNode *catalog = dynamic_cast<MapNode *>(obj_pages->value());
-    NameNode *type = dynamic_cast<NameNode *>(catalog->get("/Type"));
+    MapNode *catalog = dynamic_cast<MapNode *> (obj_pages->value());
+    NameNode *type = dynamic_cast<NameNode *> (catalog->get("/Type"));
     if (type)
     {
         if (type->name() == "/Pages")
         {
-            ArrayNode *kids = dynamic_cast<ArrayNode *>(catalog->get("/Kids"));
-            ArrayNode *media = dynamic_cast<ArrayNode *>(catalog->get("/MediaBox"));
+            ArrayNode *kids = dynamic_cast<ArrayNode *> (catalog->get("/Kids"));
+            ArrayNode *media = dynamic_cast<ArrayNode *> (catalog->get("/MediaBox"));
             if (!media)
             {
                 media = mediabox;
@@ -619,28 +619,29 @@ void Analyze::analyze_pages(TreeNode *page, ArrayNode * mediabox)
         }
         else if (type->name() == "/Page")
         {
-            ArrayNode *media = dynamic_cast<ArrayNode *>(catalog->get("/MediaBox"));
+            ArrayNode *media = dynamic_cast<ArrayNode *> (catalog->get("/MediaBox"));
             if (!media)
             {
                 media = mediabox;
             }
 
-            ObjNode *contents = dynamic_cast<ObjNode *>(get_real_value(catalog->get("/Contents")));
+            ObjNode *contents = dynamic_cast<ObjNode *> (get_real_value(catalog->get("/Contents")));
             if (contents)
             {
                 stringstream stream_value;
-                MapNode *snode = dynamic_cast<MapNode *>(contents->value());
+                MapNode *snode = dynamic_cast<MapNode *> (contents->value());
                 if (snode)
                 {
                     get_stream(contents, &stream_value);
                 }
                 else
                 {
-                    ArrayNode *array = dynamic_cast<ArrayNode *>(contents->value());
+                    ArrayNode *array = dynamic_cast<ArrayNode *> (contents->value());
                     get_stream(array, &stream_value);
                 }
 
-                m_document->add_page(process_page(obj_pages->id(), obj_pages->generation(), &stream_value, catalog, media));
+                m_document->add_page(
+                                     process_page(obj_pages->id(), obj_pages->generation(), &stream_value, catalog, media));
             }
         }
     }
@@ -648,7 +649,7 @@ void Analyze::analyze_pages(TreeNode *page, ArrayNode * mediabox)
 
 TreeNode *Analyze::get_real_value(TreeNode * value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
+    RefNode *ref = dynamic_cast<RefNode *> (value);
     if (ref)
     {
         return get_object(ref);
@@ -659,7 +660,7 @@ TreeNode *Analyze::get_real_value(TreeNode * value)
 
 TreeNode *Analyze::get_real_obj_value(TreeNode * value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
+    RefNode *ref = dynamic_cast<RefNode *> (value);
     if (ref)
     {
         ObjNode *node = get_object(ref);
@@ -676,13 +677,13 @@ TreeNode *Analyze::get_real_obj_value(TreeNode * value)
 
 string Analyze::get_string_value(TreeNode * value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
+    RefNode *ref = dynamic_cast<RefNode *> (value);
     if (ref)
     {
         return get_string_value(get_object(ref)->value());
     }
 
-    StringNode *str = dynamic_cast<StringNode *>(value);
+    StringNode *str = dynamic_cast<StringNode *> (value);
     if (str)
     {
         return str->value();
@@ -693,13 +694,13 @@ string Analyze::get_string_value(TreeNode * value)
 
 double Analyze::get_number_value(TreeNode *value, int default_value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
+    RefNode *ref = dynamic_cast<RefNode *> (value);
     if (ref)
     {
         return get_number_value(get_object(ref)->value());
     }
 
-    NumberNode *num = dynamic_cast<NumberNode *>(value);
+    NumberNode *num = dynamic_cast<NumberNode *> (value);
     if (num)
     {
         return num->value();
@@ -728,7 +729,7 @@ ObjNode *Analyze::get_object(int id, int generation)
     {
         if (!done)
         {
-            ObjNode *obj = dynamic_cast<ObjNode *>(m_tree->get(i));
+            ObjNode *obj = dynamic_cast<ObjNode *> (m_tree->get(i));
             if (obj && obj->thisObject(id, generation))
             {
                 // Value found

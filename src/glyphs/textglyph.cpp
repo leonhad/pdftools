@@ -25,8 +25,7 @@
 
 using namespace std;
 
-TextGlyph::TextGlyph(string text)
-    : m_text(text)
+TextGlyph::TextGlyph(string text) : m_text(text)
 {
 }
 

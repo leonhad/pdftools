@@ -25,6 +25,7 @@
 
 namespace node
 {
+
     class BDCNode : public RootNode
     {
     private:

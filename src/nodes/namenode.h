@@ -20,11 +20,12 @@
 #ifndef NAMENODE_H
 #define NAMENODE_H
 
-#include "treenode.h"
+#include "treenode.h" 
 #include <string>
 
 namespace node
 {
+
     class NameNode : public TreeNode
     {
     private:

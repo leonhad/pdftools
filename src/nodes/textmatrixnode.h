@@ -26,6 +26,7 @@
 
 namespace node
 {
+
     class TextMatrixNode : public TreeNode
     {
     private:

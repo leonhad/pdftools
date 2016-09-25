@@ -24,7 +24,8 @@
 
 using namespace std;
 
-enum page_type {
+enum page_type
+{
     ARABIC,
     UPCASE_ROMAN,
     LOWCASE_ROMAN,
@@ -32,16 +33,17 @@ enum page_type {
     LOWCASE_LETTERS
 };
 
-class PageLabel {
+class PageLabel
+{
 private:
     int m_start_number;
     int m_range;
     page_type m_type;
     string m_name;
-    
+
 public:
     PageLabel(int start, int range, page_type type, string &name);
-    
+
     int start();
     int range();
     page_type type();
