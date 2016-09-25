@@ -23,6 +23,8 @@
 #include "font.h"
 #include <cstdlib>
 
+using namespace std;
+
 Context::Context(Document *document)
 {
     m_document = document;

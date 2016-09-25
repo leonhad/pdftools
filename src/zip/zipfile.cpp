@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "zipfile.h"
-#include "../utils.h"
+#include "utils.h"
 #include <iostream>
 #include <cstring>
 #include <zlib.h>

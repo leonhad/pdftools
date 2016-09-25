@@ -23,8 +23,6 @@
 #include <string>
 #include <map>
 
-using namespace std;
-
 class Context;
 class Document;
 class Glyph;
@@ -37,10 +35,10 @@ private:
     int *m_crop_box;
     int m_id;
     int m_generation;
-    string m_link;
+    std::string m_link;
     Glyph *m_root;
     Document *m_document;
-    map<string, string> m_fontmap;
+    std::map<std::string, std::string> m_fontmap;
 
 public:
     Page(Document *parent);
@@ -52,12 +50,12 @@ public:
     void set_root(Glyph *root);
     int id();
     int generation();
-    const string link();
+    const std::string link();
 
     void execute(Html *html);
 
-    void add_fontmap(string alias, string font_name);
-    string font_name(string &alias);
+    void add_fontmap(std::string alias, std::string font_name);
+    std::string font_name(std::string &alias);
 };
 
 #endif

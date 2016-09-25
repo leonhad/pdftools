@@ -6,7 +6,7 @@ libzip_a_SOURCES = \
 noinst_HEADERS = \
 	zipfile.h zipfiletest.h
 
-libzip_a_CXXFLAGS = 
+libzip_a_CXXFLAGS = -I..
 
 libziptest_a_SOURCES = \
 	zipfiletest.cpp

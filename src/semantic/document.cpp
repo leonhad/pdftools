@@ -24,6 +24,7 @@
 #include "pagelabel.h"
 
 using namespace node;
+using namespace std;
 
 Document::Document()
 {

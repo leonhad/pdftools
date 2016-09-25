@@ -23,13 +23,11 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 class Outline
 {
 private:
-    vector<Outline *> m_childs;
-    string m_title;
+    std::vector<Outline *> m_childs;
+    std::string m_title;
     int m_id;
     int m_generation;
     double m_x;
@@ -42,7 +40,7 @@ public:
     void add_child(Outline *child);
     void set_destination(int id, int generation);
     void set_location(double x, double y);
-    void set_title(string title);
+    void set_title(std::string title);
 
     int id();
     int generation();

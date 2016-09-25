@@ -300,9 +300,9 @@ noinst_HEADERS = \
 	pageparser.h \
 	parser.h \
 	scanner.h \
-	token.h	
+	token.h
 
-libparser_a_CXXFLAGS = 
+libparser_a_CXXFLAGS = -I..
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov
 

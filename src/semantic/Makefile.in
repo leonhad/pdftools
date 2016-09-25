@@ -302,7 +302,7 @@ noinst_HEADERS = \
 	context.h \
 	font.h
 
-libsemantic_a_CXXFLAGS = 
+libsemantic_a_CXXFLAGS = -I..
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov
 

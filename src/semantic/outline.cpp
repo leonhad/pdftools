@@ -19,6 +19,8 @@
  */
 #include "outline.h"
 
+using namespace std;
+
 Outline::Outline()
 {
     m_id = 0;

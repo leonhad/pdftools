@@ -21,6 +21,8 @@
 
 #include <iostream>
 
+using namespace std;
+
 PageLabel::PageLabel(int start, int range, page_type type, string &name)
 {
     m_start_number = start;

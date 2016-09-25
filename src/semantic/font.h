@@ -23,8 +23,6 @@
 #include <string>
 #include <map>
 
-using namespace std;
-
 class Font
 {
 private:
@@ -32,10 +30,10 @@ private:
     bool m_bold;
     bool m_fixed;
     double m_size;
-    string m_name;
-    string m_charmap_start;
-    string m_charmap_finish;
-    map<string, string> m_charmap;
+    std::string m_name;
+    std::string m_charmap_start;
+    std::string m_charmap_finish;
+    std::map<std::string, std::string> m_charmap;
 
 public:
     Font();
@@ -43,18 +41,18 @@ public:
 
     void set_size(double size);
     void set_fixed(bool fixed);
-    void set_name(string name);
+    void set_name(std::string name);
     void set_italic(bool italic);
-    string name();
+    std::string name();
     double size();
     bool italic();
     bool bold();
     bool fixed();
 
-    void set_charmap_start(string value);
-    void set_charmap_finish(string value);
-    void add_charmap(string character, string utf16value);
-    string translate(string &value);
+    void set_charmap_start(std::string value);
+    void set_charmap_finish(std::string value);
+    void add_charmap(std::string character, std::string utf16value);
+    std::string translate(std::string &value);
 };
 
 #endif

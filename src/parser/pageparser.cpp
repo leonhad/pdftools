@@ -18,10 +18,10 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "pageparser.h"
-#include "../utils.h"
+#include "utils.h"
 #include "token.h"
-#include "../nodes/nodes.h"
-#include "../glyphs/glyphs.h"
+#include "nodes/nodes.h"
+#include "glyphs/glyphs.h"
 #include <iostream>
 
 using namespace std;

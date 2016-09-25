@@ -19,8 +19,8 @@
  */
 #include "parser.h"
 #include "scanner.h"
-#include "../utils.h"
-#include "../nodes/nodes.h"
+#include "utils.h"
+#include "nodes/nodes.h"
 #include <string>
 #include <sstream>
 #include <iostream>

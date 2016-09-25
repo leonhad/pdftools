@@ -18,8 +18,10 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "font.h"
-#include "../utils.h"
+#include "utils.h"
 #include <cstring>
+
+using namespace std;
 
 Font::Font()
 {

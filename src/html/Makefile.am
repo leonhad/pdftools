@@ -5,7 +5,7 @@ libhtml_a_SOURCES = \
 noinst_HEADERS = \
 	html.h
 
-libhtml_a_CXXFLAGS = 
+libhtml_a_CXXFLAGS = -I..
 
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov

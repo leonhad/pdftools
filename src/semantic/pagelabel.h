@@ -22,8 +22,6 @@
 
 #include <string>
 
-using namespace std;
-
 enum page_type
 {
     ARABIC,
@@ -39,15 +37,15 @@ private:
     int m_start_number;
     int m_range;
     page_type m_type;
-    string m_name;
+    std::string m_name;
 
 public:
-    PageLabel(int start, int range, page_type type, string &name);
+    PageLabel(int start, int range, page_type type, std::string &name);
 
     int start();
     int range();
     page_type type();
-    string &name();
+    std::string &name();
 };
 
 #endif
