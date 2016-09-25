@@ -53,7 +53,7 @@ private:
     std::map<std::string, node::TreeNode *> m_names;
 
 public:
-    Analyze(const std::string& filein) throw (std::exception);
+    explicit Analyze(const std::string& filein) throw (std::exception);
     ~Analyze();
 
     Document *analyzeTree() throw (std::exception);
