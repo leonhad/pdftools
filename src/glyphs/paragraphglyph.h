@@ -27,8 +27,8 @@ class Html;
 class ParagraphGlyph : public Glyph
 {
 public:
-    virtual void start_glyph(Html *document);
-    virtual void end_glyph(Html *document);
+    virtual void startGlyph(Html *document);
+    virtual void endGlyph(Html *document);
 };
 
 #endif

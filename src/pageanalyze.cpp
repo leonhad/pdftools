@@ -60,7 +60,7 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
                 {
                     ParagraphGlyph *p = new ParagraphGlyph;
                     analyze_tree(bdc, p);
-                    node_parent->add_child(p);
+                    node_parent->addChild(p);
                 }
                 else if (bdc->name() == "/Artifact")
                 {
@@ -96,14 +96,14 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
         TextMatrixNode *text_matrix = dynamic_cast<TextMatrixNode *> (node);
         if (text_matrix)
         {
-            node_parent->add_child(analyze_text_matrix(text_matrix));
+            node_parent->addChild(analyze_text_matrix(text_matrix));
             continue;
         }
 
         FontNode *font = dynamic_cast<FontNode *> (node);
         if (font)
         {
-            node_parent->add_child(analyze_font(font));
+            node_parent->addChild(analyze_font(font));
             continue;
         }
 
@@ -131,17 +131,17 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
 
 FontGlyph *PageAnalyze::analyze_font(FontNode *font)
 {
-    return new FontGlyph(font->name(), font->size() * m_state.get_text_font());
+    return new FontGlyph(font->name(), font->size() * m_state.getTextFont());
 }
 
 void PageAnalyze::analyze_text(TextNode *text, Glyph *parent)
 {
-    parent->add_child(new TextGlyph(text->text()));
+    parent->addChild(new TextGlyph(text->text()));
 }
 
 FontSizeGlyph *PageAnalyze::analyze_text_matrix(TextMatrixNode *text_matrix)
 {
-    m_state.set_text_matrix(text_matrix->at(0), text_matrix->at(1), text_matrix->at(2),
+    m_state.setTextMatrix(text_matrix->at(0), text_matrix->at(1), text_matrix->at(2),
                             text_matrix->at(3), text_matrix->at(4), text_matrix->at(5));
-    return new FontSizeGlyph(m_state.get_text_font());
+    return new FontSizeGlyph(m_state.getTextFont());
 }

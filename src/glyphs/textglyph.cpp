@@ -25,11 +25,11 @@
 
 using namespace std;
 
-TextGlyph::TextGlyph(string text) : m_text(text)
+TextGlyph::TextGlyph(string &&text) : m_text(move(text))
 {
 }
 
-void TextGlyph::do_glyph(Html *document)
+void TextGlyph::doGlyph(Html *document)
 {
     Font *current = m_context->font();
 

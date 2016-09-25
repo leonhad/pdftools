@@ -39,11 +39,11 @@ public:
     void push();
     void pop();
 
-    void set_text_matrix(double a, double b, double c, double d, double e, double f);
-    double get_text_font();
+    void setTextMatrix(double a, double b, double c, double d, double e, double f);
+    double getTextFont();
 
     Font *font();
-    void set_font(Font *font);
+    void setFont(Font *font);
 };
 
 #endif

@@ -37,14 +37,14 @@ protected:
 public:
     Glyph();
     virtual ~Glyph();
-    void add_child(Glyph *glyph);
+    void addChild(Glyph *glyph);
     void execute(Html *document, Context *context);
 
-    virtual void do_glyph(Html *);
-    virtual void start_glyph(Html *);
-    virtual void end_glyph(Html *);
+    virtual void doGlyph(Html *);
+    virtual void startGlyph(Html *);
+    virtual void endGlyph(Html *);
 
-    void set_last(Glyph *glyph);
+    void setLast(Glyph *glyph);
 };
 
 #endif

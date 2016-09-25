@@ -46,12 +46,12 @@ void CMapNode::add(CharNode *node)
     m_charnodes.push_back(node);
 }
 
-void CMapNode::set_codespace(CodeSpaceNode *codespace)
+void CMapNode::setCodespace(CodeSpaceNode *codespace)
 {
     m_codespace = codespace;
 }
 
-CodeSpaceNode *CMapNode::code_space() const
+CodeSpaceNode *CMapNode::codeSpace() const
 {
     return m_codespace;
 }

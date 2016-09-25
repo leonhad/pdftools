@@ -36,8 +36,8 @@ namespace node
         CodeSpaceNode();
         virtual ~CodeSpaceNode() = default;
 
-        void set_start(std::string start);
-        void set_finish(std::string finish);
+        void setStart(std::string start);
+        void setFinish(std::string finish);
 
         std::string start() const;
         std::string finish() const;

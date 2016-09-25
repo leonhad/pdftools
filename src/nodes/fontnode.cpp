@@ -36,12 +36,12 @@ int FontNode::size() const
     return m_size;
 }
 
-void FontNode::set_name(string name)
+void FontNode::setName(string name)
 {
     m_name = name;
 }
 
-void FontNode::set_size(int size)
+void FontNode::setSize(int size)
 {
     m_size = size;
 }

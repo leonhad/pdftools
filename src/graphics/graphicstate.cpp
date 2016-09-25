@@ -35,14 +35,14 @@ GraphicState::~GraphicState()
     }
 }
 
-double GraphicState::get_text_font()
+double GraphicState::getTextFont()
 {
-    return m_current_state->get_text_font();
+    return m_current_state->getTextFont();
 }
 
-void GraphicState::set_text_matrix(double a, double b, double c, double d, double e, double f)
+void GraphicState::setTextMatrix(double a, double b, double c, double d, double e, double f)
 {
-    m_current_state->set_text_matrix(a, b, c, d, e, f);
+    m_current_state->setTextMatrix(a, b, c, d, e, f);
 }
 
 void GraphicState::push()
@@ -58,7 +58,7 @@ Font *GraphicState::font()
     return m_font;
 }
 
-void GraphicState::set_font(Font *font)
+void GraphicState::setFont(Font *font)
 {
     m_font = font;
 }

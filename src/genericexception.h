@@ -23,17 +23,49 @@
 #include <stdexcept>
 #include <string>
 
+/**
+ * Exception used in application.
+ */
 class GenericException : public std::exception
 {
 private:
+    /**
+     * The exception message.
+     */
     const std::string m_msg;
 
 public:
+    /**
+     * Creates a new instance.
+     *
+     * \param msg the exception message.
+     */
     GenericException(const char *msg);
+
+    /**
+     * Creates a new instance.
+     *
+     * \param msg the exception message.
+     */
     GenericException(std::string &msg);
+
+    /**
+     * Creates a new instance.
+     *
+     * \param ex the original exception.
+     */
     GenericException(GenericException &&ex);
+
+    /**
+     * Destroy the instance.
+     */
     virtual ~GenericException() = default;
 
+    /**
+     * Gets the exception message.
+     *
+     * \return the exception message.
+     */
     virtual const char* what() const noexcept override;
 };
 

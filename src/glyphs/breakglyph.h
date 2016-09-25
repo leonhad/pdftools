@@ -25,7 +25,7 @@
 class BreakGlyph : public Glyph
 {
 public:
-    virtual void do_glyph(Html *document);
+    virtual void doGlyph(Html *document);
 };
 
 #endif

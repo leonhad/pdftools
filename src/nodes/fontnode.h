@@ -38,8 +38,8 @@ namespace node
 
         std::string name() const;
         int size() const;
-        void set_name(std::string name);
-        void set_size(int size);
+        void setName(std::string name);
+        void setSize(int size);
     };
 }
 

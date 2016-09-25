@@ -29,13 +29,13 @@ Glyph::Glyph() : m_context(nullptr), m_last_glyph(nullptr)
 Glyph::~Glyph()
 {
     vector<Glyph *>::iterator i;
-    for (i = m_childs.begin(); i != m_childs.end(); i++)
+    for (i = m_childs.begin(); i != m_childs.end(); ++i)
     {
         delete *i;
     }
 }
 
-void Glyph::add_child(Glyph *glyph)
+void Glyph::addChild(Glyph *glyph)
 {
     if (glyph)
     {
@@ -47,8 +47,8 @@ void Glyph::execute(Html *document, Context *context)
 {
     m_context = context;
 
-    start_glyph(document);
-    do_glyph(document);
+    startGlyph(document);
+    doGlyph(document);
 
     unsigned long size = m_childs.size();
     if (size > 0)
@@ -58,26 +58,26 @@ void Glyph::execute(Html *document, Context *context)
 
     for (size_t i = 0; i < size; i++)
     {
-        m_childs[i]->set_last(m_last_glyph);
+        m_childs[i]->setLast(m_last_glyph);
         m_childs[i]->execute(document, context);
         m_last_glyph = m_childs[i];
     }
-    end_glyph(document);
+    endGlyph(document);
 }
 
-void Glyph::set_last(Glyph *glyph)
+void Glyph::setLast(Glyph *glyph)
 {
     m_last_glyph = glyph;
 }
 
-void Glyph::do_glyph(Html *)
+void Glyph::doGlyph(Html *)
 {
 }
 
-void Glyph::start_glyph(Html *)
+void Glyph::startGlyph(Html *)
 {
 }
 
-void Glyph::end_glyph(Html *)
+void Glyph::endGlyph(Html *)
 {
 }

@@ -40,9 +40,9 @@ namespace node
         ~CMapNode();
 
         void add(CharNode *node);
-        void set_codespace(CodeSpaceNode *codespace);
+        void setCodespace(CodeSpaceNode *codespace);
 
-        CodeSpaceNode *code_space() const;
+        CodeSpaceNode *codeSpace() const;
         size_t nodes() const;
         CharNode *node(size_t index) const;
     };

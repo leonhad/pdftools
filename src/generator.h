@@ -31,7 +31,7 @@ protected:
 
 public:
     virtual ~Generator();
-    static Generator *get_instance(const std::string& format);
+    static Generator *getInstance(const std::string& format);
     virtual bool generate(Document *document, const std::string& output) = 0;
 };
 

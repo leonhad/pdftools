@@ -40,8 +40,8 @@ namespace node
         TreeNode *value();
         RootNode *parent();
         std::string name();
-        void set_value(TreeNode *value);
-        void set_name(std::string name);
+        void setValue(TreeNode *value);
+        void setName(std::string name);
     };
 }
 

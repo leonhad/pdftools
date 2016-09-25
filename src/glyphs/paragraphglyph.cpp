@@ -22,12 +22,12 @@
 #include "html/html.h"
 #include "semantic/context.h"
 
-void ParagraphGlyph::start_glyph(Html *document)
+void ParagraphGlyph::startGlyph(Html *document)
 {
     document->addParagraph();
 }
 
-void ParagraphGlyph::end_glyph(Html *document)
+void ParagraphGlyph::endGlyph(Html *document)
 {
     document->endTag();
 }

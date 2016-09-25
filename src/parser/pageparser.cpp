@@ -175,12 +175,12 @@ TreeNode *PageParser::font_sequence(vector<TreeNode *> &values)
         NameNode *font_name = dynamic_cast<NameNode *> (values[0]);
         if (font_name)
         {
-            font->set_name(font_name->name());
+            font->setName(font_name->name());
         }
         NumberNode *font_size = dynamic_cast<NumberNode *> (values[1]);
         if (font_size)
         {
-            font->set_size(font_size->value());
+            font->setSize(font_size->value());
         }
         return font;
     }
@@ -255,9 +255,9 @@ BDCNode *PageParser::bdc_sequence(vector<TreeNode *> &values, RootNode *parent)
     NameNode *name = dynamic_cast<NameNode *> (values[0]);
     if (name)
     {
-        node->set_name(name->name());
+        node->setName(name->name());
     }
-    node->set_value(values[1]);
+    node->setValue(values[1]);
     // avoid double delete
     values[1] = nullptr;
 

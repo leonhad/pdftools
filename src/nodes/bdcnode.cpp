@@ -45,12 +45,12 @@ string BDCNode::name()
     return m_name;
 }
 
-void BDCNode::set_value(TreeNode *value)
+void BDCNode::setValue(TreeNode *value)
 {
     m_value = value;
 }
 
-void BDCNode::set_name(string name)
+void BDCNode::setName(string name)
 {
     m_name = name;
 }

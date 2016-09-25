@@ -30,9 +30,9 @@ private:
     std::string m_font;
 
 public:
-    FontGlyph(std::string font, int size);
+    FontGlyph(std::string &&font, int size);
 
-    virtual void do_glyph(Html *document);
+    virtual void doGlyph(Html *document);
 };
 
 #endif

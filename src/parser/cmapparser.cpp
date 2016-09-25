@@ -115,7 +115,7 @@ CMapNode *CMapParser::parse()
             else if (m_token->value() == "begincodespacerange")
             {
                 match(TokenType::NAME);
-                m_root->set_codespace(codespace_sequence());
+                m_root->setCodespace(codespace_sequence());
             }
             else if (m_token->value() == "beginbfrange")
             {
@@ -139,9 +139,9 @@ CMapNode *CMapParser::parse()
 CodeSpaceNode *CMapParser::codespace_sequence()
 {
     CodeSpaceNode *ret = new CodeSpaceNode;
-    ret->set_start(m_token->value());
+    ret->setStart(m_token->value());
     match(TokenType::STRING);
-    ret->set_finish(m_token->value());
+    ret->setFinish(m_token->value());
     match(TokenType::STRING);
     // endcodespacerange
     match(TokenType::NAME);

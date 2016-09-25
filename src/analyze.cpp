@@ -481,7 +481,7 @@ Font *Analyze::analyze_font(MapNode *fontmap)
 
         if (root)
         {
-            CodeSpaceNode *codespace = root->code_space();
+            CodeSpaceNode *codespace = root->codeSpace();
             if (codespace)
             {
                 font->set_charmap_start(codespace->start());

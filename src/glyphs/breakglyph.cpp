@@ -20,7 +20,7 @@
 #include "breakglyph.h"
 #include "html/html.h"
 
-void BreakGlyph::do_glyph(Html *document)
+void BreakGlyph::doGlyph(Html *document)
 {
     document->breakLine();
 }
