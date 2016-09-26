@@ -28,7 +28,7 @@ private:
     double m_size;
 
 public:
-    FontSizeGlyph(double size);
+    explicit FontSizeGlyph(double size);
 
     virtual void doGlyph(Html *);
 };

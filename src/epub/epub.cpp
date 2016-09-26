@@ -18,7 +18,6 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "epub.h"
-#include "utils.h"
 #include "xml/xml.h"
 #include "html/html.h"
 #include "zip/zipfile.h"
@@ -27,8 +26,6 @@
 #include "semantic/context.h"
 #include "semantic/page.h"
 #include <config.h>
-#include <cstring>
-#include <iostream>
 #include <sstream>
 
 using namespace std;
@@ -90,7 +87,7 @@ void EPUB::generateContainer()
     m_zipfile->add_source("META-INF/container.xml", content.c_str(), content.size());
 }
 
-void EPUB::generateContent(const string& output)
+void EPUB::generateContent(const string &output)
 {
     XML xml;
     xml.startDocument("1.0", "UTF-8");
@@ -243,7 +240,7 @@ void EPUB::generateOutline(XML *xml, Outline *outline)
     }
 }
 
-void EPUB::generateToc(const string& output)
+void EPUB::generateToc(const string &output)
 {
     Outline *outline = m_document->outline();
 
@@ -354,7 +351,7 @@ void EPUB::generatePage(Page *page)
     m_zipfile->add_source(page->link().c_str(), html.content().c_str(), html.content().length());
 }
 
-bool EPUB::generate(Document* document, const string& output)
+bool EPUB::generate(Document *document, const string &output)
 {
     m_document = document;
     m_order = 1;

@@ -23,10 +23,15 @@
 #include "generator.h"
 
 class ZipFile;
+
 class Document;
+
 class Context;
+
 class Outline;
+
 class Page;
+
 class XML;
 
 /**
@@ -56,16 +61,23 @@ public:
      * \param document the document to parse.
      * \param output the output file.
      */
-    virtual bool generate(Document *document, const std::string& output);
+    virtual bool generate(Document *document, const std::string &output);
 
 private:
     void generateContainer();
+
     void generatePages();
+
     void generatePage(Page *page);
-    void generateContent(const std::string& output);
-    void generateToc(const std::string& output);
+
+    void generateContent(const std::string &output);
+
+    void generateToc(const std::string &output);
+
     void generateOutline(XML *xml, Outline *outline);
+
     void generateMimetype();
+
     void generateCss();
 };
 
