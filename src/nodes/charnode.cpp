@@ -23,7 +23,7 @@ using namespace std;
 using namespace node;
 
 CharNode::CharNode(const string &character, const string &unicode)
-    : TreeNode(), m_char(character), m_unicode(unicode)
+        : TreeNode(), m_char(character), m_unicode(unicode)
 {
 }
 
