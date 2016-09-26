@@ -36,7 +36,7 @@ private:
 public:
     GraphicState();
 
-    GraphicState(const GraphicState &obj);
+    GraphicState(const GraphicState &obj) = delete;
 
     ~GraphicState();
 

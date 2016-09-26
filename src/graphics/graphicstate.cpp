@@ -27,13 +27,6 @@ GraphicState::GraphicState() : m_font(nullptr), m_current_state(new State)
 {
 }
 
-GraphicState::GraphicState(const GraphicState &obj)
-{
-    m_font = obj.m_font;
-    m_states = obj.m_states;
-    m_current_state = obj.m_current_state;
-}
-
 GraphicState::~GraphicState()
 {
     if (m_current_state)
