@@ -23,6 +23,7 @@
 #include <vector>
 
 class Font;
+
 class State;
 
 class GraphicState
@@ -34,15 +35,21 @@ private:
 
 public:
     GraphicState();
+
+    GraphicState(const GraphicState &obj);
+
     ~GraphicState();
 
     void push();
+
     void pop();
 
     void setTextMatrix(double a, double b, double c, double d, double e, double f);
+
     double getTextFont();
 
     Font *font();
+
     void setFont(Font *font);
 };
 

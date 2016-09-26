@@ -47,7 +47,7 @@ public:
      *
      * \param msg the exception message.
      */
-    GenericException(std::string &msg);
+    explicit GenericException(std::string &msg);
 
     /**
      * Creates a new instance.

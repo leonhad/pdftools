@@ -31,7 +31,7 @@ private:
     std::string m_text;
 
 public:
-    TextGlyph(std::string &&text);
+    explicit TextGlyph(std::string &&text);
     virtual void doGlyph(Html *document);
 };
 

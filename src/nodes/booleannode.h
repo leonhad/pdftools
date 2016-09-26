@@ -31,7 +31,7 @@ namespace node
         bool m_value;
 
     public:
-        BooleanNode(bool value);
+        explicit BooleanNode(bool value);
         virtual ~BooleanNode() = default;
 
         bool value() const;
