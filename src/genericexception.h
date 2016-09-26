@@ -40,7 +40,7 @@ public:
      *
      * \param msg the exception message.
      */
-    GenericException(const char *msg);
+    explicit GenericException(const char *msg);
 
     /**
      * Creates a new instance.

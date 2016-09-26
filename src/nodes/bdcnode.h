@@ -25,7 +25,9 @@
 
 namespace node
 {
-
+    /**
+     * Stores a BCD node.
+     */
     class BDCNode : public RootNode
     {
     private:
@@ -34,13 +36,22 @@ namespace node
         std::string m_name;
 
     public:
-        BDCNode(RootNode *parent);
+        /**
+         * Create a new instance.
+         * \param parent the parant node.
+         */
+        explicit BDCNode(RootNode *parent);
+
         ~BDCNode();
 
         TreeNode *value();
+
         RootNode *parent();
+
         std::string name();
+
         void setValue(TreeNode *value);
+
         void setName(std::string name);
     };
 }

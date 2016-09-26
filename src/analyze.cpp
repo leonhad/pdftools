@@ -30,17 +30,14 @@
 #include "semantic/font.h"
 #include "semantic/page.h"
 #include "semantic/pagelabel.h"
-#include "glyphs/glyphs.h"
 #include <iostream>
-#include <zlib.h>
-#include <cstdlib>
 #include "genericexception.h"
 
 using namespace std;
 using namespace parser;
 using namespace node;
 
-Analyze::Analyze(const string& filein) throw (exception) : m_filein(filein)
+Analyze::Analyze(const string &filein) throw(exception) : m_filein(filein)
 {
     m_filestream.open(filein, ios::binary);
 
@@ -274,16 +271,13 @@ TreeNode *Analyze::getNamedValue(string name)
     }
 }
 
-void Analyze::analyzeOutlines(MapNode *values, Outline * parent)
+void Analyze::analyzeOutlines(MapNode *values, Outline *parent)
 {
     NameNode *type = dynamic_cast<NameNode *> (values->get("/Type"));
-    if (type)
+    if (type && type->name() != "/Outlines")
     {
-        if (type->name() != "/Outlines")
-        {
-            error_message("Invalid outlines");
-            return;
-        }
+        error_message("Invalid outlines");
+        return;
     }
 
     Outline *outline = new Outline;
@@ -365,7 +359,7 @@ void Analyze::analyzeOutline(ArrayNode *values, Outline *outline)
     }
 }
 
-Document *Analyze::analyzeTree() throw (exception)
+Document *Analyze::analyzeTree() throw(exception)
 {
     verbose_message("Parsing file " + m_filein);
 
@@ -533,7 +527,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
     {
         const char *value = flat_decode(stream, length, total);
         (*stream_value).write(value, total);
-        delete [] value;
+        delete[] value;
     }
     else if (filter_array)
     {
@@ -558,7 +552,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
                 {
                     const char *value = flat_decode(stream, length, total);
                     (*stream_value).write(value, total);
-                    delete [] value;
+                    delete[] value;
                 }
                 else
                 {
@@ -583,10 +577,10 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
         error_message("Invalid filter " + filter->name());
     }
 
-    delete [] stream;
+    delete[] stream;
 }
 
-void Analyze::analyzePages(TreeNode *page, ArrayNode * mediabox)
+void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
 {
     ObjNode *obj_pages = dynamic_cast<ObjNode *> (page);
     if (!obj_pages)
@@ -641,13 +635,13 @@ void Analyze::analyzePages(TreeNode *page, ArrayNode * mediabox)
                 }
 
                 m_document->add_page(
-                                     processPage(obj_pages->id(), obj_pages->generation(), &stream_value, catalog, media));
+                        processPage(obj_pages->id(), obj_pages->generation(), &stream_value, catalog, media));
             }
         }
     }
 }
 
-TreeNode *Analyze::getRealValue(TreeNode * value)
+TreeNode *Analyze::getRealValue(TreeNode *value)
 {
     RefNode *ref = dynamic_cast<RefNode *> (value);
     if (ref)
@@ -658,7 +652,7 @@ TreeNode *Analyze::getRealValue(TreeNode * value)
     return value;
 }
 
-TreeNode *Analyze::getRealObjValue(TreeNode * value)
+TreeNode *Analyze::getRealObjValue(TreeNode *value)
 {
     RefNode *ref = dynamic_cast<RefNode *> (value);
     if (ref)
@@ -675,7 +669,7 @@ TreeNode *Analyze::getRealObjValue(TreeNode * value)
     return value;
 }
 
-string Analyze::getStringValue(TreeNode * value)
+string Analyze::getStringValue(TreeNode *value)
 {
     RefNode *ref = dynamic_cast<RefNode *> (value);
     if (ref)
@@ -709,7 +703,7 @@ double Analyze::getNumberValue(TreeNode *value, int default_value)
     return default_value;
 }
 
-ObjNode *Analyze::getObject(RefNode * ref)
+ObjNode *Analyze::getObject(RefNode *ref)
 {
     if (!ref)
     {
