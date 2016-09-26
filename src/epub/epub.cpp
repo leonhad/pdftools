@@ -333,24 +333,6 @@ void EPUB::generatePages()
     }
 }
 
-void EPUB::generatePage(Page *page)
-{
-    Html html;
-    html.startDocument();
-    html.startHeader();
-    html.setTitle("Page title.");
-    html.endTag();
-
-    html.startBody();
-
-    page->execute(&html);
-
-    html.endTag();
-    html.endDocument();
-
-    m_zipfile->add_source(page->link().c_str(), html.content().c_str(), html.content().length());
-}
-
 bool EPUB::generate(Document *document, const string &output)
 {
     m_document = document;

@@ -204,7 +204,7 @@ void Analyze::analyzeRoot()
                         {
                             type = UPCASE_LETTERS;
                         }
-                        else if (name_type->name() == "A")
+                        else if (name_type->name() == "a")
                         {
                             type = LOWCASE_LETTERS;
                         }

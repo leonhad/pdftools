@@ -19,10 +19,7 @@
  */
 #include "zipfile.h"
 #include "utils.h"
-#include <iostream>
-#include <cstring>
 #include <zlib.h>
-#include <ctime>
 
 using namespace std;
 
@@ -38,7 +35,7 @@ ZipFile::~ZipFile()
 uint32_t ZipFile::current_datetime() const
 {
     time_t rawtime;
-    struct tm * t;
+    struct tm *t;
 
     time(&rawtime);
     t = localtime(&rawtime);
@@ -56,7 +53,7 @@ uint32_t ZipFile::current_datetime() const
             << 16) | ((t->tm_sec / 2) + (32 * t->tm_min) + (2048 * t->tm_hour));
 }
 
-bool ZipFile::open(const string& output)
+bool ZipFile::open(const string &output)
 {
     m_output.open(output, ios::binary);
     return m_output.is_open();
@@ -74,7 +71,7 @@ void ZipFile::close()
 }
 
 void ZipFile::add_source(const char *filename, const char *buffer,
-                         size_t length)
+        size_t length)
 {
     if (length == 0)
     {
@@ -146,7 +143,7 @@ void ZipFile::add_source(const char *filename, const char *buffer,
     {
         m_output.write(buffer, file.length);
     }
-    delete [] deflate_buffer;
+    delete[] deflate_buffer;
     m_files.push_back(file);
 }
 
@@ -218,14 +215,9 @@ void ZipFile::write_central_directory()
     write16(0);
 }
 
-void ZipFile::write_string(const string& str)
+void ZipFile::write_string(const string &str)
 {
     m_output << str;
-}
-
-void ZipFile::write8(uint8_t c)
-{
-    m_output.put(c);
 }
 
 void ZipFile::write16(uint16_t c)

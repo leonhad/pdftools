@@ -68,8 +68,6 @@ private:
 
     void generatePages();
 
-    void generatePage(Page *page);
-
     void generateContent(const std::string &output);
 
     void generateToc(const std::string &output);

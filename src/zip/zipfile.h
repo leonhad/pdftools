@@ -25,17 +25,50 @@
 #include <stdint.h>
 #include <string>
 
+/**
+ * The ZIP header bytes.
+ */
 struct appended_files
 {
+    /**
+     * The file name.
+     */
     std::string name;
+
+    /**
+     * The file length.
+     */
     uint32_t length;
+
+    /**
+     * If this file is compressed.
+     */
     bool compressed;
+
+    /**
+     * The compressed file size.
+     */
     uint32_t compressed_size;
+
+    /**
+     * The file date.
+     */
     uint32_t date;
+
+    /**
+     * The files CRC.
+     */
     uint32_t crc;
+
+    /**
+     * The file position in ZIP file.
+     */
     uint32_t position;
 };
 
+/**
+ * Creates a ZIP file.
+ */
 class ZipFile
 {
 private:
@@ -45,21 +78,48 @@ private:
     uint32_t m_cd_size;
 
 public:
+    /**
+     * Creates a new instance.
+     */
     ZipFile();
+
+    /**
+     * Destry this intance.
+     */
     ~ZipFile();
 
-    bool open(const std::string& output);
+    /**
+     * Open a zip file to write.
+     *
+     * \param output the output file.
+     * \return true if ha success.
+     */
+    bool open(const std::string &output);
+
+    /**
+     * Close this file.
+     */
     void close();
+
+    /**
+     * Add a file to this ZIP file.
+     *
+     * \param filename the file name.
+     * \param buffer the buffer to read.
+     * \param length the buffer length.
+     */
     void add_source(const char *filename, const char *buffer, size_t length = 0);
 
 private:
     void write_central_file();
+
     void write_central_directory();
 
-    void write8(uint8_t c);
     void write16(uint16_t c);
+
     void write32(uint32_t c);
-    void write_string(const std::string& str);
+
+    void write_string(const std::string &str);
 
     uint32_t current_datetime() const;
 };
