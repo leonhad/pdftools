@@ -26,19 +26,38 @@
 
 namespace node
 {
-
+    /**
+     * Stores a text matrix node.
+     */
     class TextMatrixNode : public TreeNode
     {
     private:
+        /**
+         * Matrix nodes.
+         */
         std::vector<double> values;
 
     public:
+        /**
+         * Creates a new instance.
+         *
+         * \param list the list values.
+         */
         TextMatrixNode(const std::initializer_list<double> &list);
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~TextMatrixNode() = default;
 
+        /**
+         * Get a text matrix value by its index.
+         *
+         * \param index the index.
+         * \return  the text matrix value.
+         */
         double at(int index) const;
     };
-
 }
 
 #endif

@@ -33,7 +33,7 @@ namespace node
         std::string m_unicode;
 
     public:
-        CharNode(std::string character, std::string unicode);
+        CharNode(const std::string &character, const std::string &unicode);
         virtual ~CharNode() = default;
 
         std::string character() const;
