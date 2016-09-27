@@ -1,5 +1,9 @@
 /out
 
+/html
+
+/latex
+
 *.gcov
 
 *.gcda
