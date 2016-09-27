@@ -17,15 +17,20 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#include <iostream>
-#include <config.h>
-
 #include "utils.h"
 #include "converter.h"
 #include <getopt.h>
+#include <iostream>
+#include <config.h>
 
 using namespace std;
 
+/**
+ * Start the application
+ * \param argc total of program parameters.
+ * \param argv the program parameters.
+ * \return the program return code.
+ */
 int main(int argc, char *argv[])
 {
     int verbose_flag = 0;
@@ -96,6 +101,8 @@ int main(int argc, char *argv[])
                     error = true;
                     break;
                 }
+            default:
+                break;
         }
     }
 
