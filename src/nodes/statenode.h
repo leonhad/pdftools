@@ -24,16 +24,34 @@
 
 namespace node
 {
-
+    /**
+     * Stores a state node.
+     */
     class StateNode : public TreeNode
     {
     private:
+        /**
+         * The state.
+         */
         bool m_save;
 
     public:
-        StateNode(bool save);
+        /**
+         * Creates a new instance.
+         *
+         * \param save the state to store.
+         */
+        explicit StateNode(bool save);
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~StateNode() = default;
 
+        /**
+         * Gets the state.
+         * \return the state.
+         */
         bool save() const;
     };
 }

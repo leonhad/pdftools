@@ -34,7 +34,7 @@ RootNode::~RootNode()
     }
 }
 
-void RootNode::add_child(TreeNode *child)
+void RootNode::addChild(TreeNode *child)
 {
     m_child.push_back(child);
 }

@@ -79,53 +79,53 @@ RootNode *PageParser::parse()
                 break;
             }
             case TokenType::BI:
-                root->add_child(bi_sequence());
+                root->addChild(bi_sequence());
                 break;
 
                 // Text positioning
             case TokenType::TM:
-                root->add_child(tm_sequence(values));
+                root->addChild(tm_sequence(values));
                 break;
 
             case TokenType::TF:
-                root->add_child(font_sequence(values));
+                root->addChild(font_sequence(values));
                 break;
 
                 // Graphic State
             case TokenType::Q_LO:
-                root->add_child(new StateNode(true));
+                root->addChild(new StateNode(true));
                 next_token();
                 break;
             case TokenType::Q_UP:
-                root->add_child(new StateNode(false));
+                root->addChild(new StateNode(false));
                 next_token();
                 break;
 
                 // Text
             case TokenType::TJ_LO:
                 match(TokenType::TJ_LO);
-                root->add_child(text_sequence(values));
+                    root->addChild(text_sequence(values));
                 break;
             case TokenType::TJ_UP:
                 tjup_sequence(root, values);
                 break;
             case TokenType::T_AST:
                 match(TokenType::T_AST);
-                root->add_child(new BreakNode);
+                    root->addChild(new BreakNode);
                 break;
             case TokenType::DOUBLE_QUOTE:
             {
                 match(TokenType::DOUBLE_QUOTE);
-                root->add_child(new BreakNode);
+                root->addChild(new BreakNode);
                 vector<TreeNode *> vector;
                 vector.assign(values.begin() + 3, values.end());
-                root->add_child(text_sequence(vector));
+                root->addChild(text_sequence(vector));
                 break;
             }
             case TokenType::QUOTE:
                 match(TokenType::QUOTE);
-                root->add_child(new BreakNode);
-                root->add_child(text_sequence(values));
+                    root->addChild(new BreakNode);
+                    root->addChild(text_sequence(values));
                 next_token();
                 break;
             default:
@@ -239,7 +239,7 @@ void PageParser::tjup_sequence(RootNode *root, vector<TreeNode *> &values)
                 {
                     TextNode *text = new TextNode;
                     text->add(node->value());
-                    root->add_child(text);
+                    root->addChild(text);
                 }
             }
         }
@@ -250,7 +250,7 @@ BDCNode *PageParser::bdc_sequence(vector<TreeNode *> &values, RootNode *parent)
 {
     match(TokenType::BDC);
     BDCNode *node = new BDCNode(parent);
-    parent->add_child(node);
+    parent->addChild(node);
 
     NameNode *name = dynamic_cast<NameNode *> (values[0]);
     if (name)

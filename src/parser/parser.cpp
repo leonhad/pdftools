@@ -69,10 +69,10 @@ RootNode *Parser::parse()
                 comment_sequence();
                 break;
             case TokenType::NUM:
-                root->add_child(object_sequence());
+                root->addChild(object_sequence());
                 break;
             case TokenType::XREF:
-                root->add_child(xref_sequence());
+                root->addChild(xref_sequence());
                 break;
             case TokenType::START_XREF:
                 startxref_sequence();
@@ -165,7 +165,7 @@ void Parser::object_streams(RootNode *root_node)
                     {
                         ObjNode *new_obj = new ObjNode(*id, 0);
                         new_obj->setValue(value_sequence());
-                        root_node->add_child(new_obj);
+                        root_node->addChild(new_obj);
                     }
                     m_scanner = temp;
                 }
