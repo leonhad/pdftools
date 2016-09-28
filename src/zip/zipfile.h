@@ -108,20 +108,20 @@ public:
      * \param buffer the buffer to read.
      * \param length the buffer length.
      */
-    void add_source(const char *filename, const char *buffer, size_t length = 0);
+    void addSource(const char *filename, const char *buffer, size_t length = 0);
 
 private:
-    void write_central_file();
+    void writeCentralFile();
 
-    void write_central_directory();
+    void writeCentralDirectory();
 
     void write16(uint16_t c);
 
     void write32(uint32_t c);
 
-    void write_string(const std::string &str);
+    void writeString(const std::string &str);
 
-    uint32_t current_datetime() const;
+    uint32_t currentDatetime() const;
 };
 
 #endif

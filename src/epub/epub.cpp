@@ -45,7 +45,7 @@ EPUB::~EPUB()
 void EPUB::generateMimetype()
 {
     const char *mime = "application/epub+zip";
-    m_zipfile->add_source("mimetype", mime);
+    m_zipfile->addSource("mimetype", mime);
 }
 
 void EPUB::generateCss()
@@ -63,7 +63,7 @@ void EPUB::generateCss()
     css << ".f16 {font-size: 16pt}\n";
     css << ".f18 {font-size: 18pt}\n";
     css << "div {display:inline}\n";
-    m_zipfile->add_source("style.css", css.str().c_str());
+    m_zipfile->addSource("style.css", css.str().c_str());
 }
 
 void EPUB::generateContainer()
@@ -84,7 +84,7 @@ void EPUB::generateContainer()
 
     xml.endDocument();
     string content = xml.content();
-    m_zipfile->add_source("META-INF/container.xml", content.c_str(), content.size());
+    m_zipfile->addSource("META-INF/container.xml", content.c_str(), content.size());
 }
 
 void EPUB::generateContent(const string &output)
@@ -201,7 +201,7 @@ void EPUB::generateContent(const string &output)
     xml.endTag();
     xml.endDocument();
     string content = xml.content();
-    m_zipfile->add_source("content.opf", content.c_str());
+    m_zipfile->addSource("content.opf", content.c_str());
 }
 
 void EPUB::generateOutline(XML *xml, Outline *outline)
@@ -305,7 +305,7 @@ void EPUB::generateToc(const string &output)
     xml.endDocument();
     string content = xml.content();
 
-    m_zipfile->add_source("toc.ncx", content.c_str());
+    m_zipfile->addSource("toc.ncx", content.c_str());
 }
 
 void EPUB::generatePages()
@@ -329,7 +329,7 @@ void EPUB::generatePages()
         html.endDocument();
 
         string fileout{page->link() + ".html"};
-        m_zipfile->add_source(fileout.c_str(), html.content().c_str(), html.content().size());
+        m_zipfile->addSource(fileout.c_str(), html.content().c_str(), html.content().size());
     }
 }
 
