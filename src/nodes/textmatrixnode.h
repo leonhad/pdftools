@@ -43,7 +43,7 @@ namespace node
          *
          * \param list the list values.
          */
-        TextMatrixNode(const std::initializer_list<double> &list);
+        explicit TextMatrixNode(const std::initializer_list<double> &list);
 
         /**
          * Destroy this instance.

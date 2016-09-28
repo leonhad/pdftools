@@ -207,13 +207,13 @@ TreeNode * Parser::xref_sequence()
             {
                 match(TokenType::N);
             }
-            xref->add_node(id, generation, address, name.at(0));
+            xref->addNode(id, generation, address, name.at(0));
             id++;
         }
     }
     while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
     match(TokenType::TRAILER);
-    xref->set_trailer(value_sequence());
+    xref->setTrailer(value_sequence());
     return xref;
 }
 

@@ -26,31 +26,83 @@
 
 namespace node
 {
-
-    struct object_reference
+    /**
+     * A XREF object reference.
+     */
+    class ObjectReference
     {
+    public:
+        /**
+         * PDF object address.
+         */
         uint32_t address;
+
+        /**
+         * PDF object ID.
+         */
         uint16_t id;
+
+        /**
+         * PDF object genetarion.
+         */
         uint16_t generation;
+
+        /**
+         * Object status.
+         */
         char status;
     };
 
+    /**
+     * Stotes a XREF node.
+     */
     class XREFNode : public TreeNode
     {
     private:
-        std::vector<object_reference> m_references;
-        TreeNode *m_trailer = nullptr;
+        /**
+         * A list of all object references.
+         */
+        std::vector<ObjectReference> m_references;
+
+        /**
+         * The tree node trailer.
+         */
+        TreeNode *m_trailer;
 
     public:
+        /**
+         * Creates a new instance.
+         */
         XREFNode();
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~XREFNode();
 
-        void add_node(uint16_t id, uint16_t generation, uint32_t address, char status);
-        void set_trailer(TreeNode *trailer);
+        /**
+         * Add a node to this XREF.
+         *
+         * \param id the object ID.
+         * \param generation the object generation.
+         * \param address the object address.
+         * \param status the object status.
+         */
+        void addNode(uint16_t id, uint16_t generation, uint32_t address, char status);
 
+        /**
+         * Sets the trailer node.
+         *
+         * \param trailer the trailer node to set.
+         */
+        void setTrailer(TreeNode *trailer);
+
+        /**
+         * Gets the the tree node trailer.
+         * \return the tree node trailer.
+         */
         TreeNode *trailer() const;
     };
-
 }
 
 #endif

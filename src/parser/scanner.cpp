@@ -55,7 +55,7 @@ namespace parser
         { TokenType::STREAM, "stream"},
         { TokenType::END_STREAM, "endstream"},
         { TokenType::START_XREF, "startxref"},
-        { TokenType::TRAILER, "trailer"},
+        { TokenType::TRAILER, "setTrailer"},
         { TokenType::BT, "BT"},
         { TokenType::ET, "ET"},
         { TokenType::MP, "MP"},
