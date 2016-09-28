@@ -3,12 +3,12 @@
  * Copyright (C) 2012-2016 Leonardo Alves da Costa
  * mailto:leonhad AT gmail DOT com
  *
- * SonarQube is free software; you can redistribute it and/or
+ * PDF Tools is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation; either
  * version 3 of the License, or (at your option) any later version.
  *
- * SonarQube is distributed in the hope that it will be useful,
+ * PDF Tools is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
  * Lesser General Public License for more details.
