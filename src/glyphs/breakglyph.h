@@ -22,9 +22,17 @@
 
 #include "glyph.h"
 
+/**
+ * Stores a break glyph.
+ */
 class BreakGlyph : public Glyph
 {
 public:
+    /**
+     * Draw this glyph.
+     *
+     * \param document the document to generate in.
+     */
     virtual void doGlyph(Html *document);
 };
 

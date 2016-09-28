@@ -23,27 +23,83 @@
 #include <vector>
 
 class Html;
+
 class Context;
 
+/**
+ * Draw a HTML glyph.
+ */
 class Glyph
 {
 private:
+    /**
+     * The childhood list.
+     */
     std::vector<Glyph *> m_childs;
 
 protected:
+    /**
+     * The context used in drawing.
+     */
     Context *m_context;
-    Glyph *m_last_glyph;
+
+    /**
+     * The last glyph used.
+     */
+    Glyph *m_lastGlyph;
 
 public:
+    /**
+     * Creates a new instance.
+     */
     Glyph();
+
+    /**
+     * Destroy this instance.
+     */
     virtual ~Glyph();
+
+    /**
+     * Add a child to this glyph.
+     *
+     * \param glyph the child to add.
+     */
     void addChild(Glyph *glyph);
+
+    /**
+     * Draw this list into HTML document.
+     *
+     * @param document the document to draw.
+     * @param context the variable context used in this process.
+     */
     void execute(Html *document, Context *context);
 
+    /**
+     * Draw this glyph.
+     *
+     * \param document the document to generate in.
+     */
     virtual void doGlyph(Html *);
-    virtual void startGlyph(Html *);
-    virtual void endGlyph(Html *);
 
+    /**
+     * Called before the drawing.
+     *
+     * \param document the document.
+     */
+    virtual void startGlyph(Html *document);
+
+    /**
+     * Called after the drawing.
+     *
+     * @param document the document.
+     */
+    virtual void endGlyph(Html *document);
+
+    /**
+     * Sets the last used glyph.
+     *
+     * \param glyph the last used glyph.
+     */
     void setLast(Glyph *glyph);
 };
 

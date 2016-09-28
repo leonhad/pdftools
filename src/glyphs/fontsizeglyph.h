@@ -22,14 +22,30 @@
 
 #include "glyph.h"
 
+/**
+ * Stores a font size glyph.
+ */
 class FontSizeGlyph : public Glyph
 {
 private:
+    /**
+     * The font size.
+     */
     double m_size;
 
 public:
+    /**
+     * Creates a new instance.
+     *
+     * \param size the font size.
+     */
     explicit FontSizeGlyph(double size);
 
+    /**
+     * Draw this glyph.
+     *
+     * \param document the document to generate in.
+     */
     virtual void doGlyph(Html *);
 };
 

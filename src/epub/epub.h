@@ -40,8 +40,19 @@ class XML;
 class EPUB : public Generator
 {
 private:
+    /**
+     * The document to generate the ePub.
+     */
     Document *m_document;
+
+    /**
+     * A pointer to ePub ZIP file.
+     */
     ZipFile *m_zipfile;
+
+    /**
+     * The generated file order.
+     */
     int m_order;
 
 public:

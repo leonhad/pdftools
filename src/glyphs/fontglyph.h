@@ -23,15 +23,36 @@
 #include <string>
 #include "glyph.h"
 
+/**
+ * Stores a font glyph.
+ */
 class FontGlyph : public Glyph
 {
 private:
+    /**
+     * The font size.
+     */
     int m_size;
+
+    /**
+     * Font face name.
+     */
     std::string m_font;
 
 public:
+    /**
+     * Creates a new instance.
+     *
+     * \param font the font face name.
+     * \param size the font size.
+     */
     FontGlyph(std::string &&font, int size);
 
+    /**
+     * Draw this glyph.
+     *
+     * \param document the document to generate in.
+     */
     virtual void doGlyph(Html *document);
 };
 

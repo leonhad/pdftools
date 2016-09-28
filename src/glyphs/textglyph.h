@@ -28,10 +28,24 @@ class Html;
 class TextGlyph : public Glyph
 {
 private:
+    /**
+     * The text to draw.
+     */
     std::string m_text;
 
 public:
+    /**
+     * Creates a new instance.
+     *
+     * \param text the texto to draw.
+     */
     explicit TextGlyph(std::string &&text);
+
+    /**
+     * Draw this glyph.
+     *
+     * \param document the document to generate in.
+     */
     virtual void doGlyph(Html *document);
 };
 

@@ -24,10 +24,24 @@
 
 class Html;
 
+/**
+ * Stores a paragraph glyph.
+ */
 class ParagraphGlyph : public Glyph
 {
 public:
+    /**
+     * Called before the drawing.
+     *
+     * \param document the document.
+     */
     virtual void startGlyph(Html *document);
+
+    /**
+     * Called after the drawing.
+     *
+     * @param document the document.
+     */
     virtual void endGlyph(Html *document);
 };
 
