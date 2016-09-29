@@ -22,7 +22,7 @@
 
 using namespace std;
 
-XmlTag::XmlTag(string name) : m_name(name)
+XmlTag::XmlTag(const string &name) : m_name(name)
 {
 }
 
@@ -65,17 +65,17 @@ XmlTag *XmlTag::parent() const
     return m_parent;
 }
 
-void XmlTag::set_parent(XmlTag *parent)
+void XmlTag::setParent(XmlTag *parent)
 {
     m_parent = parent;
 }
 
-void XmlTag::add_tag(XmlTag *tag)
+void XmlTag::addTag(XmlTag *tag)
 {
     m_children.push_back(tag);
 }
 
-void XmlTag::add_attribute(const std::string& id, const std::string& value)
+void XmlTag::addAttribute(const std::string &id, const std::string &value)
 {
     m_atributes[id] = value;
 }

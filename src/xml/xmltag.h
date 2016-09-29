@@ -34,16 +34,16 @@ protected:
     XmlTag *m_parent = nullptr;
 
 public:
-    XmlTag(std::string name);
+    XmlTag(const std::string &name);
     virtual ~XmlTag();
 
     std::string name() const;
     virtual std::string toXML() const;
     XmlTag *parent() const;
 
-    void set_parent(XmlTag *parent);
-    void add_tag(XmlTag *tag);
-    void add_attribute(const std::string& id, const std::string& value);
+    void setParent(XmlTag *parent);
+    void addTag(XmlTag *tag);
+    void addAttribute(const std::string &id, const std::string &value);
 };
 
 #endif // XMLTAG_H

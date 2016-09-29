@@ -54,38 +54,38 @@ public:
     Document();
     ~Document();
 
-    void set_id(std::string first, std::string second);
-    void set_root(node::TreeNode *root);
-    void set_info(node::TreeNode *info);
-    void set_encrypted(bool encrypt);
-    void set_tree_root(bool tree_root);
+    void setId(const std::string &first, const std::string &second);
+    void setRoot(node::TreeNode *root);
+    void setInfo(node::TreeNode *info);
+    void setEncrypted(bool encrypt);
+    void setTreeRoot(bool tree_root);
 
-    void set_title(std::string title);
-    void set_subject(std::string subject);
-    void set_author(std::string author);
-    void set_lang(std::string lang);
+    void setTitle(std::string title);
+    void setSubject(std::string subject);
+    void setAuthor(std::string author);
+    void setLang(std::string lang);
 
-    void set_outline(Outline *outline);
+    void setOutline(Outline *outline);
     Outline *outline();
 
-    void add_font(Font *font);
-    Font *get_font(const char *name);
+    void addFont(Font *font);
+    Font *font(const char *name);
 
-    void add_page(Page *page);
-    void add_page_label(PageLabel *label);
+    void addPage(Page *page);
+    void addPageLabel(PageLabel *label);
     Page *page(size_t index);
     size_t pages();
     Page *page(int id, int generation);
 
     bool encrypted();
-    bool tree_root();
+    bool treeRoot();
     std::string lang();
     std::string id();
     std::string title();
     std::string subject();
     std::string author();
-    node::TreeNode *root_node();
-    node::TreeNode *info_node();
+    node::TreeNode *rootNode();
+    node::TreeNode *infoNode();
 };
 
 #endif

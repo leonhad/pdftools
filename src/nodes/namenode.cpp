@@ -22,7 +22,7 @@
 using namespace std;
 using namespace node;
 
-NameNode::NameNode(std::string name)
+NameNode::NameNode(const std::string &name)
     : TreeNode(), m_name(name)
 {
 }

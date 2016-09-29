@@ -74,23 +74,25 @@ void Analyze::analyzeXref()
             TreeNode *info = getRealValue(trailer->get("/Info"));
             if (rootValue)
             {
-                m_document->set_root(rootValue);
+                m_document->setRoot(rootValue);
             }
 
             if (info)
             {
-                m_document->set_info(info);
+                m_document->setInfo(info);
             }
 
             if (encrypt)
             {
-                m_document->set_encrypted(true);
+                m_document->setEncrypted(true);
             }
 
             ArrayNode *array = dynamic_cast<ArrayNode *> (trailer->get("/ID"));
             if (array && array->size() == 2)
             {
-                m_document->set_id(getStringValue(array->value(0)), getStringValue(array->value(1)));
+                string first = getStringValue(array->value(0));
+                string second = getStringValue(array->value(1));
+                m_document->setId(first, second);
             }
         }
         else
@@ -109,18 +111,20 @@ void Analyze::analyzeXref()
                         TreeNode *info = getRealValue(values->get("/Info"));
                         if (rootValue)
                         {
-                            m_document->set_root(rootValue);
+                            m_document->setRoot(rootValue);
                         }
 
                         if (info)
                         {
-                            m_document->set_info(info);
+                            m_document->setInfo(info);
                         }
 
                         ArrayNode *array = dynamic_cast<ArrayNode *> (values->get("/ID"));
                         if (array && array->size() == 2)
                         {
-                            m_document->set_id(getStringValue(array->value(0)), getStringValue(array->value(1)));
+                            string first = getStringValue(array->value(0));
+                            string second = getStringValue(array->value(1));
+                            m_document->setId(first, second);
                         }
                     }
                 }
@@ -131,22 +135,22 @@ void Analyze::analyzeXref()
 
 void Analyze::analyzeInfo()
 {
-    ObjNode *obj = dynamic_cast<ObjNode *> (m_document->info_node());
+    ObjNode *obj = dynamic_cast<ObjNode *> (m_document->infoNode());
     if (obj)
     {
         MapNode *info = dynamic_cast<MapNode *> (obj->value());
         if (info)
         {
-            m_document->set_title(getStringValue(info->get("/Title")));
-            m_document->set_author(getStringValue(info->get("/Author")));
-            m_document->set_subject(getStringValue(info->get("/Subject")));
+            m_document->setTitle(getStringValue(info->get("/Title")));
+            m_document->setAuthor(getStringValue(info->get("/Author")));
+            m_document->setSubject(getStringValue(info->get("/Subject")));
         }
     }
 }
 
 void Analyze::analyzeRoot()
 {
-    ObjNode *obj_root = dynamic_cast<ObjNode *> (m_document->root_node());
+    ObjNode *obj_root = dynamic_cast<ObjNode *> (m_document->rootNode());
     if (!obj_root)
     {
         // Invalid file
@@ -161,7 +165,7 @@ void Analyze::analyzeRoot()
         return;
     }
     m_page_tree = getRealValue(catalog->get("/Pages"));
-    m_document->set_lang(getStringValue(catalog->get("/Lang")));
+    m_document->setLang(getStringValue(catalog->get("/Lang")));
 
     MapNode *names = dynamic_cast<MapNode *> (getRealObjValue(catalog->get("/Names")));
     if (names)
@@ -211,7 +215,7 @@ void Analyze::analyzeRoot()
                     }
                     string newName = getStringValue(attributes->get("/P"));
                     int range = getNumberValue(attributes->get("/St"), 1);
-                    m_document->add_page_label(new PageLabel(page, range, type, newName));
+                    m_document->addPageLabel(new PageLabel(page, range, type, newName));
                 }
             }
         }
@@ -226,7 +230,7 @@ void Analyze::analyzeRoot()
     TreeNode *tree_root = catalog->get("/StructTreeRoot");
     if (tree_root)
     {
-        m_document->set_tree_root(true);
+        m_document->setTreeRoot(true);
     }
 }
 
@@ -316,7 +320,7 @@ void Analyze::analyzeOutlines(MapNode *values, Outline *parent)
     if (!parent)
     {
         // root node
-        m_document->set_outline(outline);
+        m_document->setOutline(outline);
     }
     else
     {
@@ -438,7 +442,7 @@ Font *Analyze::analyzeFont(MapNode *fontmap)
         }
     }
 
-    Font *from_document = m_document->get_font(font->name().c_str());
+    Font *from_document = m_document->font(font->name().c_str());
     if (from_document)
     {
         delete font;
@@ -446,7 +450,7 @@ Font *Analyze::analyzeFont(MapNode *fontmap)
     }
     else
     {
-        m_document->add_font(font);
+        m_document->addFont(font);
     }
 
     if (descriptor)
@@ -634,7 +638,7 @@ void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
                     getStream(array, &stream_value);
                 }
 
-                m_document->add_page(
+                m_document->addPage(
                         processPage(obj_pages->id(), obj_pages->generation(), &stream_value, catalog, media));
             }
         }

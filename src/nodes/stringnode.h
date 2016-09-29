@@ -32,7 +32,7 @@ namespace node
         std::string m_value;
 
     public:
-        StringNode(std::string value);
+        StringNode(const std::string &value);
         virtual ~StringNode() = default;
 
         std::string value() const;

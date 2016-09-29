@@ -62,22 +62,22 @@ Document::~Document()
     }
 }
 
-void Document::set_tree_root(bool tree_root)
+void Document::setTreeRoot(bool tree_root)
 {
     m_tree_root = tree_root;
 }
 
-bool Document::tree_root()
+bool Document::treeRoot()
 {
     return m_tree_root;
 }
 
-void Document::add_font(Font *font)
+void Document::addFont(Font *font)
 {
     m_fonts.push_back(font);
 }
 
-Font *Document::get_font(const char *name)
+Font *Document::font(const char *name)
 {
     vector<Font *>::iterator f = m_fonts.begin();
     while (f != m_fonts.end())
@@ -91,7 +91,7 @@ Font *Document::get_font(const char *name)
     return nullptr;
 }
 
-void Document::set_encrypted(bool encrypt)
+void Document::setEncrypted(bool encrypt)
 {
     m_encrypted = encrypt;
 }
@@ -116,7 +116,7 @@ Page *Document::page(int id, int generation)
     return nullptr;
 }
 
-void Document::set_outline(Outline *outline)
+void Document::setOutline(Outline *outline)
 {
     m_outlines = outline;
 }
@@ -126,17 +126,17 @@ Outline *Document::outline()
     return m_outlines;
 }
 
-void Document::set_id(string first, string second)
+void Document::setId(const string &first, const string &second)
 {
     m_id = first + second;
 }
 
-void Document::add_page(Page *page)
+void Document::addPage(Page *page)
 {
     m_pages.push_back(page);
 }
 
-void Document::add_page_label(PageLabel* label)
+void Document::addPageLabel(PageLabel *label)
 {
     m_page_label.push_back(label);
 }
@@ -151,12 +151,12 @@ size_t Document::pages()
     return m_pages.size();
 }
 
-TreeNode *Document::root_node()
+TreeNode *Document::rootNode()
 {
     return m_root;
 }
 
-TreeNode *Document::info_node()
+TreeNode *Document::infoNode()
 {
     return m_info;
 }
@@ -166,32 +166,32 @@ string Document::id()
     return m_id;
 }
 
-void Document::set_root(TreeNode *root)
+void Document::setRoot(TreeNode *root)
 {
     m_root = root;
 }
 
-void Document::set_info(TreeNode *info)
+void Document::setInfo(TreeNode *info)
 {
     m_info = info;
 }
 
-void Document::set_title(string title)
+void Document::setTitle(string title)
 {
     m_title = title;
 }
 
-void Document::set_subject(string subject)
+void Document::setSubject(string subject)
 {
     m_subject = subject;
 }
 
-void Document::set_author(string author)
+void Document::setAuthor(string author)
 {
     m_author = author;
 }
 
-void Document::set_lang(string lang)
+void Document::setLang(string lang)
 {
     if (!lang.empty())
     {

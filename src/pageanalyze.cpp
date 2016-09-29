@@ -51,7 +51,7 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
     {
         TreeNode *node = tree->get(loop);
 
-        if (m_document->tree_root())
+        if (m_document->treeRoot())
         {
             BDCNode *bdc = dynamic_cast<BDCNode *> (node);
             if (bdc)

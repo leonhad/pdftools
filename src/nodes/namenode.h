@@ -32,7 +32,7 @@ namespace node
         std::string m_name;
 
     public:
-        explicit NameNode(std::string name);
+        explicit NameNode(const std::string &name);
         virtual ~NameNode() = default;
 
         std::string name() const;

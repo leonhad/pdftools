@@ -25,7 +25,8 @@
 class Element : public XmlTag
 {
 public:
-    Element(std::string element);
+    Element(const std::string &element);
+
     virtual ~Element();
 
     virtual std::string toXML() const override;

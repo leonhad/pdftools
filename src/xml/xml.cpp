@@ -80,7 +80,7 @@ void XML::addAttribute(const string &id, const string &value)
 {
     if (m_last_tag)
     {
-        m_last_tag->add_attribute(id, value);
+        m_last_tag->addAttribute(id, value);
     }
 }
 
@@ -88,7 +88,7 @@ void XML::addElement(const string &value)
 {
     if (m_last_tag)
     {
-        m_last_tag->add_tag(new Element(value));
+        m_last_tag->addTag(new Element(value));
     }
 }
 
@@ -101,8 +101,8 @@ void XML::startTag(const string &tag_name)
     }
     if (m_last_tag)
     {
-        m_last_tag->add_tag(tag);
-        tag->set_parent(m_last_tag);
+        m_last_tag->addTag(tag);
+        tag->setParent(m_last_tag);
     }
     m_last_tag = tag;
 }
