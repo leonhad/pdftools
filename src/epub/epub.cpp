@@ -319,7 +319,7 @@ void EPUB::generatePages()
         html.startDocument();
         html.startHeader();
         html.setTitle(m_document->title());
-        html.setLink("stylesheet", "text/css", "style.css");
+        html.addLink("stylesheet", "text/css", "style.css");
         html.endTag();
         html.startBody();
 

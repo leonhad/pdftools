@@ -23,32 +23,108 @@
 #include "xml/xml.h"
 #include <string>
 
+/**
+ * Generates a Html file.
+ */
 class Html
 {
 private:
+    /**
+     * The XML genetator.
+     */
     XML m_xml;
 
 public:
+    /**
+     * Creates a new instance.
+     */
     Html();
+
+    /**
+     * Destroy the instance.
+     */
     ~Html();
 
+    /**
+     * Starts the document.
+     */
     void startDocument();
+
+    /**
+     * Starts the header section.
+     */
     void startHeader();
+
+    /**
+     * Starts the body section.
+     */
     void startBody();
 
+    /**
+     * Closes the document.
+     */
     void endDocument();
+
+    /**
+     * Closes the current tag.
+     */
     void endTag();
 
+    /**
+     * Add a break line.
+     */
     void breakLine();
 
+    /**
+     * Add a paragraph tag.
+     */
     void addParagraph();
+
+    /**
+     * Add a font tag.
+     *
+     * \param size the font size.
+     * \param bold if the font has a bold modifier.
+     * \param italic if the font has a italic modifier.
+     * \param fixed  if the font has a fixed face modifier.
+     */
     void addFont(int size, bool bold, bool italic, bool fixed);
+
+    /**
+     * Add a tag by its name.
+     *
+     * @param element the tag name.
+     */
     void addElement(const std::string &element);
+
+    /**
+     * Add a section by its name.
+     *
+     * @param name the section name.
+     */
     void addSection(const std::string &name);
 
-    void setTitle(const std::string& title);
-    void setLink(const std::string& rel, const std::string& type, const std::string& href);
+    /**
+     * Sets the document title.
+     *
+     * @param title the document title.
+     */
+    void setTitle(const std::string &title);
 
+    /**
+     * Add a link reference.
+     *
+     * \param rel the rel value.
+     * \param type the link type.
+     * \param href the link href.
+     */
+    void addLink(const std::string &rel, const std::string &type, const std::string &href);
+
+    /**
+     * Gets the HTML content.
+     *
+     * \return the HTML content.
+     */
     inline const std::string content() const
     {
         return m_xml.content();

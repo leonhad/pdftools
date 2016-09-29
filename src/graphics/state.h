@@ -20,17 +20,50 @@
 #ifndef STATE_H
 #define STATE_H
 
+/**
+ * Stores a current state.
+ */
 class State
 {
 private:
-    double m_text_matrix[3][3];
+    /**
+     * The current text matrix.
+     */
+    double m_textMatrix[3][3];
 
 public:
+    /**
+     * Creates a new instance.
+     */
     State();
+
+    /**
+     * Destroy this instance.
+     */
     ~State() = default;
 
+    /**
+     * Reset the current state.
+     */
     void reset();
+
+    /**
+     * Set the current text matrix.
+     *
+     * \param a the matrix value.
+     * \param b the matrix value.
+     * \param c the matrix value.
+     * \param d the matrix value.
+     * \param e the matrix value.
+     * \param f the matrix value.
+     */
     void setTextMatrix(double a, double b, double c, double d, double e, double f);
+
+    /**
+     * Gets the current text font.
+     *
+     * \return the current text font.
+     */
     double getTextFont() const;
 };
 

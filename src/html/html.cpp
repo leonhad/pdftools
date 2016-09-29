@@ -116,7 +116,7 @@ void Html::addFont(int size, bool bold, bool italic, bool fixed)
     m_xml.addAttribute("class", css.str());
 }
 
-void Html::setLink(const string& rel, const string& type, const string& href)
+void Html::addLink(const string &rel, const string &type, const string &href)
 {
     m_xml.startTag("link");
     m_xml.addAttribute("rel", rel);

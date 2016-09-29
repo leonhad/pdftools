@@ -26,30 +26,86 @@ class Font;
 
 class State;
 
+/**
+ * Stores and control the graphics state.
+ */
 class GraphicState
 {
 private:
+    /**
+     * Stores the current font.
+     */
     Font *m_font;
+
+    /**
+     * Stores the state list.
+     */
     std::vector<State *> m_states;
+
+    /**
+     * Stores the current state.
+     */
     State *m_current_state;
 
 public:
+    /**
+     * Creates a new instance.
+     */
     GraphicState();
 
+    /**
+     * Do not use copy constructor.
+     *
+     * \param obj the instance to copy.
+     */
     GraphicState(const GraphicState &obj) = delete;
 
+    /**
+     * Destroy this instance.
+     */
     ~GraphicState();
 
+    /**
+     * Pushes a state.
+     */
     void push();
 
+    /**
+     * Pops the last state.
+     */
     void pop();
 
+    /**
+     * Sets a text matrix.
+     *
+     * \param a the matrix value.
+     * \param b the matrix value.
+     * \param c the matrix value.
+     * \param d the matrix value.
+     * \param e the matrix value.
+     * \param f the matrix value.
+     */
     void setTextMatrix(double a, double b, double c, double d, double e, double f);
 
+    /**
+     * Gets the current text font.
+     *
+     * \return the current text font.
+     */
     double getTextFont();
 
+    /**
+     * Gets the current font.
+     *
+     * \return the current font.
+     */
     Font *font();
 
+    /**
+     * Sets the current font.
+     *
+     * \param font the font to set.
+     */
     void setFont(Font *font);
 };
 
