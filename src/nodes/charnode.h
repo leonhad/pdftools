@@ -57,12 +57,14 @@ namespace node
 
         /**
          * Gets the char value.
+         *
          * \return the char value.
          */
         std::string character() const;
 
         /**
          * Gets the unicode value.
+         *
          * \return the unicode value.
          */
         std::string unicode() const;

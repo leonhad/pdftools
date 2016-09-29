@@ -25,21 +25,59 @@
 
 namespace node
 {
-
+    /**
+     * Stores a code space node.
+     */
     class CodeSpaceNode : public TreeNode
     {
     private:
+        /**
+         * The code space start.
+         */
         std::string m_start;
+
+        /**
+         * The code space finish.
+         */
         std::string m_finish;
 
     public:
+        /**
+         * Creates a new instance.
+         */
         CodeSpaceNode();
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~CodeSpaceNode() = default;
 
-        void setStart(std::string start);
-        void setFinish(std::string finish);
+        /**
+         * Sets the code space start.
+         *
+         * \param start the code space start.
+         */
+        void setStart(const std::string &start);
 
+        /**
+         * Sets the code space finish.
+         *
+         * \param finish the code space finish.
+         */
+        void setFinish(const std::string &finish);
+
+        /**
+         * Gets the code space start.
+         *
+         * \return the code space start.
+         */
         std::string start() const;
+
+        /**
+         * Gets the code space finish.
+         *
+         * \return the code space finish.
+         */
         std::string finish() const;
     };
 }

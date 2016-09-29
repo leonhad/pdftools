@@ -57,6 +57,7 @@ namespace node
 
         /**
          * Gets a child by its index.
+         *
          * \param index the index.
          * \return the child.
          */
@@ -64,6 +65,7 @@ namespace node
 
         /**
          * The total of childhood.
+         *
          * \return the total of childhood.
          */
         size_t size() const;

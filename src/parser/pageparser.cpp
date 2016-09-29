@@ -53,10 +53,10 @@ RootNode *PageParser::parse()
     vector<TreeNode *> values;
     values.reserve(10);
 
-    next_token();
+    nextToken();
     while (m_scanner->good())
     {
-        TreeNode *value = value_sequence();
+        TreeNode *value = valueSequence();
         if (value)
         {
             values.push_back(value);
@@ -94,11 +94,11 @@ RootNode *PageParser::parse()
                 // Graphic State
             case TokenType::Q_LO:
                 root->addChild(new StateNode(true));
-                next_token();
+                    nextToken();
                 break;
             case TokenType::Q_UP:
                 root->addChild(new StateNode(false));
-                next_token();
+                    nextToken();
                 break;
 
                 // Text
@@ -126,10 +126,10 @@ RootNode *PageParser::parse()
                 match(TokenType::QUOTE);
                     root->addChild(new BreakNode);
                     root->addChild(text_sequence(values));
-                next_token();
+                    nextToken();
                 break;
             default:
-                next_token();
+                nextToken();
                 break;
             }
             size_t size = values.size();
@@ -197,11 +197,11 @@ TreeNode *PageParser::bi_sequence()
     while (m_token->type() != TokenType::ID)
     {
         match(TokenType::NAME);
-        TreeNode *value = value_sequence();
+        TreeNode *value = valueSequence();
         delete value;
     }
     m_scanner->get_image_stream();
-    next_token();
+    nextToken();
     match(TokenType::EI);
     return nullptr;
 }

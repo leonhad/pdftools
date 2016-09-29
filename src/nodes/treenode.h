@@ -22,14 +22,22 @@
 
 namespace node
 {
-
+    /**
+     * Define a tree node.
+     */
     class TreeNode
     {
     public:
+        /**
+         * Creates a new instance.
+         */
         TreeNode();
-        virtual ~TreeNode();
-    };
 
+        /**
+         * Destroy this instance.
+         */
+        virtual ~TreeNode() = default;
+    };
 }
 
 #endif

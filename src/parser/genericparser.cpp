@@ -25,9 +25,8 @@ using namespace std;
 using namespace parser;
 using namespace node;
 
-GenericParser::GenericParser(std::istream *filein)
+GenericParser::GenericParser(std::istream *filein) : m_scanner(new Scanner(filein)), m_token(nullptr)
 {
-    m_scanner = new Scanner{filein};
 }
 
 GenericParser::~GenericParser()
@@ -42,7 +41,7 @@ bool GenericParser::match(TokenType type)
 {
     if (m_token && m_token->type() == type)
     {
-        next_token();
+        nextToken();
     }
     else
     {
@@ -54,18 +53,18 @@ bool GenericParser::match(TokenType type)
         }
         error_message(msg.c_str());
 #endif
-        next_token();
+        nextToken();
         return false;
     }
     return true;
 }
 
-void GenericParser::next_token()
+void GenericParser::nextToken()
 {
     m_token = m_scanner->next_token();
 }
 
-TreeNode *GenericParser::value_sequence()
+TreeNode *GenericParser::valueSequence()
 {
     if (m_token->type() == TokenType::START_DICT)
     {
@@ -76,11 +75,11 @@ TreeNode *GenericParser::value_sequence()
         {
             string name = m_token->value();
             match(TokenType::NAME);
-            TreeNode *value = value_sequence();
+            TreeNode *value = valueSequence();
             NameNode *n = dynamic_cast<NameNode *> (value);
             if (n && n->name()[0] != '/')
             {
-                value = value_sequence();
+                value = valueSequence();
             }
             map->push(name, value);
         }
@@ -133,7 +132,7 @@ TreeNode *GenericParser::value_sequence()
         {
             m_scanner->to_pos(pos);
         }
-        next_token();
+        nextToken();
         return new NumberNode(value);
     }
     else if (m_token->type() == TokenType::START_ARRAY)
@@ -142,7 +141,7 @@ TreeNode *GenericParser::value_sequence()
         match(TokenType::START_ARRAY);
         while (m_scanner->good() && m_token->type() != TokenType::END_ARRAY)
         {
-            array->push(value_sequence());
+            array->push(valueSequence());
         }
         match(TokenType::END_ARRAY);
         return array;

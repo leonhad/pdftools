@@ -26,12 +26,12 @@ CodeSpaceNode::CodeSpaceNode() : TreeNode()
 {
 }
 
-void CodeSpaceNode::setStart(string start)
+void CodeSpaceNode::setStart(const string &start)
 {
     m_start = start;
 }
 
-void CodeSpaceNode::setFinish(string finish)
+void CodeSpaceNode::setFinish(const string &finish)
 {
     m_finish = finish;
 }

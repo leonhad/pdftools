@@ -25,16 +25,35 @@
 
 namespace node
 {
-
+    /**
+     * Stores a name node.
+     */
     class NameNode : public TreeNode
     {
     private:
+        /**
+         * The name.
+         */
         std::string m_name;
 
     public:
+        /**
+         * Creates a new instance.
+         *
+         * @param name the name.
+         */
         explicit NameNode(const std::string &name);
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~NameNode() = default;
 
+        /**
+         * Gets the name.
+         *
+         * \return the name.
+         */
         std::string name() const;
     };
 }

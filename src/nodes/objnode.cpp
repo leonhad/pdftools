@@ -24,7 +24,7 @@ using namespace std;
 using namespace node;
 
 ObjNode::ObjNode(int id, int generation) : TreeNode(), m_id(id), m_generation(generation),
-    m_stream_pos(0), m_value(nullptr)
+    m_streamPos(0), m_value(nullptr)
 {
 }
 
@@ -51,7 +51,7 @@ TreeNode *ObjNode::value() const
     return m_value;
 }
 
-bool ObjNode::thisObject(int id, int generation) const
+bool ObjNode::sameObject(int id, int generation) const
 {
     return m_id == id && m_generation == generation;
 }
@@ -68,10 +68,10 @@ void ObjNode::setValue(TreeNode *value)
 
 void ObjNode::setStreamPos(size_t pos)
 {
-    m_stream_pos = pos;
+    m_streamPos = pos;
 }
 
 size_t ObjNode::streamPos() const
 {
-    return m_stream_pos;
+    return m_streamPos;
 }

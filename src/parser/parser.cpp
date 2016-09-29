@@ -42,7 +42,7 @@ Parser::Parser(ifstream *filein) throw(exception) : GenericParser{filein}
 
     if (filein->is_open())
     {
-        next_token();
+        nextToken();
     }
     else
     {
@@ -74,7 +74,7 @@ RootNode *Parser::parse()
                     startxref_sequence();
                     break;
                 default:
-                    next_token();
+                    nextToken();
                     error = true;
                     break;
             }
@@ -151,16 +151,16 @@ void Parser::object_streams(RootNode *root_node)
                     int loop;
                     for (loop = 0; loop < qtd; loop++)
                     {
-                        next_token();
+                        nextToken();
                         ids.push_back(m_token->to_number());
-                        next_token();
+                        nextToken();
                     }
-                    next_token();
+                    nextToken();
                     vector<int>::iterator id;
                     for (id = ids.begin(); id < ids.end(); id++)
                     {
                         ObjNode *new_obj = new ObjNode(*id, 0);
-                        new_obj->setValue(value_sequence());
+                        new_obj->setValue(valueSequence());
                         root_node->addChild(new_obj);
                     }
                     m_scanner = temp;
@@ -173,7 +173,7 @@ void Parser::object_streams(RootNode *root_node)
 void Parser::comment_sequence()
 {
     m_scanner->ignore_line();
-    next_token();
+    nextToken();
 }
 
 TreeNode *Parser::xref_sequence()
@@ -208,7 +208,7 @@ TreeNode *Parser::xref_sequence()
         }
     } while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
     match(TokenType::TRAILER);
-    xref->setTrailer(value_sequence());
+    xref->setTrailer(valueSequence());
     return xref;
 }
 
@@ -231,7 +231,7 @@ TreeNode *Parser::object_sequence()
 
     ObjNode *node = new ObjNode((int) number, (int) generation_nunber);
     match(TokenType::OBJ);
-    node->setValue(value_sequence());
+    node->setValue(valueSequence());
     if (m_token && m_token->type() == TokenType::STREAM)
     {
         int length = -1;
@@ -245,7 +245,7 @@ TreeNode *Parser::object_sequence()
             }
         }
         node->setStreamPos(m_scanner->ignore_stream(length));
-        next_token();
+        nextToken();
         match(TokenType::END_STREAM);
     }
     match(TokenType::END_OBJ);

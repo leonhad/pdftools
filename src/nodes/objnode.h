@@ -27,27 +27,96 @@
 
 namespace node
 {
-
+    /**
+     * Stores a object node.
+     */
     class ObjNode : public TreeNode
     {
     private:
+        /**
+         * The object id.
+         */
         int m_id;
+
+        /**
+         * The object generation.
+         */
         int m_generation;
-        size_t m_stream_pos;
+
+        /**
+         * The binary object stream position.
+         */
+        size_t m_streamPos;
+
+        /**
+         * The tree node value.
+         */
         TreeNode *m_value;
 
     public:
+        /**
+         * Creates a new instance.
+         *
+         * \param id the object id.
+         * \param generation the object generation.
+         */
         ObjNode(int id, int generation);
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~ObjNode();
 
+        /**
+         * Sets the tree node value.
+         *
+         * \param value the tree node value.
+         */
         void setValue(TreeNode *value);
+
+        /**
+         * Sets the binary stream position.
+         *
+         * \param pos the binary stream position.
+         */
         void setStreamPos(size_t pos);
 
+        /**
+         * Gets the object id.
+         *
+         * \return the object id.
+         */
         int id() const;
+
+        /**
+         * Gets the object generation.
+         *
+         * \return the object generation.
+         */
         int generation() const;
+
+        /**
+         * Gets the binary stream position.
+         *
+         * \return the binary stream position.
+         */
         size_t streamPos() const;
+
+        /**
+         * Gets the tree node value.
+         *
+         * \return the tree node value.
+         */
         TreeNode *value() const;
-        bool thisObject(int id, int generation) const;
+
+        /**
+         * Check if the references is this object.
+         *
+         * \param id the object id.
+         * \param generation the object generation.
+         * \return true if the references is this object.
+         */
+        bool sameObject(int id, int generation) const;
     };
 }
 

@@ -50,7 +50,7 @@ void BDCNode::setValue(TreeNode *value)
     m_value = value;
 }
 
-void BDCNode::setName(string name)
+void BDCNode::setName(const string &name)
 {
     m_name = name;
 }

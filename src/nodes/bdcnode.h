@@ -38,21 +38,50 @@ namespace node
     public:
         /**
          * Create a new instance.
+         *
          * \param parent the parant node.
          */
         explicit BDCNode(RootNode *parent);
 
+        /**
+         * Destroy this instance.
+         */
         ~BDCNode();
 
+        /**
+         * Gets the tree node value.
+         *
+         * \return the tree node value.
+         */
         TreeNode *value();
 
+        /**
+         * Gets this node parent.
+         *
+         * \return this node parent.
+         */
         RootNode *parent();
 
+        /**
+         * Gets the node name.
+         *
+         * \return the node name.
+         */
         std::string name();
 
+        /**
+         * Sets the node value.
+         *
+         * \param value the node value.
+         */
         void setValue(TreeNode *value);
 
-        void setName(std::string name);
+        /**
+         * Sets the node name.
+         *
+         * \param name the node name.
+         */
+        void setName(const std::string &name);
     };
 }
 

@@ -30,23 +30,56 @@ namespace node
 
 namespace parser
 {
-
+    /**
+     * The generic parser used in this project.
+     */
     class GenericParser
     {
     protected:
+        /**
+         * The file scanner.
+         */
         Scanner *m_scanner;
-        Token *m_token = nullptr;
+
+        /**
+         * The current token.
+         */
+        Token *m_token;
 
     public:
+        /**
+         * Creates a new instance.
+         *
+         * \param filein the file to parse.
+         */
         GenericParser(std::istream *filein);
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~GenericParser();
 
     protected:
-        node::TreeNode *value_sequence();
-        bool match(TokenType type);
-        void next_token();
-    };
+        /**
+         * Gets the tree node sequence value.
+         *
+         * \return the tree node sequence value.
+         */
+        node::TreeNode *valueSequence();
 
+        /**
+         * Checks if the current token have the some type.
+         *
+         * \param type the type to check with the current token.
+         * \return true if are the same.
+         */
+        bool match(TokenType type);
+
+        /**
+         * Reads the next token.
+         */
+        void nextToken();
+    };
 }
 
 #endif

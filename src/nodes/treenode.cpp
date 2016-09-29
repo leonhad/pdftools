@@ -24,7 +24,3 @@ using namespace node;
 TreeNode::TreeNode()
 {
 }
-
-TreeNode::~TreeNode()
-{
-}

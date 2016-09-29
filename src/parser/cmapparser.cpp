@@ -50,7 +50,7 @@ CMapNode *CMapParser::parse()
     }
     m_root = new CMapNode();
 
-    next_token();
+    nextToken();
 
     // /CIDInit
     match(TokenType::NAME);
@@ -93,7 +93,7 @@ CMapNode *CMapParser::parse()
                 else if (m_token->value() == "/CIDSystemInfo")
                 {
                     match(TokenType::NAME);
-                    delete value_sequence();
+                    delete valueSequence();
                     // def
                     match(TokenType::NAME);
                 }
@@ -108,17 +108,17 @@ CMapNode *CMapParser::parse()
                 if (m_token->value() == "beginbfchar")
                 {
                     match(TokenType::NAME);
-                    bfchar_sequence(val);
+                    bfCharSequence(val);
                 }
                 else if (m_token->value() == "begincodespacerange")
                 {
                     match(TokenType::NAME);
-                    m_root->setCodespace(codespace_sequence());
+                    m_root->setCodespace(codespaceSequence());
                 }
                 else if (m_token->value() == "beginbfrange")
                 {
                     match(TokenType::NAME);
-                    bfrange_sequence(val);
+                    bfRangeSequence(val);
                 }
                 else
                 {
@@ -127,14 +127,14 @@ CMapNode *CMapParser::parse()
                 }
                 break;
             default:
-                next_token();
+                nextToken();
                 break;
         }
     }
     return m_root;
 }
 
-CodeSpaceNode *CMapParser::codespace_sequence()
+CodeSpaceNode *CMapParser::codespaceSequence()
 {
     CodeSpaceNode *ret = new CodeSpaceNode;
     ret->setStart(m_token->value());
@@ -146,7 +146,7 @@ CodeSpaceNode *CMapParser::codespace_sequence()
     return ret;
 }
 
-void CMapParser::bfchar_sequence(const int count)
+void CMapParser::bfCharSequence(const int count)
 {
     for (int loop = 0; loop < count; loop++)
     {
@@ -159,7 +159,7 @@ void CMapParser::bfchar_sequence(const int count)
     match(TokenType::NAME);
 }
 
-void CMapParser::bfrange_sequence(const int count)
+void CMapParser::bfRangeSequence(const int count)
 {
     for (int loop = 0; loop < count; loop++)
     {
@@ -167,7 +167,7 @@ void CMapParser::bfrange_sequence(const int count)
         match(TokenType::STRING);
         string end = m_token->value();
         match(TokenType::STRING);
-        TreeNode *node = value_sequence();
+        TreeNode *node = valueSequence();
         StringNode *name = dynamic_cast<StringNode *> (node);
         if (name)
         {

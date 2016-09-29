@@ -27,30 +27,67 @@
 namespace node
 {
     class TreeNode;
+
     class CMapNode;
+
     class CodeSpaceNode;
 }
 
 namespace parser
 {
-
+    /**
+     * Parses a CMap.
+     */
     class CMapParser : public GenericParser
     {
     private:
+        /**
+         * The CMap node root.
+         */
         node::CMapNode *m_root;
 
     public:
+        /**
+         * Creates a new instance.
+         *
+         * \param stream the CMap stream to read.
+         */
         CMapParser(std::istream *stream);
+
+        /**
+         * Destroy this instance.
+         */
         virtual ~CMapParser();
 
+        /**
+         * Parses the CMap node.
+         *
+         * \return the CMap tree node.
+         */
         node::CMapNode *parse();
 
     private:
-        void bfchar_sequence(const int count);
-        void bfrange_sequence(const int count);
-        node::CodeSpaceNode *codespace_sequence();
-    };
+        /**
+         * Parses a BF char sequence.
+         *
+         * \param count the total chars to parse.
+         */
+        void bfCharSequence(const int count);
 
+        /**
+         * Parses a BF rage sequence.
+         *
+         * \param count the total range to parse.
+         */
+        void bfRangeSequence(const int count);
+
+        /**
+         * Gets the code space sequence.
+         *
+         * \return the code space sequence.
+         */
+        node::CodeSpaceNode *codespaceSequence();
+    };
 }
 
 #endif

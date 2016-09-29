@@ -50,6 +50,7 @@ namespace node
 
         /**
          * Gets the state.
+         *
          * \return the state.
          */
         bool save() const;

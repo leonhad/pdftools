@@ -27,23 +27,69 @@
 namespace node
 {
     class CodeSpaceNode;
+
     class CharNode;
 
+    /**
+     * Stores a CMap node.
+     */
     class CMapNode : public TreeNode
     {
     private:
+        /**
+         * Stores a char node list.
+         */
         std::vector<CharNode *> m_charnodes;
+
+        /**
+         * This node code space value.
+         */
         CodeSpaceNode *m_codespace;
 
     public:
+        /**
+         * Creates a new instance.
+         */
         CMapNode();
-        ~CMapNode();
 
+        /**
+         * Destroy this instance.
+         */
+        virtual ~CMapNode();
+
+        /**
+         * Adds a char node.
+         * \param node the char node to add.
+         */
         void add(CharNode *node);
+
+        /**
+         * Sets the code space.
+         *
+         * \param codespace the code space to set.
+         */
         void setCodespace(CodeSpaceNode *codespace);
 
+        /**
+         * Gets the code space.
+         *
+         * \return the code space.
+         */
         CodeSpaceNode *codeSpace() const;
+
+        /**
+         * Gets the total of childhood char nodes.
+         *
+         * \return the total of childhood char nodes.
+         */
         size_t nodes() const;
+
+        /**
+         * Gets a char node by its index.
+         *
+         * \param index the char node index.
+         * \return the char node.
+         */
         CharNode *node(size_t index) const;
     };
 }

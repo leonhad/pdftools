@@ -20,6 +20,8 @@
 #ifndef NODES_H
 #define NODES_H
 
+// The list of all nodes.
+
 #include "treenode.h"
 #include "objnode.h"
 #include "xrefnode.h"
