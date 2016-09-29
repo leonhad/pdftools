@@ -26,7 +26,7 @@ TextNode::TextNode() : TreeNode()
 {
 }
 
-void TextNode::add(string text)
+void TextNode::add(const string &text)
 {
     m_value += text;
 }

@@ -35,7 +35,7 @@ namespace node
         TextNode();
         virtual ~TextNode() = default;
 
-        void add(std::string text);
+        void add(const std::string &text);
         std::string text() const;
     };
 }
