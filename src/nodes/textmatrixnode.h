@@ -56,7 +56,7 @@ namespace node
          * \param index the index.
          * \return  the text matrix value.
          */
-        double at(int index) const;
+        double at(size_t index) const;
     };
 }
 

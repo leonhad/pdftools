@@ -48,7 +48,6 @@ namespace node
         size_t streamPos() const;
         TreeNode *value() const;
         bool thisObject(int id, int generation) const;
-        void clearStream();
     };
 }
 

@@ -18,9 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "paragraphglyph.h"
-#include "semantic/font.h"
 #include "html/html.h"
-#include "semantic/context.h"
 
 void ParagraphGlyph::startGlyph(Html *document)
 {

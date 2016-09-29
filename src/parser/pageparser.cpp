@@ -196,7 +196,6 @@ TreeNode *PageParser::bi_sequence()
     match(TokenType::BI);
     while (m_token->type() != TokenType::ID)
     {
-        string name = m_token->value();
         match(TokenType::NAME);
         TreeNode *value = value_sequence();
         delete value;

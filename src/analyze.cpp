@@ -209,9 +209,9 @@ void Analyze::analyzeRoot()
                             type = LOWCASE_LETTERS;
                         }
                     }
-                    string name = getStringValue(attributes->get("/P"));
+                    string newName = getStringValue(attributes->get("/P"));
                     int range = getNumberValue(attributes->get("/St"), 1);
-                    m_document->add_page_label(new PageLabel(page, range, type, name));
+                    m_document->add_page_label(new PageLabel(page, range, type, newName));
                 }
             }
         }

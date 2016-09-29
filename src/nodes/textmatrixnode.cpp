@@ -26,7 +26,7 @@ TextMatrixNode::TextMatrixNode(const std::initializer_list<double> &list)
 {
 }
 
-double TextMatrixNode::at(int index) const
+double TextMatrixNode::at(size_t index) const
 {
     return values.at(index);
 }

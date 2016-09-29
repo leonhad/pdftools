@@ -211,7 +211,6 @@ void EPUB::generateOutline(XML *xml, Outline *outline)
     if (page)
     {
         string playorder{to_string(m_order)};
-        string id{"navPoint-" + playorder};
         m_order++;
 
         xml->startTag("navPoint");

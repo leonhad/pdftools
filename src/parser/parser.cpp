@@ -18,12 +18,8 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "parser.h"
-#include "scanner.h"
 #include "utils.h"
 #include "nodes/nodes.h"
-#include <string>
-#include <sstream>
-#include <iostream>
 
 using namespace std;
 using namespace parser;
@@ -40,7 +36,7 @@ inline bool pdf_versions(const string &version)
             || version == "PDF-1.7";
 }
 
-Parser::Parser(ifstream *filein) throw (exception) : GenericParser{filein}
+Parser::Parser(ifstream *filein) throw(exception) : GenericParser{filein}
 {
     m_linear = false;
 
@@ -65,22 +61,22 @@ RootNode *Parser::parse()
         {
             switch (m_token->type())
             {
-            case TokenType::PERCENT:
-                comment_sequence();
-                break;
-            case TokenType::NUM:
-                root->addChild(object_sequence());
-                break;
-            case TokenType::XREF:
-                root->addChild(xref_sequence());
-                break;
-            case TokenType::START_XREF:
-                startxref_sequence();
-                break;
-            default:
-                next_token();
-                error = true;
-                break;
+                case TokenType::PERCENT:
+                    comment_sequence();
+                    break;
+                case TokenType::NUM:
+                    root->addChild(object_sequence());
+                    break;
+                case TokenType::XREF:
+                    root->addChild(xref_sequence());
+                    break;
+                case TokenType::START_XREF:
+                    startxref_sequence();
+                    break;
+                default:
+                    next_token();
+                    error = true;
+                    break;
             }
         }
     }
@@ -123,14 +119,14 @@ void Parser::object_streams(RootNode *root_node)
                     char *uncompressed = nullptr;
 
                     m_scanner->to_pos(root_object->streamPos());
-                    char *stream = (char *) m_scanner->get_stream(length);
+                    char *stream = m_scanner->get_stream(length);
 
                     int total = length;
                     NameNode *filter = dynamic_cast<NameNode *> (map->get("/Filter"));
                     if (filter && filter->name() == "/FlateDecode")
                     {
                         uncompressed = flat_decode(stream, length, total);
-                        delete [] stream;
+                        delete[] stream;
                     }
                     else if (!filter)
                     {
@@ -146,7 +142,7 @@ void Parser::object_streams(RootNode *root_node)
                     stringstream stream_value;
                     stream_value.write(uncompressed, total);
                     stream_value.seekg(0);
-                    delete [] uncompressed;
+                    delete[] uncompressed;
 
                     Scanner *temp = m_scanner;
                     m_scanner = new Scanner{&stream_value};
@@ -180,7 +176,7 @@ void Parser::comment_sequence()
     next_token();
 }
 
-TreeNode * Parser::xref_sequence()
+TreeNode *Parser::xref_sequence()
 {
     XREFNode *xref = new XREFNode;
     match(TokenType::XREF);
@@ -194,9 +190,9 @@ TreeNode * Parser::xref_sequence()
 
         for (int loop = 0; loop < count; loop++)
         {
-            uint32_t address = (int) m_token->to_number();
+            uint32_t address = (uint32_t) m_token->to_number();
             match(TokenType::NUM);
-            uint16_t generation = (int) m_token->to_number();
+            uint16_t generation = (uint16_t) m_token->to_number();
             match(TokenType::NUM);
             string name = m_token->value();
             if (m_token->type() == TokenType::F_LO)
@@ -210,8 +206,7 @@ TreeNode * Parser::xref_sequence()
             xref->addNode(id, generation, address, name.at(0));
             id++;
         }
-    }
-    while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
+    } while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
     match(TokenType::TRAILER);
     xref->setTrailer(value_sequence());
     return xref;
@@ -243,10 +238,10 @@ TreeNode *Parser::object_sequence()
         MapNode *map = dynamic_cast<MapNode *> (node->value());
         if (map)
         {
-            NumberNode *number = dynamic_cast<NumberNode *> (map->get("/Length"));
-            if (number)
+            NumberNode *numberNode = dynamic_cast<NumberNode *> (map->get("/Length"));
+            if (numberNode)
             {
-                length = number->value();
+                length = numberNode->value();
             }
         }
         node->setStreamPos(m_scanner->ignore_stream(length));

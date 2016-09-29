@@ -20,9 +20,7 @@
 #include "nodes/nodes.h"
 #include "utils.h"
 #include "scanner.h"
-#include "token.h"
 #include "cmapparser.h"
-#include <cstring>
 
 using namespace std;
 using namespace parser;
@@ -75,62 +73,62 @@ CMapNode *CMapParser::parse()
     {
         switch (m_token->type())
         {
-        case TokenType::NAME:
-            if (m_token->value() == "/CMapName")
-            {
-                match(TokenType::NAME);
-                // /Name
-                match(TokenType::NAME);
-                // def
-                match(TokenType::NAME);
-            }
-            else if (m_token->value() == "/CMapType")
-            {
-                match(TokenType::NAME);
-                // 2
+            case TokenType::NAME:
+                if (m_token->value() == "/CMapName")
+                {
+                    match(TokenType::NAME);
+                    // /Name
+                    match(TokenType::NAME);
+                    // def
+                    match(TokenType::NAME);
+                }
+                else if (m_token->value() == "/CMapType")
+                {
+                    match(TokenType::NAME);
+                    // 2
+                    match(TokenType::NUM);
+                    // def
+                    match(TokenType::NAME);
+                }
+                else if (m_token->value() == "/CIDSystemInfo")
+                {
+                    match(TokenType::NAME);
+                    delete value_sequence();
+                    // def
+                    match(TokenType::NAME);
+                }
+                else
+                {
+                    match(TokenType::NAME);
+                }
+                break;
+            case TokenType::NUM:
+                val = (int) m_token->to_number();
                 match(TokenType::NUM);
-                // def
-                match(TokenType::NAME);
-            }
-            else if (m_token->value() == "/CIDSystemInfo")
-            {
-                match(TokenType::NAME);
-                delete value_sequence();
-                // def
-                match(TokenType::NAME);
-            }
-            else
-            {
-                match(TokenType::NAME);
-            }
-            break;
-        case TokenType::NUM:
-            val = m_token->to_number();
-            match(TokenType::NUM);
-            if (m_token->value() == "beginbfchar")
-            {
-                match(TokenType::NAME);
-                bfchar_sequence(val);
-            }
-            else if (m_token->value() == "begincodespacerange")
-            {
-                match(TokenType::NAME);
-                m_root->setCodespace(codespace_sequence());
-            }
-            else if (m_token->value() == "beginbfrange")
-            {
-                match(TokenType::NAME);
-                bfrange_sequence(val);
-            }
-            else
-            {
-                match(TokenType::NAME);
-                error_message("invalid mode");
-            }
-            break;
-        default:
-            next_token();
-            break;
+                if (m_token->value() == "beginbfchar")
+                {
+                    match(TokenType::NAME);
+                    bfchar_sequence(val);
+                }
+                else if (m_token->value() == "begincodespacerange")
+                {
+                    match(TokenType::NAME);
+                    m_root->setCodespace(codespace_sequence());
+                }
+                else if (m_token->value() == "beginbfrange")
+                {
+                    match(TokenType::NAME);
+                    bfrange_sequence(val);
+                }
+                else
+                {
+                    match(TokenType::NAME);
+                    error_message("invalid mode");
+                }
+                break;
+            default:
+                next_token();
+                break;
         }
     }
     return m_root;
@@ -187,10 +185,10 @@ void CMapParser::bfrange_sequence(const int count)
                 }
                 else
                 {
-                    uint16_t c = (*chars << 8) + (*b & 255);
+                    uint16_t c = (uint16_t) (*chars << 8) + (*b & 255);
                     c++;
-                    *chars = c >> 8;
-                    *b = c & 0xFF;
+                    *chars = (char) c >> 8;
+                    *b = (char) c & 0xFF;
                 }
             }
         }
@@ -200,7 +198,7 @@ void CMapParser::bfrange_sequence(const int count)
             ArrayNode *array = dynamic_cast<ArrayNode *> (node);
             char *chars = const_cast<char *> (start.c_str());
             size_t size = start.size();
-            int loop2 = 0;
+            size_t loop2 = 0;
 
             while (memcmp(chars, end.c_str(), size) < 0)
             {

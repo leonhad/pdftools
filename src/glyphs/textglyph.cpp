@@ -21,7 +21,6 @@
 #include "html/html.h"
 #include "semantic/context.h"
 #include "semantic/font.h"
-#include <cstring>
 
 using namespace std;
 
@@ -34,15 +33,7 @@ void TextGlyph::doGlyph(Html *document)
     Font *current = m_context->font();
 
     document->addFont(current->size() * m_context->font_size(), current->bold(), current->italic(), current->fixed());
-    string text;
-    if (current)
-    {
-        text = current->translate(m_text);
-    }
-    else
-    {
-        text = m_text;
-    }
+    string text = current->translate(m_text);
 
     document->addElement(text + " ");
     document->endTag();

@@ -21,7 +21,6 @@
 #include <stdexcept>
 #include <vector>
 #include "mapnode.h"
-#include "treenode.h"
 
 using namespace std;
 using namespace node;

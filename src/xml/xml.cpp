@@ -20,8 +20,6 @@
 #include "xml.h"
 #include "element.h"
 #include <sstream>
-#include <stdexcept>
-#include <vector>
 
 using namespace std;
 
@@ -61,13 +59,13 @@ const string XML::content() const
     return m_buffer.str();
 }
 
-void XML::startDocument(const string& version, const string& charset)
+void XML::startDocument(const string &version, const string &charset)
 {
     m_version = version;
     m_charset = charset;
 }
 
-void XML::addDoctype(const string& name, const string& public_id, const string& sys_id)
+void XML::addDoctype(const string &name, const string &public_id, const string &sys_id)
 {
     m_doctype_name = name;
     m_public_id = public_id;
@@ -78,7 +76,7 @@ void XML::endDocument()
 {
 }
 
-void XML::addAttribute(const string& id, const string& value)
+void XML::addAttribute(const string &id, const string &value)
 {
     if (m_last_tag)
     {
@@ -86,7 +84,7 @@ void XML::addAttribute(const string& id, const string& value)
     }
 }
 
-void XML::addElement(const string& value)
+void XML::addElement(const string &value)
 {
     if (m_last_tag)
     {
@@ -94,7 +92,7 @@ void XML::addElement(const string& value)
     }
 }
 
-void XML::startTag(const string& tag_name)
+void XML::startTag(const string &tag_name)
 {
     XmlTag *tag = new XmlTag{tag_name};
     if (!m_root)
