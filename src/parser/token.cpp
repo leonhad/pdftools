@@ -22,35 +22,27 @@
 using namespace std;
 using namespace parser;
 
-Token::Token() noexcept
-{
-}
-
-Token::~Token() noexcept
-{
-}
-
-void Token::set_value(string value) noexcept
+void Token::setValue(string value)
 {
     m_value = value;
 }
 
-void Token::set_type(TokenType type) noexcept
+void Token::setType(TokenType type)
 {
     m_type = type;
 }
 
-double Token::to_number() const noexcept
+double Token::toNumber() const
 {
     return stof(m_value);
 }
 
-string Token::value() const noexcept
+string Token::value() const
 {
     return m_value;
 }
 
-TokenType Token::type() const noexcept
+TokenType Token::type() const
 {
     return m_type;
 }

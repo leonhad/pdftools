@@ -518,8 +518,8 @@ Token *Scanner::next_token()
             token_string.push_back(c);
         }
     }
-    m_current.set_type(current_token);
-    m_current.set_value(token_string);
+    m_current.setType(current_token);
+    m_current.setValue(token_string);
 
     return &m_current;
 }

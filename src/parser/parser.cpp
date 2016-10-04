@@ -152,7 +152,7 @@ void Parser::object_streams(RootNode *root_node)
                     for (loop = 0; loop < qtd; loop++)
                     {
                         nextToken();
-                        ids.push_back(m_token->to_number());
+                        ids.push_back(m_token->toNumber());
                         nextToken();
                     }
                     nextToken();
@@ -183,16 +183,16 @@ TreeNode *Parser::xref_sequence()
 
     do
     {
-        uint16_t id = (uint16_t) m_token->to_number();
+        uint16_t id = (uint16_t) m_token->toNumber();
         match(TokenType::NUM);
-        int count = (int) m_token->to_number();
+        int count = (int) m_token->toNumber();
         match(TokenType::NUM);
 
         for (int loop = 0; loop < count; loop++)
         {
-            uint32_t address = (uint32_t) m_token->to_number();
+            uint32_t address = (uint32_t) m_token->toNumber();
             match(TokenType::NUM);
-            uint16_t generation = (uint16_t) m_token->to_number();
+            uint16_t generation = (uint16_t) m_token->toNumber();
             match(TokenType::NUM);
             string name = m_token->value();
             if (m_token->type() == TokenType::F_LO)
@@ -224,9 +224,9 @@ void Parser::startxref_sequence()
 
 TreeNode *Parser::object_sequence()
 {
-    float number = m_token->to_number();
+    float number = m_token->toNumber();
     match(TokenType::NUM);
-    float generation_nunber = m_token->to_number();
+    float generation_nunber = m_token->toNumber();
     match(TokenType::NUM);
 
     ObjNode *node = new ObjNode((int) number, (int) generation_nunber);

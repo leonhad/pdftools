@@ -103,7 +103,7 @@ CMapNode *CMapParser::parse()
                 }
                 break;
             case TokenType::NUM:
-                val = (int) m_token->to_number();
+                val = (int) m_token->toNumber();
                 match(TokenType::NUM);
                 if (m_token->value() == "beginbfchar")
                 {
