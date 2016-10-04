@@ -119,7 +119,7 @@ void Parser::object_streams(RootNode *root_node)
                     char *uncompressed = nullptr;
 
                     m_scanner->to_pos(root_object->streamPos());
-                    char *stream = m_scanner->get_stream(length);
+                    char *stream = m_scanner->getStream(length);
 
                     int total = length;
                     NameNode *filter = dynamic_cast<NameNode *> (map->get("/Filter"));
@@ -172,7 +172,7 @@ void Parser::object_streams(RootNode *root_node)
 
 void Parser::comment_sequence()
 {
-    m_scanner->ignore_line();
+    m_scanner->ignoreLine();
     nextToken();
 }
 
@@ -244,7 +244,7 @@ TreeNode *Parser::object_sequence()
                 length = numberNode->value();
             }
         }
-        node->setStreamPos(m_scanner->ignore_stream(length));
+        node->setStreamPos(m_scanner->ignoreStream(length));
         nextToken();
         match(TokenType::END_STREAM);
     }

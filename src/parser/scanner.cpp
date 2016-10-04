@@ -141,12 +141,12 @@ Scanner::Scanner(istream *m_filein)
 {
 }
 
-void Scanner::disable_charset_conversion()
+void Scanner::disableCharsetConversion()
 {
     m_charset_conversion = false;
 }
 
-size_t Scanner::pos() const
+istream::pos_type Scanner::pos() const
 {
     return m_filein->tellg();
 }
@@ -156,7 +156,7 @@ void Scanner::clear()
     m_filein->clear();
 }
 
-void Scanner::to_pos(size_t pos)
+void Scanner::to_pos(istream::pos_type pos)
 {
     if (m_filein->good())
     {
@@ -168,16 +168,16 @@ void Scanner::to_pos(size_t pos)
     }
 }
 
-size_t Scanner::ignore_stream(int length)
+istream::pos_type Scanner::ignoreStream(int length)
 {
     // endstream buffer (ndstream + \0)
     char buff[9];
 
     // Ignore first new line
-    while (m_filein->good() && next_char() != '\n')
+    while (m_filein->good() && nextChar() != '\n')
     {
     }
-    size_t ret = m_filein->tellg();
+    istream::pos_type ret = m_filein->tellg();
 
     if (length >= 0)
     {
@@ -187,10 +187,10 @@ size_t Scanner::ignore_stream(int length)
     {
         while (m_filein->good())
         {
-            char next = m_filein->get();
+            int next = m_filein->get();
             if (next == 'e' && m_filein->good())
             {
-                size_t pos = m_filein->tellg();
+                istream::pos_type pos = m_filein->tellg();
                 memset(buff, 0, sizeof(buff));
                 m_filein->read(buff, sizeof(buff) - 1);
 
@@ -200,7 +200,7 @@ size_t Scanner::ignore_stream(int length)
                 if (strcmp("ndstream", buff) == 0)
                 {
                     // restore the endstream token
-                    m_filein->seekg(pos - 1);
+                    m_filein->seekg((int)pos - 1);
                     break;
                 }
                 // not the endstream
@@ -210,26 +210,26 @@ size_t Scanner::ignore_stream(int length)
     return ret;
 }
 
-char *Scanner::get_image_stream()
+char *Scanner::getImageStream()
 {
     // Ignore first new line
-    while (m_filein->good() && next_char() != '\n')
+    while (m_filein->good() && nextChar() != '\n')
     {
     }
-    unget_char();
+    ungetChar();
 
     while (m_filein->good())
     {
         int ret = m_filein->get();
         if ((ret == '\n' || ret == '\r') && m_filein->good())
         {
-            size_t pos = m_filein->tellg();
+            istream::pos_type pos = m_filein->tellg();
             int next = m_filein->get();
             // treat '\r\n', '\r' or '\n'
             if (next == 'E' || m_filein->get() == 'I')
             {
-                unget_char();
-                unget_char();
+                ungetChar();
+                ungetChar();
                 break;
             }
             // not endstream
@@ -240,16 +240,16 @@ char *Scanner::get_image_stream()
     return nullptr;
 }
 
-char *Scanner::get_stream(int length)
+char *Scanner::getStream(int length)
 {
     char *stream = new char[length];
     m_filein->read(stream, length);
     return stream;
 }
 
-char Scanner::next_char()
+char Scanner::nextChar()
 {
-    char ret = EOF;
+    int ret = EOF;
 
     if (m_filein->good() && !m_filein->eof())
     {
@@ -261,10 +261,10 @@ char Scanner::next_char()
             {
                 return '\n';
             }
-            unget_char();
+            ungetChar();
         }
     }
-    return ret;
+    return (char) ret;
 }
 
 bool Scanner::good() const
@@ -272,14 +272,14 @@ bool Scanner::good() const
     return m_filein->good();
 }
 
-void Scanner::ignore_line()
+void Scanner::ignoreLine()
 {
-    while (next_char() != '\n')
+    while (nextChar() != '\n')
     {
     }
 }
 
-void Scanner::unget_char()
+void Scanner::ungetChar()
 {
     m_filein->unget();
 }
@@ -297,7 +297,7 @@ TokenType Scanner::reserved_lookup(const char *s)
     return TokenType::NAME;
 }
 
-Token *Scanner::next_token()
+Token *Scanner::nextToken()
 {
     string token_string;
     TokenType current_token{TokenType::ENDFILE};
@@ -307,7 +307,7 @@ Token *Scanner::next_token()
     bool save;
     while (state != StateType::DONE && m_filein->good())
     {
-        char c = next_char();
+        char c = nextChar();
         save = true;
         switch (state)
         {
@@ -333,10 +333,10 @@ Token *Scanner::next_token()
                 }
                 else if (c == '>')
                 {
-                    wchar_t next = next_char();
+                    wchar_t next = nextChar();
                     if (next != '>')
                     {
-                        unget_char();
+                        ungetChar();
                         save = false;
                         current_token = TokenType::ERROR;
                     }
@@ -354,10 +354,10 @@ Token *Scanner::next_token()
                 }
                 else if (c == '<')
                 {
-                    wchar_t next = next_char();
+                    wchar_t next = nextChar();
                     if (next != '<')
                     {
-                        unget_char();
+                        ungetChar();
                         save = false;
                         state = StateType::INHEXSTR;
                     }
@@ -400,7 +400,7 @@ Token *Scanner::next_token()
                 if (!isdigit(c) && (c != '.'))
                 {
                     /* backup in the input */
-                    unget_char();
+                    ungetChar();
                     save = false;
                     state = StateType::DONE;
                     current_token = TokenType::NUM;
@@ -441,12 +441,12 @@ Token *Scanner::next_token()
                 else if (c == '\\')
                 {
                     // save the next char
-                    c = next_char();
+                    c = nextChar();
                     if (c >= '0' && c <= '9')
                     {
                         string value{c};
-                        value += next_char();
-                        char c3 = next_char();
+                        value += nextChar();
+                        char c3 = nextChar();
                         if (isnum(c3))
                         {
                             // for \99 only
@@ -505,7 +505,7 @@ Token *Scanner::next_token()
                 if (is_space(c) || strchr(special_chars, c))
                 {
                     save = false;
-                    unget_char();
+                    ungetChar();
                     state = StateType::DONE;
                     current_token = reserved_lookup(token_string.c_str());
                 }

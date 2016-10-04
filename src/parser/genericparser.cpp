@@ -61,7 +61,7 @@ bool GenericParser::match(TokenType type)
 
 void GenericParser::nextToken()
 {
-    m_token = m_scanner->next_token();
+    m_token = m_scanner->nextToken();
 }
 
 TreeNode *GenericParser::valueSequence()

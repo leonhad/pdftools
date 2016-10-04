@@ -28,7 +28,7 @@ using namespace node;
 
 CMapParser::CMapParser(istream *stream) : GenericParser{stream}
 {
-    m_scanner->disable_charset_conversion();
+    m_scanner->disableCharsetConversion();
     m_root = nullptr;
 }
 

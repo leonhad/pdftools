@@ -30,7 +30,7 @@ using namespace node;
 
 PageParser::PageParser(istream *stream) : GenericParser{stream}
 {
-    m_scanner->disable_charset_conversion();
+    m_scanner->disableCharsetConversion();
 }
 
 PageParser::~PageParser()
@@ -200,7 +200,7 @@ TreeNode *PageParser::bi_sequence()
         TreeNode *value = valueSequence();
         delete value;
     }
-    m_scanner->get_image_stream();
+    m_scanner->getImageStream();
     nextToken();
     match(TokenType::EI);
     return nullptr;

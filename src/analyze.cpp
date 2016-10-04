@@ -523,7 +523,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
     Scanner scanner{&m_filestream};
     scanner.to_pos(obj->streamPos());
 
-    char *stream = scanner.get_stream(length);
+    char *stream = scanner.getStream(length);
     filein.close();
 
     int total = length;
