@@ -29,34 +29,87 @@
 namespace node
 {
     class TreeNode;
+
     class RootNode;
 }
 
 namespace parser
 {
-
+    /**
+     * Parses a PDF file.
+     */
     class Parser : public GenericParser
     {
     private:
+        /**
+         * If this is a linear file.
+         */
         bool m_linear;
+
+        /**
+         * The PDF file version.
+         */
         std::string m_version;
 
     public:
-        Parser(std::ifstream *filein) throw (std::exception);
-        virtual ~Parser() noexcept = default;
+        /**
+         * Creates a new instance.
+         *
+         * \param filein the file to parse.
+         */
+        explicit Parser(std::ifstream *filein) throw(std::exception);
 
+        /**
+         * Destroy this instance.
+         */
+        virtual ~Parser() = default;
+
+        /**
+         * Parses the root node.
+         *
+         * \return the root node.
+         */
         node::RootNode *parse();
 
     private:
-        bool verify_version();
-        void object_streams(node::RootNode *root);
-        void startxref_sequence();
+        /**
+         * Verify the PDF version.
+         *
+         * \return true if this file is a valid version.
+         */
+        bool verifyVersion();
 
-        void comment_sequence();
-        node::TreeNode *object_sequence();
-        node::TreeNode *xref_sequence();
+        /**
+         * Parses the object streams.
+         *
+         * \param root the root node to parse.
+         */
+        void objectStreams(node::RootNode *root);
+
+        /**
+         * Parses the start XREF sequences.
+         */
+        void startXrefSequence();
+
+        /**
+         * Parses the comment sequences.
+         */
+        void commentSequence();
+
+        /**
+         * Parses the object sequences.
+         *
+         * \return the object node.
+         */
+        node::TreeNode *objectSequence();
+
+        /**
+         * Parses the XREF sequences.
+         *
+         * \return the XREF node.
+         */
+        node::TreeNode *xrefSequence();
     };
-
 }
 
 #endif

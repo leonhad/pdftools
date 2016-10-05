@@ -52,7 +52,7 @@ namespace parser
          *
          * \param stream the CMap stream to read.
          */
-        CMapParser(std::istream *stream);
+        explicit CMapParser(std::istream *stream);
 
         /**
          * Destroy this instance.

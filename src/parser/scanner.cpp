@@ -200,7 +200,7 @@ istream::pos_type Scanner::ignoreStream(int length)
                 if (strcmp("ndstream", buff) == 0)
                 {
                     // restore the endstream token
-                    m_filein->seekg((int)pos - 1);
+                    m_filein->seekg((int) pos - 1);
                     break;
                 }
                 // not the endstream
@@ -236,7 +236,7 @@ char *Scanner::getImageStream()
             m_filein->seekg(pos);
         }
     }
-    // FIXME save image stream
+    // FIXME save image stream.
     return nullptr;
 }
 
@@ -256,7 +256,7 @@ char Scanner::nextChar()
         ret = m_filein->get();
         if (ret == '\r')
         {
-            char second = m_filein->get();
+            int second = m_filein->get();
             if (second == '\n')
             {
                 return '\n';

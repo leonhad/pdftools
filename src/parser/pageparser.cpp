@@ -66,7 +66,7 @@ RootNode *PageParser::parse()
             switch (m_token->type())
             {
             case TokenType::BDC:
-                root = bdc_sequence(values, root);
+                root = bdcSequence(values, root);
                 break;
             case TokenType::EMC:
             {
@@ -79,16 +79,16 @@ RootNode *PageParser::parse()
                 break;
             }
             case TokenType::BI:
-                root->addChild(bi_sequence());
+                root->addChild(biSequence());
                 break;
 
                 // Text positioning
             case TokenType::TM:
-                root->addChild(tm_sequence(values));
+                root->addChild(tmSequence(values));
                 break;
 
             case TokenType::TF:
-                root->addChild(font_sequence(values));
+                root->addChild(fontSequence(values));
                 break;
 
                 // Graphic State
@@ -104,10 +104,10 @@ RootNode *PageParser::parse()
                 // Text
             case TokenType::TJ_LO:
                 match(TokenType::TJ_LO);
-                    root->addChild(text_sequence(values));
+                    root->addChild(textSequence(values));
                 break;
             case TokenType::TJ_UP:
-                tjup_sequence(root, values);
+                tjupSequence(root, values);
                 break;
             case TokenType::T_AST:
                 match(TokenType::T_AST);
@@ -119,13 +119,13 @@ RootNode *PageParser::parse()
                 root->addChild(new BreakNode);
                 vector<TreeNode *> vector;
                 vector.assign(values.begin() + 3, values.end());
-                root->addChild(text_sequence(vector));
+                root->addChild(textSequence(vector));
                 break;
             }
             case TokenType::QUOTE:
                 match(TokenType::QUOTE);
                     root->addChild(new BreakNode);
-                    root->addChild(text_sequence(values));
+                    root->addChild(textSequence(values));
                     nextToken();
                 break;
             default:
@@ -146,7 +146,7 @@ RootNode *PageParser::parse()
     return m_root;
 }
 
-TreeNode *PageParser::tm_sequence(vector<TreeNode *> &values)
+TreeNode *PageParser::tmSequence(vector<TreeNode *> &values)
 {
     match(TokenType::TM);
 
@@ -164,7 +164,7 @@ TreeNode *PageParser::tm_sequence(vector<TreeNode *> &values)
     return nullptr;
 }
 
-TreeNode *PageParser::font_sequence(vector<TreeNode *> &values)
+TreeNode *PageParser::fontSequence(vector<TreeNode *> &values)
 {
     match(TokenType::TF);
 
@@ -191,7 +191,7 @@ TreeNode *PageParser::font_sequence(vector<TreeNode *> &values)
     }
 }
 
-TreeNode *PageParser::bi_sequence()
+TreeNode *PageParser::biSequence()
 {
     match(TokenType::BI);
     while (m_token->type() != TokenType::ID)
@@ -206,7 +206,7 @@ TreeNode *PageParser::bi_sequence()
     return nullptr;
 }
 
-TreeNode *PageParser::text_sequence(vector<TreeNode *> &values)
+TreeNode *PageParser::textSequence(vector<TreeNode *> &values)
 {
     TextNode *text = new TextNode;
     size_t size = values.size();
@@ -221,7 +221,7 @@ TreeNode *PageParser::text_sequence(vector<TreeNode *> &values)
     return text;
 }
 
-void PageParser::tjup_sequence(RootNode *root, vector<TreeNode *> &values)
+void PageParser::tjupSequence(RootNode *root, vector<TreeNode *> &values)
 {
     match(TokenType::TJ_UP);
     size_t size = values.size();
@@ -245,7 +245,7 @@ void PageParser::tjup_sequence(RootNode *root, vector<TreeNode *> &values)
     }
 }
 
-BDCNode *PageParser::bdc_sequence(vector<TreeNode *> &values, RootNode *parent)
+BDCNode *PageParser::bdcSequence(vector<TreeNode *> &values, RootNode *parent)
 {
     match(TokenType::BDC);
     BDCNode *node = new BDCNode(parent);

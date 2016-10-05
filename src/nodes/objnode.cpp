@@ -18,13 +18,12 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "objnode.h"
-#include <cstdlib>
 
 using namespace std;
 using namespace node;
 
 ObjNode::ObjNode(int id, int generation) : TreeNode(), m_id(id), m_generation(generation),
-    m_streamPos(0), m_value(nullptr)
+                                           m_streamPos(istream::beg), m_value(nullptr)
 {
 }
 
@@ -66,12 +65,12 @@ void ObjNode::setValue(TreeNode *value)
     m_value = value;
 }
 
-void ObjNode::setStreamPos(size_t pos)
+void ObjNode::setStreamPos(istream::pos_type pos)
 {
     m_streamPos = pos;
 }
 
-size_t ObjNode::streamPos() const
+istream::pos_type ObjNode::streamPos() const
 {
     return m_streamPos;
 }

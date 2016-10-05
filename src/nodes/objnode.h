@@ -24,6 +24,7 @@
 #include <vector>
 #include <cstdint>
 #include <cstddef>
+#include <istream>
 
 namespace node
 {
@@ -46,7 +47,7 @@ namespace node
         /**
          * The binary object stream position.
          */
-        size_t m_streamPos;
+        std::istream::pos_type m_streamPos;
 
         /**
          * The tree node value.
@@ -79,7 +80,7 @@ namespace node
          *
          * \param pos the binary stream position.
          */
-        void setStreamPos(size_t pos);
+        void setStreamPos(std::istream::pos_type pos);
 
         /**
          * Gets the object id.
@@ -100,7 +101,7 @@ namespace node
          *
          * \return the binary stream position.
          */
-        size_t streamPos() const;
+        std::istream::pos_type streamPos() const;
 
         /**
          * Gets the tree node value.

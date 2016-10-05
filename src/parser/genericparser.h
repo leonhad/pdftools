@@ -52,7 +52,7 @@ namespace parser
          *
          * \param filein the file to parse.
          */
-        GenericParser(std::istream *filein);
+        explicit GenericParser(std::istream *filein);
 
         /**
          * Destroy this instance.

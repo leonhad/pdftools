@@ -28,35 +28,96 @@
 namespace node
 {
     class BDCNode;
+
     class RootNode;
+
     class TreeNode;
+
     class Token;
 }
 
 namespace parser
 {
-
+    /**
+     * Parses a PDF page.
+     */
     class PageParser : public GenericParser
     {
     private:
+        /**
+         * The tree root node.
+         */
         node::RootNode *m_root = nullptr;
 
     public:
-        PageParser(std::istream *stream);
+        /**
+         * Create a new instance.
+         *
+         * \param stream the object stream.
+         */
+        explicit PageParser(std::istream *stream);
+
+        /**
+         * Destroy this instance.
+         */
         ~PageParser();
 
+        /**
+         * Parses the page.
+         *
+         * \return the root node.
+         */
         node::RootNode *parse();
 
     private:
-        node::TreeNode *tm_sequence(std::vector<node::TreeNode *> &values);
-        node::TreeNode *font_sequence(std::vector<node::TreeNode *> &values);
-        node::TreeNode *bi_sequence();
-        node::BDCNode *bdc_sequence(std::vector<node::TreeNode *> &values, node::RootNode *parent);
-        node::TreeNode *text_sequence(std::vector<node::TreeNode *> &values);
-        void tjup_sequence(node::RootNode *root, std::vector<node::TreeNode *> &values);
+        /**
+         * Parses the TM sequence.
+         *
+         * \param values the nodes to parse.
+         * \return the sequence node.
+         */
+        node::TreeNode *tmSequence(std::vector<node::TreeNode *> &values);
 
+        /**
+         * Parses the font sequence.
+         *
+         * \param values the nodes to parse.
+         * \return the sequence node.
+         */
+        node::TreeNode *fontSequence(std::vector<node::TreeNode *> &values);
+
+        /**
+         * Parses the BI sequence.
+         *
+         * \return the node.
+         */
+        node::TreeNode *biSequence();
+
+        /**
+         * Parses the TM sequence.
+         *
+         * \param values the nodes to parse.
+         * \param parent the parent node.
+         * \return the sequence node.
+         */
+        node::BDCNode *bdcSequence(std::vector<node::TreeNode *> &values, node::RootNode *parent);
+
+        /**
+         * Parses the text sequence.
+         *
+         * \param values the nodes to parse.
+         * \return the sequence node.
+         */
+        node::TreeNode *textSequence(std::vector<node::TreeNode *> &values);
+
+        /**
+         * Parses the TJUP node.
+         *
+         * \param root the root node.
+         * \param values the node values.
+         */
+        void tjupSequence(node::RootNode *root, std::vector<node::TreeNode *> &values);
     };
-
 }
 
 #endif
