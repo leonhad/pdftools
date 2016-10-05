@@ -110,7 +110,7 @@ namespace parser
         char *getStream(int length);
 
         /**
-         * GEt a image stream.
+         * Get a image stream.
          *
          * \return the image stream.
          */
