@@ -32,7 +32,7 @@ void TextGlyph::doGlyph(Html *document)
 {
     Font *current = m_context->font();
 
-    document->addFont(current->size() * m_context->font_size(), current->bold(), current->italic(), current->fixed());
+    document->addFont(current->size() * m_context->fontSize(), current->bold(), current->italic(), current->fixed());
     string text = current->translate(m_text);
 
     document->addElement(text + " ");

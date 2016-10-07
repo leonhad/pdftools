@@ -71,7 +71,7 @@ string Page::font_name(string &alias)
 void Page::execute(Html *html)
 {
     Context *context = new Context(m_document);
-    context->set_current_page(this);
+    context->setCurrentPage(this);
     html->addSection(link());
     m_root->execute(html, context);
     html->endTag();

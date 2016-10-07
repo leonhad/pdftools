@@ -29,5 +29,5 @@ FontGlyph::FontGlyph(string &&font, int size) : Glyph(), m_size(move(size)), m_f
 
 void FontGlyph::doGlyph(Html *)
 {
-    m_context->set_current_font(m_font, m_size);
+    m_context->setCurrentFont(m_font, m_size);
 }

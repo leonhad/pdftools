@@ -23,33 +23,129 @@
 #include <string>
 
 class Document;
+
 class Font;
+
 class Page;
 
+/**
+ * Stores a context for HTML generation.
+ */
 class Context
 {
 private:
+    /**
+     * The document.
+     */
     Document *m_document;
+
+    /**
+     * The current page.
+     */
     Page *m_page;
+
+    /**
+     * The current font.
+     */
     Font *m_font;
+
+    /**
+     * Is the font is changed.
+     */
     bool m_font_changed;
+
+    /**
+     * If use the font.
+     */
     bool m_use_font;
+
+    /**
+     * The font size.
+     */
     double m_font_size;
 
 public:
-    Context(Document *document);
+    /**
+     * Creates a new instance.
+     *
+     * \param document the document.
+     */
+    explicit Context(Document *document);
+
+    /**
+     * Destroy the instance.
+     */
     ~Context();
 
-    void set_use_font(bool use_font);
-    void set_font_changed(bool changed);
-    void set_current_font(std::string &alias, int size);
-    void set_current_page(Page *page);
-    void set_font_size(double size);
+    /**
+     * Sets the use of font.
+     *
+     * \param use_font true if use the font.
+     */
+    void setUseFont(bool use_font);
 
-    bool use_font();
-    bool font_changed();
+    /**
+     * Sets if the font is changed.
+     *
+     * \param changed true if the font is changed.
+     */
+    void setFontChanged(bool changed);
+
+    /**
+     * Sets the current font.
+     *
+     * \param alias the font alias.
+     * \param size the font size.
+     */
+    void setCurrentFont(std::string &alias, int size);
+
+    /**
+     * Sets the current page.
+     *
+     * \param page the current page.
+     */
+    void setCurrentPage(Page *page);
+
+    /**
+     * Sets the font size.
+     *
+     * \param size the font size.
+     */
+    void setFontSize(double size);
+
+    /**
+     * Gets if use font.
+     *
+     * \return true if use font.
+     */
+    bool useFont();
+
+    /**
+     * Gets if font is changed.
+     *
+     * \return true if the font changed.
+     */
+    bool fontChanged();
+
+    /**
+     * Gets the current font.
+     *
+     * \return the current font.
+     */
     Font *font();
-    double font_size();
+
+    /**
+     * Gets the font size.
+     *
+     * \return the font size.
+     */
+    double fontSize();
+
+    /**
+     * Gets the document.
+     *
+     * \return the document.
+     */
     Document *document();
 };
 

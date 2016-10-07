@@ -39,37 +39,37 @@ Context::~Context()
 {
 }
 
-void Context::set_font_size(double size)
+void Context::setFontSize(double size)
 {
     m_font_size = size;
 }
 
-double Context::font_size()
+double Context::fontSize()
 {
     return m_font_size;
 }
 
-void Context::set_font_changed(bool changed)
+void Context::setFontChanged(bool changed)
 {
     m_font_changed = changed;
 }
 
-bool Context::font_changed()
+bool Context::fontChanged()
 {
     return m_font_changed;
 }
 
-bool Context::use_font()
+bool Context::useFont()
 {
     return m_use_font;
 }
 
-void Context::set_use_font(bool use_font)
+void Context::setUseFont(bool use_font)
 {
     m_use_font = use_font;
 }
 
-void Context::set_current_page(Page *page)
+void Context::setCurrentPage(Page *page)
 {
     m_page = page;
 }
@@ -79,7 +79,7 @@ Document *Context::document()
     return m_document;
 }
 
-void Context::set_current_font(string &alias, int size)
+void Context::setCurrentFont(string &alias, int size)
 {
     if (m_document && m_page)
     {

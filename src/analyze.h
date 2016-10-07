@@ -68,7 +68,8 @@ private:
     void analyzePages(node::TreeNode *page, node::ArrayNode *mediabox = nullptr);
     Font *analyzeFont(node::MapNode *fontmap);
 
-    Page *processPage(int id, int generation, std::stringstream *stream_value, node::MapNode *catalog, node::ArrayNode * mediabox);
+    Page *processPage(int id, int generation, std::stringstream *stream_value, node::MapNode *catalog,
+            node::ArrayNode * mediabox);
 
     std::string getStringValue(node::TreeNode *value);
     double getNumberValue(node::TreeNode *value, int default_value = 0);
