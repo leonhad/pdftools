@@ -24,61 +24,476 @@
 
 namespace parser
 {
-
+    /**
+     * Defines the token type.
+     */
     enum class TokenType
     {
-        ENDFILE, ERROR, START_ARRAY, END_ARRAY, TRUE, FALSE,
-        NAME, NUM, STRING, PERCENT, START_DICT, END_DICT, NEW_LINE,
+        /**
+         * The end of file.
+         */
+        ENDFILE,
 
-        OBJ, END_OBJ, END_PDF, XREF, TRAILER, START_XREF, STREAM, END_STREAM,
+        /**
+         * A error.
+         */
+        ERROR,
 
-        // Graphics state
-                W_LO, J_LO, J_UP, M_UP, D, RI, I, GS,
+        /**
+         * Indicates the start of an array.
+         *
+         */
+        START_ARRAY,
 
-        // Path painting
-                S_UP, S_LO, F_UP, F_LO, F_AST, B_UP, B_UP_AST, B_LO, B_LO_AST, N,
+        /**
+         * A end array.
+         */
+        END_ARRAY,
 
-        // Special Graphics state
-                Q_UP, Q_LO, CM, V, Y,
+        /**
+         * True value.
+         */
+        TRUE,
 
-        // Path construction
-                M_LO, L, C, H, RE,
+        /**
+         * False value.
+         */
+        FALSE,
 
-        // Clipping paths
-                W_AST, W_UP,
+        /**
+         * The name token.
+         */
+        NAME,
 
-        // Text objects
-                BT, ET,
+        /**
+         * The num token.
+         */
+        NUM,
 
-        // Text state
-                TC, TW, TZ, TL, TF, TR, TS,
+        /**
+         * The string token.
+         */
+        STRING,
 
-        // Text positioning
-                TD_UP, TD_LO, TM, T_AST,
+        /**
+         * The percent token.
+         */
+        PERCENT,
 
-        // Text showing
-                TJ_UP, TJ_LO, QUOTE, DOUBLE_QUOTE,
+        /**
+         * The token to start a dictionary.
+         */
+        START_DICT,
 
-        // Type 3 fonts
-                D0, D1,
+        /**
+         * The token to end a dictionary.
+         */
+        END_DICT,
 
-        // Color
-                CS_UP, CS_LO, SCN_UP, SCN_LO, SC_UP, SC_LO, G_LO, G_UP, RG_LO, RG_UP, K_LO, K_UP,
+        /**
+         * The new line token.
+         */
+        NEW_LINE,
 
-        // Shading patterns
-                SH,
+        /**
+         * The object token.
+         */
+        OBJ,
 
-        // Inline images
-                BI, ID, EI,
+        /**
+         * Indicates a end of object.
+         */
+        END_OBJ,
 
-        // XObjects
-                DO,
+        /**
+         * Indicates the end of PDF file.
+         */
+        END_PDF,
 
-        // Marked content
-                MP, DP, BMC, BDC, EMC,
+        /**
+         * The XREF token.
+         */
+        XREF,
 
-        // Compatibility
-                BX, EX
+        /**
+         * The trailer token.
+         */
+        TRAILER,
+
+        /**
+         * The start XREF token.
+         */
+        START_XREF,
+
+        /**
+         * The stream token.
+         */
+        STREAM,
+
+        /**
+         * Indicates the end of stream.
+         */
+        END_STREAM,
+
+        /**
+         * The WLO token.
+         */
+        W_LO,
+
+        /**
+         * The JLO token.
+         */
+        J_LO,
+
+        /**
+         * The JUP token.
+         */
+        J_UP,
+
+        /**
+         * The MUP token.
+         */
+        M_UP,
+
+        /**
+         * The D token.
+         */
+        D,
+
+        /**
+         * The RI token.
+         */
+        RI,
+
+        /**
+         * The I token.
+         */
+        I,
+
+        /**
+         * The GS token.
+         */
+        GS,
+
+        /**
+         * The SUP token.
+         */
+        S_UP,
+
+        /**
+         * The SLO token.
+         */
+        S_LO,
+
+        /**
+         * The FUP token.
+         */
+        F_UP,
+
+        /**
+         * The FLO token.
+         */
+        F_LO,
+
+        /**
+         * The FAST token.
+         */
+        F_AST,
+
+        /**
+         * The BUP token.
+         */
+        B_UP,
+
+        /**
+         * The BUPAST token.
+         */
+        B_UP_AST,
+
+        /**
+         * The BLO token.
+         */
+        B_LO,
+
+        /**
+         * The BLOAST token.
+         */
+        B_LO_AST,
+
+        /**
+         * the N token.
+         */
+        N,
+
+        /**
+         * The QUP token.
+         */
+        Q_UP,
+
+        /**
+         * The QLO token.
+         */
+        Q_LO,
+
+        /**
+         * The CM token.
+         */
+        CM,
+
+        /**
+         * The V token.
+         */
+        V,
+
+        /**
+         * The Y token.
+         */
+        Y,
+
+        /**
+         * The MLO token.
+         */
+        M_LO,
+
+        /**
+         * The L token.
+         */
+        L,
+
+        /**
+         * The C token.
+         */
+        C,
+
+        /**
+         * The H token.
+         */
+        H, RE,
+
+        /**
+         * The WAST token.
+         */
+        W_AST,
+
+        /**
+         * The WUP token.
+         */
+        W_UP,
+
+        /**
+         * The BT token.
+         */
+        BT,
+
+        /**
+         * The ET token.
+         */
+        ET,
+
+        /**
+         * The TC token.
+         */
+        TC,
+
+        /**
+         * The TW token.
+         */
+        TW,
+
+        /**
+         * The TZ token.
+         */
+        TZ,
+
+        /**
+         * The TL token.
+         */
+        TL,
+
+        /**
+         * The TF token.
+         */
+        TF,
+
+        /**
+         * The TR token.
+         */
+        TR,
+
+        /**
+         * The TS token.
+         */
+        TS,
+
+        /**
+         * The TDUP token.
+         */
+        TD_UP,
+
+        /**
+         * The TDLO token.
+         */
+        TD_LO,
+
+        /**
+         * The TM token.
+         */
+        TM,
+
+        /**
+         * The TAST token.
+         */
+        T_AST,
+
+        /**
+         * The TJUP token.
+         */
+        TJ_UP,
+
+        /**
+         * The TJLO token.
+         */
+        TJ_LO,
+
+        /**
+         * The quote token.
+         */
+        QUOTE,
+
+        /**
+         * The double quote token.
+         */
+        DOUBLE_QUOTE,
+
+        /**
+         * The D0 token.
+         */
+        D0,
+
+        /**
+         * The D1 token.
+         */
+        D1,
+
+        /**
+         * The CSUP token.
+         */
+        CS_UP,
+
+        /**
+         * The CSLO token.
+         */
+        CS_LO,
+
+        /**
+         * The SCNUP token.
+         */
+        SCN_UP,
+
+        /**
+         * The SCNLO token.
+         */
+        SCN_LO,
+
+        /**
+         * The SCUP token.
+         */
+        SC_UP,
+
+        /**
+         * The SCLO token.
+         */
+        SC_LO,
+
+        /**
+         * The GLO token.
+         */
+        G_LO,
+
+        /**
+         * The GUP token.
+         */
+        G_UP,
+
+        /**
+         * The RGLO token.
+         */
+        RG_LO,
+
+        /**
+         * The RGUP token.
+         */
+        RG_UP,
+
+        /**
+         * The KLO token.
+         */
+        K_LO,
+
+        /**
+         * The KUP token.
+         */
+        K_UP,
+
+        /**
+         * The SH token.
+         */
+        SH,
+
+        /**
+         * The BI token.
+         */
+        BI,
+
+        /**
+         * The ID token.
+         */
+        ID,
+
+        /**
+         * The EI token.
+         */
+        EI,
+
+        /**
+         * The XObject token.
+         */
+        DO,
+
+        /**
+         * The MP token.
+         */
+        MP,
+
+        /**
+         * The DP token.
+         */
+        DP,
+
+        /**
+         * The BMC token.
+         */
+        BMC,
+
+        /**
+         * The BDC token.
+         */
+        BDC,
+
+        /**
+         * The EMC token.
+         */
+        EMC,
+
+        /**
+         * The BX token.
+         */
+        BX,
+
+        /**
+         * The EX token.
+         */
+        EX
     };
 
     /**
