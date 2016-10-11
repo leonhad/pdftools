@@ -46,7 +46,6 @@ class Analyze
 {
 private:
     const std::string m_filein;
-    std::ifstream m_filestream;
     Document *m_document = nullptr;
     node::RootNode *m_tree = nullptr;
     node::TreeNode *m_page_tree = nullptr;

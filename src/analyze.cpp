@@ -39,22 +39,23 @@ using namespace node;
 
 Analyze::Analyze(const string &filein) throw(exception) : m_filein(filein)
 {
-    m_filestream.open(filein, ios::binary);
+    ifstream filestream;
+    filestream.open(filein, ios::binary);
 
-    if (!m_filestream.is_open())
+    if (!filestream.is_open())
     {
         string message{"Invalid input file name: "};
         message += filein;
         throw GenericException(message);
     }
+    else
+    {
+        filestream.close();
+    }
 }
 
 Analyze::~Analyze()
 {
-    if (m_filestream.is_open())
-    {
-        m_filestream.close();
-    }
 }
 
 void Analyze::analyzeXref()
@@ -367,7 +368,10 @@ Document *Analyze::analyzeTree() throw(exception)
 {
     verbose_message("Parsing file " + m_filein);
 
-    Parser parser(&m_filestream);
+    ifstream filestream;
+    filestream.open(m_filein, ios::binary);
+    Parser parser(&filestream);
+    filestream.close();
 
     m_tree = parser.parse();
     if (!m_tree)
@@ -520,7 +524,9 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
     ifstream filein;
     filein.open(m_filein, ios::binary);
 
-    Scanner scanner{&m_filestream};
+    ifstream filestream;
+    filestream.open(m_filein, ios::binary);
+    Scanner scanner{&filestream};
     scanner.to_pos(obj->streamPos());
 
     char *stream = scanner.getStream(length);
