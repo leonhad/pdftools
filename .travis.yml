@@ -6,7 +6,8 @@ addons:
   apt:
     packages:
       - autotools-dev
-      - automake
+      - automake-1.5
+      - cppunit
 
 compiler:
   - clang
