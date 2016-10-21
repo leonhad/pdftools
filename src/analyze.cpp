@@ -185,7 +185,7 @@ void Analyze::analyzeRoot()
 
             for (size_t loop = 0; loop < size; loop += 2)
             {
-                double page = getNumberValue(array->value(loop));
+                int page = (int) getNumberValue(array->value(loop));
                 MapNode *attributes = dynamic_cast<MapNode *> (getRealObjValue(array->value(loop + 1)));
                 if (attributes)
                 {
@@ -215,7 +215,7 @@ void Analyze::analyzeRoot()
                         }
                     }
                     string newName = getStringValue(attributes->get("/P"));
-                    int range = getNumberValue(attributes->get("/St"), 1);
+                    int range = (int) getNumberValue(attributes->get("/St"), 1);
                     m_document->addPageLabel(new PageLabel(page, range, type, newName));
                 }
             }
@@ -459,7 +459,7 @@ Font *Analyze::analyzeFont(MapNode *fontmap)
 
     if (descriptor)
     {
-        int flags = getNumberValue(getRealObjValue(descriptor->get("/Flags")));
+        int flags = (int) getNumberValue(getRealObjValue(descriptor->get("/Flags")));
         if (flags & 1)
         {
             font->set_fixed(true);
@@ -519,7 +519,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
     MapNode *node = dynamic_cast<MapNode *> (obj->value());
     NameNode *filter = dynamic_cast<NameNode *> (getRealObjValue(node->get("/Filter")));
     ArrayNode *filter_array = dynamic_cast<ArrayNode *> (getRealObjValue(node->get("/Filter")));
-    int length = getNumberValue(getRealObjValue(node->get("/Length")));
+    int length = (int) getNumberValue(getRealObjValue(node->get("/Length")));
 
     ifstream filein;
     filein.open(m_filein, ios::binary);
