@@ -7,7 +7,7 @@ addons:
     packages:
       - autotools-dev
       - automake-1.5
-      - cppunit
+      - libcppunit-dev
 
 compiler:
   - clang
