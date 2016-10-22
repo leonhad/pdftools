@@ -6,7 +6,7 @@ addons:
   apt:
     packages:
       - autotools-dev
-      - automake-1.5
+      - automake
       - libcppunit-dev
 
 compiler:
