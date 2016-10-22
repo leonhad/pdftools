@@ -8,6 +8,8 @@ addons:
       - autotools-dev
       - automake
 
+script: ./configure && make && make check 
+
 before_install:
 - echo $LANG
 - echo $LC_ALL
