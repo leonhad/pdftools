@@ -25,6 +25,7 @@
 #include <zlib.h>
 #include <iconv.h>
 #include <sstream>
+#include <cstring>
 
 using namespace std;
 
