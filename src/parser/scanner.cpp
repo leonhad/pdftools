@@ -19,6 +19,7 @@
  */
 #include "scanner.h"
 #include "utils.h"
+#include <cstring>
 
 using namespace std;
 using namespace parser;
