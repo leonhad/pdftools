@@ -39,16 +39,24 @@ pdftools_LDADD = \
 
 testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src -I..
 
-testsuit_LDFLAGS = $(CPPUNIT_LIBS) -lcppunit -ldl \
-	$(pdftools_LDADD) \
+testsuit_LDADD = $(CPPUNIT_LIBS) -lcppunit -ldl \
+	semantic/libsemantic.a \
+        parser/libparser.a \
+        epub/libepub.a \
+        zip/libzip.a \
+        html/libhtml.a \
+        xml/libxml.a \
+        glyphs/libglyphs.a \
+        graphics/libgraphics.a \
+        nodes/libnodes.a \
 	zip/libziptest.a
 
 testsuit_SOURCES = \
 	suittest.cpp \
-	utils.cpp \
 	analyze.cpp \
 	pageanalyze.cpp \
 	converter.cpp \
+	utils.cpp \
 	generator.cpp \
 	genericexception.cpp
 
