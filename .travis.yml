@@ -11,9 +11,17 @@ addons:
 script: ./configure && make && make check 
 
 before_install:
-- echo $LANG
-- echo $LC_ALL
-- if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install cppunit; fi
+  - echo $LANG
+  - echo $LC_ALL
+  - if [ $TRAVIS_OS_NAME == osx ]; then brew update && brew install cppunit; fi
+
+before_script:
+  - wget http://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz
+  - tar xvf automake-1.15.tar.xz
+  - cd automake-1.15
+  - ./configure --prefix=/usr && make
+  - sudo make install
+  - cd ..
 
 compiler:
   - clang
