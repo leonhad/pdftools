@@ -7,7 +7,7 @@ addons:
     packages:
       - autotools-dev
       - automake
-      - libcppunit
+      - libcppunit-dev
 
 script:
   - autoreconf
