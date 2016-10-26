@@ -39,7 +39,7 @@ pdftools_LDADD = \
 
 testsuit_CXXFLAGS = $(CPPUNIT_CFLAGS) -I../src -I..
 
-testsuit_LDFLAGS = $(CPPUNIT_LIBS) -ldl \
+testsuit_LDFLAGS = $(CPPUNIT_LIBS) -lcppunit -ldl \
 	$(pdftools_LDADD) \
 	zip/libziptest.a
 
