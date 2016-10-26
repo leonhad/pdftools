@@ -20,6 +20,7 @@
 #include "zipfile.h"
 #include "utils.h"
 #include <zlib.h>
+#include <cstring>
 
 using namespace std;
 
