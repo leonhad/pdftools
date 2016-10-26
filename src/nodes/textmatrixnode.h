@@ -22,6 +22,7 @@
 
 #include "treenode.h"
 #include <vector>
+#include <cstddef>
 #include <initializer_list>
 
 namespace node
