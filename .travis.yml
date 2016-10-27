@@ -13,7 +13,9 @@ addons:
 
 script:
   - autoreconf -f -i
-  - ./configure && make && make check 
+  - ./configure
+  - make -j
+  - make check 
 
 before_install:
   - echo $LANG
