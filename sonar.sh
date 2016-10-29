@@ -2,7 +2,7 @@
 
 rm -rf out/
 build-wrapper --out-dir out/ make all
-make check
+make check -j
 xsltproc cppunit-1.x-to-junit-1.0.xsl src/cppunit.xml > out/cppunit.xml
 rm src/cppunit.xml
 gcovr -x -r . > out/gcov.xml
