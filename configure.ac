@@ -1,5 +1,5 @@
 AC_PREREQ(2.62)
-AC_INIT([pdftools],[0.4.1],[leonhad@gmail.com],[pdftools],[https://github.com/leonhad/pdftools])
+AC_INIT([pdftools],[0.5.0],[leonhad@gmail.com],[pdftools],[https://github.com/leonhad/pdftools])
 AM_INIT_AUTOMAKE([-Wall tar-ustar no-define nostdinc ])
 AM_PATH_CPPUNIT(1.9.6)
 AC_CONFIG_SRCDIR([config.h.in])
