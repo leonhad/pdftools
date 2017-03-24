@@ -143,7 +143,7 @@ void Document::addPageLabel(PageLabel *label)
 
 Page *Document::page(size_t index)
 {
-    return m_pages[index];
+    return m_pages [index];
 }
 
 size_t Document::pages()

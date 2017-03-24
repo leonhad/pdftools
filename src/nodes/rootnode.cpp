@@ -22,7 +22,8 @@
 using namespace std;
 using namespace node;
 
-RootNode::RootNode() : TreeNode()
+RootNode::RootNode() :
+        TreeNode()
 {
 }
 
@@ -41,7 +42,7 @@ void RootNode::addChild(TreeNode *child)
 
 TreeNode *RootNode::get(size_t index) const
 {
-    return m_child[index];
+    return m_child [index];
 }
 
 size_t RootNode::size() const

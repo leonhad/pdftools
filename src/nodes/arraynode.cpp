@@ -22,7 +22,8 @@
 using namespace std;
 using namespace node;
 
-ArrayNode::ArrayNode() : TreeNode()
+ArrayNode::ArrayNode() :
+        TreeNode()
 {
 }
 
@@ -36,7 +37,7 @@ ArrayNode::~ArrayNode()
 
 TreeNode *ArrayNode::value(size_t index) const
 {
-    return m_values[index];
+    return m_values [index];
 }
 
 size_t ArrayNode::size() const

@@ -96,7 +96,7 @@ void Font::set_charmap_finish(string value)
 
 void Font::add_charmap(string character, string utf16value)
 {
-    m_charmap[character] = utf16be_to_utf8(utf16value);
+    m_charmap [character] = utf16be_to_utf8(utf16value);
 }
 
 string Font::translate(string &value)
@@ -121,7 +121,7 @@ string Font::translate(string &value)
         if (f <= 0 && s >= 0)
         {
             string c = string(buffer, size);
-            ret += m_charmap[c];
+            ret += m_charmap [c];
         }
         else
         {

@@ -24,7 +24,8 @@
 
 using namespace std;
 
-TextGlyph::TextGlyph(string &&text) : m_text(move(text))
+TextGlyph::TextGlyph(string &&text) :
+        m_text(move(text))
 {
 }
 
@@ -32,7 +33,8 @@ void TextGlyph::doGlyph(Html *document)
 {
     Font *current = m_context->font();
 
-    document->addFont(current->size() * m_context->fontSize(), current->bold(), current->italic(), current->fixed());
+    document->addFont(current->size() * m_context->fontSize(), current->bold(), current->italic(),
+            current->fixed());
     string text = current->translate(m_text);
 
     document->addElement(text + " ");

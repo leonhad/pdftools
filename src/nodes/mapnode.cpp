@@ -25,7 +25,8 @@
 using namespace std;
 using namespace node;
 
-MapNode::MapNode() : TreeNode()
+MapNode::MapNode() :
+        TreeNode()
 {
 }
 
@@ -42,8 +43,7 @@ TreeNode *MapNode::get(string name) const
     try
     {
         return m_values.at(name);
-    }
-    catch (out_of_range &)
+    } catch (out_of_range &)
     {
         return nullptr;
     }
@@ -68,5 +68,5 @@ map<string, TreeNode *> MapNode::values() const
 
 void MapNode::push(string name, TreeNode *value)
 {
-    m_values[name] = value;
+    m_values [name] = value;
 }

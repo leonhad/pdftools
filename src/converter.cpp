@@ -32,8 +32,8 @@
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& filein, const string& fileout, const string& format)
-    : m_filein(filein), m_format(format), m_document(nullptr)
+Converter::Converter(const string& filein, const string& fileout, const string& format) :
+        m_filein(filein), m_format(format), m_document(nullptr)
 {
     // Calculate the output file name
     if (fileout.empty())
@@ -69,7 +69,8 @@ void Converter::convert() throw (std::exception)
     if (m_document)
     {
         stringstream msg;
-        msg << "Analyzing file " << m_filein << " " << "Pages: " << m_document->pages() << " - " << "Title: ";
+        msg << "Analyzing file " << m_filein << " " << "Pages: " << m_document->pages() << " - "
+                << "Title: ";
         if (m_document->title().empty())
         {
             msg << "no title";

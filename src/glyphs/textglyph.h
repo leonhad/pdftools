@@ -25,7 +25,7 @@
 
 class Html;
 
-class TextGlyph : public Glyph
+class TextGlyph: public Glyph
 {
 private:
     /**

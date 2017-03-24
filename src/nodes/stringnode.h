@@ -25,37 +25,37 @@
 
 namespace node
 {
+/**
+ * Stores a string node.
+ */
+class StringNode: public TreeNode
+{
+private:
     /**
-     * Stores a string node.
+     * The string value.
      */
-    class StringNode : public TreeNode
-    {
-    private:
-        /**
-         * The string value.
-         */
-        std::string m_value;
+    std::string m_value;
 
-    public:
-        /**
-         * Creates a new instance.
-         *
-         * \param value the string value.
-         */
-        StringNode(const std::string &value);
+public:
+    /**
+     * Creates a new instance.
+     *
+     * \param value the string value.
+     */
+    StringNode(const std::string &value);
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~StringNode() = default;
+    /**
+     * Destroy this instance.
+     */
+    virtual ~StringNode() = default;
 
-        /**
-         * Gets the string value.
-         *
-         * \return the string value.
-         */
-        std::string value() const;
-    };
+    /**
+     * Gets the string value.
+     *
+     * \return the string value.
+     */
+    std::string value() const;
+};
 }
 
 #endif

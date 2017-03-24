@@ -30,7 +30,8 @@
 
 using namespace std;
 
-EPUB::EPUB() : Generator(), m_document(nullptr), m_zipfile(new ZipFile), m_order(0)
+EPUB::EPUB() :
+        Generator(), m_document(nullptr), m_zipfile(new ZipFile), m_order(0)
 {
 }
 
@@ -210,7 +211,8 @@ void EPUB::generateOutline(XML *xml, Outline *outline)
 
     if (page)
     {
-        string playorder{to_string(m_order)};
+        string playorder
+        { to_string(m_order) };
         m_order++;
 
         xml->startTag("navPoint");
@@ -327,7 +329,8 @@ void EPUB::generatePages()
         html.endTag();
         html.endDocument();
 
-        string fileout{page->link() + ".html"};
+        string fileout
+        { page->link() + ".html" };
         m_zipfile->addSource(fileout.c_str(), html.content().c_str(), html.content().size());
     }
 }

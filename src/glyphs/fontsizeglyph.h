@@ -25,7 +25,7 @@
 /**
  * Stores a font size glyph.
  */
-class FontSizeGlyph : public Glyph
+class FontSizeGlyph: public Glyph
 {
 private:
     /**

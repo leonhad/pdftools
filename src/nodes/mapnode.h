@@ -28,58 +28,58 @@
 namespace node
 {
 
+/**
+ * Stores a map node.
+ */
+class MapNode: public TreeNode
+{
+private:
     /**
-     * Stores a map node.
+     * Stores a map of nodes.
      */
-    class MapNode : public TreeNode
-    {
-    private:
-        /**
-         * Stores a map of nodes.
-         */
-        std::map<std::string, TreeNode *> m_values;
+    std::map<std::string, TreeNode *> m_values;
 
-    public:
-        /**
-         * Creates a new instance.
-         */
-        MapNode();
+public:
+    /**
+     * Creates a new instance.
+     */
+    MapNode();
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~MapNode();
+    /**
+     * Destroy this instance.
+     */
+    virtual ~MapNode();
 
-        /**
-         * Pushes a value to this map.
-         *
-         * \param name the node name.
-         * \param value the node value.
-         */
-        void push(std::string name, TreeNode *value);
+    /**
+     * Pushes a value to this map.
+     *
+     * \param name the node name.
+     * \param value the node value.
+     */
+    void push(std::string name, TreeNode *value);
 
-        /**
-         * Gets the map of tree node values.
-         *
-         * \return the map of tree node values.
-         */
-        std::map<std::string, TreeNode *> values() const;
+    /**
+     * Gets the map of tree node values.
+     *
+     * \return the map of tree node values.
+     */
+    std::map<std::string, TreeNode *> values() const;
 
-        /**
-         * Gets the node names.
-         *
-         * \return the node names.
-         */
-        std::vector<std::string> names() const;
+    /**
+     * Gets the node names.
+     *
+     * \return the node names.
+     */
+    std::vector<std::string> names() const;
 
-        /**
-         * Gets a map by its name.
-         *
-         * \param name the node name.
-         * \return the node.
-         */
-        TreeNode *get(std::string name) const;
-    };
+    /**
+     * Gets a map by its name.
+     *
+     * \param name the node name.
+     * \return the node.
+     */
+    TreeNode *get(std::string name) const;
+};
 }
 
 #endif

@@ -21,18 +21,18 @@
 
 using namespace std;
 
-GenericException::GenericException(const char *msg)
-    : m_msg(msg)
+GenericException::GenericException(const char *msg) :
+        m_msg(msg)
 {
 }
 
-GenericException::GenericException(string &msg)
-    : m_msg(msg)
+GenericException::GenericException(string &msg) :
+        m_msg(msg)
 {
 }
 
-GenericException::GenericException(GenericException &&ex)
-    : m_msg(move(ex.m_msg))
+GenericException::GenericException(GenericException &&ex) :
+        m_msg(move(ex.m_msg))
 {
 }
 

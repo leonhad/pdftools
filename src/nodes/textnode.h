@@ -25,42 +25,42 @@
 
 namespace node
 {
+/**
+ * Stores a text node.
+ */
+class TextNode: public TreeNode
+{
+private:
     /**
-     * Stores a text node.
+     * The text value.
      */
-    class TextNode : public TreeNode
-    {
-    private:
-        /**
-         * The text value.
-         */
-        std::string m_value;
+    std::string m_value;
 
-    public:
-        /**
-         * Creates a new instance.
-         */
-        TextNode();
+public:
+    /**
+     * Creates a new instance.
+     */
+    TextNode();
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~TextNode() = default;
+    /**
+     * Destroy this instance.
+     */
+    virtual ~TextNode() = default;
 
-        /**
-         * Adds a text value.
-         *
-         * \param text the text value.
-         */
-        void add(const std::string &text);
+    /**
+     * Adds a text value.
+     *
+     * \param text the text value.
+     */
+    void add(const std::string &text);
 
-        /**
-         * Gets the text value.
-         *
-         * \return the text value.
-         */
-        std::string text() const;
-    };
+    /**
+     * Gets the text value.
+     *
+     * \return the text value.
+     */
+    std::string text() const;
+};
 }
 
 #endif

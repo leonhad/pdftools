@@ -22,7 +22,8 @@
 
 using namespace std;
 
-XmlTag::XmlTag(const string &name) : m_name(name)
+XmlTag::XmlTag(const string &name) :
+        m_name(name)
 {
 }
 
@@ -77,5 +78,5 @@ void XmlTag::addTag(XmlTag *tag)
 
 void XmlTag::addAttribute(const std::string &id, const std::string &value)
 {
-    m_atributes[id] = value;
+    m_atributes [id] = value;
 }

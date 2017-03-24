@@ -25,61 +25,61 @@
 
 namespace node
 {
-    class TreeNode;
+class TreeNode;
 }
 
 namespace parser
 {
+/**
+ * The generic parser used in this project.
+ */
+class GenericParser
+{
+protected:
     /**
-     * The generic parser used in this project.
+     * The file scanner.
      */
-    class GenericParser
-    {
-    protected:
-        /**
-         * The file scanner.
-         */
-        Scanner *m_scanner;
+    Scanner *m_scanner;
 
-        /**
-         * The current token.
-         */
-        Token *m_token;
+    /**
+     * The current token.
+     */
+    Token *m_token;
 
-    public:
-        /**
-         * Creates a new instance.
-         *
-         * \param filein the file to parse.
-         */
-        explicit GenericParser(std::istream *filein);
+public:
+    /**
+     * Creates a new instance.
+     *
+     * \param filein the file to parse.
+     */
+    explicit GenericParser(std::istream *filein);
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~GenericParser();
+    /**
+     * Destroy this instance.
+     */
+    virtual ~GenericParser();
 
-    protected:
-        /**
-         * Gets the tree node sequence value.
-         *
-         * \return the tree node sequence value.
-         */
-        node::TreeNode *valueSequence();
+protected:
+    /**
+     * Gets the tree node sequence value.
+     *
+     * \return the tree node sequence value.
+     */
+    node::TreeNode *valueSequence();
 
-        /**
-         * Checks if the current token have the some type.
-         *
-         * \param type the type to check with the current token.
-         * \return true if are the same.
-         */
-        bool match(TokenType type);
+    /**
+     * Checks if the current token have the some type.
+     *
+     * \param type the type to check with the current token.
+     * \return true if are the same.
+     */
+    bool match(TokenType type);
 
-        /**
-         * Reads the next token.
-         */
-        void nextToken();
-    };
+    /**
+     * Reads the next token.
+     */
+    void nextToken();
+};
 }
 
 #endif

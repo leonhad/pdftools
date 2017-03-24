@@ -22,8 +22,8 @@
 using namespace std;
 using namespace node;
 
-ObjNode::ObjNode(int id, int generation) : TreeNode(), m_id(id), m_generation(generation),
-                                           m_streamPos(istream::beg), m_value(nullptr)
+ObjNode::ObjNode(int id, int generation) :
+        TreeNode(), m_id(id), m_generation(generation), m_streamPos(istream::beg), m_value(nullptr)
 {
 }
 

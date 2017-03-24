@@ -22,7 +22,8 @@
 
 using namespace std;
 
-Element::Element(const string &element) : XmlTag(element)
+Element::Element(const string &element) :
+        XmlTag(element)
 {
 }
 
@@ -37,17 +38,17 @@ std::string Element::toXML() const
     {
         switch (c)
         {
-            case '&':
-                buffer << "&amp;";
-                break;
-            case '<':
-                buffer << "&lt;";
-                break;
-            case '>':
-                buffer << "&gt;";
-                break;
-            default:
-                buffer << c;
+        case '&':
+            buffer << "&amp;";
+            break;
+        case '<':
+            buffer << "&lt;";
+            break;
+        case '>':
+            buffer << "&gt;";
+            break;
+        default:
+            buffer << c;
         }
     }
     return buffer.str();

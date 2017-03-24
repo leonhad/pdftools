@@ -22,7 +22,8 @@
 
 using namespace std;
 
-Glyph::Glyph() : m_context(nullptr), m_lastGlyph(nullptr)
+Glyph::Glyph() :
+        m_context(nullptr), m_lastGlyph(nullptr)
 {
 }
 
@@ -58,9 +59,9 @@ void Glyph::execute(Html *document, Context *context)
 
     for (size_t i = 0; i < size; i++)
     {
-        m_childs[i]->setLast(m_lastGlyph);
-        m_childs[i]->execute(document, context);
-        m_lastGlyph = m_childs[i];
+        m_childs [i]->setLast(m_lastGlyph);
+        m_childs [i]->execute(document, context);
+        m_lastGlyph = m_childs [i];
     }
     endGlyph(document);
 }

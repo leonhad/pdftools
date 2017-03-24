@@ -26,127 +26,127 @@
 
 namespace parser
 {
+/**
+ * A generic scanner to read PDF files.
+ */
+class Scanner
+{
+private:
     /**
-     * A generic scanner to read PDF files.
+     * A pointer to file input.
      */
-    class Scanner
-    {
-    private:
-        /**
-         * A pointer to file input.
-         */
-        std::istream *m_filein;
+    std::istream *m_filein;
 
-        /**
-         * The current token.
-         */
-        Token m_current;
+    /**
+     * The current token.
+     */
+    Token m_current;
 
-        /**
-         * If the scanner can do a charset conversion.
-         */
-        bool m_charset_conversion;
+    /**
+     * If the scanner can do a charset conversion.
+     */
+    bool m_charset_conversion;
 
-    public:
-        /**
-         * Create a new instance.
-         *
-         * @param m_filein the file to read.
-         */
-        Scanner(std::istream *m_filein);
+public:
+    /**
+     * Create a new instance.
+     *
+     * @param m_filein the file to read.
+     */
+    Scanner(std::istream *m_filein);
 
-        /**
-         * Destroy this instance.
-         */
-        ~Scanner() = default;
+    /**
+     * Destroy this instance.
+     */
+    ~Scanner() = default;
 
-        /**
-         * Reads the next token.
-         *
-         * \return the next token.
-         */
-        Token *nextToken();
+    /**
+     * Reads the next token.
+     *
+     * \return the next token.
+     */
+    Token *nextToken();
 
-        /**
-         * If this scanner have more tokens.
-         *
-         * \return true if this scanner have more tokens.
-         */
-        bool good() const;
+    /**
+     * If this scanner have more tokens.
+     *
+     * \return true if this scanner have more tokens.
+     */
+    bool good() const;
 
-        /**
-         * Ignore a line.
-         */
-        void ignoreLine();
+    /**
+     * Ignore a line.
+     */
+    void ignoreLine();
 
-        /**
-         * Ignore a stream of bytes by its length.
-         *
-         * \param length the length to ignore.
-         * \return the size skipped.
-         */
-        std::istream::pos_type ignoreStream(int length);
+    /**
+     * Ignore a stream of bytes by its length.
+     *
+     * \param length the length to ignore.
+     * \return the size skipped.
+     */
+    std::istream::pos_type ignoreStream(int length);
 
-        /**
-         * Gets the current position.
-         *
-         * \return the current position.
-         */
-        std::istream::pos_type pos() const;
+    /**
+     * Gets the current position.
+     *
+     * \return the current position.
+     */
+    std::istream::pos_type pos() const;
 
-        /**
-         * Change the current position.
-         *
-         * \param pos the position to switch.
-         */
-        void to_pos(std::istream::pos_type pos);
+    /**
+     * Change the current position.
+     *
+     * \param pos the position to switch.
+     */
+    void to_pos(std::istream::pos_type pos);
 
-        /**
-         * Gets a stream of bytes.
-         *
-         * \param length the length to read.
-         * \return the stream.
-         */
-        char *getStream(int length);
+    /**
+     * Gets a stream of bytes.
+     *
+     * \param length the length to read.
+     * \return the stream.
+     */
+    char *getStream(int length);
 
-        /**
-         * Get a image stream.
-         *
-         * \return the image stream.
-         */
-        char *getImageStream();
+    /**
+     * Get a image stream.
+     *
+     * \return the image stream.
+     */
+    char *getImageStream();
 
-        /**
-         * Disable the charset conversion.
-         */
-        void disableCharsetConversion();
+    /**
+     * Disable the charset conversion.
+     */
+    void disableCharsetConversion();
 
-        /**
-         * Clears the file stream.
-         */
-        void clear();
+    /**
+     * Clears the file stream.
+     */
+    void clear();
 
-    private:
-        /**
-         * Retuns a char to the buffer.
-         */
-        void ungetChar();
+private:
+    /**
+     * Retuns a char to the buffer.
+     */
+    void ungetChar();
 
-        /**
-         * Gets the next char.
-         *
-         * \return the next char.
-         */
-        char nextChar();
+    /**
+     * Gets the next char.
+     *
+     * \return the next char.
+     */
+    char nextChar();
 
-        /**
-         * Gets the token type by a string.
-         *
-         * \param s the string to lookup.
-         * \return the token type by a string.
-         */
-        TokenType reserved_lookup(const char *s);
-    };
+    /**
+     * Gets the token type by a string.
+     *
+     * \param s the string to lookup.
+     * \return the token type by a string.
+     */
+    TokenType reserved_lookup(const char *s);
+};
 }
 
 #endif

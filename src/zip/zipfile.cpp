@@ -24,7 +24,8 @@
 
 using namespace std;
 
-ZipFile::ZipFile() : m_cd_address(0), m_cd_size(0)
+ZipFile::ZipFile() :
+        m_cd_address(0), m_cd_size(0)
 {
 }
 
@@ -50,8 +51,8 @@ uint32_t ZipFile::currentDatetime() const
         t->tm_year -= 80;
     }
 
-    return (uint32_t) ((t->tm_mday + (32 * (t->tm_mon + 1)) + (512 * t->tm_year))
-            << 16) | ((t->tm_sec / 2) + (32 * t->tm_min) + (2048 * t->tm_hour));
+    return (uint32_t) ((t->tm_mday + (32 * (t->tm_mon + 1)) + (512 * t->tm_year)) << 16)
+            | ((t->tm_sec / 2) + (32 * t->tm_min) + (2048 * t->tm_hour));
 }
 
 bool ZipFile::open(const string &output)
@@ -71,8 +72,7 @@ void ZipFile::close()
     }
 }
 
-void ZipFile::addSource(const char *filename, const char *buffer,
-        size_t length)
+void ZipFile::addSource(const char *filename, const char *buffer, size_t length)
 {
     if (length == 0)
     {
@@ -80,9 +80,9 @@ void ZipFile::addSource(const char *filename, const char *buffer,
     }
 
     appended_files file;
-    file.position = static_cast<uint32_t> (m_output.tellp());
+    file.position = static_cast<uint32_t>(m_output.tellp());
     file.date = currentDatetime();
-    file.length = static_cast<uint32_t> (length);
+    file.length = static_cast<uint32_t>(length);
     file.name = filename;
 
     uint32_t crc = (uint32_t) ::crc32(0L, Z_NULL, 0);
@@ -102,8 +102,7 @@ void ZipFile::addSource(const char *filename, const char *buffer,
             file.compressed = false;
             file.compressed_size = file.length;
         }
-    }
-    catch (exception &e)
+    } catch (exception &e)
     {
         // File in deflate
         file.compressed = false;
@@ -144,7 +143,7 @@ void ZipFile::addSource(const char *filename, const char *buffer,
     {
         m_output.write(buffer, file.length);
     }
-    delete[] deflate_buffer;
+    delete [] deflate_buffer;
     m_files.push_back(file);
 }
 
@@ -155,7 +154,7 @@ void ZipFile::writeCentralFile()
 
     for (size_t i = 0; i < size; i++)
     {
-        appended_files file = m_files[i];
+        appended_files file = m_files [i];
 
         writeString("\x50\x4B\x01\x02");
         write16(0x031E);

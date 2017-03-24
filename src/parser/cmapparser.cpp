@@ -26,7 +26,9 @@ using namespace std;
 using namespace parser;
 using namespace node;
 
-CMapParser::CMapParser(istream *stream) : GenericParser{stream}
+CMapParser::CMapParser(istream *stream) :
+        GenericParser
+        { stream }
 {
     m_scanner->disableCharsetConversion();
     m_root = nullptr;
@@ -73,62 +75,62 @@ CMapNode *CMapParser::parse()
     {
         switch (m_token->type())
         {
-            case TokenType::NAME:
-                if (m_token->value() == "/CMapName")
-                {
-                    match(TokenType::NAME);
-                    // /Name
-                    match(TokenType::NAME);
-                    // def
-                    match(TokenType::NAME);
-                }
-                else if (m_token->value() == "/CMapType")
-                {
-                    match(TokenType::NAME);
-                    // 2
-                    match(TokenType::NUM);
-                    // def
-                    match(TokenType::NAME);
-                }
-                else if (m_token->value() == "/CIDSystemInfo")
-                {
-                    match(TokenType::NAME);
-                    delete valueSequence();
-                    // def
-                    match(TokenType::NAME);
-                }
-                else
-                {
-                    match(TokenType::NAME);
-                }
-                break;
-            case TokenType::NUM:
-                val = (int) m_token->toNumber();
+        case TokenType::NAME:
+            if (m_token->value() == "/CMapName")
+            {
+                match(TokenType::NAME);
+                // /Name
+                match(TokenType::NAME);
+                // def
+                match(TokenType::NAME);
+            }
+            else if (m_token->value() == "/CMapType")
+            {
+                match(TokenType::NAME);
+                // 2
                 match(TokenType::NUM);
-                if (m_token->value() == "beginbfchar")
-                {
-                    match(TokenType::NAME);
-                    bfCharSequence(val);
-                }
-                else if (m_token->value() == "begincodespacerange")
-                {
-                    match(TokenType::NAME);
-                    m_root->setCodespace(codespaceSequence());
-                }
-                else if (m_token->value() == "beginbfrange")
-                {
-                    match(TokenType::NAME);
-                    bfRangeSequence(val);
-                }
-                else
-                {
-                    match(TokenType::NAME);
-                    error_message("invalid mode");
-                }
-                break;
-            default:
-                nextToken();
-                break;
+                // def
+                match(TokenType::NAME);
+            }
+            else if (m_token->value() == "/CIDSystemInfo")
+            {
+                match(TokenType::NAME);
+                delete valueSequence();
+                // def
+                match(TokenType::NAME);
+            }
+            else
+            {
+                match(TokenType::NAME);
+            }
+            break;
+        case TokenType::NUM:
+            val = (int) m_token->toNumber();
+            match(TokenType::NUM);
+            if (m_token->value() == "beginbfchar")
+            {
+                match(TokenType::NAME);
+                bfCharSequence(val);
+            }
+            else if (m_token->value() == "begincodespacerange")
+            {
+                match(TokenType::NAME);
+                m_root->setCodespace(codespaceSequence());
+            }
+            else if (m_token->value() == "beginbfrange")
+            {
+                match(TokenType::NAME);
+                bfRangeSequence(val);
+            }
+            else
+            {
+                match(TokenType::NAME);
+                error_message("invalid mode");
+            }
+            break;
+        default:
+            nextToken();
+            break;
         }
     }
     return m_root;
@@ -168,10 +170,10 @@ void CMapParser::bfRangeSequence(const int count)
         string end = m_token->value();
         match(TokenType::STRING);
         TreeNode *node = valueSequence();
-        StringNode *name = dynamic_cast<StringNode *> (node);
+        StringNode *name = dynamic_cast<StringNode *>(node);
         if (name)
         {
-            char *chars = const_cast<char *> (start.c_str());
+            char *chars = const_cast<char *>(start.c_str());
             char *b = chars;
             b++;
             size_t size = start.size();
@@ -195,14 +197,14 @@ void CMapParser::bfRangeSequence(const int count)
         else
         {
             error_message("test map");
-            ArrayNode *array = dynamic_cast<ArrayNode *> (node);
-            char *chars = const_cast<char *> (start.c_str());
+            ArrayNode *array = dynamic_cast<ArrayNode *>(node);
+            char *chars = const_cast<char *>(start.c_str());
             size_t size = start.size();
             size_t loop2 = 0;
 
             while (memcmp(chars, end.c_str(), size) < 0)
             {
-                name = dynamic_cast<StringNode *> (array->value(loop2));
+                name = dynamic_cast<StringNode *>(array->value(loop2));
                 m_root->add(new CharNode(string(chars, size), name->value()));
                 if (size == 1)
                 {

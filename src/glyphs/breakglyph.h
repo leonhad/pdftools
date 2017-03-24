@@ -25,7 +25,7 @@
 /**
  * Stores a break glyph.
  */
-class BreakGlyph : public Glyph
+class BreakGlyph: public Glyph
 {
 public:
     /**

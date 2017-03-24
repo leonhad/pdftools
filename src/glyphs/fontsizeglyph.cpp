@@ -20,7 +20,8 @@
 #include "fontsizeglyph.h"
 #include "semantic/context.h"
 
-FontSizeGlyph::FontSizeGlyph(double size) : Glyph()
+FontSizeGlyph::FontSizeGlyph(double size) :
+        Glyph()
 {
     m_size = size;
 }

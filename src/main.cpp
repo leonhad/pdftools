@@ -31,21 +31,21 @@ using namespace std;
  * \param argv the program parameters.
  * \return the program return code.
  */
-int main(int argc, char *argv[])
+int main(int argc, char *argv [])
 {
     int verbose_flag = 0;
     bool error = false;
     string fileout;
     string format = "epub";
 
-    const struct option long_options[] = {
-            {"verbose", no_argument, &verbose_flag, 1},
-            {"help", no_argument, 0, 'h'},
-            {"version", no_argument, 0, 'v'},
-            {"o", required_argument, 0, 'o'},
-            {"format", required_argument, 0, 'f'},
-            {0, 0, 0, 0}
-    };
+    const struct option long_options [] =
+    {
+    { "verbose", no_argument, &verbose_flag, 1 },
+    { "help", no_argument, 0, 'h' },
+    { "version", no_argument, 0, 'v' },
+    { "o", required_argument, 0, 'o' },
+    { "format", required_argument, 0, 'f' },
+    { 0, 0, 0, 0 } };
 
     while (true)
     {
@@ -60,49 +60,52 @@ int main(int argc, char *argv[])
 
         switch (c)
         {
-            case 'o':
-                if (optarg)
-                {
-                    fileout = optarg;
-                }
+        case 'o':
+            if (optarg)
+            {
+                fileout = optarg;
+            }
+            break;
+        case 'h':
+            cout << PACKAGE_NAME << " is a high level tools to convert PDF files to ePUB format."
+                    << endl;
+            cout << endl;
+            cout << "Usage: " << PACKAGE_NAME << " [options] file..." << endl;
+            cout << "Options:" << endl;
+            cout << "  -f <format>, --format=<format>\toutput file format [epub]" << endl;
+            cout << "  -h, --help\t\t\t\tdisplay this information and quit" << endl;
+            cout << "  -o <file>\t\t\t\tset the output file" << endl;
+            cout << "  -v, --version\t\t\t\tdisplay the version information" << endl;
+            cout << "  --verbose\t\t\t\trun in verbose mode" << endl;
+            cout << endl;
+            cout << "In conformance on copyright issues, this tool don't support encrypted files."
+                    << endl;
+            cout << "Report bugs to <https://github.com/leonhad/pdftools/issues>" << endl;
+            return EXIT_SUCCESS;
+        case 'v':
+            cout << PACKAGE_STRING << endl;
+            cout << endl;
+            cout << "Copyright (C) 2014 Leonardo Alves da Costa." << endl;
+            cout << "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>"
+                    << endl;
+            cout << "This is free software: you are free to change and redistribute it." << endl;
+            cout << "There is NO WARRANTY, to the extent permitted by law." << endl;
+            cout << endl;
+            cout << "Written by Leonardo Alves da Costa." << endl;
+            return EXIT_SUCCESS;
+        case 'f':
+            format = optarg;
+            if (format != "epub")
+            {
+                string msg = "format ";
+                msg += format;
+                msg += " not supported.";
+                error_message(msg.c_str());
+                error = true;
                 break;
-            case 'h':
-                cout << PACKAGE_NAME << " is a high level tools to convert PDF files to ePUB format." << endl;
-                cout << endl;
-                cout << "Usage: " << PACKAGE_NAME << " [options] file..." << endl;
-                cout << "Options:" << endl;
-                cout << "  -f <format>, --format=<format>\toutput file format [epub]" << endl;
-                cout << "  -h, --help\t\t\t\tdisplay this information and quit" << endl;
-                cout << "  -o <file>\t\t\t\tset the output file" << endl;
-                cout << "  -v, --version\t\t\t\tdisplay the version information" << endl;
-                cout << "  --verbose\t\t\t\trun in verbose mode" << endl;
-                cout << endl;
-                cout << "In conformance on copyright issues, this tool don't support encrypted files." << endl;
-                cout << "Report bugs to <https://github.com/leonhad/pdftools/issues>" << endl;
-                return EXIT_SUCCESS;
-            case 'v':
-                cout << PACKAGE_STRING << endl;
-                cout << endl;
-                cout << "Copyright (C) 2014 Leonardo Alves da Costa." << endl;
-                cout << "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>" << endl;
-                cout << "This is free software: you are free to change and redistribute it." << endl;
-                cout << "There is NO WARRANTY, to the extent permitted by law." << endl;
-                cout << endl;
-                cout << "Written by Leonardo Alves da Costa." << endl;
-                return EXIT_SUCCESS;
-            case 'f':
-                format = optarg;
-                if (format != "epub")
-                {
-                    string msg = "format ";
-                    msg += format;
-                    msg += " not supported.";
-                    error_message(msg.c_str());
-                    error = true;
-                    break;
-                }
-            default:
-                break;
+            }
+        default:
+            break;
         }
     }
 
@@ -128,10 +131,9 @@ int main(int argc, char *argv[])
         {
             try
             {
-                Converter converter(argv[loop], fileout, format);
+                Converter converter(argv [loop], fileout, format);
                 converter.convert();
-            }
-            catch (exception &e)
+            } catch (exception &e)
             {
                 error_message(e.what());
             }

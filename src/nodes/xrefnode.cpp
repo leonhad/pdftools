@@ -22,7 +22,8 @@
 using namespace std;
 using namespace node;
 
-XREFNode::XREFNode() : TreeNode(), m_trailer(nullptr)
+XREFNode::XREFNode() :
+        TreeNode(), m_trailer(nullptr)
 {
 }
 

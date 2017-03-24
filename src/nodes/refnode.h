@@ -24,50 +24,50 @@
 
 namespace node
 {
+/**
+ * Stores a reference node.
+ */
+class RefNode: public TreeNode
+{
+private:
     /**
-     * Stores a reference node.
+     * The object id.
      */
-    class RefNode : public TreeNode
-    {
-    private:
-        /**
-         * The object id.
-         */
-        int m_id;
+    int m_id;
 
-        /**
-         * The object generation.
-         */
-        int m_generation;
+    /**
+     * The object generation.
+     */
+    int m_generation;
 
-    public:
-        /**
-         * Creates a new instance.
-         *
-         * \param id the object id.
-         * \param generation the object generation.
-         */
-        RefNode(int id, int generation);
+public:
+    /**
+     * Creates a new instance.
+     *
+     * \param id the object id.
+     * \param generation the object generation.
+     */
+    RefNode(int id, int generation);
 
-        /**
-         * Destroy the instance.
-         */
-        virtual ~RefNode() = default;
+    /**
+     * Destroy the instance.
+     */
+    virtual ~RefNode() = default;
 
-        /**
-         * Gets the object id.
-         *
-         * \return the object id.
-         */
-        int id() const;
+    /**
+     * Gets the object id.
+     *
+     * \return the object id.
+     */
+    int id() const;
 
-        /**
-         * Gets the generation.
-         *
-         * \return the generation.
-         */
-        int generation() const;
-    };
+    /**
+     * Gets the generation.
+     *
+     * \return the generation.
+     */
+    int generation() const;
+};
 }
 
 #endif

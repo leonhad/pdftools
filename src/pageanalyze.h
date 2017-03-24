@@ -28,11 +28,11 @@ class Document;
 
 namespace node
 {
-    class TreeNode;
-    class TextNode;
-    class RootNode;
-    class FontNode;
-    class TextMatrixNode;
+class TreeNode;
+class TextNode;
+class RootNode;
+class FontNode;
+class TextMatrixNode;
 }
 
 class PageAnalyze

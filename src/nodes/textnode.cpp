@@ -22,7 +22,8 @@
 using namespace std;
 using namespace node;
 
-TextNode::TextNode() : TreeNode()
+TextNode::TextNode() :
+        TreeNode()
 {
 }
 

@@ -25,7 +25,8 @@ using namespace std;
 Html::Html()
 {
     m_xml.startDocument("1.0", "UTF-8");
-    m_xml.addDoctype("html", "-//W3C//DTD XHTML 1.1//EN", "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd");
+    m_xml.addDoctype("html", "-//W3C//DTD XHTML 1.1//EN",
+            "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd");
 }
 
 Html::~Html()

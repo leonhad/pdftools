@@ -22,7 +22,7 @@
 
 #include "xmltag.h"
 
-class Element : public XmlTag
+class Element: public XmlTag
 {
 public:
     Element(const std::string &element);

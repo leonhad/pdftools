@@ -26,68 +26,68 @@
 
 namespace node
 {
-    class TreeNode;
+class TreeNode;
 
-    class CMapNode;
+class CMapNode;
 
-    class CodeSpaceNode;
+class CodeSpaceNode;
 }
 
 namespace parser
 {
+/**
+ * Parses a CMap.
+ */
+class CMapParser: public GenericParser
+{
+private:
     /**
-     * Parses a CMap.
+     * The CMap node root.
      */
-    class CMapParser : public GenericParser
-    {
-    private:
-        /**
-         * The CMap node root.
-         */
-        node::CMapNode *m_root;
+    node::CMapNode *m_root;
 
-    public:
-        /**
-         * Creates a new instance.
-         *
-         * \param stream the CMap stream to read.
-         */
-        explicit CMapParser(std::istream *stream);
+public:
+    /**
+     * Creates a new instance.
+     *
+     * \param stream the CMap stream to read.
+     */
+    explicit CMapParser(std::istream *stream);
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~CMapParser();
+    /**
+     * Destroy this instance.
+     */
+    virtual ~CMapParser();
 
-        /**
-         * Parses the CMap node.
-         *
-         * \return the CMap tree node.
-         */
-        node::CMapNode *parse();
+    /**
+     * Parses the CMap node.
+     *
+     * \return the CMap tree node.
+     */
+    node::CMapNode *parse();
 
-    private:
-        /**
-         * Parses a BF char sequence.
-         *
-         * \param count the total chars to parse.
-         */
-        void bfCharSequence(const int count);
+private:
+    /**
+     * Parses a BF char sequence.
+     *
+     * \param count the total chars to parse.
+     */
+    void bfCharSequence(const int count);
 
-        /**
-         * Parses a BF rage sequence.
-         *
-         * \param count the total range to parse.
-         */
-        void bfRangeSequence(const int count);
+    /**
+     * Parses a BF rage sequence.
+     *
+     * \param count the total range to parse.
+     */
+    void bfRangeSequence(const int count);
 
-        /**
-         * Gets the code space sequence.
-         *
-         * \return the code space sequence.
-         */
-        node::CodeSpaceNode *codespaceSequence();
-    };
+    /**
+     * Gets the code space sequence.
+     *
+     * \return the code space sequence.
+     */
+    node::CodeSpaceNode *codespaceSequence();
+};
 }
 
 #endif

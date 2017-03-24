@@ -57,7 +57,7 @@ size_t Outline::size()
 
 Outline *Outline::child(size_t index)
 {
-    return m_childs[index];
+    return m_childs [index];
 }
 
 void Outline::set_title(string title)

@@ -29,7 +29,7 @@ private:
     /**
      * The current text matrix.
      */
-    double m_textMatrix[3][3];
+    double m_textMatrix [3] [3];
 
 public:
     /**

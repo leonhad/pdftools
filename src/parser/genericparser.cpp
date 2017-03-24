@@ -25,7 +25,8 @@ using namespace std;
 using namespace parser;
 using namespace node;
 
-GenericParser::GenericParser(std::istream *filein) : m_scanner(new Scanner(filein)), m_token(nullptr)
+GenericParser::GenericParser(std::istream *filein) :
+        m_scanner(new Scanner(filein)), m_token(nullptr)
 {
 }
 
@@ -76,8 +77,8 @@ TreeNode *GenericParser::valueSequence()
             string name = m_token->value();
             match(TokenType::NAME);
             TreeNode *value = valueSequence();
-            NameNode *n = dynamic_cast<NameNode *> (value);
-            if (n && n->name()[0] != '/')
+            NameNode *n = dynamic_cast<NameNode *>(value);
+            if (n && n->name() [0] != '/')
             {
                 value = valueSequence();
             }

@@ -40,7 +40,8 @@ public:
     ~XML();
 
     void startDocument(const std::string& version, const std::string& charset);
-    void addDoctype(const std::string& name, const std::string& public_id, const std::string& sys_id);
+    void addDoctype(const std::string& name, const std::string& public_id,
+            const std::string& sys_id);
     void addAttribute(const std::string& id, const std::string& value);
     void addElement(const std::string& value);
     void startTag(const std::string& tag_name);

@@ -26,50 +26,50 @@
 
 namespace node
 {
+/**
+ * Stores a root node.
+ */
+class RootNode: public TreeNode
+{
+private:
     /**
-     * Stores a root node.
+     * The list of childhood nodes.
      */
-    class RootNode : public TreeNode
-    {
-    private:
-        /**
-         * The list of childhood nodes.
-         */
-        std::vector<TreeNode *> m_child;
+    std::vector<TreeNode *> m_child;
 
-    public:
-        /**
-         * Creates a new instance.
-         */
-        RootNode();
+public:
+    /**
+     * Creates a new instance.
+     */
+    RootNode();
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~RootNode();
+    /**
+     * Destroy this instance.
+     */
+    virtual ~RootNode();
 
-        /**
-         * Adds a child to this node.
-         *
-         * \param child the child to add.
-         */
-        void addChild(TreeNode *child);
+    /**
+     * Adds a child to this node.
+     *
+     * \param child the child to add.
+     */
+    void addChild(TreeNode *child);
 
-        /**
-         * Gets a child by its index.
-         *
-         * \param index the index.
-         * \return the child.
-         */
-        TreeNode *get(size_t index) const;
+    /**
+     * Gets a child by its index.
+     *
+     * \param index the index.
+     * \return the child.
+     */
+    TreeNode *get(size_t index) const;
 
-        /**
-         * The total of childhood.
-         *
-         * \return the total of childhood.
-         */
-        size_t size() const;
-    };
+    /**
+     * The total of childhood.
+     *
+     * \return the total of childhood.
+     */
+    size_t size() const;
+};
 }
 
 #endif

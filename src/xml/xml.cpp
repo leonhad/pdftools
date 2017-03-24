@@ -94,7 +94,8 @@ void XML::addElement(const string &value)
 
 void XML::startTag(const string &tag_name)
 {
-    XmlTag *tag = new XmlTag{tag_name};
+    XmlTag *tag = new XmlTag
+    { tag_name };
     if (!m_root)
     {
         m_root = tag;

@@ -28,88 +28,88 @@
 
 namespace node
 {
-    class TreeNode;
+class TreeNode;
 
-    class RootNode;
+class RootNode;
 }
 
 namespace parser
 {
+/**
+ * Parses a PDF file.
+ */
+class Parser: public GenericParser
+{
+private:
     /**
-     * Parses a PDF file.
+     * If this is a linear file.
      */
-    class Parser : public GenericParser
-    {
-    private:
-        /**
-         * If this is a linear file.
-         */
-        bool m_linear;
+    bool m_linear;
 
-        /**
-         * The PDF file version.
-         */
-        std::string m_version;
+    /**
+     * The PDF file version.
+     */
+    std::string m_version;
 
-    public:
-        /**
-         * Creates a new instance.
-         *
-         * \param filein the file to parse.
-         */
-        explicit Parser(std::ifstream *filein) throw(std::exception);
+public:
+    /**
+     * Creates a new instance.
+     *
+     * \param filein the file to parse.
+     */
+    explicit Parser(std::ifstream *filein) throw (std::exception);
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~Parser() = default;
+    /**
+     * Destroy this instance.
+     */
+    virtual ~Parser() = default;
 
-        /**
-         * Parses the root node.
-         *
-         * \return the root node.
-         */
-        node::RootNode *parse();
+    /**
+     * Parses the root node.
+     *
+     * \return the root node.
+     */
+    node::RootNode *parse();
 
-    private:
-        /**
-         * Verify the PDF version.
-         *
-         * \return true if this file is a valid version.
-         */
-        bool verifyVersion();
+private:
+    /**
+     * Verify the PDF version.
+     *
+     * \return true if this file is a valid version.
+     */
+    bool verifyVersion();
 
-        /**
-         * Parses the object streams.
-         *
-         * \param root the root node to parse.
-         */
-        void objectStreams(node::RootNode *root);
+    /**
+     * Parses the object streams.
+     *
+     * \param root the root node to parse.
+     */
+    void objectStreams(node::RootNode *root);
 
-        /**
-         * Parses the start XREF sequences.
-         */
-        void startXrefSequence();
+    /**
+     * Parses the start XREF sequences.
+     */
+    void startXrefSequence();
 
-        /**
-         * Parses the comment sequences.
-         */
-        void commentSequence();
+    /**
+     * Parses the comment sequences.
+     */
+    void commentSequence();
 
-        /**
-         * Parses the object sequences.
-         *
-         * \return the object node.
-         */
-        node::TreeNode *objectSequence();
+    /**
+     * Parses the object sequences.
+     *
+     * \return the object node.
+     */
+    node::TreeNode *objectSequence();
 
-        /**
-         * Parses the XREF sequences.
-         *
-         * \return the XREF node.
-         */
-        node::TreeNode *xrefSequence();
-    };
+    /**
+     * Parses the XREF sequences.
+     *
+     * \return the XREF node.
+     */
+    node::TreeNode *xrefSequence();
+};
 }
 
 #endif

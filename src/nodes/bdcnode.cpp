@@ -22,8 +22,8 @@
 using namespace std;
 using namespace node;
 
-BDCNode::BDCNode(RootNode *parent)
-    : RootNode(), m_parent(parent), m_value(nullptr)
+BDCNode::BDCNode(RootNode *parent) :
+        RootNode(), m_parent(parent), m_value(nullptr)
 {
 }
 

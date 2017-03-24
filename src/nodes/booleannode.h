@@ -24,37 +24,37 @@
 
 namespace node
 {
+/**
+ * Stores a boolean node.
+ */
+class BooleanNode: public TreeNode
+{
+private:
     /**
-     * Stores a boolean node.
+     * The node value.
      */
-    class BooleanNode : public TreeNode
-    {
-    private:
-        /**
-         * The node value.
-         */
-        bool m_value;
+    bool m_value;
 
-    public:
-        /**
-         * Creates a new instance.
-         *
-         * \param value the node value.
-         */
-        explicit BooleanNode(bool value);
+public:
+    /**
+     * Creates a new instance.
+     *
+     * \param value the node value.
+     */
+    explicit BooleanNode(bool value);
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~BooleanNode() = default;
+    /**
+     * Destroy this instance.
+     */
+    virtual ~BooleanNode() = default;
 
-        /**
-         * Gets the node value.
-         *
-         * \return the node value.
-         */
-        bool value() const;
-    };
+    /**
+     * Gets the node value.
+     *
+     * \return the node value.
+     */
+    bool value() const;
+};
 }
 
 #endif

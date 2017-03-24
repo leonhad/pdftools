@@ -26,7 +26,7 @@
 /**
  * Stores a font glyph.
  */
-class FontGlyph : public Glyph
+class FontGlyph: public Glyph
 {
 private:
     /**

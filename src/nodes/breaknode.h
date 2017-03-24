@@ -24,22 +24,22 @@
 
 namespace node
 {
+/**
+ * Stores a break node.
+ */
+class BreakNode: public TreeNode
+{
+public:
     /**
-     * Stores a break node.
+     * Creates a new instance.
      */
-    class BreakNode : public TreeNode
-    {
-    public:
-        /**
-         * Creates a new instance.
-         */
-        BreakNode();
+    BreakNode();
 
-        /**
-         * Destroy this instance.
-         */
-        virtual ~BreakNode() = default;
-    };
+    /**
+     * Destroy this instance.
+     */
+    virtual ~BreakNode() = default;
+};
 }
 
 #endif

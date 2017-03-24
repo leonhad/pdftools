@@ -26,50 +26,50 @@
 
 namespace node
 {
+/**
+ * Stores a array node.
+ */
+class ArrayNode: public TreeNode
+{
+private:
     /**
-     * Stores a array node.
+     * The array values.
      */
-    class ArrayNode : public TreeNode
-    {
-    private:
-        /**
-         * The array values.
-         */
-        std::vector<TreeNode *> m_values;
+    std::vector<TreeNode *> m_values;
 
-    public:
-        /**
-         * Creates a new instance.
-         */
-        ArrayNode();
+public:
+    /**
+     * Creates a new instance.
+     */
+    ArrayNode();
 
-        /**
-         * Destroy the instance.
-         */
-        virtual ~ArrayNode();
+    /**
+     * Destroy the instance.
+     */
+    virtual ~ArrayNode();
 
-        /**
-         * Adds a value in this array.
-         *
-         * \param value the value to store of.
-         */
-        void push(TreeNode *value);
+    /**
+     * Adds a value in this array.
+     *
+     * \param value the value to store of.
+     */
+    void push(TreeNode *value);
 
-        /**
-         * Gets the value by its index.
-         *
-         * \param index the index to search of.
-         * \return the value by index.
-         */
-        TreeNode *value(size_t index) const;
+    /**
+     * Gets the value by its index.
+     *
+     * \param index the index to search of.
+     * \return the value by index.
+     */
+    TreeNode *value(size_t index) const;
 
-        /**
-         * Gets this array size.
-         *
-         * \return the array size.
-         */
-        size_t size() const;
-    };
+    /**
+     * Gets this array size.
+     *
+     * \return the array size.
+     */
+    size_t size() const;
+};
 }
 
 #endif

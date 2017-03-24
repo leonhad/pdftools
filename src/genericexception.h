@@ -26,7 +26,7 @@
 /**
  * Exception used in application.
  */
-class GenericException : public std::exception
+class GenericException: public std::exception
 {
 private:
     /**

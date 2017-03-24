@@ -37,7 +37,7 @@ class XML;
 /**
  * Generate an ePub file.
  */
-class EPUB : public Generator
+class EPUB: public Generator
 {
 private:
     /**

@@ -27,7 +27,7 @@ class Html;
 /**
  * Stores a paragraph glyph.
  */
-class ParagraphGlyph : public Glyph
+class ParagraphGlyph: public Glyph
 {
 public:
     /**

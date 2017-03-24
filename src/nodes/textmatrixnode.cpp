@@ -21,8 +21,9 @@
 
 using namespace node;
 
-TextMatrixNode::TextMatrixNode(const std::initializer_list<double> &list)
-    : TreeNode(), values{list}
+TextMatrixNode::TextMatrixNode(const std::initializer_list<double> &list) :
+        TreeNode(), values
+        { list }
 {
 }
 
