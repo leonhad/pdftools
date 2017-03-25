@@ -24,13 +24,14 @@
 
 class ZipTest: public CppUnit::TestFixture
 {
-CPPUNIT_TEST_SUITE(ZipTest);
-    CPPUNIT_TEST(testInstance);CPPUNIT_TEST_SUITE_END()
-    ;
+private:
+    CPPUNIT_TEST_SUITE(ZipTest);
+    CPPUNIT_TEST(testInstance);
+    CPPUNIT_TEST_SUITE_END();
 
 public:
-    void setUp();
-    void tearDown();
+    void setUp() override;
+    void tearDown() override;
 
 protected:
     void testInstance();
