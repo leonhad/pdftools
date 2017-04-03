@@ -22,25 +22,100 @@
 
 #include <string>
 
+/**
+ * Page Type.
+ */
 enum page_type
 {
-    ARABIC, UPCASE_ROMAN, LOWCASE_ROMAN, UPCASE_LETTERS, LOWCASE_LETTERS
+    /**
+     * Arabic type.
+     */
+    ARABIC,
+
+    /**
+     * Roman type in upper case.
+     */
+    UPCASE_ROMAN,
+
+    /**
+     * Roman in lower case.
+     */
+    LOWCASE_ROMAN,
+
+    /**
+     * Letters in upper case.
+     */
+    UPCASE_LETTERS,
+
+    /**
+     * Letters in lower case.
+     */
+    LOWCASE_LETTERS
 };
 
+/**
+ * Stores a page label.
+ */
 class PageLabel
 {
 private:
+    /**
+     * The page start number.
+     */
     int m_start_number;
+
+    /**
+     * The page range.
+     */
     int m_range;
+
+    /**
+     * The page type.
+     */
     page_type m_type;
+
+    /**
+     * The label name.
+     */
     std::string m_name;
 
 public:
+    /**
+     * Creates a new page label.
+     *
+     * @param start the page start.
+     * @param range the page range.
+     * @param type the page type.
+     * @param name the label name.
+     */
     PageLabel(int start, int range, page_type type, std::string &name);
 
+    /**
+     * Gets the page start.
+     *
+     * @return the page start.
+     */
     int start();
+
+    /**
+     * Gets the page range.
+     *
+     * @return the page range.
+     */
     int range();
+
+    /**
+     * Gets the page type.
+     *
+     * @return the page type.
+     */
     page_type type();
+
+    /**
+     * Gets the page name.
+     *
+     * @return the page name.
+     */
     std::string &name();
 };
 

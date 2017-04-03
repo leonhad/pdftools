@@ -26,8 +26,8 @@ using namespace parser;
 
 namespace parser
 {
-
-static const char *special_chars = "\r\n<()/[]>";
+constexpr const char *special_chars = "\r\n<()/[]>";
+constexpr const int HEX_BASE = 16;
 
 enum class StateType
 {
@@ -234,11 +234,10 @@ char *Scanner::getImageStream()
                 ungetChar();
                 break;
             }
-            // not endstream
+            // not endstream.
             m_filein->seekg(pos);
         }
     }
-    // FIXME save image stream.
     return nullptr;
 }
 
@@ -425,8 +424,8 @@ Token *Scanner::nextToken()
 
                 for (unsigned int loop = 0; loop < token_string.length(); loop += 2)
                 {
-                    str.push_back(
-                            static_cast<char>(stoi(token_string.substr(loop, 2), nullptr, 16)));
+                    str.push_back(static_cast<char>(stoi(token_string.substr(loop, 2),
+                            nullptr, HEX_BASE)));
                 }
                 if (m_charset_conversion)
                 {

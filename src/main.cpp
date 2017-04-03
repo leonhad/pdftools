@@ -26,7 +26,8 @@
 using namespace std;
 
 /**
- * Start the application
+ * Start the application.
+ *
  * \param argc total of program parameters.
  * \param argv the program parameters.
  * \return the program return code.
