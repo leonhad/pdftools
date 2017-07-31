@@ -13,8 +13,6 @@
 # PARTICULAR PURPOSE.
 
 @SET_MAKE@
-
-
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -89,7 +87,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-subdir = src/glyphs
+check_PROGRAMS = gtest$(EXEEXT)
+subdir = tests
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
@@ -100,27 +99,29 @@ am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
-	$(am__DIST_COMMON)
+DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-LIBRARIES = $(noinst_LIBRARIES)
-ARFLAGS = cru
-AM_V_AR = $(am__v_AR_@AM_V@)
-am__v_AR_ = $(am__v_AR_@AM_DEFAULT_V@)
-am__v_AR_0 = @echo "  AR      " $@;
-am__v_AR_1 = 
-libglyphs_a_AR = $(AR) $(ARFLAGS)
-libglyphs_a_LIBADD =
-am_libglyphs_a_OBJECTS = libglyphs_a-glyph.$(OBJEXT) \
-	libglyphs_a-paragraphglyph.$(OBJEXT) \
-	libglyphs_a-textglyph.$(OBJEXT) \
-	libglyphs_a-breakglyph.$(OBJEXT) \
-	libglyphs_a-fontglyph.$(OBJEXT) \
-	libglyphs_a-fontsizeglyph.$(OBJEXT)
-libglyphs_a_OBJECTS = $(am_libglyphs_a_OBJECTS)
+libgtest_la_LIBADD =
+am__dirstamp = $(am__leading_dot)dirstamp
+am_libgtest_la_OBJECTS =  \
+	../googletest/googletest/src/libgtest_la-gtest-all.lo
+libgtest_la_OBJECTS = $(am_libgtest_la_OBJECTS)
+AM_V_lt = $(am__v_lt_@AM_V@)
+am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
+am__v_lt_0 = --silent
+am__v_lt_1 = 
+libgtest_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+	$(CXXFLAGS) $(libgtest_la_LDFLAGS) $(LDFLAGS) -o $@
+am_gtest_OBJECTS = gtest-gtest.$(OBJEXT)
+gtest_OBJECTS = $(am_gtest_OBJECTS)
+gtest_DEPENDENCIES = libgtest.la
+gtest_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
+	$(CXXFLAGS) $(gtest_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -137,10 +138,6 @@ DEFAULT_INCLUDES =
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
 am__mv = mv -f
-AM_V_lt = $(am__v_lt_@AM_V@)
-am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
-am__v_lt_0 = --silent
-am__v_lt_1 = 
 CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 LTCXXCOMPILE = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
@@ -159,14 +156,13 @@ AM_V_CXXLD = $(am__v_CXXLD_@AM_V@)
 am__v_CXXLD_ = $(am__v_CXXLD_@AM_DEFAULT_V@)
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(libglyphs_a_SOURCES)
-DIST_SOURCES = $(libglyphs_a_SOURCES)
+SOURCES = $(libgtest_la_SOURCES) $(gtest_SOURCES)
+DIST_SOURCES = $(libgtest_la_SOURCES) $(gtest_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
-HEADERS = $(noinst_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -309,32 +305,18 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-noinst_LIBRARIES = libglyphs.a
-libglyphs_a_SOURCES = \
-	glyph.cpp \
-	paragraphglyph.cpp \
-	textglyph.cpp \
-	breakglyph.cpp \
-	fontglyph.cpp \
-	fontsizeglyph.cpp
-
-noinst_HEADERS = \
-	glyphs.h \
-	glyph.h \
-	paragraphglyph.h \
-	textglyph.h \
-	breakglyph.h \
-	fontglyph.h \
-	fontsizeglyph.h
-
-libglyphs_a_CXXFLAGS = -I..
-MOSTLYCLEANFILES = \
-	*.gcda *.gcno *.gcov
-
+check_LTLIBRARIES = libgtest.la
+libgtest_la_SOURCES = ../googletest/googletest/src/gtest-all.cc
+libgtest_la_CPPFLAGS = -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest
+libgtest_la_LDFLAGS = -pthread
+gtest_SOURCES = gtest.cpp
+gtest_LDADD = libgtest.la
+gtest_LDFLAGS = -pthread
+gtest_CPPFLAGS = -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest -pthread
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .cpp .lo .o .obj
+.SUFFIXES: .cc .cpp .lo .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -344,9 +326,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/glyphs/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu tests/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/glyphs/Makefile
+	  $(AUTOMAKE) --gnu tests/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -365,26 +347,97 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 	cd $(top_builddir) && $(MAKE) $(AM_MAKEFLAGS) am--refresh
 $(am__aclocal_m4_deps):
 
-clean-noinstLIBRARIES:
-	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+clean-checkLTLIBRARIES:
+	-test -z "$(check_LTLIBRARIES)" || rm -f $(check_LTLIBRARIES)
+	@list='$(check_LTLIBRARIES)'; \
+	locs=`for p in $$list; do echo $$p; done | \
+	      sed 's|^[^/]*$$|.|; s|/[^/]*$$||; s|$$|/so_locations|' | \
+	      sort -u`; \
+	test -z "$$locs" || { \
+	  echo rm -f $${locs}; \
+	  rm -f $${locs}; \
+	}
+../googletest/googletest/src/$(am__dirstamp):
+	@$(MKDIR_P) ../googletest/googletest/src
+	@: > ../googletest/googletest/src/$(am__dirstamp)
+../googletest/googletest/src/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) ../googletest/googletest/src/$(DEPDIR)
+	@: > ../googletest/googletest/src/$(DEPDIR)/$(am__dirstamp)
+../googletest/googletest/src/libgtest_la-gtest-all.lo:  \
+	../googletest/googletest/src/$(am__dirstamp) \
+	../googletest/googletest/src/$(DEPDIR)/$(am__dirstamp)
 
-libglyphs.a: $(libglyphs_a_OBJECTS) $(libglyphs_a_DEPENDENCIES) $(EXTRA_libglyphs_a_DEPENDENCIES) 
-	$(AM_V_at)-rm -f libglyphs.a
-	$(AM_V_AR)$(libglyphs_a_AR) libglyphs.a $(libglyphs_a_OBJECTS) $(libglyphs_a_LIBADD)
-	$(AM_V_at)$(RANLIB) libglyphs.a
+libgtest.la: $(libgtest_la_OBJECTS) $(libgtest_la_DEPENDENCIES) $(EXTRA_libgtest_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(libgtest_la_LINK)  $(libgtest_la_OBJECTS) $(libgtest_la_LIBADD) $(LIBS)
+
+clean-checkPROGRAMS:
+	@list='$(check_PROGRAMS)'; test -n "$$list" || exit 0; \
+	echo " rm -f" $$list; \
+	rm -f $$list || exit $$?; \
+	test -n "$(EXEEXT)" || exit 0; \
+	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
+	echo " rm -f" $$list; \
+	rm -f $$list
+
+gtest$(EXEEXT): $(gtest_OBJECTS) $(gtest_DEPENDENCIES) $(EXTRA_gtest_DEPENDENCIES) 
+	@rm -f gtest$(EXEEXT)
+	$(AM_V_CXXLD)$(gtest_LINK) $(gtest_OBJECTS) $(gtest_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f ../googletest/googletest/src/*.$(OBJEXT)
+	-rm -f ../googletest/googletest/src/*.lo
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libglyphs_a-breakglyph.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libglyphs_a-fontglyph.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libglyphs_a-fontsizeglyph.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libglyphs_a-glyph.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libglyphs_a-paragraphglyph.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libglyphs_a-textglyph.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../googletest/googletest/src/$(DEPDIR)/libgtest_la-gtest-all.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gtest-gtest.Po@am__quote@
+
+.cc.o:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
+
+.cc.obj:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.obj$$||'`;\
+@am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ `$(CYGPATH_W) '$<'` &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+.cc.lo:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.lo$$||'`;\
+@am__fastdepCXX_TRUE@	$(LTCXXCOMPILE) -MT $@ -MD -MP -MF $$depbase.Tpo -c -o $@ $< &&\
+@am__fastdepCXX_TRUE@	$(am__mv) $$depbase.Tpo $$depbase.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
+
+../googletest/googletest/src/libgtest_la-gtest-all.lo: ../googletest/googletest/src/gtest-all.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgtest_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ../googletest/googletest/src/libgtest_la-gtest-all.lo -MD -MP -MF ../googletest/googletest/src/$(DEPDIR)/libgtest_la-gtest-all.Tpo -c -o ../googletest/googletest/src/libgtest_la-gtest-all.lo `test -f '../googletest/googletest/src/gtest-all.cc' || echo '$(srcdir)/'`../googletest/googletest/src/gtest-all.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ../googletest/googletest/src/$(DEPDIR)/libgtest_la-gtest-all.Tpo ../googletest/googletest/src/$(DEPDIR)/libgtest_la-gtest-all.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../googletest/googletest/src/gtest-all.cc' object='../googletest/googletest/src/libgtest_la-gtest-all.lo' libtool=yes @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libgtest_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ../googletest/googletest/src/libgtest_la-gtest-all.lo `test -f '../googletest/googletest/src/gtest-all.cc' || echo '$(srcdir)/'`../googletest/googletest/src/gtest-all.cc
+
+gtest-gtest.o: gtest.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT gtest-gtest.o -MD -MP -MF $(DEPDIR)/gtest-gtest.Tpo -c -o gtest-gtest.o `test -f 'gtest.cpp' || echo '$(srcdir)/'`gtest.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gtest-gtest.Tpo $(DEPDIR)/gtest-gtest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='gtest.cpp' object='gtest-gtest.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gtest-gtest.o `test -f 'gtest.cpp' || echo '$(srcdir)/'`gtest.cpp
+
+gtest-gtest.obj: gtest.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT gtest-gtest.obj -MD -MP -MF $(DEPDIR)/gtest-gtest.Tpo -c -o gtest-gtest.obj `if test -f 'gtest.cpp'; then $(CYGPATH_W) 'gtest.cpp'; else $(CYGPATH_W) '$(srcdir)/gtest.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/gtest-gtest.Tpo $(DEPDIR)/gtest-gtest.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='gtest.cpp' object='gtest-gtest.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gtest-gtest.obj `if test -f 'gtest.cpp'; then $(CYGPATH_W) 'gtest.cpp'; else $(CYGPATH_W) '$(srcdir)/gtest.cpp'; fi`
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -410,95 +463,12 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
-libglyphs_a-glyph.o: glyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-glyph.o -MD -MP -MF $(DEPDIR)/libglyphs_a-glyph.Tpo -c -o libglyphs_a-glyph.o `test -f 'glyph.cpp' || echo '$(srcdir)/'`glyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-glyph.Tpo $(DEPDIR)/libglyphs_a-glyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='glyph.cpp' object='libglyphs_a-glyph.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-glyph.o `test -f 'glyph.cpp' || echo '$(srcdir)/'`glyph.cpp
-
-libglyphs_a-glyph.obj: glyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-glyph.obj -MD -MP -MF $(DEPDIR)/libglyphs_a-glyph.Tpo -c -o libglyphs_a-glyph.obj `if test -f 'glyph.cpp'; then $(CYGPATH_W) 'glyph.cpp'; else $(CYGPATH_W) '$(srcdir)/glyph.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-glyph.Tpo $(DEPDIR)/libglyphs_a-glyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='glyph.cpp' object='libglyphs_a-glyph.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-glyph.obj `if test -f 'glyph.cpp'; then $(CYGPATH_W) 'glyph.cpp'; else $(CYGPATH_W) '$(srcdir)/glyph.cpp'; fi`
-
-libglyphs_a-paragraphglyph.o: paragraphglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-paragraphglyph.o -MD -MP -MF $(DEPDIR)/libglyphs_a-paragraphglyph.Tpo -c -o libglyphs_a-paragraphglyph.o `test -f 'paragraphglyph.cpp' || echo '$(srcdir)/'`paragraphglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-paragraphglyph.Tpo $(DEPDIR)/libglyphs_a-paragraphglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='paragraphglyph.cpp' object='libglyphs_a-paragraphglyph.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-paragraphglyph.o `test -f 'paragraphglyph.cpp' || echo '$(srcdir)/'`paragraphglyph.cpp
-
-libglyphs_a-paragraphglyph.obj: paragraphglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-paragraphglyph.obj -MD -MP -MF $(DEPDIR)/libglyphs_a-paragraphglyph.Tpo -c -o libglyphs_a-paragraphglyph.obj `if test -f 'paragraphglyph.cpp'; then $(CYGPATH_W) 'paragraphglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/paragraphglyph.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-paragraphglyph.Tpo $(DEPDIR)/libglyphs_a-paragraphglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='paragraphglyph.cpp' object='libglyphs_a-paragraphglyph.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-paragraphglyph.obj `if test -f 'paragraphglyph.cpp'; then $(CYGPATH_W) 'paragraphglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/paragraphglyph.cpp'; fi`
-
-libglyphs_a-textglyph.o: textglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-textglyph.o -MD -MP -MF $(DEPDIR)/libglyphs_a-textglyph.Tpo -c -o libglyphs_a-textglyph.o `test -f 'textglyph.cpp' || echo '$(srcdir)/'`textglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-textglyph.Tpo $(DEPDIR)/libglyphs_a-textglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='textglyph.cpp' object='libglyphs_a-textglyph.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-textglyph.o `test -f 'textglyph.cpp' || echo '$(srcdir)/'`textglyph.cpp
-
-libglyphs_a-textglyph.obj: textglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-textglyph.obj -MD -MP -MF $(DEPDIR)/libglyphs_a-textglyph.Tpo -c -o libglyphs_a-textglyph.obj `if test -f 'textglyph.cpp'; then $(CYGPATH_W) 'textglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/textglyph.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-textglyph.Tpo $(DEPDIR)/libglyphs_a-textglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='textglyph.cpp' object='libglyphs_a-textglyph.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-textglyph.obj `if test -f 'textglyph.cpp'; then $(CYGPATH_W) 'textglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/textglyph.cpp'; fi`
-
-libglyphs_a-breakglyph.o: breakglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-breakglyph.o -MD -MP -MF $(DEPDIR)/libglyphs_a-breakglyph.Tpo -c -o libglyphs_a-breakglyph.o `test -f 'breakglyph.cpp' || echo '$(srcdir)/'`breakglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-breakglyph.Tpo $(DEPDIR)/libglyphs_a-breakglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='breakglyph.cpp' object='libglyphs_a-breakglyph.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-breakglyph.o `test -f 'breakglyph.cpp' || echo '$(srcdir)/'`breakglyph.cpp
-
-libglyphs_a-breakglyph.obj: breakglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-breakglyph.obj -MD -MP -MF $(DEPDIR)/libglyphs_a-breakglyph.Tpo -c -o libglyphs_a-breakglyph.obj `if test -f 'breakglyph.cpp'; then $(CYGPATH_W) 'breakglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/breakglyph.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-breakglyph.Tpo $(DEPDIR)/libglyphs_a-breakglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='breakglyph.cpp' object='libglyphs_a-breakglyph.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-breakglyph.obj `if test -f 'breakglyph.cpp'; then $(CYGPATH_W) 'breakglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/breakglyph.cpp'; fi`
-
-libglyphs_a-fontglyph.o: fontglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-fontglyph.o -MD -MP -MF $(DEPDIR)/libglyphs_a-fontglyph.Tpo -c -o libglyphs_a-fontglyph.o `test -f 'fontglyph.cpp' || echo '$(srcdir)/'`fontglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-fontglyph.Tpo $(DEPDIR)/libglyphs_a-fontglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='fontglyph.cpp' object='libglyphs_a-fontglyph.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-fontglyph.o `test -f 'fontglyph.cpp' || echo '$(srcdir)/'`fontglyph.cpp
-
-libglyphs_a-fontglyph.obj: fontglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-fontglyph.obj -MD -MP -MF $(DEPDIR)/libglyphs_a-fontglyph.Tpo -c -o libglyphs_a-fontglyph.obj `if test -f 'fontglyph.cpp'; then $(CYGPATH_W) 'fontglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/fontglyph.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-fontglyph.Tpo $(DEPDIR)/libglyphs_a-fontglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='fontglyph.cpp' object='libglyphs_a-fontglyph.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-fontglyph.obj `if test -f 'fontglyph.cpp'; then $(CYGPATH_W) 'fontglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/fontglyph.cpp'; fi`
-
-libglyphs_a-fontsizeglyph.o: fontsizeglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-fontsizeglyph.o -MD -MP -MF $(DEPDIR)/libglyphs_a-fontsizeglyph.Tpo -c -o libglyphs_a-fontsizeglyph.o `test -f 'fontsizeglyph.cpp' || echo '$(srcdir)/'`fontsizeglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-fontsizeglyph.Tpo $(DEPDIR)/libglyphs_a-fontsizeglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='fontsizeglyph.cpp' object='libglyphs_a-fontsizeglyph.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-fontsizeglyph.o `test -f 'fontsizeglyph.cpp' || echo '$(srcdir)/'`fontsizeglyph.cpp
-
-libglyphs_a-fontsizeglyph.obj: fontsizeglyph.cpp
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -MT libglyphs_a-fontsizeglyph.obj -MD -MP -MF $(DEPDIR)/libglyphs_a-fontsizeglyph.Tpo -c -o libglyphs_a-fontsizeglyph.obj `if test -f 'fontsizeglyph.cpp'; then $(CYGPATH_W) 'fontsizeglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/fontsizeglyph.cpp'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libglyphs_a-fontsizeglyph.Tpo $(DEPDIR)/libglyphs_a-fontsizeglyph.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='fontsizeglyph.cpp' object='libglyphs_a-fontsizeglyph.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libglyphs_a_CXXFLAGS) $(CXXFLAGS) -c -o libglyphs_a-fontsizeglyph.obj `if test -f 'fontsizeglyph.cpp'; then $(CYGPATH_W) 'fontsizeglyph.cpp'; else $(CYGPATH_W) '$(srcdir)/fontsizeglyph.cpp'; fi`
-
 mostlyclean-libtool:
 	-rm -f *.lo
 
 clean-libtool:
 	-rm -rf .libs _libs
+	-rm -rf ../googletest/googletest/src/.libs ../googletest/googletest/src/_libs
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique
@@ -583,8 +553,9 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
+	$(MAKE) $(AM_MAKEFLAGS) $(check_LTLIBRARIES) $(check_PROGRAMS)
 check: check-am
-all-am: Makefile $(LIBRARIES) $(HEADERS)
+all-am: Makefile
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -606,24 +577,25 @@ install-strip:
 	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
 	fi
 mostlyclean-generic:
-	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
 
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f ../googletest/googletest/src/$(DEPDIR)/$(am__dirstamp)
+	-rm -f ../googletest/googletest/src/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-libtool clean-noinstLIBRARIES \
-	mostlyclean-am
+clean-am: clean-checkLTLIBRARIES clean-checkPROGRAMS clean-generic \
+	clean-libtool mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ../googletest/googletest/src/$(DEPDIR) ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -669,7 +641,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ../googletest/googletest/src/$(DEPDIR) ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -688,21 +660,21 @@ ps-am:
 
 uninstall-am:
 
-.MAKE: install-am install-strip
+.MAKE: check-am install-am install-strip
 
-.PHONY: CTAGS GTAGS TAGS all all-am check check-am clean clean-generic \
-	clean-libtool clean-noinstLIBRARIES cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-libtool distclean-tags distdir dvi dvi-am html \
-	html-am info info-am install install-am install-data \
-	install-data-am install-dvi install-dvi-am install-exec \
-	install-exec-am install-html install-html-am install-info \
-	install-info-am install-man install-pdf install-pdf-am \
-	install-ps install-ps-am install-strip installcheck \
-	installcheck-am installdirs maintainer-clean \
-	maintainer-clean-generic mostlyclean mostlyclean-compile \
-	mostlyclean-generic mostlyclean-libtool pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am
+.PHONY: CTAGS GTAGS TAGS all all-am check check-am clean \
+	clean-checkLTLIBRARIES clean-checkPROGRAMS clean-generic \
+	clean-libtool cscopelist-am ctags ctags-am distclean \
+	distclean-compile distclean-generic distclean-libtool \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
+	pdf pdf-am ps ps-am tags tags-am uninstall uninstall-am
 
 .PRECIOUS: Makefile
 

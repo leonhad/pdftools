@@ -1,17 +1,12 @@
-noinst_LIBRARIES = libzip.a libziptest.a
+noinst_LIBRARIES = libzip.a
 
 libzip_a_SOURCES = \
 	zipfile.cpp
 
 noinst_HEADERS = \
-	zipfile.h zipfiletest.h
+	zipfile.h
 
 libzip_a_CXXFLAGS = -I..
-
-libziptest_a_SOURCES = \
-	zipfiletest.cpp
-
-libziptest_a_CXXFLAGS = $(CPPUNIT_CFLAGS)
 
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov

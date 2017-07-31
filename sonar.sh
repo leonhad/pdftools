@@ -3,8 +3,7 @@
 rm -rf out/
 build-wrapper --out-dir out/ make all
 make check -j
-xsltproc cppunit-1.x-to-junit-1.0.xsl src/cppunit.xml > out/cppunit.xml
-rm src/cppunit.xml
+tests/gtest --gtest_output=xml:out/xunit.xml
 gcovr -x -r . > out/gcov.xml
 cppcheck --quiet --check-config --enable=all --xml --xml-version=2 -I src src 2> out/cppcheck.xml
 rats -w 3 --xml src > out/rats.xml

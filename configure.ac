@@ -1,7 +1,6 @@
 AC_PREREQ(2.62)
 AC_INIT([pdftools],[0.5.0],[leonhad@gmail.com],[pdftools],[https://github.com/leonhad/pdftools])
-AM_INIT_AUTOMAKE([-Wall tar-ustar no-define nostdinc ])
-AM_PATH_CPPUNIT(1.9.6)
+AM_INIT_AUTOMAKE([-Wall tar-ustar no-define nostdinc subdir-objects])
 AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADER([config.h])
@@ -21,11 +20,8 @@ AC_CANONICAL_HOST
 
 # Checks for programs.
 AC_LANG([C++])
-AM_PATH_CPPUNIT(1.13.2)
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
-# AX_CHECK_COMPILE_FLAG([-march=nocona], [CXXFLAGS="$CXXFLAGS -march=nocona"])
-# AX_CHECK_COMPILE_FLAG([-mtune=core2], [CXXFLAGS="$CXXFLAGS -mtune=core2"])
 AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
 
@@ -33,6 +29,7 @@ AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AM_PROG_AR
 AC_PROG_RANLIB
+LT_INIT
 
 # Checks for libraries.
 AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find zlib support])])
@@ -71,5 +68,6 @@ AC_CONFIG_FILES([Makefile
                  src/html/Makefile
                  src/epub/Makefile
                  src/graphics/Makefile
+                 tests/Makefile
 ])
 AC_OUTPUT
