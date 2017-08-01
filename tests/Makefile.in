@@ -116,7 +116,8 @@ am__v_lt_1 =
 libgtest_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
 	$(CXXFLAGS) $(libgtest_la_LDFLAGS) $(LDFLAGS) -o $@
-am_gtest_OBJECTS = gtest-gtest.$(OBJEXT)
+am_gtest_OBJECTS = gtest-gtest.$(OBJEXT) ../src/gtest-utils.$(OBJEXT) \
+	../src/gtest-genericexception.$(OBJEXT)
 gtest_OBJECTS = $(am_gtest_OBJECTS)
 gtest_DEPENDENCIES = libgtest.la
 gtest_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
@@ -309,10 +310,17 @@ check_LTLIBRARIES = libgtest.la
 libgtest_la_SOURCES = ../googletest/googletest/src/gtest-all.cc
 libgtest_la_CPPFLAGS = -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest
 libgtest_la_LDFLAGS = -pthread
-gtest_SOURCES = gtest.cpp
+gtest_SOURCES = gtest.cpp \
+    ../src/utils.cpp \
+    ../src/genericexception.cpp
+
 gtest_LDADD = libgtest.la
-gtest_LDFLAGS = -pthread
-gtest_CPPFLAGS = -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest -pthread
+gtest_LDFLAGS = -pthread \
+    ../src/zip/libzip.a
+
+gtest_CPPFLAGS = -I.. -I../src -I../src/zip \
+    -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest -pthread
+
 all: all-am
 
 .SUFFIXES:
@@ -378,6 +386,16 @@ clean-checkPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+../src/$(am__dirstamp):
+	@$(MKDIR_P) ../src
+	@: > ../src/$(am__dirstamp)
+../src/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) ../src/$(DEPDIR)
+	@: > ../src/$(DEPDIR)/$(am__dirstamp)
+../src/gtest-utils.$(OBJEXT): ../src/$(am__dirstamp) \
+	../src/$(DEPDIR)/$(am__dirstamp)
+../src/gtest-genericexception.$(OBJEXT): ../src/$(am__dirstamp) \
+	../src/$(DEPDIR)/$(am__dirstamp)
 
 gtest$(EXEEXT): $(gtest_OBJECTS) $(gtest_DEPENDENCIES) $(EXTRA_gtest_DEPENDENCIES) 
 	@rm -f gtest$(EXEEXT)
@@ -387,11 +405,14 @@ mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
 	-rm -f ../googletest/googletest/src/*.$(OBJEXT)
 	-rm -f ../googletest/googletest/src/*.lo
+	-rm -f ../src/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@../googletest/googletest/src/$(DEPDIR)/libgtest_la-gtest-all.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../src/$(DEPDIR)/gtest-genericexception.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@../src/$(DEPDIR)/gtest-utils.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/gtest-gtest.Po@am__quote@
 
 .cc.o:
@@ -438,6 +459,34 @@ gtest-gtest.obj: gtest.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='gtest.cpp' object='gtest-gtest.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o gtest-gtest.obj `if test -f 'gtest.cpp'; then $(CYGPATH_W) 'gtest.cpp'; else $(CYGPATH_W) '$(srcdir)/gtest.cpp'; fi`
+
+../src/gtest-utils.o: ../src/utils.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ../src/gtest-utils.o -MD -MP -MF ../src/$(DEPDIR)/gtest-utils.Tpo -c -o ../src/gtest-utils.o `test -f '../src/utils.cpp' || echo '$(srcdir)/'`../src/utils.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ../src/$(DEPDIR)/gtest-utils.Tpo ../src/$(DEPDIR)/gtest-utils.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/utils.cpp' object='../src/gtest-utils.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ../src/gtest-utils.o `test -f '../src/utils.cpp' || echo '$(srcdir)/'`../src/utils.cpp
+
+../src/gtest-utils.obj: ../src/utils.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ../src/gtest-utils.obj -MD -MP -MF ../src/$(DEPDIR)/gtest-utils.Tpo -c -o ../src/gtest-utils.obj `if test -f '../src/utils.cpp'; then $(CYGPATH_W) '../src/utils.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/utils.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ../src/$(DEPDIR)/gtest-utils.Tpo ../src/$(DEPDIR)/gtest-utils.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/utils.cpp' object='../src/gtest-utils.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ../src/gtest-utils.obj `if test -f '../src/utils.cpp'; then $(CYGPATH_W) '../src/utils.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/utils.cpp'; fi`
+
+../src/gtest-genericexception.o: ../src/genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ../src/gtest-genericexception.o -MD -MP -MF ../src/$(DEPDIR)/gtest-genericexception.Tpo -c -o ../src/gtest-genericexception.o `test -f '../src/genericexception.cpp' || echo '$(srcdir)/'`../src/genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ../src/$(DEPDIR)/gtest-genericexception.Tpo ../src/$(DEPDIR)/gtest-genericexception.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/genericexception.cpp' object='../src/gtest-genericexception.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ../src/gtest-genericexception.o `test -f '../src/genericexception.cpp' || echo '$(srcdir)/'`../src/genericexception.cpp
+
+../src/gtest-genericexception.obj: ../src/genericexception.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT ../src/gtest-genericexception.obj -MD -MP -MF ../src/$(DEPDIR)/gtest-genericexception.Tpo -c -o ../src/gtest-genericexception.obj `if test -f '../src/genericexception.cpp'; then $(CYGPATH_W) '../src/genericexception.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/genericexception.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) ../src/$(DEPDIR)/gtest-genericexception.Tpo ../src/$(DEPDIR)/gtest-genericexception.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='../src/genericexception.cpp' object='../src/gtest-genericexception.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(gtest_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o ../src/gtest-genericexception.obj `if test -f '../src/genericexception.cpp'; then $(CYGPATH_W) '../src/genericexception.cpp'; else $(CYGPATH_W) '$(srcdir)/../src/genericexception.cpp'; fi`
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -585,6 +634,8 @@ distclean-generic:
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
 	-rm -f ../googletest/googletest/src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f ../googletest/googletest/src/$(am__dirstamp)
+	-rm -f ../src/$(DEPDIR)/$(am__dirstamp)
+	-rm -f ../src/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
@@ -595,7 +646,7 @@ clean-am: clean-checkLTLIBRARIES clean-checkPROGRAMS clean-generic \
 	clean-libtool mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ../googletest/googletest/src/$(DEPDIR) ./$(DEPDIR)
+	-rm -rf ../googletest/googletest/src/$(DEPDIR) ../src/$(DEPDIR) ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -641,7 +692,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ../googletest/googletest/src/$(DEPDIR) ./$(DEPDIR)
+	-rm -rf ../googletest/googletest/src/$(DEPDIR) ../src/$(DEPDIR) ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

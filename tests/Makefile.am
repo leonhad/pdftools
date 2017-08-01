@@ -7,11 +7,15 @@ libgtest_la_LDFLAGS = -pthread
 
 check_PROGRAMS = gtest
 
-gtest_SOURCES = gtest.cpp
+gtest_SOURCES = gtest.cpp \
+    ../src/utils.cpp \
+    ../src/genericexception.cpp
 
 gtest_LDADD = libgtest.la
 
-gtest_LDFLAGS = -pthread
+gtest_LDFLAGS = -pthread \
+    ../src/zip/libzip.a
 
-gtest_CPPFLAGS = -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest -pthread
+gtest_CPPFLAGS = -I.. -I../src -I../src/zip \
+    -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest -pthread
 
