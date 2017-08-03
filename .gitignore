@@ -1,5 +1,9 @@
 /out
 
+tests/gtest
+
+*.la
+
 /html
 
 /latex
