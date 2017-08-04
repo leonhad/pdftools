@@ -1,5 +1,7 @@
 /out
 
+*.exe
+
 tests/gtest
 
 *.la
