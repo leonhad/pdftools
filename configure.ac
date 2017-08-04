@@ -21,14 +21,13 @@ AC_CANONICAL_HOST
 # Checks for programs.
 AC_LANG([C++])
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
+AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
 AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
 
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET
 AM_PROG_AR
-AC_PROG_RANLIB
 LT_INIT
 
 # Checks for libraries.
