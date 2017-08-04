@@ -1,4 +1,3 @@
-*.sh     -crlf
-*.ac     -crlf
-*.am     -crlf
-
+*.sh text eol=lf
+*.ac text eol=lf
+*.am text eol=lf
