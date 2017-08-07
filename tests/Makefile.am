@@ -3,7 +3,7 @@ libgtest_la_SOURCES = ../googletest/googletest/src/gtest-all.cc
 libgtest_la_CPPFLAGS = -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest
 libgtest_la_LDFLAGS = -pthread
 
-# TESTS = gtest
+TESTS = gtest
 
 check_PROGRAMS = gtest
 
@@ -13,9 +13,9 @@ gtest_SOURCES = gtest.cpp \
 
 gtest_LDADD = libgtest.la
 
-gtest_LDFLAGS = -pthread \
+gtest_LDFLAGS = $(PTHREAD_LIBS) \
     ../src/zip/libzip.a
 
-gtest_CPPFLAGS = -I.. -I../src -I../src/zip \
-    -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest -pthread
+gtest_CPPFLAGS = -I.. -I../src -I../src/zip $(PTHREAD_CFLAGS) \
+    -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest
 
