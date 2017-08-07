@@ -519,7 +519,7 @@ top_srcdir = @top_srcdir@
 check_LTLIBRARIES = libgtest.la
 libgtest_la_SOURCES = ../googletest/googletest/src/gtest-all.cc
 libgtest_la_CPPFLAGS = -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest
-libgtest_la_LDFLAGS = -pthread
+libgtest_la_LDFLAGS = $(PTHREAD_LIBS)
 gtest_SOURCES = gtest.cpp \
     ../src/utils.cpp \
     ../src/genericexception.cpp
