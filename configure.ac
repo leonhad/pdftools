@@ -30,9 +30,12 @@ AC_PROG_MAKE_SET
 AM_PROG_AR
 LT_INIT
 
-AX_PTHREAD([], [LIBS="$PTHREAD_LIBS $LIBS"
-  CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
-  CC="$PTHREAD_CC"])
+AX_PTHREAD( [
+            AC_DEFINE(HAVE_PTHREAD,1,[Define if you have POSIX threads libraries and header files.])
+            CLIBS="$PTHREAD_LIBS $LIBS"
+            CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+            LDFLAGS="$LDFLAGS $PTHREAD_CFLAGS"
+            CC="$PTHREAD_CC"],[])
 
 # Checks for libraries.
 AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find zlib support])])
