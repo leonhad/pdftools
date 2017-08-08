@@ -30,7 +30,9 @@ AC_PROG_MAKE_SET
 AM_PROG_AR
 LT_INIT
 
-AX_PTHREAD
+AX_PTHREAD([], [LIBS="$PTHREAD_LIBS $LIBS"
+  CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+  CC="$PTHREAD_CC"])
 
 # Checks for libraries.
 AX_CHECK_ZLIB(,[AC_MSG_ERROR([Could not find zlib support])])

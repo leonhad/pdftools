@@ -17570,7 +17570,9 @@ $as_echo "#define HAVE_PTHREAD 1" >>confdefs.h
         :
 else
         ax_pthread_ok=no
-
+        LIBS="$PTHREAD_LIBS $LIBS"
+  CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+  CC="$PTHREAD_CC"
 fi
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
