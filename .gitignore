@@ -53,7 +53,7 @@ stamp-h1
 /src/pdftools.xcodeproj/project.xcworkspace/xcuserdata
 
 /src/pdftools.xcodeproj/xcuserdata
-
+tests/gtest.dSYM/
 src/pdftools.pro.user
 /*~
 /src/pdftools.1
