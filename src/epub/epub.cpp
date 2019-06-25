@@ -18,14 +18,14 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "epub.h"
-#include "xml/xml.h"
-#include "html/html.h"
-#include "zip/zipfile.h"
-#include "semantic/outline.h"
-#include "semantic/document.h"
-#include "semantic/context.h"
-#include "semantic/page.h"
-#include <config.h>
+#include "../xml/xml.h"
+#include "../html/html.h"
+#include "../zip/zipfile.h"
+#include "../semantic/outline.h"
+#include "../semantic/document.h"
+#include "../semantic/context.h"
+#include "../semantic/page.h"
+#include "../../config.h"
 #include <sstream>
 
 using namespace std;

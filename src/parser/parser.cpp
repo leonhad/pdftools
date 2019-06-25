@@ -19,7 +19,7 @@
  */
 #include "parser.h"
 #include "utils.h"
-#include "nodes/nodes.h"
+#include "../nodes/nodes.h"
 
 using namespace std;
 using namespace parser;

@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "genericparser.h"
-#include "nodes/nodes.h"
+#include "../nodes/nodes.h"
 #include "utils.h"
 
 using namespace std;

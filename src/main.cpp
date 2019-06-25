@@ -21,7 +21,7 @@
 #include "converter.h"
 #include <getopt.h>
 #include <iostream>
-#include <config.h>
+#include "../config.h"
 
 using namespace std;
 
