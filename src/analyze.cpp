@@ -43,7 +43,7 @@ Analyze::Analyze(const string &filein) throw (exception) :
     ifstream filestream;
     filestream.open(filein, ios::binary);
 
-    if (!filestream.is_open())
+    if (not filestream.is_open())
     {
         string message
         { "Invalid input file name: " };
@@ -154,7 +154,7 @@ void Analyze::analyzeInfo()
 void Analyze::analyzeRoot()
 {
     ObjNode *obj_root = dynamic_cast<ObjNode *>(m_document->rootNode());
-    if (!obj_root)
+    if (not obj_root)
     {
         // Invalid file
         return;
@@ -162,7 +162,7 @@ void Analyze::analyzeRoot()
 
     MapNode *catalog = dynamic_cast<MapNode *>(obj_root->value());
     NameNode *name = dynamic_cast<NameNode *>(catalog->get("/Type"));
-    if (!name || name->name() != "/Catalog")
+    if (not name || name->name() != "/Catalog")
     {
         // Invalid file
         return;
@@ -289,7 +289,7 @@ void Analyze::analyzeOutlines(MapNode *values, Outline *parent)
 
     Outline *outline = new Outline;
     string named_dest = getStringValue(values->get("/Dest"));
-    if (!named_dest.empty())
+    if (not named_dest.empty())
     {
         MapNode *map = dynamic_cast<MapNode *>(getRealObjValue(getNamedValue(named_dest)));
         if (map)
@@ -320,7 +320,7 @@ void Analyze::analyzeOutlines(MapNode *values, Outline *parent)
 
     outline->set_title(getStringValue(values->get("/Title")));
 
-    if (!parent)
+    if (not parent)
     {
         // root node
         m_document->setOutline(outline);
@@ -376,7 +376,7 @@ Document *Analyze::analyzeTree() throw (exception)
     filestream.close();
 
     m_tree = parser.parse();
-    if (!m_tree)
+    if (not m_tree)
     {
         // Invalid tree
         return nullptr;
@@ -582,7 +582,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
             }
         }
     }
-    else if (!filter)
+    else if (not filter)
     {
         (*stream_value).write(stream, total);
     }
@@ -597,7 +597,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
 void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
 {
     ObjNode *obj_pages = dynamic_cast<ObjNode *>(page);
-    if (!obj_pages)
+    if (not obj_pages)
     {
         // Invalid file.
         return;
@@ -611,7 +611,7 @@ void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
         {
             ArrayNode *kids = dynamic_cast<ArrayNode *>(catalog->get("/Kids"));
             ArrayNode *media = dynamic_cast<ArrayNode *>(catalog->get("/MediaBox"));
-            if (!media)
+            if (not media)
             {
                 media = mediabox;
             }
@@ -628,7 +628,7 @@ void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
         else if (type->name() == "/Page")
         {
             ArrayNode *media = dynamic_cast<ArrayNode *>(catalog->get("/MediaBox"));
-            if (!media)
+            if (not media)
             {
                 media = mediabox;
             }
@@ -720,7 +720,7 @@ double Analyze::getNumberValue(TreeNode *value, int default_value)
 
 ObjNode *Analyze::getObject(RefNode *ref)
 {
-    if (!ref)
+    if (not ref)
     {
         return nullptr;
     }
@@ -736,7 +736,7 @@ ObjNode *Analyze::getObject(int id, int generation)
 
     for (size_t i = 0; i < size; i++)
     {
-        if (!done)
+        if (not done)
         {
             ObjNode *obj = dynamic_cast<ObjNode *>(m_tree->get(i));
             if (obj && obj->sameObject(id, generation))

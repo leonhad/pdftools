@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "parser.h"
-#include "utils.h"
+#include "../utils.h"
 #include "../nodes/nodes.h"
 
 using namespace std;
@@ -55,7 +55,7 @@ RootNode *Parser::parse()
     match(TokenType::PERCENT);
     if (verifyVersion())
     {
-        while (m_scanner->good() && !error)
+        while (m_scanner->good() && not error)
         {
             switch (m_token->type())
             {
@@ -126,7 +126,7 @@ void Parser::objectStreams(RootNode *root_node)
                         uncompressed = flat_decode(stream, length, total);
                         delete [] stream;
                     }
-                    else if (!filter)
+                    else if (not filter)
                     {
                         uncompressed = stream;
                     }

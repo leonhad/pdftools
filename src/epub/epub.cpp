@@ -105,7 +105,7 @@ void EPUB::generateContent(const string &output)
     xml.addAttribute("xmlns:opf", "http://www.idpf.org/2007/opf");
 
     xml.startTag("dc:title");
-    if (!m_document->title().empty())
+    if (not m_document->title().empty())
     {
         xml.addElement(m_document->title().c_str());
     }
