@@ -41,7 +41,7 @@ Analyze::Analyze(const string &filein) throw (exception) :
 m_filein(filein)
 {
     ifstream filestream;
-    filestream.open(filein, ios::binary | std::ifstream::in);
+    filestream.open(filein, ios::binary);
     
     if (not filestream.is_open())
     {
@@ -647,9 +647,8 @@ void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
                     getStream(array, &stream_value);
                 }
                 
-                m_document->addPage(
-                                    processPage(obj_pages->id(), obj_pages->generation(), &stream_value,
-                                                catalog, media));
+                m_document->addPage(processPage(obj_pages->id(), obj_pages->generation(),
+                                                &stream_value, catalog, media));
             }
         }
     }

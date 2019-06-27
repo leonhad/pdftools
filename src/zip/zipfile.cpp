@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "zipfile.h"
-#include "utils.h"
+#include "../utils.h"
 #include <zlib.h>
 #include <cstring>
 
@@ -72,18 +72,18 @@ void ZipFile::close()
     }
 }
 
-void ZipFile::addSource(const char *filename, const char *buffer, size_t length)
+void ZipFile::addSource(const string &filename, const string &buffer)
 {
-    if (length == 0)
-    {
-        length = strlen((char *) buffer);
-    }
+    addSource(filename, buffer.c_str(), buffer.size());
+}
 
+void ZipFile::addSource(const string &filename, const char *buffer, size_t length)
+{
     appended_files file;
     file.position = static_cast<uint32_t>(m_output.tellp());
     file.date = currentDatetime();
     file.length = static_cast<uint32_t>(length);
-    file.name = filename;
+    file.name = filename.c_str();
 
     uint32_t crc = (uint32_t) ::crc32(0L, Z_NULL, 0);
     file.crc = (uint32_t) ::crc32(crc, (Bytef *) buffer, (uInt) length);
@@ -130,7 +130,7 @@ void ZipFile::addSource(const char *filename, const char *buffer, size_t length)
     write32(file.compressed_size);
     // Uncompressed
     write32(file.length);
-    write16(strlen(filename));
+    write16(filename.size());
     // file extra
     write16(0);
     writeString(filename);

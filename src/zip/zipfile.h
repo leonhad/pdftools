@@ -108,8 +108,16 @@ public:
      * \param buffer the buffer to read.
      * \param length the buffer length.
      */
-    void addSource(const char *filename, const char *buffer, size_t length = 0);
+    void addSource(const std::string &filename, const char *buffer, size_t length);
 
+    /**
+     * Add a file to this ZIP file based on a string buffer.
+     *
+     * \param filename the file name.
+     * \param buffer the buffer to read.
+     */
+    void addSource(const std::string &filename, const std::string &buffer);
+    
 private:
     void writeCentralFile();
 
