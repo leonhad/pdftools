@@ -402,7 +402,7 @@ Token *Scanner::nextToken()
                 }
                 break;
             case StateType::INNUM:
-                if (not `isdigit(c) && (c != '.'))
+                if (not isdigit(c) && (c != '.'))
                 {
                     /* backup in the input */
                     ungetChar();
