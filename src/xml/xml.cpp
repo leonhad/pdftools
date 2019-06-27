@@ -39,14 +39,14 @@ const string XML::content() const
 {
     stringstream m_buffer;
     m_buffer << "<?xml version=\"" << m_version << "\" encoding=\"" << m_charset << "\"?>" << endl;
-    if (!m_doctype_name.empty())
+    if (not m_doctype_name.empty())
     {
         m_buffer << "<!DOCTYPE " << m_doctype_name;
-        if (!m_public_id.empty())
+        if (not m_public_id.empty())
         {
             m_buffer << " PUBLIC \"" << m_public_id << "\"";
         }
-        if (!m_sys_id.empty())
+        if (not m_sys_id.empty())
         {
             m_buffer << " \"" << m_sys_id << "\"";
         }
@@ -96,7 +96,7 @@ void XML::startTag(const string &tag_name)
 {
     XmlTag *tag = new XmlTag
     { tag_name };
-    if (!m_root)
+    if (not m_root)
     {
         m_root = tag;
     }

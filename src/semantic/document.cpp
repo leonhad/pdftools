@@ -193,7 +193,7 @@ void Document::setAuthor(string author)
 
 void Document::setLang(string lang)
 {
-    if (!lang.empty())
+    if (not lang.empty())
     {
         m_lang = lang;
     }

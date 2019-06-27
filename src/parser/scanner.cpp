@@ -253,7 +253,7 @@ char Scanner::nextChar()
 {
     int ret = EOF;
     
-    if (m_filein->good() && !m_filein->eof())
+    if (m_filein->good() && not m_filein->eof())
     {
         ret = m_filein->get();
         if (ret == '\r')
@@ -291,7 +291,7 @@ TokenType Scanner::reserved_lookup(const char *s)
     int size = sizeof(words) / sizeof(reserved_words);
     for (int i = 0; i < size; i++)
     {
-        if (!strcmp(words [i].name, s))
+        if (not strcmp(words [i].name, s))
         {
             return words [i].type;
         }
@@ -402,7 +402,7 @@ Token *Scanner::nextToken()
                 }
                 break;
             case StateType::INNUM:
-                if (!isdigit(c) && (c != '.'))
+                if (not `isdigit(c) && (c != '.'))
                 {
                     /* backup in the input */
                     ungetChar();

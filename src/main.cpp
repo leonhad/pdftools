@@ -69,9 +69,9 @@ int main(int argc, char *argv [])
                 }
                 break;
             case 'h':
-                cout << PACKAGE_NAME << " is a high level tools to convert PDF files to ePUB format."
-                << endl;
-                cout << endl;
+                cout << PACKAGE_NAME;
+                cout << " is a high level tools to convert PDF files to ePUB format.";
+                cout << endl << endl;
                 cout << "Usage: " << PACKAGE_NAME << " [options] file..." << endl;
                 cout << "Options:" << endl;
                 cout << "  -f <format>, --format=<format>\toutput file format [epub]" << endl;
@@ -80,17 +80,18 @@ int main(int argc, char *argv [])
                 cout << "  -v, --version\t\t\t\tdisplay the version information" << endl;
                 cout << "  --verbose\t\t\t\trun in verbose mode" << endl;
                 cout << endl;
-                cout << "In conformance on copyright issues, this tool don't support encrypted files."
-                << endl;
+                cout << "In conformance on copyright issues, ";
+                cout << " this tool don't support encrypted files." << endl;
                 cout << "Report bugs to <https://github.com/leonhad/pdftools/issues>" << endl;
                 return EXIT_SUCCESS;
             case 'v':
                 cout << PACKAGE_STRING << endl;
                 cout << endl;
                 cout << "Copyright (C) 2014 Leonardo Alves da Costa." << endl;
-                cout << "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>"
-                << endl;
-                cout << "This is free software: you are free to change and redistribute it." << endl;
+                cout << "License GPLv3+: GNU GPL version 3 or later ";
+                cout << " <http://gnu.org/licenses/gpl.html>" << endl;
+                cout << "This is free software: you are free to change and redistribute it.";
+                cout << endl;
                 cout << "There is NO WARRANTY, to the extent permitted by law." << endl;
                 cout << endl;
                 cout << "Written by Leonardo Alves da Costa." << endl;
@@ -116,7 +117,7 @@ int main(int argc, char *argv [])
         set_verbose_mode(true);
     }
     
-    if (optind >= argc && !error)
+    if (optind >= argc && not error)
     {
         error_message("no input file");
         error = true;
