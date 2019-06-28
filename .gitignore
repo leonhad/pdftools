@@ -40,6 +40,8 @@ test/testsuit
 
 *.a
 
+*.dSYM
+
 autom4te.cache
 
 Makefile

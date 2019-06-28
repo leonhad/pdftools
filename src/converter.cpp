@@ -86,7 +86,7 @@ void Converter::convert() throw (std::exception)
         Generator *instance = Generator::getInstance(m_format.c_str());
         if (instance)
         {
-            if (!instance->generate(m_document, m_fileout.c_str()))
+            if (not instance->generate(m_document, m_fileout.c_str()))
             {
                 error_message("Cannot generate output file");
             }
