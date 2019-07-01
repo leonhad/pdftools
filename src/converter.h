@@ -1,7 +1,5 @@
 /*
- * PDF Tools.
- * Copyright (C) 2012-2016 Leonardo Alves da Costa
- * mailto:leonhad AT gmail DOT com
+ * This file is part of PDF Tools.
  *
  * PDF Tools is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,22 +21,18 @@
 #include <string>
 #include <stdexcept>
 
-class Document;
-class RootNode;
-
 class Converter
 {
 private:
     const std::string m_filein;
     const std::string m_format;
     std::string m_fileout;
-    Document *m_document;
 
 public:
     Converter(const std::string& filein, const std::string& fileout, const std::string& format);
     ~Converter();
 
-    void convert() throw (std::exception);
+    void convert();
 };
 
 #endif

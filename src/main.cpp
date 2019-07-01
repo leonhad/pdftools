@@ -1,7 +1,5 @@
 /*
- * PDF Tools.
- * Copyright (C) 2012-2016 Leonardo Alves da Costa
- * mailto:leonhad AT gmail DOT com
+ * This file is part of PDF Tools.
  *
  * PDF Tools is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,9 +17,11 @@
  */
 #include "utils.h"
 #include "converter.h"
+#include "../config.h"
+
 #include <getopt.h>
 #include <iostream>
-#include "../config.h"
+#include <memory>
 
 using namespace std;
 
@@ -134,8 +134,8 @@ int main(int argc, char *argv [])
         {
             try
             {
-                Converter converter(argv [loop], fileout, format);
-                converter.convert();
+                unique_ptr<Converter> converter(new Converter(argv [loop], fileout, format));
+                converter->convert();
             } catch (exception &e)
             {
                 error_message(e.what());

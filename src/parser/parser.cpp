@@ -44,7 +44,7 @@ Parser::Parser(ifstream *filein) throw (exception) :
     }
     else
     {
-        throw ios_base::failure("Invalid input file.");
+        throw runtime_error("Invalid input file.");
     }
 }
 
@@ -80,7 +80,7 @@ RootNode *Parser::parse()
     }
     else
     {
-        error_message("invalid input file");
+         throw runtime_error("Invalid input file.");
     }
     m_scanner->clear();
     objectStreams(root);

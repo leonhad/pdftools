@@ -373,9 +373,9 @@ Document *Analyze::analyzeTree() throw (exception)
     ifstream filestream;
     filestream.open(m_filein, ios::binary);
     Parser parser(&filestream);
-    filestream.close();
     
     m_tree = parser.parse();
+    filestream.close();
     if (not m_tree)
     {
         // Invalid tree
