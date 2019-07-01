@@ -16,8 +16,6 @@ tests/gtest
 
 *.gcno
 
-.*
-
 cppunit.xmL
 
 config.h
