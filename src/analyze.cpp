@@ -1,5 +1,5 @@
 /*
- * PDF Tools.
+ * This file is part of PDF Tools.
  * Copyright (C) 2012-2016 Leonardo Alves da Costa
  * mailto:leonhad AT gmail DOT com
  *
@@ -37,23 +37,8 @@ using namespace std;
 using namespace parser;
 using namespace node;
 
-Analyze::Analyze(const string &filein) throw (exception) :
-m_filein(filein)
+Analyze::Analyze(const string &filein) : m_filein(filein)
 {
-    ifstream filestream;
-    filestream.open(filein, ios::binary);
-    
-    if (not filestream.is_open())
-    {
-        string message
-        { "Invalid input file name: " };
-        message += filein;
-        throw GenericException(message);
-    }
-    else
-    {
-        filestream.close();
-    }
 }
 
 Analyze::~Analyze()
@@ -188,8 +173,8 @@ void Analyze::analyzeRoot()
             for (size_t loop = 0; loop < size; loop += 2)
             {
                 int page = (int) getNumberValue(array->value(loop));
-                MapNode *attributes = dynamic_cast<MapNode *>(getRealObjValue(
-                                                                              array->value(loop + 1)));
+                MapNode *attributes =
+                    dynamic_cast<MapNode *>(getRealObjValue(array->value(loop + 1)));
                 if (attributes)
                 {
                     NameNode *name_type = dynamic_cast<NameNode *>(attributes->get("/S"));
@@ -366,25 +351,27 @@ void Analyze::analyzeOutline(ArrayNode *values, Outline *outline)
     }
 }
 
-Document *Analyze::analyzeTree() throw (exception)
+Document *Analyze::analyzeTree()
 {
     verbose_message("Parsing file " + m_filein);
     
     ifstream filestream;
     filestream.open(m_filein, ios::binary);
+
     Parser parser(&filestream);
-    
     m_tree = parser.parse();
     filestream.close();
+    
     if (not m_tree)
     {
         // Invalid tree
-        return nullptr;
+        throw GenericException("Invalid file.");
     }
     m_document = new Document;
     
     analyzeXref();
     analyzeInfo();
+    
     if (m_document->encrypted())
     {
         throw GenericException("Encrypted file is not supported.");

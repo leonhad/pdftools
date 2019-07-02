@@ -3,7 +3,8 @@
 *.exe
 
 tests/gtest
-
+.scannerwork
+.dirstamp
 *.la
 
 /html

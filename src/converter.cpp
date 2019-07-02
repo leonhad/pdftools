@@ -1,5 +1,7 @@
 /*
  * This file is part of PDF Tools.
+ * Copyright (C) 2012-2016 Leonardo Alves da Costa
+ * mailto:leonhad AT gmail DOT com
  *
  * PDF Tools is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -32,7 +34,7 @@ using namespace std;
 using namespace parser;
 
 Converter::Converter(const string& filein, const string& fileout, const string& format) :
-        m_filein(filein), m_format(format)
+m_filein(filein), m_format(format)
 {
     // Calculate the output file name
     if (fileout.empty())
@@ -59,38 +61,35 @@ Converter::~Converter()
 void Converter::convert()
 {
     Analyze analyze(m_filein.c_str());
-
+    
     unique_ptr<Document> m_document(analyze.analyzeTree());
-    if (m_document.get())
+    
+    stringstream msg;
+    msg << "Analyzing file " << m_filein << " " << "Pages: " << m_document->pages();
+    msg << " - " << "Title: ";
+    
+    if (m_document->title().empty())
     {
-        stringstream msg;
-        msg << "Analyzing file " << m_filein << " " << "Pages: " << m_document->pages() << " - "
-                << "Title: ";
-        if (m_document->title().empty())
+        msg << "no title";
+    }
+    else
+    {
+        msg << m_document->title();
+    }
+    
+    verbose_message(msg.str().c_str());
+    
+    // Generate output file
+    unique_ptr<Generator> instance(Generator::getInstance(m_format.c_str()));
+    if (instance.get())
+    {
+        if (not instance->generate(m_document.get(), m_fileout.c_str()))
         {
-            msg << "no title";
-        }
-        else
-        {
-            msg << m_document->title();
-        }
-
-        verbose_message(msg.str().c_str());
-
-        // Generate output file
-        unique_ptr<Generator> instance(Generator::getInstance(m_format.c_str()));
-        if (instance.get())
-        {
-            if (not instance->generate(m_document.get(), m_fileout.c_str()))
-            {
-                throw runtime_error("Cannot generate output file");
-            }
-        } else {
-            throw runtime_error("Invalid output format");
+            throw runtime_error("Cannot generate output file");
         }
     }
     else
     {
-        throw runtime_error("Invalid input file");
+        throw runtime_error("Invalid output format");
     }
 }

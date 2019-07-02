@@ -1,5 +1,7 @@
 /*
  * This file is part of PDF Tools.
+ * Copyright (C) 2012-2016 Leonardo Alves da Costa
+ * mailto:leonhad AT gmail DOT com
  *
  * PDF Tools is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +21,6 @@
 #define CONVERTER_H
 
 #include <string>
-#include <stdexcept>
 
 class Converter
 {
@@ -27,11 +28,11 @@ private:
     const std::string m_filein;
     const std::string m_format;
     std::string m_fileout;
-
+    
 public:
     Converter(const std::string& filein, const std::string& fileout, const std::string& format);
     ~Converter();
-
+    
     void convert();
 };
 
