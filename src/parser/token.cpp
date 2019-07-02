@@ -34,7 +34,13 @@ void Token::setType(TokenType type)
 
 double Token::toNumber() const
 {
-    return stof(m_value);
+    try {
+        return stof(m_value);
+    }
+    catch(...)
+    {
+        return 0.0;
+    }
 }
 
 string Token::value() const
