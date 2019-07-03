@@ -34,10 +34,11 @@ void Token::setType(TokenType type)
 
 double Token::toNumber() const
 {
-    try {
+    try
+    {
         return stof(m_value);
     }
-    catch(...)
+    catch (...)
     {
         return 0.0;
     }
