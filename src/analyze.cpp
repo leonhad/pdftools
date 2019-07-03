@@ -511,16 +511,13 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
     ArrayNode *filter_array = dynamic_cast<ArrayNode *>(getRealObjValue(node->get("/Filter")));
     int length = (int) getNumberValue(getRealObjValue(node->get("/Length")));
     
-    ifstream filein;
-    filein.open(m_filein, ios::binary);
-    
     ifstream filestream;
     filestream.open(m_filein, ios::binary);
     Scanner scanner{ &filestream };
     scanner.to_pos(obj->streamPos());
     
     char *stream = scanner.getStream(length);
-    filein.close();
+    filestream.close();
     
     int total = length;
     if (filter && filter->name() == "/FlateDecode")
