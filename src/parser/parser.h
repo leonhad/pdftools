@@ -28,9 +28,8 @@
 
 namespace node
 {
-class TreeNode;
-
-class RootNode;
+    class TreeNode;
+    class RootNode;
 }
 
 namespace parser
@@ -57,7 +56,7 @@ public:
      *
      * \param filein the file to parse.
      */
-    explicit Parser(std::ifstream *filein) throw (std::exception);
+    explicit Parser(std::ifstream *filein);
 
     /**
      * Destroy this instance.

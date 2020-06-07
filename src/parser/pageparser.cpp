@@ -189,7 +189,7 @@ TreeNode *PageParser::fontSequence(vector<TreeNode *> &values)
     }
     else
     {
-        error_message("Error parsing font object");
+        error_message(L"Error parsing font object");
         return nullptr;
     }
 }

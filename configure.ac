@@ -10,7 +10,7 @@ dnl This mechanism allows one to enable debug compilations...
 AC_ARG_ENABLE(debug,
 [  --enable-debug     enable debugging and disable optimization],
 [  if test "$enable_debug" = "yes"; then
-      DEBUG_CFLAGS="-fprofile-arcs -ftest-coverage -fPIC -O0 -g3 -DDEBUG -fno-inline -fdiagnostics-show-option"
+      DEBUG_CFLAGS="-fPIC -O0 -g3 -DDEBUG -fno-inline"
    fi
 ])
 AM_CONDITIONAL(ENABLE_DEBUG, test "$enable_debug" = "yes")
@@ -21,7 +21,7 @@ AC_CANONICAL_HOST
 # Checks for programs.
 AC_LANG([C++])
 AC_PROG_CXX
-AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
+AX_CXX_COMPILE_STDCXX([14], [noext], [mandatory])
 AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
 
@@ -30,8 +30,7 @@ AC_PROG_MAKE_SET
 AM_PROG_AR
 LT_INIT
 
-AX_PTHREAD( [
-            AC_DEFINE(HAVE_PTHREAD,1,[Define if you have POSIX threads libraries and header files.])
+AX_PTHREAD([AC_DEFINE(HAVE_PTHREAD,1,[Define if you have POSIX threads libraries and header files.])
             CLIBS="$PTHREAD_LIBS $LIBS"
             CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
             LDFLAGS="$LDFLAGS $PTHREAD_CFLAGS"

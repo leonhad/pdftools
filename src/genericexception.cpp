@@ -26,7 +26,7 @@ GenericException::GenericException(const char *msg) :
 {
 }
 
-GenericException::GenericException(string &msg) :
+GenericException::GenericException(string msg) :
         m_msg(msg)
 {
 }

@@ -83,30 +83,35 @@ const char *doc_encoding_table [256] =
     "\x00f8", "\x00f9", "\x00fa", "\x00fb", "\x00fc", "\x00fd", "\x00fe", "\x00ff"
 };
 
-void verbose_message(const char *msg)
+void verbose_message(const wchar_t *msg)
 {
     if (_verbose)
     {
-        cout << PACKAGE_NAME << ": " << msg << endl;
+        wcout << PACKAGE_NAME << L": " << msg << endl;
     }
 }
 
-void verbose_message(const string &msg)
+void verbose_message(const wstring &msg)
 {
     if (_verbose)
     {
-        verbose_message(msg.c_str());
+        wcout << PACKAGE_NAME << L": " << msg << endl;
     }
 }
 
-void error_message(const char *msg)
+void error_message(const std::exception &e)
 {
-    cerr << PACKAGE_NAME << ": " << msg << endl;
+    wcerr << PACKAGE_NAME << L": " << e.what() << endl;
 }
 
-void error_message(const string &msg)
+void error_message(const wchar_t *msg)
 {
-    error_message(msg.c_str());
+    wcerr << PACKAGE_NAME << L": " << msg << endl;
+}
+
+void error_message(const std::wstring& msg)
+{
+    wcerr << PACKAGE_NAME << L": " << msg << endl;
 }
 
 void set_verbose_mode(const bool verbose)
@@ -119,7 +124,7 @@ bool verbose_mode()
     return _verbose;
 }
 
-char *compress(const char *raw, size_t size, uint32_t &writed) throw (exception)
+char *compress(const char *raw, size_t size, uint32_t &writed)
 {
     z_stream zstream;
     vector<BufferStruct> values;
@@ -212,7 +217,7 @@ char *flat_decode(char *compressed, int size, int &deflated)
             }
             else
             {
-                cout << "error in decompression " << rst2 << endl;
+                wcout << L"error in decompression " << rst2 << L"\n";
                 // Error in decompression
                 break;
             }
@@ -234,6 +239,13 @@ char *flat_decode(char *compressed, int size, int &deflated)
     }
     
     return ret;
+}
+
+std::wstring ctow(const std::string& str)
+{
+    std::wstring ws;
+    ws.assign(str.begin(), str.end());
+    return ws;
 }
 
 string convert(const char *in, const char *out, const string &str)
@@ -264,12 +276,12 @@ string convert(const char *in, const char *out, const string &str)
     return ret;
 }
 
-string utf16be_to_utf8(string &str)
+string utf16be_to_utf8(const string &str)
 {
     return convert(UTF8, "UTF-16BE", str);
 }
 
-string charset_to_utf8(string &str)
+string charset_to_utf8(const string &str)
 {
     string ret = str;
     bool convert_string = false;

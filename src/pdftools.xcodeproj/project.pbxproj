@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,9 +59,9 @@
 		A5E0F0AA1C336ABE00160E3B /* parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0A31C336ABE00160E3B /* parser.cpp */; };
 		A5E0F0AB1C336ABE00160E3B /* scanner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0A51C336ABE00160E3B /* scanner.cpp */; };
 		A5E0F0AF1C34399800160E3B /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0AD1C34399800160E3B /* token.cpp */; };
-		A5E0F0B21C3B340B00160E3B /* genericexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0B01C3B340B00160E3B /* genericexception.cpp */; };
 		A5FBDCB01C40540D0074741F /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5FBDCAC1C40540D0074741F /* element.cpp */; };
 		A5FBDCB11C40540D0074741F /* xmltag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5FBDCAE1C40540D0074741F /* xmltag.cpp */; };
+		A7D0A5B3248D9EA600B790BA /* genericexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7D0A5B2248D9EA600B790BA /* genericexception.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -181,12 +181,12 @@
 		A5E0F0A61C336ABE00160E3B /* scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scanner.h; path = parser/scanner.h; sourceTree = SOURCE_ROOT; };
 		A5E0F0AD1C34399800160E3B /* token.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = token.cpp; path = parser/token.cpp; sourceTree = SOURCE_ROOT; };
 		A5E0F0AE1C34399800160E3B /* token.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = token.h; path = parser/token.h; sourceTree = SOURCE_ROOT; };
-		A5E0F0B01C3B340B00160E3B /* genericexception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = genericexception.cpp; sourceTree = SOURCE_ROOT; };
-		A5E0F0B11C3B340B00160E3B /* genericexception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genericexception.h; sourceTree = SOURCE_ROOT; };
 		A5FBDCAC1C40540D0074741F /* element.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = element.cpp; path = xml/element.cpp; sourceTree = SOURCE_ROOT; };
 		A5FBDCAD1C40540D0074741F /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = element.h; path = xml/element.h; sourceTree = SOURCE_ROOT; };
 		A5FBDCAE1C40540D0074741F /* xmltag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xmltag.cpp; path = xml/xmltag.cpp; sourceTree = SOURCE_ROOT; };
 		A5FBDCAF1C40540D0074741F /* xmltag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xmltag.h; path = xml/xmltag.h; sourceTree = SOURCE_ROOT; };
+		A7D0A5B1248D9EA600B790BA /* genericexception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genericexception.h; sourceTree = SOURCE_ROOT; };
+		A7D0A5B2248D9EA600B790BA /* genericexception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = genericexception.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +223,8 @@
 		A57D14601C2790FF0072F543 /* pdftools */ = {
 			isa = PBXGroup;
 			children = (
+				A7D0A5B2248D9EA600B790BA /* genericexception.cpp */,
+				A7D0A5B1248D9EA600B790BA /* genericexception.h */,
 				A5E0F0AC1C336AC400160E3B /* parser */,
 				A598EF081C28B111008FFC74 /* zip */,
 				A598EF041C28B0EE008FFC74 /* xml */,
@@ -238,8 +240,6 @@
 				A57D146D1C2791990072F543 /* converter.h */,
 				A57D146F1C2791990072F543 /* generator.cpp */,
 				A57D14701C2791990072F543 /* generator.h */,
-				A5E0F0B01C3B340B00160E3B /* genericexception.cpp */,
-				A5E0F0B11C3B340B00160E3B /* genericexception.h */,
 				A57D14761C2791990072F543 /* main.cpp */,
 				A57D14781C2791990072F543 /* pageanalyze.cpp */,
 				A57D14791C2791990072F543 /* pageanalyze.h */,
@@ -436,7 +436,7 @@
 				KnownAssetTags = (
 					New,
 				);
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Leonardo Alves da Costa";
 				TargetAttributes = {
 					A57D145D1C2790FF0072F543 = {
@@ -445,7 +445,7 @@
 				};
 			};
 			buildConfigurationList = A57D14591C2790FF0072F543 /* Build configuration list for PBXProject "pdftools" */;
-			compatibilityVersion = "Xcode 10.0";
+			compatibilityVersion = "Xcode 11.4";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -478,6 +478,7 @@
 				A598EEE51C28B069008FFC74 /* refnode.cpp in Sources */,
 				A598EEE61C28B069008FFC74 /* rootnode.cpp in Sources */,
 				A598EEE81C28B069008FFC74 /* stringnode.cpp in Sources */,
+				A7D0A5B3248D9EA600B790BA /* genericexception.cpp in Sources */,
 				A57D14871C2791990072F543 /* analyze.cpp in Sources */,
 				A57D14921C2791990072F543 /* utils.cpp in Sources */,
 				A57D149C1C2793B10072F543 /* epub.cpp in Sources */,
@@ -506,7 +507,6 @@
 				A5E0F0A71C336ABE00160E3B /* cmapparser.cpp in Sources */,
 				A598EEE41C28B069008FFC74 /* objnode.cpp in Sources */,
 				A598EED91C28B069008FFC74 /* arraynode.cpp in Sources */,
-				A5E0F0B21C3B340B00160E3B /* genericexception.cpp in Sources */,
 				A57D148A1C2791990072F543 /* generator.cpp in Sources */,
 				A598EEFC1C28B0C8008FFC74 /* font.cpp in Sources */,
 				A54AE5BF1C3DC0E800363BFA /* treenode.cpp in Sources */,
@@ -648,6 +648,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9QU6UEYZY9;
+				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
@@ -660,6 +661,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9QU6UEYZY9;
+				ENABLE_HARDENED_RUNTIME = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};

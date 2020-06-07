@@ -71,41 +71,33 @@ int main(int argc, char *argv [])
                 }
                 break;
             case 'h':
-                cout << PACKAGE_NAME;
-                cout << " is a high level tools to convert PDF files to ePUB format.";
-                cout << endl << endl;
-                cout << "Usage: " << PACKAGE_NAME << " [options] file..." << endl;
-                cout << "Options:" << endl;
-                cout << "  -f <format>, --format=<format>\toutput file format [epub]" << endl;
-                cout << "  -h, --help\t\t\t\tdisplay this information and quit" << endl;
-                cout << "  -o <file>\t\t\t\tset the output file" << endl;
-                cout << "  -v, --version\t\t\t\tdisplay the version information" << endl;
-                cout << "  --verbose\t\t\t\trun in verbose mode" << endl;
-                cout << endl;
-                cout << "In conformance on copyright issues, ";
-                cout << " this tool don't support encrypted files." << endl;
-                cout << "Report bugs to <https://github.com/leonhad/pdftools/issues>" << endl;
+                wcout << PACKAGE_NAME;
+                wcout << L" is a high level tools to convert PDF files to ePUB format.\n\n";
+                wcout << L"Usage: " << PACKAGE_NAME << " [options] file [...]\n";
+                wcout << L"Options:\n";
+                wcout << L"  -f <format>, --format=<format>\toutput file format [epub]\n";
+                wcout << L"  -h, --help\t\t\t\tdisplay this information and quit\n";
+                wcout << L"  -o <file>\t\t\t\tset the output file\n";
+                wcout << L"  -v, --version\t\t\t\tdisplay the version information\n";
+                wcout << L"  --verbose\t\t\t\trun in verbose mode\n\n";
+                wcout << L"In conformance on copyright issues, ";
+                wcout << L" this tool don't support encrypted files.\n";
+                wcout << L"Report bugs to <https://github.com/leonhad/pdftools/issues>\n";
                 return EXIT_SUCCESS;
             case 'v':
-                cout << PACKAGE_STRING << endl;
-                cout << endl;
-                cout << "Copyright (C) 2014 Leonardo Alves da Costa." << endl;
-                cout << "License GPLv3+: GNU GPL version 3 or later ";
-                cout << " <http://gnu.org/licenses/gpl.html>" << endl;
-                cout << "This is free software: you are free to change and redistribute it.";
-                cout << endl;
-                cout << "There is NO WARRANTY, to the extent permitted by law." << endl;
-                cout << endl;
-                cout << "Written by Leonardo Alves da Costa." << endl;
+                wcout << PACKAGE_STRING;
+                wcout << L"\n\nCopyright (C) 2014 Leonardo Alves da Costa.\n";
+                wcout << L"License GPLv3+: GNU GPL version 3 or later ";
+                wcout << L" <http://gnu.org/licenses/gpl.html>\n";
+                wcout << L"This is free software: you are free to change and redistribute it.\n";
+                wcout << L"There is NO WARRANTY, to the extent permitted by law.\n\n";
+                wcout << L"Written by Leonardo Alves da Costa.\n";
                 return EXIT_SUCCESS;
             case 'f':
                 format = optarg;
                 if (format != "epub")
                 {
-                    string msg = "format ";
-                    msg += format;
-                    msg += " not supported.";
-                    error_message(msg.c_str());
+                    error_message(L"format not supported.");
                     error = true;
                     break;
                 }
@@ -121,13 +113,13 @@ int main(int argc, char *argv [])
     
     if (optind >= argc && not error)
     {
-        error_message("no input file");
+        error_message(L"no input file");
         error = true;
     }
     
     if (error)
     {
-        cout << "Try `" << PACKAGE_NAME << " --help' for usage." << endl;
+        wcout << L"Try `" << PACKAGE_NAME << L" --help' for usage.\n";
         return EXIT_FAILURE;
     }
     else
@@ -136,11 +128,11 @@ int main(int argc, char *argv [])
         {
             try
             {
-                unique_ptr<Converter> converter(new Converter(argv [loop], fileout, format));
-                converter->convert();
+                Converter converter(argv[loop], fileout, format);
+                converter.convert();
             } catch (exception &e)
             {
-                error_message(e.what());
+                error_message(e);
             }
         }
     }

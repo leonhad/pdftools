@@ -125,7 +125,7 @@ CMapNode *CMapParser::parse()
             else
             {
                 match(TokenType::NAME);
-                error_message("invalid mode");
+                error_message(L"invalid mode");
             }
             break;
         default:
@@ -196,7 +196,7 @@ void CMapParser::bfRangeSequence(const int count)
         }
         else
         {
-            error_message("test map");
+            error_message(L"test map");
             ArrayNode *array = dynamic_cast<ArrayNode *>(node);
             char *chars = const_cast<char *>(start.c_str());
             size_t size = start.size();

@@ -20,21 +20,20 @@
 #include "parser.h"
 #include "../utils.h"
 #include "../nodes/nodes.h"
+#include "../genericexception.h"
 
 using namespace std;
 using namespace parser;
 using namespace node;
 
-inline bool pdf_versions(const string &version)
+inline bool pdf_versions(string const &version)
 {
     return version == "PDF-1.1" || version == "PDF-1.2" || version == "PDF-1.3"
             || version == "PDF-1.4" || version == "PDF-1.5" || version == "PDF-1.6"
             || version == "PDF-1.7";
 }
 
-Parser::Parser(ifstream *filein) throw (exception) :
-        GenericParser
-        { filein }
+Parser::Parser(ifstream *filein) : GenericParser{ filein }
 {
     m_linear = false;
 
@@ -44,7 +43,7 @@ Parser::Parser(ifstream *filein) throw (exception) :
     }
     else
     {
-        throw runtime_error("Invalid input file.");
+        throw GenericException("Invalid input file.");
     }
 }
 
@@ -80,7 +79,7 @@ RootNode *Parser::parse()
     }
     else
     {
-         throw runtime_error("Invalid input file.");
+         throw GenericException("Invalid input file.");
     }
     m_scanner->clear();
     objectStreams(root);
@@ -132,10 +131,9 @@ void Parser::objectStreams(RootNode *root_node)
                     }
                     else
                     {
-                        string msg
-                        { "compression not supported: " };
-                        msg += filter->name();
-                        error_message(msg.c_str());
+                        wstring msg = L"compression not supported: ";
+                        msg+= ctow(filter->name());
+                        error_message(msg);
                         return;
                     }
                     stringstream stream_value;

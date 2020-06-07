@@ -17,22 +17,21 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
 #include <string>
 #include <cstdint>
 #include <stdexcept>
 
-void error_message(const char *msg);
-void error_message(const std::string &msg);
-void verbose_message(const std::string &msg);
-void verbose_message(const char *msg);
+std::wstring ctow(const std::string& str);
+void error_message(const std::exception &e);
+void error_message(const wchar_t *msg);
+void error_message(const std::wstring& msg);
+void verbose_message(const std::wstring &msg);
+void verbose_message(const wchar_t *msg);
 void set_verbose_mode(const bool verbose);
 bool verbose_mode();
 char *flat_decode(char *compressed, int size, int &deflated);
-char *compress(const char *raw, size_t size, uint32_t &writed) throw (std::exception);
-std::string utf16be_to_utf8(std::string &str);
-std::string charset_to_utf8(std::string &str);
-
-#endif
+char *compress(const char *raw, size_t size, uint32_t &writed);
+std::string utf16be_to_utf8(const std::string &str);
+std::string charset_to_utf8(const std::string &str);

@@ -47,12 +47,12 @@ bool GenericParser::match(TokenType type)
     else
     {
 #ifdef DEBUG
-        string msg = "unexpected token: ";
+        wstring msg = L"unexpected token: ";
         if (m_token)
         {
-            msg += m_token->value();
+            msg += ctow(m_token->value());
         }
-        error_message(msg.c_str());
+        error_message(msg);
 #endif
         nextToken();
         return false;

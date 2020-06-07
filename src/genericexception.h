@@ -26,7 +26,7 @@
 /**
  * Exception used in application.
  */
-class GenericException: public std::exception
+class GenericException : public std::exception
 {
 private:
     /**
@@ -47,7 +47,7 @@ public:
      *
      * \param msg the exception message.
      */
-    explicit GenericException(std::string &msg);
+    explicit GenericException(std::string msg);
 
     /**
      * Creates a new instance.

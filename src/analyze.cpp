@@ -268,7 +268,7 @@ void Analyze::analyzeOutlines(MapNode *values, Outline *parent)
     NameNode *type = dynamic_cast<NameNode *>(values->get("/Type"));
     if (type && type->name() != "/Outlines")
     {
-        error_message("Invalid outlines");
+        error_message(L"Invalid outlines");
         return;
     }
     
@@ -353,7 +353,7 @@ void Analyze::analyzeOutline(ArrayNode *values, Outline *outline)
 
 Document *Analyze::analyzeTree()
 {
-    verbose_message("Parsing file " + m_filein);
+    verbose_message(L"Parsing file " + ctow(m_filein));
     
     ifstream filestream;
     filestream.open(m_filein, ios::binary);
@@ -538,7 +538,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
                 cout << filter->name() << endl;
             }
 #endif
-            error_message("More than one filter is not supported.");
+            error_message(L"More than one filter is not supported.");
         }
         else
         {
@@ -555,11 +555,13 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
                 {
                     if (filter)
                     {
-                        error_message("Invalid filter " + filter->name());
+                        wstring message = L"Invalid filter ";
+                        message += ctow(filter->name());
+                        error_message(message);
                     }
                     else
                     {
-                        error_message("Filter not found");
+                        error_message(L"Filter not found");
                     }
                 }
             }
@@ -571,7 +573,9 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
     }
     else
     {
-        error_message("Invalid filter " + filter->name());
+        wstring message = L"Invalid filter ";
+        message += ctow(filter->name());
+        error_message(message);
     }
     
     delete [] stream;

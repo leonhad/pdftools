@@ -167,7 +167,7 @@ void Scanner::to_pos(istream::pos_type pos)
     }
     else
     {
-        error_message("Stream not good for use.");
+        error_message(L"Stream not good for use.");
     }
 }
 
@@ -393,9 +393,9 @@ Token *Scanner::nextToken()
                 }
                 else
                 {
-                    string msg = "Invalid char ";
+                    wstring msg = L"Invalid char ";
                     msg += c;
-                    error_message(msg.c_str());
+                    error_message(msg);
                     state = StateType::DONE;
                     save = false;
                     current_token = TokenType::ERROR;

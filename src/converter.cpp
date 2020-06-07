@@ -25,6 +25,7 @@
 #include "parser/scanner.h"
 #include "semantic/document.h"
 #include "nodes/nodes.h"
+#include "genericexception.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -64,20 +65,23 @@ void Converter::convert()
     
     unique_ptr<Document> m_document(analyze.analyzeTree());
     
-    stringstream msg;
-    msg << "Analyzing file " << m_filein << " " << "Pages: " << m_document->pages();
-    msg << " - " << "Title: ";
+    wstring msg;
+    msg += L"Analyzing file ";
+    msg += ctow(m_filein);
+    msg += L" Pages: ";
+    msg += to_wstring(m_document->pages());
+    msg += L" - Title: ";
     
     if (m_document->title().empty())
     {
-        msg << "no title";
+        msg += L"no title";
     }
     else
     {
-        msg << m_document->title();
+        msg += ctow(m_document->title());
     }
     
-    verbose_message(msg.str().c_str());
+    verbose_message(msg);
     
     // Generate output file
     unique_ptr<Generator> instance(Generator::getInstance(m_format.c_str()));
@@ -85,11 +89,11 @@ void Converter::convert()
     {
         if (not instance->generate(m_document.get(), m_fileout.c_str()))
         {
-            throw runtime_error("Cannot generate output file");
+            throw GenericException("Cannot generate output file");
         }
     }
     else
     {
-        throw runtime_error("Invalid output format");
+        throw GenericException("Invalid output format");
     }
 }
