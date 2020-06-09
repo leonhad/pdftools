@@ -207,11 +207,14 @@ char *flat_decode(char *compressed, int size, int &deflated)
             int rst2 = inflate(&zstream, Z_NO_FLUSH);
             if (rst2 == Z_STREAM_END)
             {
+                b.size = MAX_BUFFER_SIZE - zstream.avail_out;
+                total += b.size;
+                values.push_back(b);
                 break;
             }
             else if (rst2 >= 0 || rst2 == Z_BUF_ERROR)
             {
-                b.size = MAX_BUFFER_SIZE - zstream.avail_out;\
+                b.size = MAX_BUFFER_SIZE - zstream.avail_out;
                 total += b.size;
                 values.push_back(b);
             }

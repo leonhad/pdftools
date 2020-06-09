@@ -71,23 +71,9 @@ void Analyze::analyzeXref()
         {
             MapNode *trailer = dynamic_cast<MapNode *>(xref->trailer());
             
-            TreeNode *rootValue = getRealValue(trailer->get("/Root"));
-            TreeNode *encrypt = getRealValue(trailer->get("/Encrypt"));
-            TreeNode *info = getRealValue(trailer->get("/Info"));
-            if (rootValue)
-            {
-                m_document->setRoot(rootValue);
-            }
-            
-            if (info)
-            {
-                m_document->setInfo(info);
-            }
-            
-            if (encrypt)
-            {
-                m_document->setEncrypted(true);
-            }
+            m_document->setRoot(getRealValue(trailer->get("/Root")));
+            m_document->setInfo(getRealValue(trailer->get("/Info")));
+            m_document->setEncrypted(getRealValue(trailer->get("/Encrypt")) != nullptr);
             
             ArrayNode *array = dynamic_cast<ArrayNode *>(trailer->get("/ID"));
             if (array && array->size() == 2)
@@ -109,17 +95,8 @@ void Analyze::analyzeXref()
                     // analyze only XREF Objects
                     if (type && type->name() == "/XRef")
                     {
-                        TreeNode *rootValue = getRealValue(values->get("/Root"));
-                        TreeNode *info = getRealValue(values->get("/Info"));
-                        if (rootValue)
-                        {
-                            m_document->setRoot(rootValue);
-                        }
-                        
-                        if (info)
-                        {
-                            m_document->setInfo(info);
-                        }
+                        m_document->setRoot(getRealValue(values->get("/Root")));
+                        m_document->setInfo(getRealValue(values->get("/Info")));
                         
                         ArrayNode *array = dynamic_cast<ArrayNode *>(values->get("/ID"));
                         if (array && array->size() == 2)
