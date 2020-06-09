@@ -31,7 +31,7 @@ private:
     
 public:
     Converter(const std::string& filein, const std::string& fileout, const std::string& format);
-    ~Converter();
+    ~Converter() = default;
     
     void convert();
 };

@@ -47,7 +47,6 @@ private:
     std::string m_filein;
     Document *m_document = nullptr;
     node::RootNode *m_tree = nullptr;
-    node::TreeNode *m_page_tree = nullptr;
     std::map<std::string, node::TreeNode *> m_names;
     
 public:
@@ -59,7 +58,7 @@ public:
 private:
     void analyzeXref();
     void analyzeInfo();
-    void analyzeRoot();
+    node::TreeNode *analyzeRoot();
     void analyzeNames(node::MapNode *values);
     void analyzeOutlines(node::MapNode *values, Outline *parent = nullptr);
     void analyzeOutline(node::ArrayNode *values, Outline *outline);

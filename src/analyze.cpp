@@ -43,6 +43,20 @@ Analyze::Analyze(const string &filein) : m_filein(filein)
 
 Analyze::~Analyze()
 {
+    for (auto i = m_names.begin(); i != m_names.end(); i++)
+    {
+        delete (*i).second;
+    }
+    
+    if (m_document)
+    {
+        delete m_document;
+    }
+    
+    if (m_tree)
+    {
+        delete m_tree;
+    }
 }
 
 void Analyze::analyzeXref()
@@ -136,13 +150,13 @@ void Analyze::analyzeInfo()
     }
 }
 
-void Analyze::analyzeRoot()
+TreeNode *Analyze::analyzeRoot()
 {
     ObjNode *obj_root = dynamic_cast<ObjNode *>(m_document->rootNode());
     if (not obj_root)
     {
         // Invalid file
-        return;
+        return nullptr;
     }
     
     MapNode *catalog = dynamic_cast<MapNode *>(obj_root->value());
@@ -150,9 +164,9 @@ void Analyze::analyzeRoot()
     if (not name || name->name() != "/Catalog")
     {
         // Invalid file
-        return;
+        return nullptr;
     }
-    m_page_tree = getRealValue(catalog->get("/Pages"));
+    node::TreeNode* m_page_tree = getRealValue(catalog->get("/Pages"));
     m_document->setLang(getStringValue(catalog->get("/Lang")));
     
     MapNode *names = dynamic_cast<MapNode *>(getRealObjValue(catalog->get("/Names")));
@@ -221,6 +235,8 @@ void Analyze::analyzeRoot()
     {
         m_document->setTreeRoot(true);
     }
+    
+    return m_page_tree;
 }
 
 void Analyze::analyzeNames(MapNode *values)
@@ -246,7 +262,7 @@ void Analyze::analyzeNames(MapNode *values)
             for (size_t i = 0; i < size; i += 2)
             {
                 string name = getStringValue(names->value(i));
-                m_names [name] = names->value(i + 1);
+                m_names[name] = names->value(i + 1);
             }
         }
     }
@@ -257,7 +273,8 @@ TreeNode *Analyze::getNamedValue(string name)
     try
     {
         return m_names.at(name);
-    } catch (out_of_range &)
+    }
+    catch (out_of_range &)
     {
         return nullptr;
     }
@@ -378,14 +395,13 @@ Document *Analyze::analyzeTree()
     }
     else
     {
-        analyzeRoot();
+        TreeNode *m_page_tree = analyzeRoot();
         analyzePages(m_page_tree);
         return m_document;
     }
 }
 
-Page *Analyze::processPage(int id, int generation, stringstream *stream_value, MapNode *catalog,
-                           ArrayNode *)
+Page *Analyze::processPage(int id, int generation, stringstream *stream_value, MapNode *catalog, ArrayNode *)
 {
     Page *page = new Page(m_document);
     page->set_destination(id, generation);
@@ -635,8 +651,7 @@ void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
                     getStream(array, &stream_value);
                 }
                 
-                m_document->addPage(processPage(obj_pages->id(), obj_pages->generation(),
-                                                &stream_value, catalog, media));
+                m_document->addPage(processPage(obj_pages->id(), obj_pages->generation(), &stream_value, catalog, media));
             }
         }
     }

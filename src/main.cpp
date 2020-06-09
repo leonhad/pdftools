@@ -69,6 +69,7 @@ int main(int argc, char *argv [])
                 {
                     fileout = optarg;
                 }
+                
                 break;
             case 'h':
                 wcout << PACKAGE_NAME;
@@ -130,7 +131,8 @@ int main(int argc, char *argv [])
             {
                 Converter converter(argv[loop], fileout, format);
                 converter.convert();
-            } catch (exception &e)
+            }
+            catch (exception &e)
             {
                 error_message(e);
             }

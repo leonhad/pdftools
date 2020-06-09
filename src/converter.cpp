@@ -55,15 +55,11 @@ m_filein(filein), m_format(format)
     }
 }
 
-Converter::~Converter()
-{
-}
-
 void Converter::convert()
 {
-    Analyze analyze(m_filein.c_str());
+    Analyze analyze(m_filein);
     
-    unique_ptr<Document> m_document(analyze.analyzeTree());
+    Document* m_document = analyze.analyzeTree();
     
     wstring msg;
     msg += L"Analyzing file ";
@@ -74,7 +70,7 @@ void Converter::convert()
     
     if (m_document->title().empty())
     {
-        msg += L"no title";
+        msg += L"No title";
     }
     else
     {
@@ -84,10 +80,10 @@ void Converter::convert()
     verbose_message(msg);
     
     // Generate output file
-    unique_ptr<Generator> instance(Generator::getInstance(m_format.c_str()));
+    unique_ptr<Generator> instance(Generator::getInstance(m_format));
     if (instance.get())
     {
-        if (not instance->generate(m_document.get(), m_fileout.c_str()))
+        if (not instance->generate(m_document, m_fileout))
         {
             throw GenericException("Cannot generate output file");
         }

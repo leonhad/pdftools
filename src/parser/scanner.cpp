@@ -51,7 +51,7 @@ namespace parser
         { TokenType::STREAM, "stream" },
         { TokenType::END_STREAM, "endstream" },
         { TokenType::START_XREF, "startxref" },
-        { TokenType::TRAILER, "setTrailer" },
+        { TokenType::TRAILER, "trailer" },
         { TokenType::BT, "BT" },
         { TokenType::ET, "ET" },
         { TokenType::MP, "MP" },
@@ -219,6 +219,7 @@ char *Scanner::getImageStream()
     while (m_filein->good() && nextChar() != '\n')
     {
     }
+    
     ungetChar();
     
     while (m_filein->good())
@@ -228,6 +229,7 @@ char *Scanner::getImageStream()
         {
             istream::pos_type pos = m_filein->tellg();
             int next = m_filein->get();
+            
             // treat '\r\n', '\r' or '\n'
             if (next == 'E' || m_filein->get() == 'I')
             {
@@ -235,6 +237,7 @@ char *Scanner::getImageStream()
                 ungetChar();
                 break;
             }
+            
             // not endstream.
             m_filein->seekg(pos);
         }
@@ -263,6 +266,7 @@ char Scanner::nextChar()
             {
                 return '\n';
             }
+            
             ungetChar();
         }
     }
@@ -302,12 +306,9 @@ TokenType Scanner::reserved_lookup(const char *s)
 Token *Scanner::nextToken()
 {
     string token_string;
-    TokenType current_token
-    { TokenType::ENDFILE };
-    StateType state
-    { StateType::START };
-    int inner_string
-    { 0 };
+    TokenType current_token = TokenType::ENDFILE;
+    StateType state = StateType::START;
+    int inner_string = 0;
     
     bool save;
     while (state != StateType::DONE && m_filein->good())
@@ -350,6 +351,7 @@ Token *Scanner::nextToken()
                         token_string += '>';
                         current_token = TokenType::END_DICT;
                     }
+                    
                     state = StateType::DONE;
                 }
                 else if (c == '(')
@@ -400,6 +402,7 @@ Token *Scanner::nextToken()
                     save = false;
                     current_token = TokenType::ERROR;
                 }
+                
                 break;
             case StateType::INNUM:
                 if (not isdigit(c) && (c != '.'))
@@ -410,6 +413,7 @@ Token *Scanner::nextToken()
                     state = StateType::DONE;
                     current_token = TokenType::NUM;
                 }
+                
                 break;
             case StateType::INHEXSTR:
                 if (is_space(c))
@@ -425,9 +429,9 @@ Token *Scanner::nextToken()
                     
                     for (unsigned int loop = 0; loop < token_string.length(); loop += 2)
                     {
-                        str.push_back(static_cast<char>(stoi(token_string.substr(loop, 2),
-                                                             nullptr, HEX_BASE)));
+                        str.push_back(static_cast<char>(stoi(token_string.substr(loop, 2), nullptr, HEX_BASE)));
                     }
+                    
                     if (m_charset_conversion)
                     {
                         token_string = charset_to_utf8(str);
@@ -438,6 +442,7 @@ Token *Scanner::nextToken()
                     }
                     current_token = TokenType::STRING;
                 }
+                
                 break;
             case StateType::INSTRING:
                 if (c == '(')
@@ -461,6 +466,7 @@ Token *Scanner::nextToken()
                         }
                         c = static_cast<char>(stoi(value, nullptr, 8));
                     }
+                    
                     switch (c)
                     {
                         case 'n':
@@ -502,11 +508,13 @@ Token *Scanner::nextToken()
                         {
                             token_string = charset_to_utf8(token_string);
                         }
+                        
                         save = false;
                         state = StateType::DONE;
                         current_token = TokenType::STRING;
                     }
                 }
+                
                 break;
             case StateType::INNAME:
                 if (is_space(c) || strchr(special_chars, c))
@@ -516,15 +524,18 @@ Token *Scanner::nextToken()
                     state = StateType::DONE;
                     current_token = reserved_lookup(token_string.c_str());
                 }
+                
                 break;
             default:
                 break;
         }
+        
         if (save)
         {
             token_string.push_back(c);
         }
     }
+    
     m_current.setType(current_token);
     m_current.setValue(token_string);
     

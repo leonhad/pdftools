@@ -179,32 +179,30 @@ TreeNode *Parser::xrefSequence()
     XREFNode *xref = new XREFNode;
     match(TokenType::XREF);
 
-    do
-    {
-        uint16_t id = (uint16_t) m_token->toNumber();
-        match(TokenType::NUM);
-        int count = (int) m_token->toNumber();
-        match(TokenType::NUM);
+    uint16_t id = (uint16_t) m_token->toNumber();
+    match(TokenType::NUM);
+    int count = (int) m_token->toNumber();
+    match(TokenType::NUM);
 
-        for (int loop = 0; loop < count; loop++)
+    for (int loop = 0; loop < count; loop++)
+    {
+        uint32_t address = (uint32_t) m_token->toNumber();
+        match(TokenType::NUM);
+        uint16_t generation = (uint16_t) m_token->toNumber();
+        match(TokenType::NUM);
+        string name = m_token->value();
+        if (m_token->type() == TokenType::F_LO)
         {
-            uint32_t address = (uint32_t) m_token->toNumber();
-            match(TokenType::NUM);
-            uint16_t generation = (uint16_t) m_token->toNumber();
-            match(TokenType::NUM);
-            string name = m_token->value();
-            if (m_token->type() == TokenType::F_LO)
-            {
-                match(TokenType::F_LO);
-            }
-            else
-            {
-                match(TokenType::N);
-            }
-            xref->addNode(id, generation, address, name.at(0));
-            id++;
+            match(TokenType::F_LO);
         }
-    } while (m_scanner->good() && (m_token->type() != TokenType::TRAILER));
+        else
+        {
+            match(TokenType::N);
+        }
+        xref->addNode(id, generation, address, name.at(0));
+        id++;
+    }
+    
     match(TokenType::TRAILER);
     xref->setTrailer(valueSequence());
     return xref;
