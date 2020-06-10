@@ -92,6 +92,7 @@ void Analyze::analyzeXref()
                 if (values)
                 {
                     NameNode *type = dynamic_cast<NameNode *>(values->get("/Type"));
+                    
                     // analyze only XREF Objects
                     if (type && type->name() == "/XRef")
                     {
@@ -194,6 +195,7 @@ TreeNode *Analyze::analyzeRoot()
                             type = LOWCASE_LETTERS;
                         }
                     }
+                    
                     string newName = getStringValue(attributes->get("/P"));
                     int range = (int) getNumberValue(attributes->get("/St"), 1);
                     m_document->addPageLabel(new PageLabel(page, range, type, newName));

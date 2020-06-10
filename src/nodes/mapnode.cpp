@@ -25,8 +25,7 @@
 using namespace std;
 using namespace node;
 
-MapNode::MapNode() :
-        TreeNode()
+MapNode::MapNode() : TreeNode()
 {
 }
 
@@ -40,13 +39,12 @@ MapNode::~MapNode()
 
 TreeNode *MapNode::get(string name) const
 {
-    try
-    {
-        return m_values.at(name);
-    } catch (out_of_range &)
-    {
-        return nullptr;
+    auto i = m_values.find(name);
+    if (i != m_values.end()) {
+        return i->second;
     }
+
+    return nullptr;
 }
 
 vector<string> MapNode::names() const
