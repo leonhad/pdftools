@@ -16,9 +16,7 @@ running `pdftools --version'.
 
 Only DEFLATE decompression is used (see zlib compression library).
 For more information about ZIP file format, see APPNOTE.txt on PKWARE
-official site
-
-<http://www.pkware.com/documents/casestudies/APPNOTE.TXT>
+official site <http://www.pkware.com/documents/casestudies/APPNOTE.TXT>.
 
 # Licensing
 
