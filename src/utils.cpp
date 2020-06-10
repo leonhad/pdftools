@@ -261,7 +261,7 @@ string convert(const char *in, const char *out, const string &str)
         size_t len = str.length();
         size_t utf8len = len * WIDECHAR_SIZE;
         const size_t original = utf8len;
-        const char *utf16 = (char *) str.c_str();
+        char *utf16 = (char *) str.c_str();
         char *utf8 = new char [utf8len];
         char *utf8start = utf8;
         memset(utf8, 0, len);

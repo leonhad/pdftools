@@ -40,7 +40,7 @@ uint32_t ZipFile::currentDatetime() const
     time_t rawTime = time(nullptr);
     struct tm t;
 
-    localtime_s(&t, &rawTime);
+    localtime_r(&rawTime, &t);
 
     if (t.tm_year >= 1980)
     {
