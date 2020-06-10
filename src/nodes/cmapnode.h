@@ -26,72 +26,72 @@
 
 namespace node
 {
-class CodeSpaceNode;
+    class CodeSpaceNode;
 
-class CharNode;
-
-/**
- * Stores a CMap node.
- */
-class CMapNode: public TreeNode
-{
-private:
-    /**
-     * Stores a char node list.
-     */
-    std::vector<CharNode *> m_charnodes;
+    class CharNode;
 
     /**
-     * This node code space value.
+     * Stores a CMap node.
      */
-    CodeSpaceNode *m_codespace;
+    class CMapNode: public TreeNode
+    {
+    private:
+        /**
+         * Stores a char node list.
+         */
+        std::vector<CharNode *> m_charnodes;
 
-public:
-    /**
-     * Creates a new instance.
-     */
-    CMapNode();
+        /**
+         * This node code space value.
+         */
+        CodeSpaceNode *m_codespace;
 
-    /**
-     * Destroy this instance.
-     */
-    virtual ~CMapNode();
+    public:
+        /**
+         * Creates a new instance.
+         */
+        CMapNode();
 
-    /**
-     * Adds a char node.
-     * \param node the char node to add.
-     */
-    void add(CharNode *node);
+        /**
+         * Destroy this instance.
+         */
+        virtual ~CMapNode();
 
-    /**
-     * Sets the code space.
-     *
-     * \param codespace the code space to set.
-     */
-    void setCodespace(CodeSpaceNode *codespace);
+        /**
+         * Adds a char node.
+         * \param node the char node to add.
+         */
+        void add(CharNode *node);
 
-    /**
-     * Gets the code space.
-     *
-     * \return the code space.
-     */
-    CodeSpaceNode *codeSpace() const;
+        /**
+         * Sets the code space.
+         *
+         * \param codespace the code space to set.
+         */
+        void setCodespace(CodeSpaceNode *codespace);
 
-    /**
-     * Gets the total of childhood char nodes.
-     *
-     * \return the total of childhood char nodes.
-     */
-    size_t nodes() const;
+        /**
+         * Gets the code space.
+         *
+         * \return the code space.
+         */
+        CodeSpaceNode *codeSpace() const;
 
-    /**
-     * Gets a char node by its index.
-     *
-     * \param index the char node index.
-     * \return the char node.
-     */
-    CharNode *node(size_t index) const;
-};
+        /**
+         * Gets the total of childhood char nodes.
+         *
+         * \return the total of childhood char nodes.
+         */
+        size_t nodes() const;
+
+        /**
+         * Gets a char node by its index.
+         *
+         * \param index the char node index.
+         * \return the char node.
+         */
+        CharNode *node(size_t index) const;
+    };
 }
 
 #endif
