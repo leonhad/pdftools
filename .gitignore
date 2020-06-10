@@ -1,16 +1,17 @@
 /out
-
+.vs
 *.exe
-
+packages
 tests/gtest
 .scannerwork
 .dirstamp
 *.la
-
+x64
 /html
-
+x86
 /latex
-
+Debug
+Release
 *.gcov
 
 *.gcda

@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="analyze.cpp" />
+    <ClCompile Include="converter.cpp" />
+    <ClCompile Include="epub\epub.cpp" />
+    <ClCompile Include="generator.cpp" />
+    <ClCompile Include="genericexception.cpp" />
+    <ClCompile Include="glyphs\breakglyph.cpp" />
+    <ClCompile Include="glyphs\fontglyph.cpp" />
+    <ClCompile Include="glyphs\fontsizeglyph.cpp" />
+    <ClCompile Include="glyphs\glyph.cpp" />
+    <ClCompile Include="glyphs\paragraphglyph.cpp" />
+    <ClCompile Include="glyphs\textglyph.cpp" />
+    <ClCompile Include="graphics\graphicstate.cpp" />
+    <ClCompile Include="graphics\state.cpp" />
+    <ClCompile Include="html\html.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="nodes\arraynode.cpp" />
+    <ClCompile Include="nodes\bdcnode.cpp" />
+    <ClCompile Include="nodes\booleannode.cpp" />
+    <ClCompile Include="nodes\breaknode.cpp" />
+    <ClCompile Include="nodes\charnode.cpp" />
+    <ClCompile Include="nodes\cmapnode.cpp" />
+    <ClCompile Include="nodes\codespacenode.cpp" />
+    <ClCompile Include="nodes\fontnode.cpp" />
+    <ClCompile Include="nodes\mapnode.cpp" />
+    <ClCompile Include="nodes\namenode.cpp" />
+    <ClCompile Include="nodes\numbernode.cpp" />
+    <ClCompile Include="nodes\objnode.cpp" />
+    <ClCompile Include="nodes\refnode.cpp" />
+    <ClCompile Include="nodes\rootnode.cpp" />
+    <ClCompile Include="nodes\statenode.cpp" />
+    <ClCompile Include="nodes\stringnode.cpp" />
+    <ClCompile Include="nodes\textmatrixnode.cpp" />
+    <ClCompile Include="nodes\textnode.cpp" />
+    <ClCompile Include="nodes\treenode.cpp" />
+    <ClCompile Include="nodes\xrefnode.cpp" />
+    <ClCompile Include="pageanalyze.cpp" />
+    <ClCompile Include="parser\cmapparser.cpp" />
+    <ClCompile Include="parser\genericparser.cpp" />
+    <ClCompile Include="parser\pageparser.cpp" />
+    <ClCompile Include="parser\parser.cpp" />
+    <ClCompile Include="parser\scanner.cpp" />
+    <ClCompile Include="parser\token.cpp" />
+    <ClCompile Include="semantic\context.cpp" />
+    <ClCompile Include="semantic\document.cpp" />
+    <ClCompile Include="semantic\font.cpp" />
+    <ClCompile Include="semantic\outline.cpp" />
+    <ClCompile Include="semantic\page.cpp" />
+    <ClCompile Include="semantic\pagelabel.cpp" />
+    <ClCompile Include="utils.cpp" />
+    <ClCompile Include="xml\element.cpp" />
+    <ClCompile Include="xml\xml.cpp" />
+    <ClCompile Include="xml\xmltag.cpp" />
+    <ClCompile Include="zip\zipfile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\vs\config.h" />
+    <ClInclude Include="analyze.h" />
+    <ClInclude Include="converter.h" />
+    <ClInclude Include="epub\epub.h" />
+    <ClInclude Include="generator.h" />
+    <ClInclude Include="genericexception.h" />
+    <ClInclude Include="glyphs\breakglyph.h" />
+    <ClInclude Include="glyphs\fontglyph.h" />
+    <ClInclude Include="glyphs\fontsizeglyph.h" />
+    <ClInclude Include="glyphs\glyph.h" />
+    <ClInclude Include="glyphs\glyphs.h" />
+    <ClInclude Include="glyphs\paragraphglyph.h" />
+    <ClInclude Include="glyphs\textglyph.h" />
+    <ClInclude Include="graphics\graphicstate.h" />
+    <ClInclude Include="graphics\state.h" />
+    <ClInclude Include="html\html.h" />
+    <ClInclude Include="nodes\arraynode.h" />
+    <ClInclude Include="nodes\bdcnode.h" />
+    <ClInclude Include="nodes\booleannode.h" />
+    <ClInclude Include="nodes\breaknode.h" />
+    <ClInclude Include="nodes\charnode.h" />
+    <ClInclude Include="nodes\cmapnode.h" />
+    <ClInclude Include="nodes\codespacenode.h" />
+    <ClInclude Include="nodes\fontnode.h" />
+    <ClInclude Include="nodes\mapnode.h" />
+    <ClInclude Include="nodes\namenode.h" />
+    <ClInclude Include="nodes\nodes.h" />
+    <ClInclude Include="nodes\numbernode.h" />
+    <ClInclude Include="nodes\objnode.h" />
+    <ClInclude Include="nodes\refnode.h" />
+    <ClInclude Include="nodes\rootnode.h" />
+    <ClInclude Include="nodes\statenode.h" />
+    <ClInclude Include="nodes\stringnode.h" />
+    <ClInclude Include="nodes\textmatrixnode.h" />
+    <ClInclude Include="nodes\textnode.h" />
+    <ClInclude Include="nodes\treenode.h" />
+    <ClInclude Include="nodes\xrefnode.h" />
+    <ClInclude Include="pageanalyze.h" />
+    <ClInclude Include="parser\cmapparser.h" />
+    <ClInclude Include="parser\genericparser.h" />
+    <ClInclude Include="parser\pageparser.h" />
+    <ClInclude Include="parser\parser.h" />
+    <ClInclude Include="parser\scanner.h" />
+    <ClInclude Include="parser\token.h" />
+    <ClInclude Include="semantic\context.h" />
+    <ClInclude Include="semantic\document.h" />
+    <ClInclude Include="semantic\font.h" />
+    <ClInclude Include="semantic\outline.h" />
+    <ClInclude Include="semantic\page.h" />
+    <ClInclude Include="semantic\pagelabel.h" />
+    <ClInclude Include="utils.h" />
+    <ClInclude Include="xml\element.h" />
+    <ClInclude Include="xml\xml.h" />
+    <ClInclude Include="xml\xmltag.h" />
+    <ClInclude Include="zip\zipfile.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="pdftools.1.in" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{4e1b9bcc-7c8a-4ae4-8f46-344d35c10df8}</ProjectGuid>
+    <RootNamespace>pdftools</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../vs</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../vs</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>../vs</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile />
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeaderFile />
+      <AdditionalIncludeDirectories>../vs</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets" Condition="Exists('packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets')" />
+    <Import Project="packages\zlib_native.1.2.11\build\native\zlib_native.targets" Condition="Exists('packages\zlib_native.1.2.11\build\native\zlib_native.targets')" />
+    <Import Project="packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets" Condition="Exists('packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" />
+    <Import Project="packages\libiconv.1.14.0.11\build\native\libiconv.targets" Condition="Exists('packages\libiconv.1.14.0.11\build\native\libiconv.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets'))" />
+    <Error Condition="!Exists('packages\zlib_native.1.2.11\build\native\zlib_native.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib_native.1.2.11\build\native\zlib_native.targets'))" />
+    <Error Condition="!Exists('packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets'))" />
+    <Error Condition="!Exists('packages\libiconv.1.14.0.11\build\native\libiconv.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.1.14.0.11\build\native\libiconv.targets'))" />
+  </Target>
+</Project>

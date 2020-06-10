@@ -21,6 +21,7 @@
 #include "../utils.h"
 #include <zlib.h>
 #include <cstring>
+#include <ctime>
 
 using namespace std;
 
@@ -36,23 +37,22 @@ ZipFile::~ZipFile()
 
 uint32_t ZipFile::currentDatetime() const
 {
-    time_t rawTime;
-    struct tm *t;
+    time_t rawTime = time(nullptr);
+    struct tm t;
 
-    time(&rawTime);
-    t = localtime(&rawTime);
+    localtime_s(&t, &rawTime);
 
-    if (t->tm_year >= 1980)
+    if (t.tm_year >= 1980)
     {
-        t->tm_year -= 1980;
+        t.tm_year -= 1980;
     }
-    else if (t->tm_year >= 80)
+    else if (t.tm_year >= 80)
     {
-        t->tm_year -= 80;
+        t.tm_year -= 80;
     }
 
-    return (uint32_t) ((t->tm_mday + (32 * (t->tm_mon + 1)) + (512 * t->tm_year)) << 16)
-            | ((t->tm_sec / 2) + (32 * t->tm_min) + (2048 * t->tm_hour));
+    return (uint32_t) ((t.tm_mday + (32 * (t.tm_mon + 1)) + (512 * t.tm_year)) << 16)
+            | ((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
 }
 
 bool ZipFile::open(const string &output)

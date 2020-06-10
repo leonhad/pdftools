@@ -19,11 +19,11 @@
  */
 #include "utils.h"
 #include "converter.h"
-#include "../config.h"
+#include "config.h"
 
-#include <getopt.h>
 #include <iostream>
 #include <memory>
+#include <getopt.h>
 
 using namespace std;
 

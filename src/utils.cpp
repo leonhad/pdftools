@@ -17,15 +17,15 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#include "../config.h"
+#include "config.h"
 #include "genericexception.h"
 #include "utils.h"
 #include <iostream>
 #include <vector>
 #include <zlib.h>
 #include <iconv.h>
-#include <sstream>
 #include <cstring>
+#include <sstream>
 
 using namespace std;
 
@@ -261,7 +261,7 @@ string convert(const char *in, const char *out, const string &str)
         size_t len = str.length();
         size_t utf8len = len * WIDECHAR_SIZE;
         const size_t original = utf8len;
-        char *utf16 = (char *) str.c_str();
+        const char *utf16 = (char *) str.c_str();
         char *utf8 = new char [utf8len];
         char *utf8start = utf8;
         memset(utf8, 0, len);

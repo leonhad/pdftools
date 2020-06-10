@@ -18,7 +18,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "../nodes/nodes.h"
-#include "utils.h"
+#include "../utils.h"
 #include "scanner.h"
 #include "cmapparser.h"
 

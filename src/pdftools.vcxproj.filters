@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Arquivos de Origem">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Arquivos de Recurso">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\zip">
+      <UniqueIdentifier>{96af74b6-e8e4-49b5-a14b-b7488346a29f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\zip">
+      <UniqueIdentifier>{40e7e594-a6a8-427d-857f-4addfcc73a24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\xml">
+      <UniqueIdentifier>{4f5af1a1-3b14-4a9e-8ded-a8ca1dabcf2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\xml">
+      <UniqueIdentifier>{c91da3c9-5fc6-48eb-9c87-ded3de20adc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\semantic">
+      <UniqueIdentifier>{e8061cb9-95d3-4cf9-9adb-a645d733ce96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\semantic">
+      <UniqueIdentifier>{0570f0d7-cc89-4ccc-82fa-a18e1f92bf6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\parser">
+      <UniqueIdentifier>{c56bf0f8-e6bd-4dbd-b425-c5fbc815c5ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\parser">
+      <UniqueIdentifier>{996b6060-a4d4-4bc6-932c-e28860a09e14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\nodes">
+      <UniqueIdentifier>{5e3f451a-d6e4-4143-b24e-e895905c8f7f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\nodes">
+      <UniqueIdentifier>{c7a3f04a-9810-4ca0-99a3-d46ce9a6ec78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\html">
+      <UniqueIdentifier>{67ab61b2-c5a1-4e89-b1a4-4051f34422ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\html">
+      <UniqueIdentifier>{128f3754-7e04-4fa5-8da8-788255d86787}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\graphics">
+      <UniqueIdentifier>{f4134202-db1d-40cc-970e-d02fcbcb5f8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\graphics">
+      <UniqueIdentifier>{a445ae03-c311-4f3e-aeaf-7638b5052b57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\glyphs">
+      <UniqueIdentifier>{d3e46c34-4108-4fe0-80db-7a811537188c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\glyphs">
+      <UniqueIdentifier>{6009db8a-67a8-4357-abef-3141043e1ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\epub">
+      <UniqueIdentifier>{87a0121f-7aca-4e51-86e4-c984e83d213d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Cabeçalho\epub">
+      <UniqueIdentifier>{8d72bb2e-136b-4653-bf8b-1a2f30604fa0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="analyze.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="converter.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="generator.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="genericexception.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="pageanalyze.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="zip\zipfile.cpp">
+      <Filter>Arquivos de Origem\zip</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\element.cpp">
+      <Filter>Arquivos de Cabeçalho\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\xml.cpp">
+      <Filter>Arquivos de Cabeçalho\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="xml\xmltag.cpp">
+      <Filter>Arquivos de Cabeçalho\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="semantic\context.cpp">
+      <Filter>Arquivos de Origem\semantic</Filter>
+    </ClCompile>
+    <ClCompile Include="semantic\document.cpp">
+      <Filter>Arquivos de Origem\semantic</Filter>
+    </ClCompile>
+    <ClCompile Include="semantic\font.cpp">
+      <Filter>Arquivos de Origem\semantic</Filter>
+    </ClCompile>
+    <ClCompile Include="semantic\outline.cpp">
+      <Filter>Arquivos de Origem\semantic</Filter>
+    </ClCompile>
+    <ClCompile Include="semantic\page.cpp">
+      <Filter>Arquivos de Origem\semantic</Filter>
+    </ClCompile>
+    <ClCompile Include="semantic\pagelabel.cpp">
+      <Filter>Arquivos de Origem\semantic</Filter>
+    </ClCompile>
+    <ClCompile Include="parser\cmapparser.cpp">
+      <Filter>Arquivos de Origem\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="parser\genericparser.cpp">
+      <Filter>Arquivos de Origem\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="parser\pageparser.cpp">
+      <Filter>Arquivos de Origem\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="parser\parser.cpp">
+      <Filter>Arquivos de Origem\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="parser\scanner.cpp">
+      <Filter>Arquivos de Origem\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="parser\token.cpp">
+      <Filter>Arquivos de Origem\parser</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\arraynode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\bdcnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\booleannode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\breaknode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\charnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\cmapnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\codespacenode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\fontnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\mapnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\namenode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\numbernode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\objnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\refnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\rootnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\statenode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\stringnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\textmatrixnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\textnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\treenode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="nodes\xrefnode.cpp">
+      <Filter>Arquivos de Origem\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="html\html.cpp">
+      <Filter>Arquivos de Origem\html</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\graphicstate.cpp">
+      <Filter>Arquivos de Origem\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics\state.cpp">
+      <Filter>Arquivos de Origem\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="glyphs\breakglyph.cpp">
+      <Filter>Arquivos de Origem\glyphs</Filter>
+    </ClCompile>
+    <ClCompile Include="glyphs\fontglyph.cpp">
+      <Filter>Arquivos de Origem\glyphs</Filter>
+    </ClCompile>
+    <ClCompile Include="glyphs\fontsizeglyph.cpp">
+      <Filter>Arquivos de Origem\glyphs</Filter>
+    </ClCompile>
+    <ClCompile Include="glyphs\glyph.cpp">
+      <Filter>Arquivos de Origem\glyphs</Filter>
+    </ClCompile>
+    <ClCompile Include="glyphs\paragraphglyph.cpp">
+      <Filter>Arquivos de Origem\glyphs</Filter>
+    </ClCompile>
+    <ClCompile Include="glyphs\textglyph.cpp">
+      <Filter>Arquivos de Origem\glyphs</Filter>
+    </ClCompile>
+    <ClCompile Include="epub\epub.cpp">
+      <Filter>Arquivos de Origem\epub</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="analyze.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="converter.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="generator.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="genericexception.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="pageanalyze.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="zip\zipfile.h">
+      <Filter>Arquivos de Cabeçalho\zip</Filter>
+    </ClInclude>
+    <ClInclude Include="xml\element.h">
+      <Filter>Arquivos de Origem\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="xml\xml.h">
+      <Filter>Arquivos de Origem\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="xml\xmltag.h">
+      <Filter>Arquivos de Origem\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="semantic\context.h">
+      <Filter>Arquivos de Cabeçalho\semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="semantic\document.h">
+      <Filter>Arquivos de Cabeçalho\semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="semantic\font.h">
+      <Filter>Arquivos de Cabeçalho\semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="semantic\outline.h">
+      <Filter>Arquivos de Cabeçalho\semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="semantic\page.h">
+      <Filter>Arquivos de Cabeçalho\semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="semantic\pagelabel.h">
+      <Filter>Arquivos de Cabeçalho\semantic</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\cmapparser.h">
+      <Filter>Arquivos de Cabeçalho\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\genericparser.h">
+      <Filter>Arquivos de Cabeçalho\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\pageparser.h">
+      <Filter>Arquivos de Cabeçalho\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\parser.h">
+      <Filter>Arquivos de Cabeçalho\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\scanner.h">
+      <Filter>Arquivos de Cabeçalho\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="parser\token.h">
+      <Filter>Arquivos de Cabeçalho\parser</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\arraynode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\bdcnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\booleannode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\breaknode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\charnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\cmapnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\codespacenode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\fontnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\mapnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\namenode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\nodes.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\numbernode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\objnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\refnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\rootnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\statenode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\stringnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\textmatrixnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\textnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\treenode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="nodes\xrefnode.h">
+      <Filter>Arquivos de Cabeçalho\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="html\html.h">
+      <Filter>Arquivos de Cabeçalho\html</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\graphicstate.h">
+      <Filter>Arquivos de Cabeçalho\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\state.h">
+      <Filter>Arquivos de Cabeçalho\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="glyphs\breakglyph.h">
+      <Filter>Arquivos de Cabeçalho\glyphs</Filter>
+    </ClInclude>
+    <ClInclude Include="glyphs\fontglyph.h">
+      <Filter>Arquivos de Cabeçalho\glyphs</Filter>
+    </ClInclude>
+    <ClInclude Include="glyphs\fontsizeglyph.h">
+      <Filter>Arquivos de Cabeçalho\glyphs</Filter>
+    </ClInclude>
+    <ClInclude Include="glyphs\glyph.h">
+      <Filter>Arquivos de Cabeçalho\glyphs</Filter>
+    </ClInclude>
+    <ClInclude Include="glyphs\glyphs.h">
+      <Filter>Arquivos de Cabeçalho\glyphs</Filter>
+    </ClInclude>
+    <ClInclude Include="glyphs\paragraphglyph.h">
+      <Filter>Arquivos de Cabeçalho\glyphs</Filter>
+    </ClInclude>
+    <ClInclude Include="glyphs\textglyph.h">
+      <Filter>Arquivos de Cabeçalho\glyphs</Filter>
+    </ClInclude>
+    <ClInclude Include="epub\epub.h">
+      <Filter>Arquivos de Cabeçalho\epub</Filter>
+    </ClInclude>
+    <ClInclude Include="..\vs\config.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="pdftools.1.in">
+      <Filter>Arquivos de Recurso</Filter>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>

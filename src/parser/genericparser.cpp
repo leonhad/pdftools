@@ -19,7 +19,7 @@
  */
 #include "genericparser.h"
 #include "../nodes/nodes.h"
-#include "utils.h"
+#include "../utils.h"
 
 using namespace std;
 using namespace parser;

@@ -20,7 +20,7 @@
 #ifndef EPUB_H
 #define EPUB_H
 
-#include "generator.h"
+#include "../generator.h"
 
 class ZipFile;
 
