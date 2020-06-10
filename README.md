@@ -10,6 +10,9 @@ Always include the PDFTools version number, which you can get by
 running `pdftools --version'.  More info can be found at
 <http://code.google.com/p/pdftools/>.
 
+[![License](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENCE)
+[![Build Status](https://travis-ci.org/leonhad/pdftools.svg?branch=master)](https://travis-ci.org/leonhad/pdftools)
+
 # Zip File Format
 
 Only DEFLATE decompression is used (see zlib compression library).
