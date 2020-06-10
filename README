@@ -7,16 +7,13 @@ Be sure to read BUGS and INSTALL.
 Mail suggestions to leonhad@gmail.com. Reports bugs on 
 <https://github.com/leonhad/pdftools/issues>
 Always include the PDFTools version number, which you can get by
-running `pdftools --version'.  More info can be found at
-<http://code.google.com/p/pdftools/>.
+running `pdftools --version'.
 
                    Zip File Format
 
 Only DEFLATE decompression is used (see zlib compression library).
 For more information about ZIP file format, see APPNOTE.txt on PKWARE
-official site
-
-<http://www.pkware.com/documents/casestudies/APPNOTE.TXT>
+official site <http://www.pkware.com/documents/casestudies/APPNOTE.TXT>.
 
                      Licensing
 
