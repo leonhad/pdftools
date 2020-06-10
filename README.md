@@ -7,8 +7,7 @@ Be sure to read BUGS and INSTALL.
 Mail suggestions to leonhad@gmail.com. Reports bugs on 
 <https://github.com/leonhad/pdftools/issues>
 Always include the PDFTools version number, which you can get by
-running `pdftools --version'.  More info can be found at
-<http://code.google.com/p/pdftools/>.
+running `pdftools --version'.
 
 [![License](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENCE)
 [![Build Status](https://travis-ci.org/leonhad/pdftools.svg?branch=master)](https://travis-ci.org/leonhad/pdftools)
