@@ -143,6 +143,7 @@ TreeNode *Analyze::analyzeRoot()
         // Invalid file
         return nullptr;
     }
+    
     node::TreeNode* m_page_tree = getRealValue(catalog->get("/Pages"));
     m_document->setLang(getStringValue(catalog->get("/Lang")));
     
@@ -628,7 +629,8 @@ void Analyze::analyzePages(TreeNode *page, ArrayNode *mediabox)
                     getStream(array, &stream_value);
                 }
                 
-                m_document->addPage(processPage(obj_pages->id(), obj_pages->generation(), &stream_value, catalog, media));
+                m_document->addPage(processPage(obj_pages->id(), obj_pages->generation(),
+                                                &stream_value, catalog, media));
             }
         }
     }

@@ -134,6 +134,7 @@ RootNode *PageParser::parse()
                 nextToken();
                 break;
             }
+            
             size_t size = values.size();
             for (size_t loop = 0; loop < size; loop++)
             {
@@ -142,9 +143,11 @@ RootNode *PageParser::parse()
                     delete values [loop];
                 }
             }
+            
             values.clear();
         }
     }
+    
     return m_root;
 }
 
@@ -161,8 +164,7 @@ TreeNode *PageParser::tmSequence(vector<TreeNode *> &values)
         NumberNode *e = dynamic_cast<NumberNode *>(values [4]);
         NumberNode *f = dynamic_cast<NumberNode *>(values [5]);
 
-        return new TextMatrixNode(
-        { a->value(), b->value(), c->value(), d->value(), e->value(), f->value() });
+        return new TextMatrixNode({ a->value(), b->value(), c->value(), d->value(), e->value(), f->value() });
     }
     return nullptr;
 }

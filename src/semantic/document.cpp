@@ -103,16 +103,14 @@ bool Document::encrypted()
 
 Page *Document::page(int id, int generation)
 {
-    vector<Page *>::iterator iteratorPages = m_pages.begin();
-    while (iteratorPages != m_pages.end())
+    for (auto i = m_pages.begin(); i != m_pages.end(); i++)
     {
-        Page *page = *iteratorPages;
-        if (page->id() == id && page->generation() == generation)
+        if ((*i)->id() == id && (*i)->generation() == generation)
         {
-            return page;
+            return *i;
         }
-        iteratorPages++;
     }
+    
     return nullptr;
 }
 
@@ -143,7 +141,7 @@ void Document::addPageLabel(PageLabel *label)
 
 Page *Document::page(size_t index)
 {
-    return m_pages [index];
+    return m_pages[index];
 }
 
 size_t Document::pages()

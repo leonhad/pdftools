@@ -211,8 +211,7 @@ void EPUB::generateOutline(XML *xml, Outline *outline)
 
     if (page)
     {
-        string playorder
-        { to_string(m_order) };
+        string playorder{ to_string(m_order) };
         m_order++;
 
         xml->startTag("navPoint");
@@ -284,20 +283,26 @@ void EPUB::generateToc(const string &output)
     }
     else
     {
-        xml.startTag("navPoint");
-        xml.addAttribute("id", "navPoint-1");
-        xml.addAttribute("playOrder", "1");
+        size_t size = m_document->pages();
+        for (size_t i = 0; i < size; i++)
+        {
+            Page *page = m_document->page(i);
 
-        xml.startTag("navLabel");
-        xml.startTag("text");
-        xml.addElement("Main Title");
-        xml.endTag();
-        xml.endTag();
+            xml.startTag("navPoint");
+            xml.addAttribute("id", "navPoint-1");
+            xml.addAttribute("playOrder", "1");
 
-        xml.startTag("content");
-        xml.addAttribute("src", "pages.html");
-        xml.endTag();
-        xml.endTag();
+            xml.startTag("navLabel");
+            xml.startTag("text");
+            xml.addElement("Main Title");
+            xml.endTag();
+            xml.endTag();
+
+            xml.startTag("content");
+            xml.addAttribute("src", page->link() + ".html");
+            xml.endTag();
+            xml.endTag();
+        }
     }
 
     xml.endTag();
