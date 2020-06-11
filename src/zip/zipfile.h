@@ -20,51 +20,11 @@
 #ifndef ZIPFILE_H
 #define ZIPFILE_H
 
+#include "AppendedFile.h"
 #include <fstream>
 #include <vector>
 #include <stdint.h>
 #include <string>
-
-/**
- * The ZIP header bytes.
- */
-struct appended_files
-{
-    /**
-     * The file name.
-     */
-    std::string name;
-
-    /**
-     * The file length.
-     */
-    uint32_t length;
-
-    /**
-     * If this file is compressed.
-     */
-    bool compressed;
-
-    /**
-     * The compressed file size.
-     */
-    uint32_t compressed_size;
-
-    /**
-     * The file date.
-     */
-    uint32_t date;
-
-    /**
-     * The files CRC.
-     */
-    uint32_t crc;
-
-    /**
-     * The file position in ZIP file.
-     */
-    uint32_t position;
-};
 
 /**
  * Creates a ZIP file.
@@ -73,7 +33,7 @@ class ZipFile
 {
 private:
     std::ofstream m_output;
-    std::vector<appended_files> m_files;
+    std::vector<AppendedFile *> m_files;
     uint32_t m_cd_address;
     uint32_t m_cd_size;
 

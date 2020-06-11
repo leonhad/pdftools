@@ -31,7 +31,7 @@ using namespace std;
 
 static bool _verbose = false;
 
-constexpr int MAX_BUFFER_SIZE = 16384;
+constexpr int MAX_BUFFER_SIZE = 8192;
 
 constexpr int WIDECHAR_SIZE = 2;
 
@@ -124,7 +124,7 @@ bool verbose_mode()
     return _verbose;
 }
 
-char *compress(const char *raw, size_t size, uint32_t &writed)
+char *compress(const char *raw, size_t size, size_t &writed)
 {
     z_stream zstream;
     vector<BufferStruct> values;
@@ -144,7 +144,7 @@ char *compress(const char *raw, size_t size, uint32_t &writed)
     zstream.avail_in = (uInt) size;
     zstream.next_in = (Bytef *) raw;
     
-    int total = 0;
+    size_t total = 0;
     do
     {
         BufferStruct b;
@@ -169,7 +169,7 @@ char *compress(const char *raw, size_t size, uint32_t &writed)
     writed = total;
     char *ret = new char [total];
     
-    int locate = 0;
+    size_t locate = 0;
     vector<BufferStruct>::iterator i;
     for (i = values.begin(); i != values.end(); i++)
     {
@@ -180,7 +180,7 @@ char *compress(const char *raw, size_t size, uint32_t &writed)
     return ret;
 }
 
-char *flat_decode(char *compressed, int size, int &deflated)
+char *flat_decode(char *compressed, int size, size_t &deflated)
 {
     vector<BufferStruct> values;
     
@@ -191,7 +191,7 @@ char *flat_decode(char *compressed, int size, int &deflated)
     zstream.avail_in = 0;
     zstream.next_in = Z_NULL;
     
-    int total = 0;
+    size_t total = 0;
     int rsti = inflateInit(&zstream);
     if (rsti == Z_OK)
     {
@@ -233,7 +233,7 @@ char *flat_decode(char *compressed, int size, int &deflated)
     ret [total] = 0;
     deflated = total;
     
-    int locate = 0;
+    size_t locate = 0;
     vector<BufferStruct>::iterator i;
     for (i = values.begin(); i != values.end(); i++)
     {

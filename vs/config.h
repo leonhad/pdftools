@@ -71,3 +71,5 @@
 #undef STDC_HEADERS
 
 #define ICONV_CONST const
+
+#define HAVE_LOCALTIME_S

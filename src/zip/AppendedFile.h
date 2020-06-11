@@ -17,21 +17,55 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#pragma once
+#ifndef APPENDEDFILE_H
+#define APPENDEDFILE_H
 
+#include <stdint.h>
 #include <string>
-#include <cstdint>
-#include <stdexcept>
+#include <sstream>
 
-std::wstring ctow(const std::string& str);
-void error_message(const std::exception &e);
-void error_message(const wchar_t *msg);
-void error_message(const std::wstring& msg);
-void verbose_message(const std::wstring &msg);
-void verbose_message(const wchar_t *msg);
-void set_verbose_mode(const bool verbose);
-bool verbose_mode();
-char *flat_decode(char *compressed, int size, size_t &deflated);
-char *compress(const char *raw, size_t size, size_t &writed);
-std::string utf16be_to_utf8(const std::string &str);
-std::string charset_to_utf8(const std::string &str);
+/**
+ * The ZIP header bytes.
+ */
+class AppendedFile
+{
+public:
+    AppendedFile();
+
+    /**
+     * The file name.
+     */
+    std::string name;
+
+    /**
+     * The file length.
+     */
+    uint32_t length;
+
+    /**
+     * If this file is compressed.
+     */
+    bool compressed;
+
+    /**
+     * The compressed file size.
+     */
+    size_t compressed_size;
+
+    /**
+     * The file date.
+     */
+    uint32_t date;
+
+    /**
+     * The files CRC.
+     */
+    uint32_t crc;
+
+    /**
+     * The file position in ZIP file.
+     */
+    uint32_t position;
+};
+
+#endif

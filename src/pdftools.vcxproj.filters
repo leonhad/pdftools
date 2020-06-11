@@ -228,6 +228,9 @@
     <ClCompile Include="epub\epub.cpp">
       <Filter>Arquivos de Origem\epub</Filter>
     </ClCompile>
+    <ClCompile Include="zip\AppendedFile.cpp">
+      <Filter>Arquivos de Origem\zip</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="analyze.h">
@@ -394,6 +397,9 @@
     </ClInclude>
     <ClInclude Include="..\vs\config.h">
       <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="zip\AppendedFile.h">
+      <Filter>Arquivos de Cabeçalho\zip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

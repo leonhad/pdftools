@@ -33,6 +33,11 @@ ZipFile::ZipFile() : m_cd_address(0), m_cd_size(0)
 ZipFile::~ZipFile()
 {
     close();
+
+    for (auto file : m_files)
+    {
+        delete file;
+    }
 }
 
 uint32_t ZipFile::currentDatetime() const
@@ -87,40 +92,42 @@ void ZipFile::addSource(const string &filename, const string &buffer)
 
 void ZipFile::addSource(const string &filename, const char *buffer, size_t length)
 {
-    appended_files file;
-    file.position = static_cast<uint32_t>(m_output.tellp());
-    file.date = currentDatetime();
-    file.length = static_cast<uint32_t>(length);
-    file.name = filename.c_str();
+    AppendedFile *file = new AppendedFile;
+    file->position = static_cast<uint32_t>(m_output.tellp());
+    file->date = currentDatetime();
+    file->length = static_cast<uint32_t>(length);
+    file->name = filename.c_str();
 
     uint32_t crc = (uint32_t) ::crc32(0L, Z_NULL, 0);
-    file.crc = (uint32_t) ::crc32(crc, (Bytef *) buffer, (uInt) length);
+    file->crc = (uint32_t) ::crc32(crc, (Bytef *) buffer, (uInt) length);
 
+    // FIXME: move to AppendFile.
     char *deflate_buffer = nullptr;
     try
     {
-        deflate_buffer = compress(buffer, length, file.compressed_size);
+        deflate_buffer = compress(buffer, length, file->compressed_size);
 
-        if (file.compressed_size < file.length)
+        if (file->compressed_size < file->length)
         {
-            file.compressed = true;
+            file->compressed = true;
         }
         else
         {
-            file.compressed = false;
-            file.compressed_size = file.length;
+            file->compressed = false;
+            file->compressed_size = file->length;
         }
-    } catch (exception &e)
+    }
+    catch (exception &)
     {
         // File in deflate
-        file.compressed = false;
-        file.compressed_size = file.length;
+        file->compressed = false;
+        file->compressed_size = file->length;
     }
 
     writeString("\x50\x4B\x03\x04");
     // Unix Type
     write16(0xA);
-    if (file.compressed)
+    if (file->compressed)
     {
         // Bit flags
         write16(2);
@@ -132,25 +139,26 @@ void ZipFile::addSource(const string &filename, const char *buffer, size_t lengt
         write16(0);
         write16(0);
     }
-    write32(file.date);
-    write32(file.crc);
+    write32(file->date);
+    write32(file->crc);
     // Compressed
-    write32(file.compressed_size);
+    write32((uint32_t)file->compressed_size);
     // Uncompressed
-    write32(file.length);
-    write16(filename.size());
+    write32(file->length);
+    write16((uint16_t)filename.size());
     // file extra
     write16(0);
     writeString(filename);
 
-    if (file.compressed)
+    if (file->compressed)
     {
-        m_output.write(deflate_buffer, file.compressed_size);
+        m_output.write(deflate_buffer, file->compressed_size);
     }
     else
     {
-        m_output.write(buffer, file.length);
+        m_output.write(buffer, file->length);
     }
+
     delete [] deflate_buffer;
     m_files.push_back(file);
 }
@@ -162,13 +170,13 @@ void ZipFile::writeCentralFile()
 
     for (size_t i = 0; i < size; i++)
     {
-        appended_files file = m_files [i];
+        AppendedFile *file = m_files.at(i);
 
         writeString("\x50\x4B\x01\x02");
         write16(0x031E);
         write16(0x0A);
 
-        if (file.compressed)
+        if (file->compressed)
         {
             // bit flag
             write16(2);
@@ -180,13 +188,14 @@ void ZipFile::writeCentralFile()
             write16(0);
             write16(0);
         }
-        write32(file.date);
-        write32(file.crc);
+
+        write32(file->date);
+        write32(file->crc);
         // Compressed
-        write32(file.compressed_size);
+        write32((uint32_t)file->compressed_size);
         // Uncompressed
-        write32(file.length);
-        write16(file.name.length());
+        write32(file->length);
+        write16((uint16_t)file->name.length());
         // file extra
         write16(0);
         // file comment length
@@ -195,8 +204,8 @@ void ZipFile::writeCentralFile()
         write16(0);
         write16(0);
         write32(0x81A40000);
-        write32(file.position);
-        writeString(file.name);
+        write32(file->position);
+        writeString(file->name);
     }
     m_cd_size = ((uint32_t) m_output.tellp()) - m_cd_address;
 }
@@ -209,10 +218,10 @@ void ZipFile::writeCentralDirectory()
     // number of this disk start
     write16(0);
     // number of files records (this disk)
-    write16(m_files.size());
+    write16((uint16_t)m_files.size());
 
     // Total number of central directory records
-    write16(m_files.size());
+    write16((uint16_t)m_files.size());
     // size of the central directory
     write32(m_cd_size);
 

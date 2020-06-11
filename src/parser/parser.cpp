@@ -118,7 +118,7 @@ void Parser::objectStreams(RootNode *root_node)
                     m_scanner->to_pos(root_object->streamPos());
                     char *stream = m_scanner->getStream(length);
 
-                    int total = length;
+                    size_t total = length;
                     NameNode *filter = dynamic_cast<NameNode *>(map->get("/Filter"));
                     if (filter && filter->name() == "/FlateDecode")
                     {

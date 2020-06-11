@@ -515,7 +515,7 @@ void Analyze::getStream(ObjNode *obj, stringstream *stream_value)
     char *stream = scanner.getStream(length);
     filestream.close();
     
-    int total = length;
+    size_t total = length;
     if (filter && filter->name() == "/FlateDecode")
     {
         const char *value = flat_decode(stream, length, total);
