@@ -88,8 +88,6 @@ private:
     void write32(uint32_t c);
 
     void writeString(const std::string &str);
-
-    uint32_t currentDatetime() const;
 };
 
 #endif

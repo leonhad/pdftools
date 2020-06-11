@@ -30,8 +30,11 @@
 class AppendedFile
 {
 public:
-    AppendedFile();
-
+    AppendedFile(const std::string filename, const char *buffer, size_t length,
+                 std::streampos position);
+    
+    ~AppendedFile();
+    
     /**
      * The file name.
      */
@@ -65,7 +68,12 @@ public:
     /**
      * The file position in ZIP file.
      */
-    uint32_t position;
+    std::streampos position;
+    
+    char *deflate_buffer;
+
+private:
+    uint32_t currentDatetime() const;
 };
 
 #endif

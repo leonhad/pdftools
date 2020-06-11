@@ -61,7 +61,7 @@
 		A5E0F0AF1C34399800160E3B /* token.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5E0F0AD1C34399800160E3B /* token.cpp */; };
 		A5FBDCB01C40540D0074741F /* element.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5FBDCAC1C40540D0074741F /* element.cpp */; };
 		A5FBDCB11C40540D0074741F /* xmltag.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5FBDCAE1C40540D0074741F /* xmltag.cpp */; };
-		A73AA0292492E94E008BBC84 /* appendfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73AA0272492E94E008BBC84 /* appendfile.cpp */; };
+		A73AA02C2492EA67008BBC84 /* appendedfile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A73AA02B2492EA67008BBC84 /* appendedfile.cpp */; };
 		A7D0A5B3248D9EA600B790BA /* genericexception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A7D0A5B2248D9EA600B790BA /* genericexception.cpp */; };
 /* End PBXBuildFile section */
 
@@ -186,8 +186,8 @@
 		A5FBDCAD1C40540D0074741F /* element.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = element.h; path = xml/element.h; sourceTree = SOURCE_ROOT; };
 		A5FBDCAE1C40540D0074741F /* xmltag.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = xmltag.cpp; path = xml/xmltag.cpp; sourceTree = SOURCE_ROOT; };
 		A5FBDCAF1C40540D0074741F /* xmltag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = xmltag.h; path = xml/xmltag.h; sourceTree = SOURCE_ROOT; };
-		A73AA0272492E94E008BBC84 /* appendfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = appendfile.cpp; path = zip/appendfile.cpp; sourceTree = SOURCE_ROOT; };
-		A73AA0282492E94E008BBC84 /* appendfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = appendfile.h; path = zip/appendfile.h; sourceTree = SOURCE_ROOT; };
+		A73AA02A2492EA67008BBC84 /* appendedfile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = appendedfile.h; path = zip/appendedfile.h; sourceTree = SOURCE_ROOT; };
+		A73AA02B2492EA67008BBC84 /* appendedfile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = appendedfile.cpp; path = zip/appendedfile.cpp; sourceTree = SOURCE_ROOT; };
 		A7D0A5B1248D9EA600B790BA /* genericexception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = genericexception.h; sourceTree = SOURCE_ROOT; };
 		A7D0A5B2248D9EA600B790BA /* genericexception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = genericexception.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -384,8 +384,8 @@
 		A598EF081C28B111008FFC74 /* zip */ = {
 			isa = PBXGroup;
 			children = (
-				A73AA0272492E94E008BBC84 /* appendfile.cpp */,
-				A73AA0282492E94E008BBC84 /* appendfile.h */,
+				A73AA02B2492EA67008BBC84 /* appendedfile.cpp */,
+				A73AA02A2492EA67008BBC84 /* appendedfile.h */,
 				A598EF051C28B10C008FFC74 /* zipfile.cpp */,
 				A598EF061C28B10C008FFC74 /* zipfile.h */,
 			);
@@ -498,6 +498,7 @@
 				A598EEE01C28B069008FFC74 /* fontnode.cpp in Sources */,
 				A5E0F0AB1C336ABE00160E3B /* scanner.cpp in Sources */,
 				A598EEDA1C28B069008FFC74 /* bdcnode.cpp in Sources */,
+				A73AA02C2492EA67008BBC84 /* appendedfile.cpp in Sources */,
 				A5E0F0A91C336ABE00160E3B /* pageparser.cpp in Sources */,
 				A598EEDB1C28B069008FFC74 /* booleannode.cpp in Sources */,
 				A598EEA01C28AF5E008FFC74 /* fontsizeglyph.cpp in Sources */,
@@ -507,7 +508,6 @@
 				A57D148D1C2791990072F543 /* pageanalyze.cpp in Sources */,
 				A598EEE71C28B069008FFC74 /* statenode.cpp in Sources */,
 				A598EEE31C28B069008FFC74 /* numbernode.cpp in Sources */,
-				A73AA0292492E94E008BBC84 /* appendfile.cpp in Sources */,
 				A598EEFB1C28B0C8008FFC74 /* document.cpp in Sources */,
 				A598EE9E1C28AF5E008FFC74 /* breakglyph.cpp in Sources */,
 				A5E0F0A71C336ABE00160E3B /* cmapparser.cpp in Sources */,

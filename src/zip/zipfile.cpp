@@ -19,10 +19,8 @@
  */
 #include "config.h"
 #include "zipfile.h"
-#include "../utils.h"
 #include <zlib.h>
 #include <cstring>
-#include <ctime>
 
 using namespace std;
 
@@ -38,34 +36,6 @@ ZipFile::~ZipFile()
     {
         delete file;
     }
-}
-
-uint32_t ZipFile::currentDatetime() const
-{
-    time_t rawTime = time(nullptr);
-    struct tm t;
-
-#ifdef HAVE_LOCALTIME_S
-    localtime_s(&t, &rawTime);
-#else
-#ifdef HAVE_LOCALTIME_R
-    localtime_r(&rawTime, &t);
-#else
-#error The localtime_s or localtime_r is needed.
-#endif
-#endif
-
-    if (t.tm_year >= 1980)
-    {
-        t.tm_year -= 1980;
-    }
-    else if (t.tm_year >= 80)
-    {
-        t.tm_year -= 80;
-    }
-
-    return (uint32_t) ((t.tm_mday + (32 * (t.tm_mon + 1)) + (512 * t.tm_year)) << 16)
-            | ((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
 }
 
 bool ZipFile::open(const string &output)
@@ -92,17 +62,7 @@ void ZipFile::addSource(const string &filename, const string &buffer)
 
 void ZipFile::addSource(const string &filename, const char *buffer, size_t length)
 {
-    AppendedFile *file = new AppendedFile;
-    file->position = static_cast<uint32_t>(m_output.tellp());
-    file->date = currentDatetime();
-    file->length = static_cast<uint32_t>(length);
-    file->name = filename.c_str();
-
-    uint32_t crc = (uint32_t) ::crc32(0L, Z_NULL, 0);
-    file->crc = (uint32_t) ::crc32(crc, (Bytef *) buffer, (uInt) length);
-
-    // FIXME: move to AppendFile.
-    
+    AppendedFile *file = new AppendedFile(filename, buffer, length, m_output.tellp());
 
     writeString("\x50\x4B\x03\x04");
     // Unix Type
@@ -119,6 +79,7 @@ void ZipFile::addSource(const string &filename, const char *buffer, size_t lengt
         write16(0);
         write16(0);
     }
+    
     write32(file->date);
     write32(file->crc);
     // Compressed
@@ -132,14 +93,13 @@ void ZipFile::addSource(const string &filename, const char *buffer, size_t lengt
 
     if (file->compressed)
     {
-        m_output.write(deflate_buffer, file->compressed_size);
+        m_output.write(file->deflate_buffer, file->compressed_size);
     }
     else
     {
         m_output.write(buffer, file->length);
     }
 
-    delete [] deflate_buffer;
     m_files.push_back(file);
 }
 
@@ -172,10 +132,10 @@ void ZipFile::writeCentralFile()
         write32(file->date);
         write32(file->crc);
         // Compressed
-        write32((uint32_t)file->compressed_size);
+        write32(static_cast<uint32_t>(file->compressed_size));
         // Uncompressed
         write32(file->length);
-        write16((uint16_t)file->name.length());
+        write16(static_cast<u_int16_t>(file->name.length()));
         // file extra
         write16(0);
         // file comment length
@@ -184,9 +144,10 @@ void ZipFile::writeCentralFile()
         write16(0);
         write16(0);
         write32(0x81A40000);
-        write32(file->position);
+        write32(static_cast<uint32_t>(file->position));
         writeString(file->name);
     }
+    
     m_cd_size = ((uint32_t) m_output.tellp()) - m_cd_address;
 }
 
