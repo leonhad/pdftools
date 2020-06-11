@@ -73,7 +73,7 @@ public:
     char *deflate_buffer;
 
 private:
-    uint32_t currentDatetime() const;
+    uint32_t CurrentDatetime() const;
 };
 
 #endif

@@ -130,7 +130,7 @@ int main(int argc, char *argv [])
             try
             {
                 Converter converter(argv[loop], fileout, format);
-                converter.convert();
+                converter.Convert();
             }
             catch (exception &e)
             {

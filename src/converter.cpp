@@ -55,7 +55,7 @@ m_filein(filein), m_format(format)
     }
 }
 
-void Converter::convert()
+void Converter::Convert()
 {
     Analyze analyze(m_filein);
     

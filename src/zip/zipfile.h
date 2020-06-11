@@ -51,8 +51,8 @@ public:
     /**
      * Open a zip file to write.
      *
-     * \param output the output file.
-     * \return true if ha success.
+     * @param output the output file.
+     * @return true if ha success.
      */
     bool open(const std::string &output);
 
@@ -64,17 +64,17 @@ public:
     /**
      * Add a file to this ZIP file.
      *
-     * \param filename the file name.
-     * \param buffer the buffer to read.
-     * \param length the buffer length.
+     * @param filename the file name.
+     * @param buffer the buffer to read.
+     * @param length the buffer length.
      */
     void addSource(const std::string &filename, const char *buffer, size_t length);
 
     /**
      * Add a file to this ZIP file based on a string buffer.
      *
-     * \param filename the file name.
-     * \param buffer the buffer to read.
+     * @param filename the file name.
+     * @param buffer the buffer to read.
      */
     void addSource(const std::string &filename, const std::string &buffer);
     
@@ -82,7 +82,7 @@ private:
     void writeCentralFile();
 
     void writeCentralDirectory();
-
+    
     void write16(uint16_t c);
 
     void write32(uint32_t c);

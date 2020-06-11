@@ -28,7 +28,7 @@ AppendedFile::AppendedFile(const std::string filename, const char *buffer, size_
                            std::streampos position)
 {
     this->position = position;
-    this->date = currentDatetime();
+    this->date = CurrentDatetime();
     this->length = static_cast<uint32_t>(length);
     this->name = filename.c_str();
 
@@ -57,7 +57,7 @@ AppendedFile::~AppendedFile() {
     }
 }
 
-uint32_t AppendedFile::currentDatetime() const
+uint32_t AppendedFile::CurrentDatetime() const
 {
     time_t rawTime = time(nullptr);
     struct tm t;
