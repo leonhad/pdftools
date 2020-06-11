@@ -32,7 +32,6 @@ private:
     std::string m_fileout;
     
 public:
-    
     /// Creates a new converter instance.
     /// @param filein  the input file name.
     /// @param fileout the file output name.
