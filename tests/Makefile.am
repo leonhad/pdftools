@@ -20,6 +20,4 @@ gtest_LDFLAGS = \
 gtest_CPPFLAGS = -I.. -I../src -I../src/zip \
     -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest
 
-MOSTLYCLEANFILES = \
-    *.gcda *.gcno *.gcov
 

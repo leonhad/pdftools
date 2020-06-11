@@ -534,9 +534,6 @@ gtest_LDFLAGS = \
 gtest_CPPFLAGS = -I.. -I../src -I../src/zip \
     -I$(top_srcdir)/googletest/googletest/include -I$(top_srcdir)/googletest/googletest
 
-MOSTLYCLEANFILES = \
-    *.gcda *.gcno *.gcov
-
 all: all-am
 
 .SUFFIXES:
@@ -1015,7 +1012,6 @@ install-strip:
 	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
 	fi
 mostlyclean-generic:
-	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 	-test -z "$(TEST_LOGS)" || rm -f $(TEST_LOGS)
 	-test -z "$(TEST_LOGS:.log=.trs)" || rm -f $(TEST_LOGS:.log=.trs)
 	-test -z "$(TEST_SUITE_LOG)" || rm -f $(TEST_SUITE_LOG)
