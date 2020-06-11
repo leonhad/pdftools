@@ -13,7 +13,7 @@ x86
 Debug
 Release
 *.gcov
-
+*.user
 *.gcda
 
 *.gcno
