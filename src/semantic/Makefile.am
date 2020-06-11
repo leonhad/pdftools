@@ -16,6 +16,3 @@ noinst_HEADERS = \
 	font.h
 
 libsemantic_a_CXXFLAGS = -I..
-
-MOSTLYCLEANFILES = \
-	*.gcda *.gcno *.gcov

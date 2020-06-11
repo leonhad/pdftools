@@ -18,5 +18,3 @@ noinst_HEADERS = \
 
 libparser_a_CXXFLAGS = -I..
 
-MOSTLYCLEANFILES = \
-	*.gcda *.gcno *.gcov

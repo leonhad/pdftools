@@ -342,7 +342,8 @@ EXTRA_DIST = \
 	README.APPNOTE \
 	README.ZLIB \
 	README.md \
-	debian
+	debian \
+	vs
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

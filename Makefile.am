@@ -8,4 +8,5 @@ EXTRA_DIST = \
 	README.APPNOTE \
 	README.ZLIB \
 	README.md \
-	debian
+	debian \
+	vs

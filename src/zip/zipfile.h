@@ -20,7 +20,7 @@
 #ifndef ZIPFILE_H
 #define ZIPFILE_H
 
-#include "AppendedFile.h"
+#include "appendedfile.h"
 #include <fstream>
 #include <vector>
 #include <stdint.h>

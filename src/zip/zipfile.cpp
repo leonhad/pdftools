@@ -102,27 +102,7 @@ void ZipFile::addSource(const string &filename, const char *buffer, size_t lengt
     file->crc = (uint32_t) ::crc32(crc, (Bytef *) buffer, (uInt) length);
 
     // FIXME: move to AppendFile.
-    char *deflate_buffer = nullptr;
-    try
-    {
-        deflate_buffer = compress(buffer, length, file->compressed_size);
-
-        if (file->compressed_size < file->length)
-        {
-            file->compressed = true;
-        }
-        else
-        {
-            file->compressed = false;
-            file->compressed_size = file->length;
-        }
-    }
-    catch (exception &)
-    {
-        // File in deflate
-        file->compressed = false;
-        file->compressed_size = file->length;
-    }
+    
 
     writeString("\x50\x4B\x03\x04");
     // Unix Type

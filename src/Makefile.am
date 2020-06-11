@@ -35,4 +35,4 @@ pdftools_LDADD = \
 	nodes/libnodes.a
 
 MOSTLYCLEANFILES = \
-	*.gcda *.gcno *.gcov
+	pdftools.1

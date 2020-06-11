@@ -46,6 +46,3 @@ noinst_HEADERS = \
 	nodes.h
 
 libnodes_a_CXXFLAGS = 
-
-MOSTLYCLEANFILES = \
-	*.gcda *.gcno *.gcov

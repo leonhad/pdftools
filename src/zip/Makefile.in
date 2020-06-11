@@ -114,7 +114,8 @@ am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
 libzip_a_AR = $(AR) $(ARFLAGS)
 libzip_a_LIBADD =
-am_libzip_a_OBJECTS = libzip_a-zipfile.$(OBJEXT)
+am_libzip_a_OBJECTS = libzip_a-zipfile.$(OBJEXT) \
+	libzip_a-appendedfile.$(OBJEXT)
 libzip_a_OBJECTS = $(am_libzip_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -131,7 +132,8 @@ am__v_at_1 =
 DEFAULT_INCLUDES = 
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
-am__depfiles_remade = ./$(DEPDIR)/libzip_a-zipfile.Po
+am__depfiles_remade = ./$(DEPDIR)/libzip_a-appendedfile.Po \
+	./$(DEPDIR)/libzip_a-zipfile.Po
 am__mv = mv -f
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -311,15 +313,14 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 noinst_LIBRARIES = libzip.a
 libzip_a_SOURCES = \
-	zipfile.cpp
+	zipfile.cpp \
+	appendedfile.cpp
 
 noinst_HEADERS = \
-	zipfile.h
+	zipfile.h \
+	appendedfile.h
 
 libzip_a_CXXFLAGS = -I.. -I../..
-MOSTLYCLEANFILES = \
-	*.gcda *.gcno *.gcov
-
 all: all-am
 
 .SUFFIXES:
@@ -368,6 +369,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libzip_a-appendedfile.Po@am__quote@ # am--include-marker
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/libzip_a-zipfile.Po@am__quote@ # am--include-marker
 
 $(am__depfiles_remade):
@@ -413,6 +415,20 @@ libzip_a-zipfile.obj: zipfile.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='zipfile.cpp' object='libzip_a-zipfile.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzip_a_CXXFLAGS) $(CXXFLAGS) -c -o libzip_a-zipfile.obj `if test -f 'zipfile.cpp'; then $(CYGPATH_W) 'zipfile.cpp'; else $(CYGPATH_W) '$(srcdir)/zipfile.cpp'; fi`
+
+libzip_a-appendedfile.o: appendedfile.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzip_a_CXXFLAGS) $(CXXFLAGS) -MT libzip_a-appendedfile.o -MD -MP -MF $(DEPDIR)/libzip_a-appendedfile.Tpo -c -o libzip_a-appendedfile.o `test -f 'appendedfile.cpp' || echo '$(srcdir)/'`appendedfile.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libzip_a-appendedfile.Tpo $(DEPDIR)/libzip_a-appendedfile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='appendedfile.cpp' object='libzip_a-appendedfile.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzip_a_CXXFLAGS) $(CXXFLAGS) -c -o libzip_a-appendedfile.o `test -f 'appendedfile.cpp' || echo '$(srcdir)/'`appendedfile.cpp
+
+libzip_a-appendedfile.obj: appendedfile.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzip_a_CXXFLAGS) $(CXXFLAGS) -MT libzip_a-appendedfile.obj -MD -MP -MF $(DEPDIR)/libzip_a-appendedfile.Tpo -c -o libzip_a-appendedfile.obj `if test -f 'appendedfile.cpp'; then $(CYGPATH_W) 'appendedfile.cpp'; else $(CYGPATH_W) '$(srcdir)/appendedfile.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/libzip_a-appendedfile.Tpo $(DEPDIR)/libzip_a-appendedfile.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='appendedfile.cpp' object='libzip_a-appendedfile.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzip_a_CXXFLAGS) $(CXXFLAGS) -c -o libzip_a-appendedfile.obj `if test -f 'appendedfile.cpp'; then $(CYGPATH_W) 'appendedfile.cpp'; else $(CYGPATH_W) '$(srcdir)/appendedfile.cpp'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -529,7 +545,6 @@ install-strip:
 	    "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'" install; \
 	fi
 mostlyclean-generic:
-	-test -z "$(MOSTLYCLEANFILES)" || rm -f $(MOSTLYCLEANFILES)
 
 clean-generic:
 
@@ -546,7 +561,8 @@ clean-am: clean-generic clean-libtool clean-noinstLIBRARIES \
 	mostlyclean-am
 
 distclean: distclean-am
-		-rm -f ./$(DEPDIR)/libzip_a-zipfile.Po
+		-rm -f ./$(DEPDIR)/libzip_a-appendedfile.Po
+	-rm -f ./$(DEPDIR)/libzip_a-zipfile.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -592,7 +608,8 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-		-rm -f ./$(DEPDIR)/libzip_a-zipfile.Po
+		-rm -f ./$(DEPDIR)/libzip_a-appendedfile.Po
+	-rm -f ./$(DEPDIR)/libzip_a-zipfile.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

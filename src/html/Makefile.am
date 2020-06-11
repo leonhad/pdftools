@@ -6,6 +6,3 @@ noinst_HEADERS = \
 	html.h
 
 libhtml_a_CXXFLAGS = -I..
-
-MOSTLYCLEANFILES = \
-	*.gcda *.gcno *.gcov
