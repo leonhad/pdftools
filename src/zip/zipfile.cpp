@@ -17,6 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
+#include "config.h"
 #include "zipfile.h"
 #include "../utils.h"
 #include <zlib.h>
@@ -25,8 +26,7 @@
 
 using namespace std;
 
-ZipFile::ZipFile() :
-        m_cd_address(0), m_cd_size(0)
+ZipFile::ZipFile() : m_cd_address(0), m_cd_size(0)
 {
 }
 
@@ -40,11 +40,14 @@ uint32_t ZipFile::currentDatetime() const
     time_t rawTime = time(nullptr);
     struct tm t;
 
-#ifdef _MSC_VER
-    // Only for Visual Studio
+#ifdef HAVE_LOCALTIME_S
     localtime_s(&t, &rawTime);
 #else
+#ifdef HAVE_LOCALTIME_R
     localtime_r(&rawTime, &t);
+#else
+#error The localtime_s or localtime_r is needed.
+#endif
 #endif
 
     if (t.tm_year >= 1980)

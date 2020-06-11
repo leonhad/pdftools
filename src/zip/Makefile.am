@@ -6,7 +6,7 @@ libzip_a_SOURCES = \
 noinst_HEADERS = \
 	zipfile.h
 
-libzip_a_CXXFLAGS = -I..
+libzip_a_CXXFLAGS = -I.. -I../..
 
 MOSTLYCLEANFILES = \
 	*.gcda *.gcno *.gcov

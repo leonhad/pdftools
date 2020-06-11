@@ -79,6 +79,35 @@ else
 			  [Define if iconv const is needed.])
 fi
 
+
+AC_MSG_CHECKING([for localtime_s])
+AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM(
+        [[#include <ctime>]],
+        [[time_t rawTime = time(nullptr);]
+         [struct tm t;]
+         [localtime_s(&t, &rawTime);]])
+    ],[
+        AC_MSG_RESULT([yes])
+        AC_DEFINE(HAVE_LOCALTIME_S, [], [Does support localtime_s])
+    ],[
+        AC_MSG_RESULT([no])
+    ])
+
+AC_MSG_CHECKING([for localtime_r])
+AC_COMPILE_IFELSE(
+    [AC_LANG_PROGRAM(
+        [[#include <ctime>]],
+        [[time_t rawTime = time(nullptr);]
+         [struct tm t;]
+         [localtime_r(&rawTime, &t);]])
+    ],[
+        AC_MSG_RESULT([yes])
+        AC_DEFINE(HAVE_LOCALTIME_R, [], [Does support localtime_r])
+    ],[
+        AC_MSG_RESULT([no])
+    ])
+    
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/pdftools.1

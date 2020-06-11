@@ -12,6 +12,12 @@
 /* Define to 1 if you have `z' library (-lz) */
 #undef HAVE_LIBZ
 
+/* Does support localtime_r */
+#undef HAVE_LOCALTIME_R
+
+/* Does support localtime_s */
+#undef HAVE_LOCALTIME_S
+
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
