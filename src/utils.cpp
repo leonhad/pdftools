@@ -261,12 +261,12 @@ string convert(const char *in, const char *out, const string &str)
         size_t len = str.length();
         size_t utf8len = len * WIDECHAR_SIZE;
         const size_t original = utf8len;
-        char *utf16 = (char *) str.c_str();
+        const char *utf16 = str.c_str();
         char *utf8 = new char [utf8len];
         char *utf8start = utf8;
         memset(utf8, 0, len);
         
-        size_t iconv_value = iconv(conv_desc, &utf16, &len, &utf8, &utf8len);
+        size_t iconv_value = iconv(conv_desc, (ICONV_CONST char**)&utf16, &len, &utf8, &utf8len);
         // Handle failures.
         if ((int) iconv_value != -1)
         {

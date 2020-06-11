@@ -40,7 +40,12 @@ uint32_t ZipFile::currentDatetime() const
     time_t rawTime = time(nullptr);
     struct tm t;
 
+#ifdef _MSC_VER
+    // Only for Visual Studio
+    localtime_s(&t, &rawTime);
+#else
     localtime_r(&rawTime, &t);
+#endif
 
     if (t.tm_year >= 1980)
     {

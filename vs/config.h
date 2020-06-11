@@ -69,3 +69,5 @@
 
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
+
+#define ICONV_CONST const

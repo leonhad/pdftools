@@ -61,6 +61,24 @@ AC_CACHE_CHECK([for libiconv], [am_cv_func_iconv], [
     fi
   ])
 
+AC_CACHE_CHECK([for libiconv const], [am_cv_const_iconv], [
+	am_cv_const_iconv="no"
+    AC_TRY_LINK([#include <stdlib.h>
+#include <iconv.h>],
+      [iconv_t cd = iconv_open("","");
+	   char *test = "teste";
+       iconv(cd,NULL,&test,NULL,NULL);
+       iconv_close(cd);],
+      am_cv_const_iconv=yes)
+  ])
+if test "x$am_cv_const_iconv" = xyes; then
+	AC_DEFINE([ICONV_CONST], [const],
+			  [Define if iconv const is needed.])
+else
+	AC_DEFINE([ICONV_CONST], [],
+			  [Define if iconv const is needed.])
+fi
+
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/pdftools.1

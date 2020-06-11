@@ -264,8 +264,8 @@
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets" Condition="Exists('packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets')" />
     <Import Project="packages\zlib_native.1.2.11\build\native\zlib_native.targets" Condition="Exists('packages\zlib_native.1.2.11\build\native\zlib_native.targets')" />
-    <Import Project="packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets" Condition="Exists('packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" />
-    <Import Project="packages\libiconv.1.14.0.11\build\native\libiconv.targets" Condition="Exists('packages\libiconv.1.14.0.11\build\native\libiconv.targets')" />
+    <Import Project="packages\libiconv.dll.redist.1.16.0.2\build\native\libiconv.dll.redist.targets" Condition="Exists('packages\libiconv.dll.redist.1.16.0.2\build\native\libiconv.dll.redist.targets')" />
+    <Import Project="packages\libiconv.dll.1.16.0.2\build\native\libiconv.dll.targets" Condition="Exists('packages\libiconv.dll.1.16.0.2\build\native\libiconv.dll.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -273,7 +273,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib_native.redist.1.2.11\build\native\zlib_native.redist.targets'))" />
     <Error Condition="!Exists('packages\zlib_native.1.2.11\build\native\zlib_native.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\zlib_native.1.2.11\build\native\zlib_native.targets'))" />
-    <Error Condition="!Exists('packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.redist.1.14.0.11\build\native\libiconv.redist.targets'))" />
-    <Error Condition="!Exists('packages\libiconv.1.14.0.11\build\native\libiconv.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.1.14.0.11\build\native\libiconv.targets'))" />
+    <Error Condition="!Exists('packages\libiconv.dll.redist.1.16.0.2\build\native\libiconv.dll.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.dll.redist.1.16.0.2\build\native\libiconv.dll.redist.targets'))" />
+    <Error Condition="!Exists('packages\libiconv.dll.1.16.0.2\build\native\libiconv.dll.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\libiconv.dll.1.16.0.2\build\native\libiconv.dll.targets'))" />
   </Target>
 </Project>
