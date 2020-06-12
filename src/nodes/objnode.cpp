@@ -62,7 +62,7 @@ void ObjNode::SetValue(TreeNode *value)
         delete value;
     }
 
-    value = value;
+    this->value = value;
 }
 
 void ObjNode::SetStreamPos(istream::pos_type pos)

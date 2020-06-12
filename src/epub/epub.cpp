@@ -340,7 +340,7 @@ void EPUB::GeneratePages()
 
 bool EPUB::Generate(Document *document, const string &output)
 {
-    document = document;
+    this->document = document;
     order = 1;
     if (zipFile->Open(output))
     {

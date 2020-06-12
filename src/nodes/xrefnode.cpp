@@ -36,7 +36,7 @@ XREFNode::~XREFNode()
 
 void XREFNode::SetTrailer(TreeNode *trailer)
 {
-    trailer = trailer;
+    this->trailerNode = trailer;
 }
 
 TreeNode *XREFNode::Trailer() const
