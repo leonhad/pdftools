@@ -136,6 +136,11 @@
     <None Include="packages.config" />
     <None Include="pdftools.1.in" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="getopt\getopt.vcxproj">
+      <Project>{2be9603c-69a3-4cbb-bd66-e225b32c5abd}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

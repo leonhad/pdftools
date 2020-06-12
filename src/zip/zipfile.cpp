@@ -140,7 +140,7 @@ void ZipFile::WriteCentralFile()
         
         // Uncompressed
         Write32(file->length);
-        Write16(static_cast<u_int16_t>(file->name.length()));
+        Write16(static_cast<uint16_t>(file->name.length()));
         
         // file extra
         Write16(0);

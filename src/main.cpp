@@ -23,7 +23,13 @@
 
 #include <iostream>
 #include <memory>
+
+#ifdef _MSC_VER
+#undef _UNICODE
+#include "getopt/getopt.h"
+#else
 #include <getopt.h>
+#endif
 
 using namespace std;
 

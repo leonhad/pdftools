@@ -50,7 +50,7 @@ void Glyph::Execute(Html *document, Context *context)
     StartGlyph(document);
     DoGlyph(document);
 
-    unsigned long size = childs.size();
+    size_t size = childs.size();
     if (size > 0)
     {
         lastGlyph = this;
