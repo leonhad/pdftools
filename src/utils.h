@@ -23,15 +23,15 @@
 #include <cstdint>
 #include <stdexcept>
 
-std::wstring ctow(const std::string& str);
-void error_message(const std::exception &e);
-void error_message(const wchar_t *msg);
-void error_message(const std::wstring& msg);
-void verbose_message(const std::wstring &msg);
-void verbose_message(const wchar_t *msg);
-void set_verbose_mode(const bool verbose);
-bool verbose_mode();
-char *flat_decode(char *compressed, int size, size_t &deflated);
-char *compress(const char *raw, size_t size, size_t &writed);
-std::string utf16be_to_utf8(const std::string &str);
-std::string charset_to_utf8(const std::string &str);
+std::wstring SingleToWide(const std::string& str);
+void ErrorMessage(const std::exception &e);
+void ErrorMessage(const wchar_t *msg);
+void ErrorMessage(const std::wstring& msg);
+void VerboseMessage(const std::wstring &msg);
+void VerboseMessage(const wchar_t *msg);
+void SetVerboseMode(const bool verbose);
+bool VerboseMode();
+char *FlatDecode(char *compressed, int size, size_t &deflated);
+char *Compress(const char *raw, size_t size, size_t &writed);
+std::string UTF16beToUTF8(const std::string &str);
+std::string CharsetToUTF8(const std::string &str);

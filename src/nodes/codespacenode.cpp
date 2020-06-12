@@ -27,22 +27,22 @@ CodeSpaceNode::CodeSpaceNode() :
 {
 }
 
-void CodeSpaceNode::setStart(const string &start)
+void CodeSpaceNode::SetStart(const string &start)
 {
-    m_start = start;
+    this->start = start;
 }
 
-void CodeSpaceNode::setFinish(const string &finish)
+void CodeSpaceNode::SetFinish(const string &finish)
 {
-    m_finish = finish;
+    this->finish = finish;
 }
 
-string CodeSpaceNode::start() const
+string CodeSpaceNode::Start() const
 {
-    return m_start;
+    return start;
 }
 
-string CodeSpaceNode::finish() const
+string CodeSpaceNode::Finish() const
 {
-    return m_finish;
+    return finish;
 }

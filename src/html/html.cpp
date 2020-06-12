@@ -24,8 +24,8 @@ using namespace std;
 
 Html::Html()
 {
-    m_xml.startDocument("1.0", "UTF-8");
-    m_xml.addDoctype("html", "-//W3C//DTD XHTML 1.1//EN",
+    xml.startDocument("1.0", "UTF-8");
+    xml.addDoctype("html", "-//W3C//DTD XHTML 1.1//EN",
             "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd");
 }
 
@@ -33,37 +33,37 @@ Html::~Html()
 {
 }
 
-void Html::breakLine()
+void Html::BreakLine()
 {
-    m_xml.startTag("br");
-    m_xml.endTag();
+    xml.startTag("br");
+    xml.endTag();
 }
 
-void Html::addParagraph()
+void Html::AddParagraph()
 {
-    m_xml.startTag("p");
+    xml.startTag("p");
 }
 
-void Html::startHeader()
+void Html::StartHeader()
 {
-    m_xml.startTag("head");
+    xml.startTag("head");
 }
 
-void Html::startBody()
+void Html::StartBody()
 {
-    m_xml.startTag("body");
+    xml.startTag("body");
 }
 
-void Html::setTitle(const string& title)
+void Html::SetTitle(const string& title)
 {
-    m_xml.startTag("title");
-    m_xml.addElement(title);
-    m_xml.endTag();
+    xml.startTag("title");
+    xml.addElement(title);
+    xml.endTag();
 }
 
-void Html::addFont(int size, bool bold, bool italic, bool fixed)
+void Html::AddFont(int size, bool bold, bool italic, bool fixed)
 {
-    m_xml.startTag("div");
+    xml.startTag("div");
 
     stringstream css;
     if (size <= 8)
@@ -114,43 +114,43 @@ void Html::addFont(int size, bool bold, bool italic, bool fixed)
         css << " m";
     }
 
-    m_xml.addAttribute("class", css.str());
+    xml.addAttribute("class", css.str());
 }
 
-void Html::addLink(const string &rel, const string &type, const string &href)
+void Html::AddLink(const string &rel, const string &type, const string &href)
 {
-    m_xml.startTag("link");
-    m_xml.addAttribute("rel", rel);
-    m_xml.addAttribute("type", type);
-    m_xml.addAttribute("href", href);
-    m_xml.endTag();
+    xml.startTag("link");
+    xml.addAttribute("rel", rel);
+    xml.addAttribute("type", type);
+    xml.addAttribute("href", href);
+    xml.endTag();
 }
 
-void Html::addElement(const string& value)
+void Html::AddElement(const string& value)
 {
-    m_xml.addElement(value);
+    xml.addElement(value);
 }
 
-void Html::addSection(const std::string &name)
+void Html::AddSection(const std::string &name)
 {
-    m_xml.startTag("div");
-    m_xml.addAttribute("class", "section");
-    m_xml.addAttribute("id", name);
+    xml.startTag("div");
+    xml.addAttribute("class", "section");
+    xml.addAttribute("id", name);
 }
 
-void Html::endTag()
+void Html::EndTag()
 {
-    m_xml.endTag();
+    xml.endTag();
 }
 
-void Html::startDocument()
+void Html::StartDocument()
 {
-    m_xml.startTag("html");
-    m_xml.addAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    xml.startTag("html");
+    xml.addAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 }
 
-void Html::endDocument()
+void Html::EndDocument()
 {
-    endTag();
-    m_xml.endDocument();
+    EndTag();
+    xml.endDocument();
 }

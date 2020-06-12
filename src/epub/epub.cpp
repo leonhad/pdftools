@@ -30,26 +30,25 @@
 
 using namespace std;
 
-EPUB::EPUB() :
-        Generator(), m_document(nullptr), m_zipfile(new ZipFile), m_order(0)
+EPUB::EPUB() : Generator(), document(nullptr), zipFile(new ZipFile), order(0)
 {
 }
 
 EPUB::~EPUB()
 {
-    if (m_zipfile)
+    if (zipFile)
     {
-        delete m_zipfile;
+        delete zipFile;
     }
 }
 
-void EPUB::generateMimeType()
+void EPUB::GenerateMimeType()
 {
     const char *mime = "application/epub+zip";
-    m_zipfile->addSource("mimetype", mime);
+    zipFile->AddSource("mimetype", mime);
 }
 
-void EPUB::generateCss()
+void EPUB::GenerateCss()
 {
     stringstream css;
     css << ".b {font-weight: bold}\n";
@@ -64,10 +63,10 @@ void EPUB::generateCss()
     css << ".f16 {font-size: 16pt}\n";
     css << ".f18 {font-size: 18pt}\n";
     css << "div {display:inline}\n";
-    m_zipfile->addSource("style.css", css.str());
+    zipFile->AddSource("style.css", css.str());
 }
 
-void EPUB::generateContainer()
+void EPUB::GenerateContainer()
 {
     XML xml;
     xml.startDocument("1.0", "UTF-8");
@@ -85,10 +84,10 @@ void EPUB::generateContainer()
 
     xml.endDocument();
     string content = xml.content();
-    m_zipfile->addSource("META-INF/container.xml", content);
+    zipFile->AddSource("META-INF/container.xml", content);
 }
 
-void EPUB::generateContent(const string &output)
+void EPUB::GenerateContent(const string &output)
 {
     XML xml;
     xml.startDocument("1.0", "UTF-8");
@@ -105,9 +104,9 @@ void EPUB::generateContent(const string &output)
     xml.addAttribute("xmlns:opf", "http://www.idpf.org/2007/opf");
 
     xml.startTag("dc:title");
-    if (not m_document->title().empty())
+    if (not document->title().empty())
     {
-        xml.addElement(m_document->title());
+        xml.addElement(document->title());
     }
     else
     {
@@ -118,7 +117,7 @@ void EPUB::generateContent(const string &output)
 
     xml.startTag("dc:language");
     xml.addAttribute("xsi:type", "dcterms:RFC3066");
-    xml.addElement(m_document->lang().c_str());
+    xml.addElement(document->lang().c_str());
     xml.endTag();
 
     xml.startTag("dc:identifier");
@@ -128,7 +127,7 @@ void EPUB::generateContent(const string &output)
     xml.endTag();
 
     xml.startTag("dc:subject");
-    xml.addElement(m_document->subject());
+    xml.addElement(document->subject());
     xml.endTag();
 
     xml.startTag("dc:relation");
@@ -136,13 +135,13 @@ void EPUB::generateContent(const string &output)
     xml.endTag();
 
     xml.startTag("dc:creator");
-    if (m_document->author().empty())
+    if (document->author().empty())
     {
         xml.addElement(PACKAGE_STRING);
     }
     else
     {
-        xml.addElement(m_document->author());
+        xml.addElement(document->author());
     }
 
     xml.endTag();
@@ -152,7 +151,7 @@ void EPUB::generateContent(const string &output)
     xml.endTag();
 
     xml.startTag("dc:publisher");
-    xml.addElement(m_document->author());
+    xml.addElement(document->author());
     xml.endTag();
 
     xml.endTag();
@@ -165,13 +164,13 @@ void EPUB::generateContent(const string &output)
     xml.addAttribute("media-type", "application/x-dtbncx+xml");
     xml.endTag();
 
-    for (size_t loop = 0; loop < m_document->pages(); loop++)
+    for (size_t loop = 0; loop < document->pages(); loop++)
     {
-        Page *page = m_document->page(loop);
+        Page *page = document->page(loop);
 
         xml.startTag("item");
-        xml.addAttribute("id", page->link());
-        xml.addAttribute("href", page->link() + ".html");
+        xml.addAttribute("id", page->Link());
+        xml.addAttribute("href", page->Link() + ".html");
         xml.addAttribute("media-type", "application/xhtml+xml");
         xml.endTag();
     }
@@ -187,12 +186,12 @@ void EPUB::generateContent(const string &output)
     xml.startTag("spine");
     xml.addAttribute("toc", "ncx");
 
-    for (size_t loop = 0; loop < m_document->pages(); loop++)
+    for (size_t loop = 0; loop < document->pages(); loop++)
     {
-        Page *page = m_document->page(loop);
+        Page *page = document->page(loop);
 
         xml.startTag("itemref");
-        xml.addAttribute("idref", page->link());
+        xml.addAttribute("idref", page->Link());
         xml.addAttribute("linear", "yes");
         xml.endTag();
     }
@@ -202,36 +201,36 @@ void EPUB::generateContent(const string &output)
     xml.endTag();
     xml.endDocument();
     string content = xml.content();
-    m_zipfile->addSource("content.opf", content);
+    zipFile->AddSource("content.opf", content);
 }
 
-void EPUB::generateOutline(XML *xml, Outline *outline)
+void EPUB::GenerateOutline(XML *xml, Outline *outline)
 {
-    Page *page = m_document->page(outline->id(), outline->generation());
+    Page *page = document->page(outline->Id(), outline->Generation());
 
     if (page)
     {
-        string playorder{ to_string(m_order) };
-        m_order++;
+        string playorder{ to_string(order) };
+        order++;
 
         xml->startTag("navPoint");
         xml->addAttribute("id", playorder);
 
         xml->startTag("navLabel");
         xml->startTag("text");
-        xml->addElement(outline->title());
+        xml->addElement(outline->Title());
         xml->endTag();
         xml->endTag();
 
         xml->startTag("content");
-        xml->addAttribute("src", page->link() + ".html");
+        xml->addAttribute("src", page->Link() + ".html");
         xml->endTag();
     }
 
-    size_t size = outline->size();
+    size_t size = outline->Size();
     for (size_t loop = 0; loop < size; loop++)
     {
-        generateOutline(xml, outline->child(loop));
+        GenerateOutline(xml, outline->Child(loop));
     }
 
     if (page)
@@ -240,9 +239,9 @@ void EPUB::generateOutline(XML *xml, Outline *outline)
     }
 }
 
-void EPUB::generateToc(const string &output)
+void EPUB::GenerateToc(const string &output)
 {
-    Outline *outline = m_document->outline();
+    Outline *outline = document->outline();
 
     XML xml;
     xml.startDocument("1.0", "UTF-8");
@@ -272,21 +271,21 @@ void EPUB::generateToc(const string &output)
 
     xml.startTag("docTitle");
     xml.startTag("text");
-    xml.addElement(m_document->title());
+    xml.addElement(document->title());
     xml.endTag();
     xml.endTag();
 
     xml.startTag("navMap");
     if (outline)
     {
-        generateOutline(&xml, outline);
+        GenerateOutline(&xml, outline);
     }
     else
     {
-        size_t size = m_document->pages();
+        size_t size = document->pages();
         for (size_t i = 0; i < size; i++)
         {
-            Page *page = m_document->page(i);
+            Page *page = document->page(i);
 
             xml.startTag("navPoint");
             xml.addAttribute("id", "navPoint-1");
@@ -299,7 +298,7 @@ void EPUB::generateToc(const string &output)
             xml.endTag();
 
             xml.startTag("content");
-            xml.addAttribute("src", page->link() + ".html");
+            xml.addAttribute("src", page->Link() + ".html");
             xml.endTag();
             xml.endTag();
         }
@@ -311,47 +310,47 @@ void EPUB::generateToc(const string &output)
     xml.endDocument();
     string content = xml.content();
 
-    m_zipfile->addSource("toc.ncx", content);
+    zipFile->AddSource("toc.ncx", content);
 }
 
-void EPUB::generatePages()
+void EPUB::GeneratePages()
 {
-    size_t size = m_document->pages();
+    size_t size = document->pages();
     for (size_t i = 0; i < size; i++)
     {
-        Page *page = m_document->page(i);
+        Page *page = document->page(i);
 
         Html html;
-        html.startDocument();
-        html.startHeader();
-        html.setTitle(m_document->title());
-        html.addLink("stylesheet", "text/css", "style.css");
-        html.endTag();
-        html.startBody();
+        html.StartDocument();
+        html.StartHeader();
+        html.SetTitle(document->title());
+        html.AddLink("stylesheet", "text/css", "style.css");
+        html.EndTag();
+        html.StartBody();
 
-        page->execute(&html);
+        page->Execute(&html);
 
-        html.endTag();
-        html.endDocument();
+        html.EndTag();
+        html.EndDocument();
 
-        const string fileout = page->link() + ".html";
-        m_zipfile->addSource(fileout, html.content());
+        const string fileout = page->Link() + ".html";
+        zipFile->AddSource(fileout, html.Content());
     }
 }
 
-bool EPUB::generate(Document *document, const string &output)
+bool EPUB::Generate(Document *document, const string &output)
 {
-    m_document = document;
-    m_order = 1;
-    if (m_zipfile->open(output))
+    document = document;
+    order = 1;
+    if (zipFile->Open(output))
     {
-        generateMimeType();
-        generateCss();
-        generateContainer();
-        generateContent(output);
-        generateToc(output);
-        generatePages();
-        m_zipfile->close();
+        GenerateMimeType();
+        GenerateCss();
+        GenerateContainer();
+        GenerateContent(output);
+        GenerateToc(output);
+        GeneratePages();
+        zipFile->Close();
     }
     else
     {

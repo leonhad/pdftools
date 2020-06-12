@@ -27,94 +27,94 @@ using namespace std;
 
 Page::Page(Document *parent)
 {
-    m_media_box = nullptr;
-    m_crop_box = nullptr;
-    m_document = parent;
-    m_id = 0;
-    m_generation = 0;
-    m_root = nullptr;
+    mediaBox = nullptr;
+    cropBox = nullptr;
+    document = parent;
+    id = 0;
+    generation = 0;
+    root = nullptr;
 }
 
 Page::~Page()
 {
-    if (m_media_box)
+    if (mediaBox)
     {
-        delete [] m_media_box;
+        delete [] mediaBox;
     }
 
-    if (m_crop_box)
+    if (cropBox)
     {
-        delete [] m_crop_box;
+        delete [] cropBox;
     }
 
-    if (m_root)
+    if (root)
     {
-        delete m_root;
+        delete root;
     }
 }
 
-void Page::set_root(Glyph *root)
+void Page::SetRoot(Glyph *root)
 {
-    m_root = root;
+    this->root = root;
 }
 
-void Page::add_fontmap(string alias, string font_name)
+void Page::AddFontMap(string alias, string font_name)
 {
-    m_fontmap [alias] = font_name;
+    fontMap [alias] = font_name;
 }
 
-string Page::font_name(string &alias)
+string Page::FontName(string &alias)
 {
-    return m_fontmap [alias];
+    return fontMap [alias];
 }
 
-void Page::execute(Html *html)
+void Page::Execute(Html *html)
 {
-    Context *context = new Context(m_document);
+    Context *context = new Context(document);
     context->setCurrentPage(this);
-    html->addSection(link());
-    m_root->execute(html, context);
-    html->endTag();
+    html->AddSection(Link());
+    root->Execute(html, context);
+    html->EndTag();
     delete context;
 }
 
-const string Page::link()
+const string Page::Link()
 {
-    return m_link;
+    return link;
 }
 
-void Page::set_media_box(int a, int b, int c, int d)
+void Page::SetMediaBox(int a, int b, int c, int d)
 {
-    m_media_box = new int [4];
-    m_media_box [0] = a;
-    m_media_box [1] = b;
-    m_media_box [2] = c;
-    m_media_box [3] = d;
+    mediaBox = new int [4];
+    mediaBox [0] = a;
+    mediaBox [1] = b;
+    mediaBox [2] = c;
+    mediaBox [3] = d;
 }
 
-void Page::set_crop_box(int a, int b, int c, int d)
+void Page::SetCropBox(int a, int b, int c, int d)
 {
-    m_crop_box = new int [4];
-    m_crop_box [0] = a;
-    m_crop_box [1] = b;
-    m_crop_box [2] = c;
-    m_crop_box [3] = d;
+    cropBox = new int [4];
+    cropBox [0] = a;
+    cropBox [1] = b;
+    cropBox [2] = c;
+    cropBox [3] = d;
 }
 
-void Page::set_destination(int id, int generation)
+void Page::SetDestination(int id, int generation)
 {
-    m_id = id;
-    m_generation = generation;
+    this->id = id;
+    this->generation = generation;
 
-    m_link = "section" + to_string(id) + "_" + to_string(generation);
+    this->link = "section" + to_string(id) + "_" + to_string(generation);
 }
 
-int Page::id()
+int Page::Id()
 {
-    return m_id;
+    return id;
 }
 
-int Page::generation()
+int Page::Generation()
 {
-    return m_generation;
+    return generation;
 }

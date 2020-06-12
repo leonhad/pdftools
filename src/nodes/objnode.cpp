@@ -23,54 +23,54 @@ using namespace std;
 using namespace node;
 
 ObjNode::ObjNode(int id, int generation) :
-        TreeNode(), m_id(id), m_generation(generation), m_streamPos(istream::beg), m_value(nullptr)
+        TreeNode(), id(id), generation(generation), streamPos(istream::beg), value(nullptr)
 {
 }
 
 ObjNode::~ObjNode()
 {
-    if (m_value)
+    if (value)
     {
-        delete m_value;
+        delete value;
     }
 }
 
-int ObjNode::id() const
+int ObjNode::Id() const
 {
-    return m_id;
+    return id;
 }
 
-int ObjNode::generation() const
+int ObjNode::Generation() const
 {
-    return m_generation;
+    return generation;
 }
 
-TreeNode *ObjNode::value() const
+TreeNode *ObjNode::Value() const
 {
-    return m_value;
+    return value;
 }
 
-bool ObjNode::sameObject(int id, int generation) const
+bool ObjNode::SameObject(int id, int generation) const
 {
-    return m_id == id && m_generation == generation;
+    return this->id == id && this->generation == generation;
 }
 
-void ObjNode::setValue(TreeNode *value)
+void ObjNode::SetValue(TreeNode *value)
 {
-    if (m_value)
+    if (value)
     {
-        delete m_value;
+        delete value;
     }
 
-    m_value = value;
+    value = value;
 }
 
-void ObjNode::setStreamPos(istream::pos_type pos)
+void ObjNode::SetStreamPos(istream::pos_type pos)
 {
-    m_streamPos = pos;
+    this->streamPos = pos;
 }
 
-istream::pos_type ObjNode::streamPos() const
+istream::pos_type ObjNode::StreamPos() const
 {
-    return m_streamPos;
+    return streamPos;
 }

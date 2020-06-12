@@ -62,10 +62,10 @@ RootNode *Parser::parse()
                 commentSequence();
                 break;
             case TokenType::NUM:
-                root->addChild(objectSequence());
+                root->AddChild(objectSequence());
                 break;
             case TokenType::XREF:
-                root->addChild(xrefSequence());
+                root->AddChild(xrefSequence());
                 break;
             case TokenType::START_XREF:
                 startXrefSequence();
@@ -88,41 +88,41 @@ RootNode *Parser::parse()
 
 void Parser::objectStreams(RootNode *root_node)
 {
-    size_t size = root_node->size();
+    size_t size = root_node->Size();
 
     for (size_t i = 0; i < size; i++)
     {
-        ObjNode *root_object = dynamic_cast<ObjNode *>(root_node->get(i));
+        ObjNode *root_object = dynamic_cast<ObjNode *>(root_node->Get(i));
         if (root_object)
         {
-            MapNode *map = dynamic_cast<MapNode *>(root_object->value());
+            MapNode *map = dynamic_cast<MapNode *>(root_object->Value());
             if (map)
             {
-                NameNode *type = dynamic_cast<NameNode *>(map->get("/Type"));
-                if (type && type->name() == "/ObjStm")
+                NameNode *type = dynamic_cast<NameNode *>(map->Get("/Type"));
+                if (type && type->Name() == "/ObjStm")
                 {
                     int qtd = 0;
                     int length = 0;
-                    NumberNode *number = dynamic_cast<NumberNode *>(map->get("/N"));
+                    NumberNode *number = dynamic_cast<NumberNode *>(map->Get("/N"));
                     if (number)
                     {
-                        qtd = (int) number->value();
+                        qtd = (int) number->Value();
                     }
-                    NumberNode *length_node = dynamic_cast<NumberNode *>(map->get("/Length"));
+                    NumberNode *length_node = dynamic_cast<NumberNode *>(map->Get("/Length"));
                     if (number)
                     {
-                        length = (int) length_node->value();
+                        length = (int) length_node->Value();
                     }
                     char *uncompressed = nullptr;
 
-                    m_scanner->to_pos(root_object->streamPos());
+                    m_scanner->to_pos(root_object->StreamPos());
                     char *stream = m_scanner->getStream(length);
 
                     size_t total = length;
-                    NameNode *filter = dynamic_cast<NameNode *>(map->get("/Filter"));
-                    if (filter && filter->name() == "/FlateDecode")
+                    NameNode *filter = dynamic_cast<NameNode *>(map->Get("/Filter"));
+                    if (filter && filter->Name() == "/FlateDecode")
                     {
-                        uncompressed = flat_decode(stream, length, total);
+                        uncompressed = FlatDecode(stream, length, total);
                         delete [] stream;
                     }
                     else if (not filter)
@@ -132,8 +132,8 @@ void Parser::objectStreams(RootNode *root_node)
                     else
                     {
                         wstring msg = L"compression not supported: ";
-                        msg+= ctow(filter->name());
-                        error_message(msg);
+                        msg+= SingleToWide(filter->Name());
+                        ErrorMessage(msg);
                         return;
                     }
                     stringstream stream_value;
@@ -158,8 +158,8 @@ void Parser::objectStreams(RootNode *root_node)
                     for (id = ids.begin(); id < ids.end(); id++)
                     {
                         ObjNode *new_obj = new ObjNode(*id, 0);
-                        new_obj->setValue(valueSequence());
-                        root_node->addChild(new_obj);
+                        new_obj->SetValue(valueSequence());
+                        root_node->AddChild(new_obj);
                     }
                     m_scanner = temp;
                 }
@@ -199,12 +199,12 @@ TreeNode *Parser::xrefSequence()
         {
             match(TokenType::N);
         }
-        xref->addNode(id, generation, address, name.at(0));
+        xref->AddNode(id, generation, address, name.at(0));
         id++;
     }
     
     match(TokenType::TRAILER);
-    xref->setTrailer(valueSequence());
+    xref->SetTrailer(valueSequence());
     return xref;
 }
 
@@ -227,20 +227,20 @@ TreeNode *Parser::objectSequence()
 
     ObjNode *node = new ObjNode((int) number, (int) generation_nunber);
     match(TokenType::OBJ);
-    node->setValue(valueSequence());
+    node->SetValue(valueSequence());
     if (m_token && m_token->type() == TokenType::STREAM)
     {
         int length = -1;
-        MapNode *map = dynamic_cast<MapNode *>(node->value());
+        MapNode *map = dynamic_cast<MapNode *>(node->Value());
         if (map)
         {
-            NumberNode *numberNode = dynamic_cast<NumberNode *>(map->get("/Length"));
+            NumberNode *numberNode = dynamic_cast<NumberNode *>(map->Get("/Length"));
             if (numberNode)
             {
-                length = (int) numberNode->value();
+                length = (int) numberNode->Value();
             }
         }
-        node->setStreamPos(m_scanner->ignoreStream(length));
+        node->SetStreamPos(m_scanner->ignoreStream(length));
         nextToken();
         match(TokenType::END_STREAM);
     }

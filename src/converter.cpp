@@ -34,36 +34,36 @@
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& filein, const string& fileout, const string& format) :
-m_filein(filein), m_format(format)
+Converter::Converter(const string& in, const string& out, const string& format) :
+    fileIn(in), format(format)
 {
     // Calculate the output file name
-    if (fileout.empty())
+    if (fileOut.empty())
     {
-        m_fileout = filein;
-        auto last_dot = m_fileout.find_last_of('.');
+        fileOut = in;
+        auto last_dot = fileOut.find_last_of('.');
         if (last_dot != string::npos)
         {
-            m_fileout = m_fileout.substr(0, last_dot);
+            fileOut = fileOut.substr(0, last_dot);
         }
-        m_fileout += ".";
-        m_fileout += format;
+        fileOut += ".";
+        fileOut += format;
     }
     else
     {
-        m_fileout = fileout;
+        fileOut = out;
     }
 }
 
 void Converter::Convert()
 {
-    Analyze analyze(m_filein);
+    Analyze analyze(fileIn);
     
-    Document* m_document = analyze.analyzeTree();
+    Document* m_document = analyze.AnalyzeTree();
     
     wstring msg;
     msg += L"Analyzing file ";
-    msg += ctow(m_filein);
+    msg += SingleToWide(fileIn);
     msg += L" Pages: ";
     msg += to_wstring(m_document->pages());
     msg += L" - Title: ";
@@ -74,16 +74,16 @@ void Converter::Convert()
     }
     else
     {
-        msg += ctow(m_document->title());
+        msg += SingleToWide(m_document->title());
     }
     
-    verbose_message(msg);
+    VerboseMessage(msg);
     
     // Generate output file
-    unique_ptr<Generator> instance(Generator::getInstance(m_format));
+    unique_ptr<Generator> instance(Generator::GetInstance(format));
     if (instance.get())
     {
-        if (not instance->generate(m_document, m_fileout))
+        if (not instance->Generate(m_document, fileOut))
         {
             throw GenericException("Cannot generate output file");
         }

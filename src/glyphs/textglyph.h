@@ -31,7 +31,7 @@ private:
     /**
      * The text to draw.
      */
-    std::string m_text;
+    std::string text;
 
 public:
     /**
@@ -46,7 +46,7 @@ public:
      *
      * \param document the document to generate in.
      */
-    virtual void doGlyph(Html *document);
+    virtual void DoGlyph(Html *document);
 };
 
 #endif

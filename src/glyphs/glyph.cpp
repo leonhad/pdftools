@@ -22,63 +22,63 @@
 
 using namespace std;
 
-Glyph::Glyph() :
-        m_context(nullptr), m_lastGlyph(nullptr)
+Glyph::Glyph() : context(nullptr), lastGlyph(nullptr)
 {
 }
 
 Glyph::~Glyph()
 {
     vector<Glyph *>::iterator i;
-    for (i = m_childs.begin(); i != m_childs.end(); ++i)
+    for (i = childs.begin(); i != childs.end(); ++i)
     {
         delete *i;
     }
 }
 
-void Glyph::addChild(Glyph *glyph)
+void Glyph::AddChild(Glyph *glyph)
 {
     if (glyph)
     {
-        m_childs.push_back(glyph);
+        childs.push_back(glyph);
     }
 }
 
-void Glyph::execute(Html *document, Context *context)
+void Glyph::Execute(Html *document, Context *context)
 {
-    m_context = context;
+    this->context = context;
 
-    startGlyph(document);
-    doGlyph(document);
+    StartGlyph(document);
+    DoGlyph(document);
 
-    unsigned long size = m_childs.size();
+    unsigned long size = childs.size();
     if (size > 0)
     {
-        m_lastGlyph = this;
+        lastGlyph = this;
     }
 
     for (size_t i = 0; i < size; i++)
     {
-        m_childs [i]->setLast(m_lastGlyph);
-        m_childs [i]->execute(document, context);
-        m_lastGlyph = m_childs [i];
+        childs [i]->SetLast(lastGlyph);
+        childs [i]->Execute(document, context);
+        lastGlyph = childs [i];
     }
-    endGlyph(document);
+    
+    EndGlyph(document);
 }
 
-void Glyph::setLast(Glyph *glyph)
+void Glyph::SetLast(Glyph *glyph)
 {
-    m_lastGlyph = glyph;
+    this->lastGlyph = glyph;
 }
 
-void Glyph::doGlyph(Html *)
-{
-}
-
-void Glyph::startGlyph(Html *)
+void Glyph::DoGlyph(Html *)
 {
 }
 
-void Glyph::endGlyph(Html *)
+void Glyph::StartGlyph(Html *)
+{
+}
+
+void Glyph::EndGlyph(Html *)
 {
 }

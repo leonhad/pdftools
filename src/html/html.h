@@ -32,7 +32,7 @@ private:
     /**
      * The XML genetator.
      */
-    XML m_xml;
+    XML xml;
 
 public:
     /**
@@ -48,86 +48,86 @@ public:
     /**
      * Starts the document.
      */
-    void startDocument();
+    void StartDocument();
 
     /**
      * Starts the header section.
      */
-    void startHeader();
+    void StartHeader();
 
     /**
      * Starts the body section.
      */
-    void startBody();
+    void StartBody();
 
     /**
      * Closes the document.
      */
-    void endDocument();
+    void EndDocument();
 
     /**
      * Closes the current tag.
      */
-    void endTag();
+    void EndTag();
 
     /**
      * Add a break line.
      */
-    void breakLine();
+    void BreakLine();
 
     /**
      * Add a paragraph tag.
      */
-    void addParagraph();
+    void AddParagraph();
 
     /**
      * Add a font tag.
      *
-     * \param size the font size.
-     * \param bold if the font has a bold modifier.
-     * \param italic if the font has a italic modifier.
-     * \param fixed  if the font has a fixed face modifier.
+     * @param size the font size.
+     * @param bold if the font has a bold modifier.
+     * @param italic if the font has a italic modifier.
+     * @param fixed  if the font has a fixed face modifier.
      */
-    void addFont(int size, bool bold, bool italic, bool fixed);
+    void AddFont(int size, bool bold, bool italic, bool fixed);
 
     /**
      * Add a tag by its name.
      *
      * @param element the tag name.
      */
-    void addElement(const std::string &element);
+    void AddElement(const std::string &element);
 
     /**
      * Add a section by its name.
      *
      * @param name the section name.
      */
-    void addSection(const std::string &name);
+    void AddSection(const std::string &name);
 
     /**
      * Sets the document title.
      *
      * @param title the document title.
      */
-    void setTitle(const std::string &title);
+    void SetTitle(const std::string &title);
 
     /**
      * Add a link reference.
      *
-     * \param rel the rel value.
-     * \param type the link type.
-     * \param href the link href.
+     * @param rel the rel value.
+     * @param type the link type.
+     * @param href the link href.
      */
-    void addLink(const std::string &rel, const std::string &type, const std::string &href);
+    void AddLink(const std::string &rel, const std::string &type, const std::string &href);
 
     /**
      * Gets the HTML content.
      *
-     * \return the HTML content.
+     * @return the HTML content.
      */
-    inline const std::string content() const
+    inline const std::string Content() const
     {
-        return m_xml.content();
+        return xml.content();
     }
 };
 

@@ -32,12 +32,12 @@ private:
     /**
      * The font size.
      */
-    int m_size;
+    int size;
 
     /**
      * Font face name.
      */
-    std::string m_font;
+    std::string font;
 
 public:
     /**
@@ -53,7 +53,7 @@ public:
      *
      * \param document the document to generate in.
      */
-    virtual void doGlyph(Html *document);
+    virtual void DoGlyph(Html *document);
 };
 
 #endif

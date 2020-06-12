@@ -98,7 +98,7 @@ int main(int argc, char *argv [])
                 format = optarg;
                 if (format != "epub")
                 {
-                    error_message(L"format not supported.");
+                    ErrorMessage(L"format not supported.");
                     error = true;
                     break;
                 }
@@ -109,12 +109,12 @@ int main(int argc, char *argv [])
     
     if (verbose_flag)
     {
-        set_verbose_mode(true);
+        SetVerboseMode(true);
     }
     
     if (optind >= argc && not error)
     {
-        error_message(L"no input file");
+        ErrorMessage(L"no input file");
         error = true;
     }
     
@@ -134,7 +134,7 @@ int main(int argc, char *argv [])
             }
             catch (exception &e)
             {
-                error_message(e);
+                ErrorMessage(e);
             }
         }
     }

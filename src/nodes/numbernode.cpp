@@ -21,12 +21,11 @@
 
 using namespace node;
 
-NumberNode::NumberNode(double value) :
-        TreeNode(), m_value(value)
+NumberNode::NumberNode(double value) : TreeNode(), value(value)
 {
 }
 
-double NumberNode::value() const
+double NumberNode::Value() const
 {
-    return m_value;
+    return value;
 }

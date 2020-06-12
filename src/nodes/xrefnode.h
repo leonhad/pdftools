@@ -62,12 +62,12 @@ private:
     /**
      * A list of all object references.
      */
-    std::vector<ObjectReference> m_references;
+    std::vector<ObjectReference> references;
 
     /**
      * The tree node trailer.
      */
-    TreeNode *m_trailer;
+    TreeNode *trailerNode;
 
 public:
     /**
@@ -83,25 +83,26 @@ public:
     /**
      * Add a node to this XREF.
      *
-     * \param id the object ID.
-     * \param generation the object generation.
-     * \param address the object address.
-     * \param status the object status.
+     * @param id the object ID.
+     * @param generation the object generation.
+     * @param address the object address.
+     * @param status the object status.
      */
-    void addNode(uint16_t id, uint16_t generation, uint32_t address, char status);
+    void AddNode(uint16_t id, uint16_t generation, uint32_t address, char status);
 
     /**
      * Sets the trailer node.
      *
-     * \param trailer the trailer node to set.
+     * @param trailer the trailer node to set.
      */
-    void setTrailer(TreeNode *trailer);
+    void SetTrailer(TreeNode *trailer);
 
     /**
      * Gets the the tree node trailer.
-     * \return the tree node trailer.
+     *
+     * @return the tree node trailer.
      */
-    TreeNode *trailer() const;
+    TreeNode *Trailer() const;
 };
 }
 

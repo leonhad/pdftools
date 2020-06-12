@@ -22,12 +22,11 @@
 using namespace std;
 using namespace node;
 
-NameNode::NameNode(const std::string &name) :
-        TreeNode(), m_name(name)
+NameNode::NameNode(const std::string &name) : TreeNode(), name(name)
 {
 }
 
-string NameNode::name() const
+string NameNode::Name() const
 {
-    return m_name;
+    return name;
 }

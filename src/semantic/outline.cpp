@@ -23,65 +23,65 @@ using namespace std;
 
 Outline::Outline()
 {
-    m_id = 0;
-    m_generation = 0;
-    m_x = 0;
-    m_y = 0;
+    id = 0;
+    generation = 0;
+    x = 0;
+    y = 0;
 }
 
 Outline::~Outline()
 {
-    vector<Outline *>::iterator i = m_childs.begin();
-    while (i != m_childs.end())
+    vector<Outline *>::iterator i = childs.begin();
+    while (i != childs.end())
     {
         delete *i;
         i++;
     }
 }
 
-const char *Outline::title()
+const char *Outline::Title()
 {
-    return m_title.c_str();
+    return title.c_str();
 }
 
-void Outline::set_location(double x, double y)
+void Outline::SetLocation(double x, double y)
 {
-    m_x = x;
-    m_y = y;
+    this->x = x;
+    this->y = y;
 }
 
-size_t Outline::size()
+size_t Outline::Size()
 {
-    return m_childs.size();
+    return childs.size();
 }
 
-Outline *Outline::child(size_t index)
+Outline *Outline::Child(size_t index)
 {
-    return m_childs [index];
+    return childs [index];
 }
 
-void Outline::set_title(string title)
+void Outline::SetTitle(string title)
 {
-    m_title = title;
+    this->title = title;
 }
 
-void Outline::add_child(Outline *child)
+void Outline::AddChild(Outline *child)
 {
-    m_childs.push_back(child);
+    this->childs.push_back(child);
 }
 
-void Outline::set_destination(int id, int generation)
+void Outline::SetDestination(int id, int generation)
 {
-    m_id = id;
-    m_generation = generation;
+    this->id = id;
+    this->generation = generation;
 }
 
-int Outline::id()
+int Outline::Id()
 {
-    return m_id;
+    return id;
 }
 
-int Outline::generation()
+int Outline::Generation()
 {
-    return m_generation;
+    return generation;
 }

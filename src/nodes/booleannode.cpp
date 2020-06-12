@@ -21,12 +21,11 @@
 
 using namespace node;
 
-BooleanNode::BooleanNode(bool value) :
-        m_value(value)
+BooleanNode::BooleanNode(bool value) : value(value)
 {
 }
 
-bool BooleanNode::value() const
+bool BooleanNode::Value() const
 {
-    return m_value;
+    return value;
 }

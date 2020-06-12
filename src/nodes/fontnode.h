@@ -25,61 +25,61 @@
 
 namespace node
 {
-/**
- * Stores a font node.
- */
-class FontNode: public TreeNode
-{
-private:
     /**
-     * The font name.
+     * Stores a font node.
      */
-    std::string m_name;
+    class FontNode: public TreeNode
+    {
+    private:
+        /**
+         * The font name.
+         */
+        std::string name;
 
-    /**
-     * The font size.
-     */
-    int m_size;
+        /**
+         * The font size.
+         */
+        int size;
 
-public:
-    /**
-     * Creates a new instance.
-     */
-    FontNode();
+    public:
+        /**
+         * Creates a new instance.
+         */
+        FontNode();
 
-    /**
-     * Destroy this instance.
-     */
-    virtual ~FontNode() = default;
+        /**
+         * Destroy this instance.
+         */
+        virtual ~FontNode() = default;
 
-    /**
-     * Gets the font name.
-     *
-     * @return the font name.
-     */
-    std::string name() const;
+        /**
+         * Gets the font name.
+         *
+         * @return the font name.
+         */
+        std::string Name() const;
 
-    /**
-     * Gets the font size.
-     *
-     * \return the font size.
-     */
-    int size() const;
+        /**
+         * Gets the font size.
+         *
+         * @return the font size.
+         */
+        int Size() const;
 
-    /**
-     * Sets the font name.
-     *
-     * \param name the font name.
-     */
-    void setName(const std::string &name);
+        /**
+         * Sets the font name.
+         *
+         * @param name the font name.
+         */
+        void SetName(const std::string &name);
 
-    /**
-     * Sets the font size.
-     *
-     * \param size the font size.
-     */
-    void setSize(int size);
-};
+        /**
+         * Sets the font size.
+         *
+         * @param size the font size.
+         */
+        void SetSize(int size);
+    };
 }
 
 #endif

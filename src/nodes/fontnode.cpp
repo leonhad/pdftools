@@ -22,27 +22,26 @@
 using namespace std;
 using namespace node;
 
-FontNode::FontNode() :
-        TreeNode(), m_size(0)
+FontNode::FontNode() : TreeNode(), size(0)
 {
 }
 
-string FontNode::name() const
+string FontNode::Name() const
 {
-    return m_name;
+    return name;
 }
 
-int FontNode::size() const
+int FontNode::Size() const
 {
-    return m_size;
+    return size;
 }
 
-void FontNode::setName(const string &name)
+void FontNode::SetName(const string &name)
 {
-    m_name = name;
+    this->name = name;
 }
 
-void FontNode::setSize(int size)
+void FontNode::SetSize(int size)
 {
-    m_size = size;
+    this->size = size;
 }

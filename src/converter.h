@@ -26,16 +26,21 @@
 class Converter
 {
 private:
-    const std::string m_filein;
-    const std::string m_format;
-    std::string m_fileout;
+    // The input file.
+    const std::string fileIn;
+    
+    /// The output file format.
+    const std::string format;
+    
+    /// The output file.
+    std::string fileOut;
     
 public:
     /// Creates a new converter instance.
-    /// @param filein  the input file name.
-    /// @param fileout the file output name.
+    /// @param fileIn  the input file name.
+    /// @param fileOut the file output name.
     /// @param format the desired format.
-    Converter(const std::string& filein, const std::string& fileout, const std::string& format);
+    Converter(const std::string& fileIn, const std::string& fileOut, const std::string& format);
     
     /// Convert the PDF file.
     void Convert();

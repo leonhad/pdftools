@@ -21,17 +21,16 @@
 
 using namespace node;
 
-RefNode::RefNode(int id, int generation) :
-        TreeNode(), m_id(id), m_generation(generation)
+RefNode::RefNode(int id, int generation) : TreeNode(), id(id), generation(generation)
 {
 }
 
-int RefNode::id() const
+int RefNode::Id() const
 {
-    return m_id;
+    return id;
 }
 
-int RefNode::generation() const
+int RefNode::Generation() const
 {
-    return m_generation;
+    return generation;
 }

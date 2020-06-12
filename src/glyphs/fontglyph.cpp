@@ -23,12 +23,11 @@
 
 using namespace std;
 
-FontGlyph::FontGlyph(string &&font, int size) :
-        Glyph(), m_size(move(size)), m_font(font)
+FontGlyph::FontGlyph(string &&font, int size) : Glyph(), size(move(size)), font(font)
 {
 }
 
-void FontGlyph::doGlyph(Html *)
+void FontGlyph::DoGlyph(Html *)
 {
-    m_context->setCurrentFont(m_font, m_size);
+    context->setCurrentFont(font, size);
 }

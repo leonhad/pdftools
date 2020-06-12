@@ -43,17 +43,17 @@ private:
     /**
      * The document to generate the ePub.
      */
-    Document *m_document;
+    Document *document;
 
     /**
      * A pointer to ePub ZIP file.
      */
-    ZipFile *m_zipfile;
+    ZipFile *zipFile;
 
     /**
      * The generated file order.
      */
-    int m_order;
+    int order;
 
 public:
     /**
@@ -69,25 +69,25 @@ public:
     /**
      * Generate the ePub file.
      *
-     * \param document the document to parse.
-     * \param output the output file.
+     * @param document the document to parse.
+     * @param output the output file.
      */
-    virtual bool generate(Document *document, const std::string &output);
+    virtual bool Generate(Document *document, const std::string &output);
 
 private:
-    void generateContainer();
+    void GenerateContainer();
 
-    void generatePages();
+    void GeneratePages();
 
-    void generateContent(const std::string &output);
+    void GenerateContent(const std::string &output);
 
-    void generateToc(const std::string &output);
+    void GenerateToc(const std::string &output);
 
-    void generateOutline(XML *xml, Outline *outline);
+    void GenerateOutline(XML *xml, Outline *outline);
 
-    void generateMimeType();
+    void GenerateMimeType();
 
-    void generateCss();
+    void GenerateCss();
 };
 
 #endif

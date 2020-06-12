@@ -115,7 +115,7 @@ CMapNode *CMapParser::parse()
             else if (m_token->value() == "begincodespacerange")
             {
                 match(TokenType::NAME);
-                m_root->setCodespace(codespaceSequence());
+                m_root->SetCodespace(codespaceSequence());
             }
             else if (m_token->value() == "beginbfrange")
             {
@@ -125,7 +125,7 @@ CMapNode *CMapParser::parse()
             else
             {
                 match(TokenType::NAME);
-                error_message(L"invalid mode");
+                ErrorMessage(L"invalid mode");
             }
             break;
         default:
@@ -139,9 +139,9 @@ CMapNode *CMapParser::parse()
 CodeSpaceNode *CMapParser::codespaceSequence()
 {
     CodeSpaceNode *ret = new CodeSpaceNode;
-    ret->setStart(m_token->value());
+    ret->SetStart(m_token->value());
     match(TokenType::STRING);
-    ret->setFinish(m_token->value());
+    ret->SetFinish(m_token->value());
     match(TokenType::STRING);
     // endcodespacerange
     match(TokenType::NAME);
@@ -156,7 +156,7 @@ void CMapParser::bfCharSequence(const int count)
         match(TokenType::STRING);
         string unicode = m_token->value();
         match(TokenType::STRING);
-        m_root->add(new CharNode(character, unicode));
+        m_root->Add(new CharNode(character, unicode));
     }
     match(TokenType::NAME);
 }
@@ -180,7 +180,7 @@ void CMapParser::bfRangeSequence(const int count)
 
             while (strcmp(chars, end.c_str()) <= 0)
             {
-                m_root->add(new CharNode(string(chars, size), name->value()));
+                m_root->Add(new CharNode(string(chars, size), name->Value()));
                 if (size == 1)
                 {
                     (*chars)++;
@@ -196,7 +196,7 @@ void CMapParser::bfRangeSequence(const int count)
         }
         else
         {
-            error_message(L"test map");
+            ErrorMessage(L"test map");
             ArrayNode *array = dynamic_cast<ArrayNode *>(node);
             char *chars = const_cast<char *>(start.c_str());
             size_t size = start.size();
@@ -204,8 +204,8 @@ void CMapParser::bfRangeSequence(const int count)
 
             while (memcmp(chars, end.c_str(), size) < 0)
             {
-                name = dynamic_cast<StringNode *>(array->value(loop2));
-                m_root->add(new CharNode(string(chars, size), name->value()));
+                name = dynamic_cast<StringNode *>(array->Value(loop2));
+                m_root->Add(new CharNode(string(chars, size), name->Value()));
                 if (size == 1)
                 {
                     (*chars)++;

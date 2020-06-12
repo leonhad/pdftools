@@ -20,13 +20,12 @@
 #include "fontsizeglyph.h"
 #include "../semantic/context.h"
 
-FontSizeGlyph::FontSizeGlyph(double size) :
-        Glyph()
+FontSizeGlyph::FontSizeGlyph(double size) : Glyph()
 {
-    m_size = size;
+    this->m_size = size;
 }
 
-void FontSizeGlyph::doGlyph(Html *)
+void FontSizeGlyph::DoGlyph(Html *)
 {
-    m_context->setFontSize(m_size);
+    context->setFontSize(m_size);
 }

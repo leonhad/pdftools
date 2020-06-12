@@ -50,9 +50,9 @@ bool GenericParser::match(TokenType type)
         wstring msg = L"unexpected token: ";
         if (m_token)
         {
-            msg += ctow(m_token->value());
+            msg += SingleToWide(m_token->value());
         }
-        error_message(msg);
+        ErrorMessage(msg);
 #endif
         nextToken();
         return false;
@@ -78,11 +78,11 @@ TreeNode *GenericParser::valueSequence()
             match(TokenType::NAME);
             TreeNode *value = valueSequence();
             NameNode *n = dynamic_cast<NameNode *>(value);
-            if (n && n->name() [0] != '/')
+            if (n && n->Name() [0] != '/')
             {
                 value = valueSequence();
             }
-            map->push(name, value);
+            map->Push(name, value);
         }
         match(TokenType::END_DICT);
         return map;
@@ -142,7 +142,7 @@ TreeNode *GenericParser::valueSequence()
         match(TokenType::START_ARRAY);
         while (m_scanner->good() && m_token->type() != TokenType::END_ARRAY)
         {
-            array->push(valueSequence());
+            array->Push(valueSequence());
         }
         match(TokenType::END_ARRAY);
         return array;

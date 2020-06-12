@@ -24,6 +24,8 @@
 
 class Document;
 
+
+/// The generator type.
 class Generator
 {
 protected:
@@ -31,8 +33,15 @@ protected:
 
 public:
     virtual ~Generator();
-    static Generator *getInstance(const std::string& format);
-    virtual bool generate(Document *document, const std::string& output) = 0;
+
+    /// Gets a instance from a desired format.
+    /// @param format the desired format.
+    static Generator *GetInstance(const std::string& format);
+    
+    /// Generate the document.
+    /// @param document the document to generate.
+    /// @param output the output file.
+    virtual bool Generate(Document *document, const std::string& output) = 0;
 };
 
 #endif

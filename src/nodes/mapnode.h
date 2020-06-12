@@ -37,7 +37,7 @@ private:
     /**
      * Stores a map of nodes.
      */
-    std::map<std::string, TreeNode *> m_values;
+    std::map<std::string, TreeNode *> values;
 
 public:
     /**
@@ -53,32 +53,32 @@ public:
     /**
      * Pushes a value to this map.
      *
-     * \param name the node name.
-     * \param value the node value.
+     * @param name the node name.
+     * @param value the node value.
      */
-    void push(std::string name, TreeNode *value);
+    void Push(std::string name, TreeNode *value);
 
     /**
      * Gets the map of tree node values.
      *
-     * \return the map of tree node values.
+     * @return the map of tree node values.
      */
-    std::map<std::string, TreeNode *> values() const;
+    std::map<std::string, TreeNode *> Values() const;
 
     /**
      * Gets the node names.
      *
-     * \return the node names.
+     * @return the node names.
      */
-    std::vector<std::string> names() const;
+    std::vector<std::string> Names() const;
 
     /**
      * Gets a map by its name.
      *
-     * \param name the node name.
-     * \return the node.
+     * @param name the node name.
+     * @return the node.
      */
-    TreeNode *get(std::string name) const;
+    TreeNode *Get(std::string name) const;
 };
 }
 

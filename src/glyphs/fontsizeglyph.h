@@ -46,7 +46,7 @@ public:
      *
      * \param document the document to generate in.
      */
-    virtual void doGlyph(Html *);
+    virtual void DoGlyph(Html *);
 };
 
 #endif

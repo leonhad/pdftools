@@ -39,12 +39,12 @@ namespace node
         /**
          * Stores a char node list.
          */
-        std::vector<CharNode *> m_charnodes;
+        std::vector<CharNode *> charnodes;
 
         /**
          * This node code space value.
          */
-        CodeSpaceNode *m_codespace;
+        CodeSpaceNode *codespace;
 
     public:
         /**
@@ -59,38 +59,38 @@ namespace node
 
         /**
          * Adds a char node.
-         * \param node the char node to add.
+         * @param node the char node to add.
          */
-        void add(CharNode *node);
+        void Add(CharNode *node);
 
         /**
          * Sets the code space.
          *
-         * \param codespace the code space to set.
+         * @param codespace the code space to set.
          */
-        void setCodespace(CodeSpaceNode *codespace);
+        void SetCodespace(CodeSpaceNode *codespace);
 
         /**
          * Gets the code space.
          *
-         * \return the code space.
+         * @return the code space.
          */
-        CodeSpaceNode *codeSpace() const;
+        CodeSpaceNode *CodeSpace() const;
 
         /**
          * Gets the total of childhood char nodes.
          *
-         * \return the total of childhood char nodes.
+         * @return the total of childhood char nodes.
          */
-        size_t nodes() const;
+        size_t Nodes() const;
 
         /**
          * Gets a char node by its index.
          *
-         * \param index the char node index.
-         * \return the char node.
+         * @param index the char node index.
+         * @return the char node.
          */
-        CharNode *node(size_t index) const;
+        CharNode *Node(size_t index) const;
     };
 }
 

@@ -35,18 +35,18 @@ private:
     /**
      * The childhood list.
      */
-    std::vector<Glyph *> m_childs;
+    std::vector<Glyph *> childs;
 
 protected:
     /**
      * The context used in drawing.
      */
-    Context *m_context;
+    Context *context;
 
     /**
      * The last glyph used.
      */
-    Glyph *m_lastGlyph;
+    Glyph *lastGlyph;
 
 public:
     /**
@@ -64,7 +64,7 @@ public:
      *
      * \param glyph the child to add.
      */
-    void addChild(Glyph *glyph);
+    void AddChild(Glyph *glyph);
 
     /**
      * Draw this list into HTML document.
@@ -72,35 +72,35 @@ public:
      * @param document the document to draw.
      * @param context the variable context used in this process.
      */
-    void execute(Html *document, Context *context);
+    void Execute(Html *document, Context *context);
 
     /**
      * Draw this glyph.
      *
      * \param document the document to generate in.
      */
-    virtual void doGlyph(Html *);
+    virtual void DoGlyph(Html *);
 
     /**
      * Called before the drawing.
      *
      * \param document the document.
      */
-    virtual void startGlyph(Html *document);
+    virtual void StartGlyph(Html *document);
 
     /**
      * Called after the drawing.
      *
      * @param document the document.
      */
-    virtual void endGlyph(Html *document);
+    virtual void EndGlyph(Html *document);
 
     /**
      * Sets the last used glyph.
      *
      * \param glyph the last used glyph.
      */
-    void setLast(Glyph *glyph);
+    void SetLast(Glyph *glyph);
 };
 
 #endif

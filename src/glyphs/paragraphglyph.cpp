@@ -20,12 +20,12 @@
 #include "paragraphglyph.h"
 #include "../html/html.h"
 
-void ParagraphGlyph::startGlyph(Html *document)
+void ParagraphGlyph::StartGlyph(Html *document)
 {
-    document->addParagraph();
+    document->AddParagraph();
 }
 
-void ParagraphGlyph::endGlyph(Html *document)
+void ParagraphGlyph::EndGlyph(Html *document)
 {
-    document->endTag();
+    document->EndTag();
 }

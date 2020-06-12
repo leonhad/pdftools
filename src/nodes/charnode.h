@@ -25,50 +25,50 @@
 
 namespace node
 {
-/**
- * Stores a char node.
- */
-class CharNode: public TreeNode
-{
-private:
     /**
-     * This char.
+     * Stores a char node.
      */
-    std::string m_char;
+    class CharNode: public TreeNode
+    {
+    private:
+        /**
+         * This char.
+         */
+        std::string thisChar;
 
-    /**
-     * The unicode value.
-     */
-    std::string m_unicode;
+        /**
+         * The unicode value.
+         */
+        std::string unicode;
 
-public:
-    /**
-     * Creates a new instance.
-     *
-     * \param character the char value.
-     * \param unicode the unicode value.
-     */
-    CharNode(const std::string &character, const std::string &unicode);
+    public:
+        /**
+         * Creates a new instance.
+         *
+         * @param character the char value.
+         * @param unicode the unicode value.
+         */
+        CharNode(const std::string &character, const std::string &unicode);
 
-    /**
-     * Destroy the instance.
-     */
-    virtual ~CharNode() = default;
+        /**
+         * Destroy the instance.
+         */
+        virtual ~CharNode() = default;
 
-    /**
-     * Gets the char value.
-     *
-     * \return the char value.
-     */
-    std::string character() const;
+        /**
+         * Gets the char value.
+         *
+         * @return the char value.
+         */
+        std::string Character() const;
 
-    /**
-     * Gets the unicode value.
-     *
-     * \return the unicode value.
-     */
-    std::string unicode() const;
-};
+        /**
+         * Gets the unicode value.
+         *
+         * @return the unicode value.
+         */
+        std::string Unicode() const;
+    };
 }
 
 #endif

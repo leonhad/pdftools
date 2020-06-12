@@ -25,61 +25,61 @@
 
 namespace node
 {
-/**
- * Stores a code space node.
- */
-class CodeSpaceNode: public TreeNode
-{
-private:
     /**
-     * The code space start.
+     * Stores a code space node.
      */
-    std::string m_start;
+    class CodeSpaceNode: public TreeNode
+    {
+    private:
+        /**
+         * The code space start.
+         */
+        std::string start;
 
-    /**
-     * The code space finish.
-     */
-    std::string m_finish;
+        /**
+         * The code space finish.
+         */
+        std::string finish;
 
-public:
-    /**
-     * Creates a new instance.
-     */
-    CodeSpaceNode();
+    public:
+        /**
+         * Creates a new instance.
+         */
+        CodeSpaceNode();
 
-    /**
-     * Destroy this instance.
-     */
-    virtual ~CodeSpaceNode() = default;
+        /**
+         * Destroy this instance.
+         */
+        virtual ~CodeSpaceNode() = default;
 
-    /**
-     * Sets the code space start.
-     *
-     * \param start the code space start.
-     */
-    void setStart(const std::string &start);
+        /**
+         * Sets the code space start.
+         *
+         * @param start the code space start.
+         */
+        void SetStart(const std::string &start);
 
-    /**
-     * Sets the code space finish.
-     *
-     * \param finish the code space finish.
-     */
-    void setFinish(const std::string &finish);
+        /**
+         * Sets the code space finish.
+         *
+         * @param finish the code space finish.
+         */
+        void SetFinish(const std::string &finish);
 
-    /**
-     * Gets the code space start.
-     *
-     * \return the code space start.
-     */
-    std::string start() const;
+        /**
+         * Gets the code space start.
+         *
+         * @return the code space start.
+         */
+        std::string Start() const;
 
-    /**
-     * Gets the code space finish.
-     *
-     * \return the code space finish.
-     */
-    std::string finish() const;
-};
+        /**
+         * Gets the code space finish.
+         *
+         * @return the code space finish.
+         */
+        std::string Finish() const;
+    };
 }
 
 #endif

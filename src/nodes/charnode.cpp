@@ -23,16 +23,16 @@ using namespace std;
 using namespace node;
 
 CharNode::CharNode(const string &character, const string &unicode) :
-        TreeNode(), m_char(character), m_unicode(unicode)
+        TreeNode(), thisChar(character), unicode(unicode)
 {
 }
 
-string CharNode::character() const
+string CharNode::Character() const
 {
-    return m_char;
+    return thisChar;
 }
 
-string CharNode::unicode() const
+string CharNode::Unicode() const
 {
-    return m_unicode;
+    return unicode;
 }

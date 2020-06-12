@@ -22,17 +22,16 @@
 using namespace std;
 using namespace node;
 
-TextNode::TextNode() :
-        TreeNode()
+TextNode::TextNode() : TreeNode()
 {
 }
 
-void TextNode::add(const string &text)
+void TextNode::Add(const string &text)
 {
-    m_value += text;
+    this->value += text;
 }
 
-string TextNode::text() const
+string TextNode::Text() const
 {
-    return m_value;
+    return value;
 }

@@ -28,7 +28,7 @@
 using namespace node;
 
 PageAnalyze::PageAnalyze(Document *document) :
-        m_document(document), m_root(nullptr)
+        document(document), root(nullptr)
 {
 }
 
@@ -36,49 +36,49 @@ PageAnalyze::~PageAnalyze()
 {
 }
 
-Glyph *PageAnalyze::analyze_tree(RootNode *tree)
+Glyph *PageAnalyze::AnalyzeTree(RootNode *tree)
 {
-    m_root = new Glyph;
-    analyze_tree(tree, m_root);
-    return m_root;
+    root = new Glyph;
+    AnalyzeTree(tree, root);
+    return root;
 }
 
-void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
+void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
 {
     Glyph *node_parent = parent;
-    size_t size = tree->size();
+    size_t size = tree->Size();
     for (size_t loop = 0; loop < size; loop++)
     {
-        TreeNode *node = tree->get(loop);
+        TreeNode *node = tree->Get(loop);
 
-        if (m_document->treeRoot())
+        if (document->treeRoot())
         {
             BDCNode *bdc = dynamic_cast<BDCNode *>(node);
             if (bdc)
             {
-                if (bdc->name() == "/P")
+                if (bdc->Name() == "/P")
                 {
                     ParagraphGlyph *p = new ParagraphGlyph;
-                    analyze_tree(bdc, p);
-                    node_parent->addChild(p);
+                    AnalyzeTree(bdc, p);
+                    node_parent->AddChild(p);
                 }
-                else if (bdc->name() == "/Artifact")
+                else if (bdc->Name() == "/Artifact")
                 {
-                    MapNode *attr = dynamic_cast<MapNode *>(bdc->value());
-                    NameNode *type = dynamic_cast<NameNode *>(attr->get("/Type"));
-                    if (type && type->name() == "/Pagination")
+                    MapNode *attr = dynamic_cast<MapNode *>(bdc->Value());
+                    NameNode *type = dynamic_cast<NameNode *>(attr->Get("/Type"));
+                    if (type && type->Name() == "/Pagination")
                     {
                         // Ignore
                         continue;
                     }
                     else
                     {
-                        analyze_tree(bdc, node_parent);
+                        AnalyzeTree(bdc, node_parent);
                     }
                 }
                 else
                 {
-                    analyze_tree(bdc, node_parent);
+                    AnalyzeTree(bdc, node_parent);
                 }
 
                 continue;
@@ -89,59 +89,59 @@ void PageAnalyze::analyze_tree(RootNode *tree, Glyph *parent)
             BDCNode *bdc = dynamic_cast<BDCNode *>(node);
             if (bdc)
             {
-                analyze_tree(bdc, node_parent);
+                AnalyzeTree(bdc, node_parent);
             }
         }
 
         TextMatrixNode *text_matrix = dynamic_cast<TextMatrixNode *>(node);
         if (text_matrix)
         {
-            node_parent->addChild(analyze_text_matrix(text_matrix));
+            node_parent->AddChild(AnalyzeTextMatrix(text_matrix));
             continue;
         }
 
         FontNode *font = dynamic_cast<FontNode *>(node);
         if (font)
         {
-            node_parent->addChild(analyze_font(font));
+            node_parent->AddChild(AnalyzeFont(font));
             continue;
         }
 
         TextNode *text = dynamic_cast<TextNode *>(node);
         if (text)
         {
-            analyze_text(text, node_parent);
+            AnalyzeText(text, node_parent);
             continue;
         }
 
         StateNode *state = dynamic_cast<StateNode *>(node);
         if (state)
         {
-            if (state->save())
+            if (state->Save())
             {
-                m_state.push();
+                this->state.Push();
             }
             else
             {
-                m_state.pop();
+                this->state.Pop();
             }
         }
     }
 }
 
-FontGlyph *PageAnalyze::analyze_font(FontNode *font)
+FontGlyph *PageAnalyze::AnalyzeFont(FontNode *font)
 {
-    return new FontGlyph(font->name(), font->size() * m_state.getTextFont());
+    return new FontGlyph(font->Name(), font->Size() * state.GetTextFont());
 }
 
-void PageAnalyze::analyze_text(TextNode *text, Glyph *parent)
+void PageAnalyze::AnalyzeText(TextNode *text, Glyph *parent)
 {
-    parent->addChild(new TextGlyph(text->text()));
+    parent->AddChild(new TextGlyph(text->Text()));
 }
 
-FontSizeGlyph *PageAnalyze::analyze_text_matrix(TextMatrixNode *text_matrix)
+FontSizeGlyph *PageAnalyze::AnalyzeTextMatrix(TextMatrixNode *text_matrix)
 {
-    m_state.setTextMatrix(text_matrix->at(0), text_matrix->at(1), text_matrix->at(2),
-            text_matrix->at(3), text_matrix->at(4), text_matrix->at(5));
-    return new FontSizeGlyph(m_state.getTextFont());
+    state.SetTextMatrix(text_matrix->At(0), text_matrix->At(1), text_matrix->At(2),
+            text_matrix->At(3), text_matrix->At(4), text_matrix->At(5));
+    return new FontSizeGlyph(state.GetTextFont());
 }

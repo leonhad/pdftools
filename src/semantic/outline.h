@@ -26,28 +26,28 @@
 class Outline
 {
 private:
-    std::vector<Outline *> m_childs;
-    std::string m_title;
-    int m_id;
-    int m_generation;
-    double m_x;
-    double m_y;
+    std::vector<Outline *> childs;
+    std::string title;
+    int id;
+    int generation;
+    double x;
+    double y;
 
 public:
     Outline();
     ~Outline();
 
-    void add_child(Outline *child);
-    void set_destination(int id, int generation);
-    void set_location(double x, double y);
-    void set_title(std::string title);
+    void AddChild(Outline *child);
+    void SetDestination(int id, int generation);
+    void SetLocation(double x, double y);
+    void SetTitle(std::string title);
 
-    int id();
-    int generation();
-    const char *title();
+    int Id();
+    int Generation();
+    const char *Title();
 
-    size_t size();
-    Outline *child(size_t index);
+    size_t Size();
+    Outline *Child(size_t index);
 };
 
 #endif

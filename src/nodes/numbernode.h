@@ -24,36 +24,36 @@
 
 namespace node
 {
-/**
- * Stores a number node.
- */
-class NumberNode: public TreeNode
-{
-private:
     /**
-     * The number value.
+     * Stores a number node.
      */
-    double m_value;
+    class NumberNode: public TreeNode
+    {
+    private:
+        /**
+         * The number value.
+         */
+        double value;
 
-public:
-    /**
-     * Creates a new instance.
-     *
-     * \param value the number value.
-     */
-    explicit NumberNode(double value);
+    public:
+        /**
+         * Creates a new instance.
+         *
+         * @param value the number value.
+         */
+        explicit NumberNode(double value);
 
-    /**
-     * Destroy this instance.
-     */
-    virtual ~NumberNode() = default;
+        /**
+         * Destroy this instance.
+         */
+        virtual ~NumberNode() = default;
 
-    /**
-     * Gets the number value.
-     * \return the number value.
-     */
-    double value() const;
-};
+        /**
+         * Gets the number value.
+         * @return the number value.
+         */
+        double Value() const;
+    };
 }
 
 #endif

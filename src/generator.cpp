@@ -33,7 +33,7 @@ Generator::~Generator()
 {
 }
 
-Generator *Generator::getInstance(const string& format)
+Generator *Generator::GetInstance(const string& format)
 {
     if (format == "epub")
     {

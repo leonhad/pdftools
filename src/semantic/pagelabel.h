@@ -62,22 +62,22 @@ private:
     /**
      * The page start number.
      */
-    int m_start_number;
+    int startNumber;
 
     /**
      * The page range.
      */
-    int m_range;
+    int range;
 
     /**
      * The page type.
      */
-    page_type m_type;
+    page_type type;
 
     /**
      * The label name.
      */
-    std::string m_name;
+    std::string name;
 
 public:
     /**
@@ -95,28 +95,28 @@ public:
      *
      * @return the page start.
      */
-    int start();
+    int Start();
 
     /**
      * Gets the page range.
      *
      * @return the page range.
      */
-    int range();
+    int Range();
 
     /**
      * Gets the page type.
      *
      * @return the page type.
      */
-    page_type type();
+    page_type Type();
 
     /**
      * Gets the page name.
      *
      * @return the page name.
      */
-    std::string &name();
+    std::string &Name();
 };
 
 #endif

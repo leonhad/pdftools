@@ -84,7 +84,7 @@ void Context::setCurrentFont(string &alias, int size)
     if (m_document && m_page)
     {
         m_font_changed = true;
-        m_font = m_document->font(m_page->font_name(alias).c_str());
+        m_font = m_document->font(m_page->FontName(alias).c_str());
         m_font->set_size(size);
     }
 }

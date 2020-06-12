@@ -37,7 +37,7 @@ AppendedFile::AppendedFile(const std::string filename, const char *buffer, size_
     
     this->deflate_buffer = nullptr;
 
-    this->deflate_buffer = compress(buffer, length, this->compressed_size);
+    this->deflate_buffer = Compress(buffer, length, this->compressed_size);
 
     if (this->compressed_size < this->length)
     {

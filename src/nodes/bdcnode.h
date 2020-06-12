@@ -25,64 +25,64 @@
 
 namespace node
 {
-/**
- * Stores a BCD node.
- */
-class BDCNode: public RootNode
-{
-private:
-    RootNode *m_parent;
-    TreeNode *m_value;
-    std::string m_name;
-
-public:
     /**
-     * Create a new instance.
-     *
-     * \param parent the parant node.
+     * Stores a BCD node.
      */
-    explicit BDCNode(RootNode *parent);
+    class BDCNode: public RootNode
+    {
+    private:
+        RootNode *parent;
+        TreeNode *value;
+        std::string name;
 
-    /**
-     * Destroy this instance.
-     */
-    ~BDCNode();
+    public:
+        /**
+         * Create a new instance.
+         *
+         * @param parent the parant node.
+         */
+        explicit BDCNode(RootNode *parent);
 
-    /**
-     * Gets the tree node value.
-     *
-     * \return the tree node value.
-     */
-    TreeNode *value();
+        /**
+         * Destroy this instance.
+         */
+        ~BDCNode();
 
-    /**
-     * Gets this node parent.
-     *
-     * \return this node parent.
-     */
-    RootNode *parent();
+        /**
+         * Gets the tree node value.
+         *
+         * @return the tree node value.
+         */
+        TreeNode *Value();
 
-    /**
-     * Gets the node name.
-     *
-     * \return the node name.
-     */
-    std::string name();
+        /**
+         * Gets this node parent.
+         *
+         * @return this node parent.
+         */
+        RootNode *Parent();
 
-    /**
-     * Sets the node value.
-     *
-     * \param value the node value.
-     */
-    void setValue(TreeNode *value);
+        /**
+         * Gets the node name.
+         *
+         * @return the node name.
+         */
+        std::string Name();
 
-    /**
-     * Sets the node name.
-     *
-     * \param name the node name.
-     */
-    void setName(const std::string &name);
-};
+        /**
+         * Sets the node value.
+         *
+         * @param value the node value.
+         */
+        void SetValue(TreeNode *value);
+
+        /**
+         * Sets the node name.
+         *
+         * @param name the node name.
+         */
+        void SetName(const std::string &name);
+    };
 }
 
 #endif

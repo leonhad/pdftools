@@ -44,40 +44,40 @@ namespace node
 class Analyze
 {
 private:
-    std::string m_filein;
-    Document *m_document = nullptr;
-    node::RootNode *m_tree = nullptr;
-    std::map<std::string, node::TreeNode *> m_names;
+    std::string fileIn;
+    Document *document = nullptr;
+    node::RootNode *tree = nullptr;
+    std::map<std::string, node::TreeNode *> names;
     
 public:
     explicit Analyze(const std::string& filein);
     ~Analyze();
     
-    Document *analyzeTree();
+    Document *AnalyzeTree();
     
 private:
-    void analyzeXref();
-    void analyzeInfo();
-    node::TreeNode *analyzeRoot();
-    void analyzeNames(node::MapNode *values);
-    void analyzeOutlines(node::MapNode *values, Outline *parent = nullptr);
-    void analyzeOutline(node::ArrayNode *values, Outline *outline);
-    void analyzePages(node::TreeNode *page, node::ArrayNode *mediabox = nullptr);
-    Font *analyzeFont(node::MapNode *fontmap);
+    void AnalyzeXref();
+    void AnalyzeInfo();
+    node::TreeNode *AnalyzeRoot();
+    void AnalyzeNames(node::MapNode *values);
+    void AnalyzeOutlines(node::MapNode *values, Outline *parent = nullptr);
+    void AnalyzeOutline(node::ArrayNode *values, Outline *outline);
+    void AnalyzePages(node::TreeNode *page, node::ArrayNode *mediabox = nullptr);
+    Font *AnalyzeFont(node::MapNode *fontmap);
     
-    Page *processPage(int id, int generation, std::stringstream *stream_value,
+    Page *ProcessPage(int id, int generation, std::stringstream *stream_value,
                       node::MapNode *catalog, node::ArrayNode * mediabox);
 
-    std::string getStringValue(node::TreeNode *value);
-    double getNumberValue(node::TreeNode *value, int default_value = 0);
+    std::string GetStringValue(node::TreeNode *value);
+    double GetNumberValue(node::TreeNode *value, int default_value = 0);
     
-    node::ObjNode *getObject(int id, int generation);
-    node::ObjNode *getObject(node::RefNode *ref);
-    node::TreeNode *getRealValue(node::TreeNode *value);
-    node::TreeNode *getRealObjValue(node::TreeNode *value);
-    node::TreeNode *getNamedValue(std::string name);
-    void getStream(node::ArrayNode *array, std::stringstream *stream_value);
-    void getStream(node::ObjNode *obj, std::stringstream *stream_value);
+    node::ObjNode *GetObject(int id, int generation);
+    node::ObjNode *GetObject(node::RefNode *ref);
+    node::TreeNode *GetRealValue(node::TreeNode *value);
+    node::TreeNode *GetRealObjValue(node::TreeNode *value);
+    node::TreeNode *GetNamedValue(std::string name);
+    void GetStream(node::ArrayNode *array, std::stringstream *stream_value);
+    void GetStream(node::ObjNode *obj, std::stringstream *stream_value);
 };
 
 #endif

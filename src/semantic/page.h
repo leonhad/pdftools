@@ -31,31 +31,31 @@ class Html;
 class Page
 {
 private:
-    int *m_media_box;
-    int *m_crop_box;
-    int m_id;
-    int m_generation;
-    std::string m_link;
-    Glyph *m_root;
-    Document *m_document;
-    std::map<std::string, std::string> m_fontmap;
+    int *mediaBox;
+    int *cropBox;
+    int id;
+    int generation;
+    std::string link;
+    Glyph *root;
+    Document *document;
+    std::map<std::string, std::string> fontMap;
 
 public:
     Page(Document *parent);
     ~Page();
 
-    void set_media_box(int a, int b, int c, int d);
-    void set_crop_box(int a, int b, int c, int d);
-    void set_destination(int id, int generation);
-    void set_root(Glyph *root);
-    int id();
-    int generation();
-    const std::string link();
+    void SetMediaBox(int a, int b, int c, int d);
+    void SetCropBox(int a, int b, int c, int d);
+    void SetDestination(int id, int generation);
+    void SetRoot(Glyph *root);
+    int Id();
+    int Generation();
+    const std::string Link();
 
-    void execute(Html *html);
+    void Execute(Html *html);
 
-    void add_fontmap(std::string alias, std::string font_name);
-    std::string font_name(std::string &alias);
+    void AddFontMap(std::string alias, std::string font_name);
+    std::string FontName(std::string &alias);
 };
 
 #endif

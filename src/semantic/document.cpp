@@ -105,7 +105,7 @@ Page *Document::page(int id, int generation)
 {
     for (auto i = m_pages.begin(); i != m_pages.end(); i++)
     {
-        if ((*i)->id() == id && (*i)->generation() == generation)
+        if ((*i)->Id() == id && (*i)->Generation() == generation)
         {
             return *i;
         }

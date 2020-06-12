@@ -83,7 +83,7 @@ const char *doc_encoding_table [256] =
     "\x00f8", "\x00f9", "\x00fa", "\x00fb", "\x00fc", "\x00fd", "\x00fe", "\x00ff"
 };
 
-void verbose_message(const wchar_t *msg)
+void VerboseMessage(const wchar_t *msg)
 {
     if (_verbose)
     {
@@ -91,7 +91,7 @@ void verbose_message(const wchar_t *msg)
     }
 }
 
-void verbose_message(const wstring &msg)
+void VerboseMessage(const wstring &msg)
 {
     if (_verbose)
     {
@@ -99,32 +99,32 @@ void verbose_message(const wstring &msg)
     }
 }
 
-void error_message(const std::exception &e)
+void ErrorMessage(const std::exception &e)
 {
     wcerr << PACKAGE_NAME << L": " << e.what() << endl;
 }
 
-void error_message(const wchar_t *msg)
+void ErrorMessage(const wchar_t *msg)
 {
     wcerr << PACKAGE_NAME << L": " << msg << endl;
 }
 
-void error_message(const std::wstring& msg)
+void ErrorMessage(const std::wstring& msg)
 {
     wcerr << PACKAGE_NAME << L": " << msg << endl;
 }
 
-void set_verbose_mode(const bool verbose)
+void SetVerboseMode(const bool verbose)
 {
     _verbose = verbose;
 }
 
-bool verbose_mode()
+bool VerboseMode()
 {
     return _verbose;
 }
 
-char *compress(const char *raw, size_t size, size_t &writed)
+char *Compress(const char *raw, size_t size, size_t &writed)
 {
     z_stream zstream;
     vector<BufferStruct> values;
@@ -180,7 +180,7 @@ char *compress(const char *raw, size_t size, size_t &writed)
     return ret;
 }
 
-char *flat_decode(char *compressed, int size, size_t &deflated)
+char *FlatDecode(char *compressed, int size, size_t &deflated)
 {
     vector<BufferStruct> values;
     
@@ -244,7 +244,7 @@ char *flat_decode(char *compressed, int size, size_t &deflated)
     return ret;
 }
 
-std::wstring ctow(const std::string& str)
+std::wstring SingleToWide(const std::string& str)
 {
     std::wstring ws;
     ws.assign(str.begin(), str.end());
@@ -279,12 +279,12 @@ string convert(const char *in, const char *out, const string &str)
     return ret;
 }
 
-string utf16be_to_utf8(const string &str)
+string UTF16beToUTF8(const string &str)
 {
     return convert(UTF8, "UTF-16BE", str);
 }
 
-string charset_to_utf8(const string &str)
+string CharsetToUTF8(const string &str)
 {
     string ret = str;
     bool convert_string = false;

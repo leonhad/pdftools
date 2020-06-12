@@ -21,12 +21,11 @@
 
 using namespace node;
 
-StateNode::StateNode(bool save) :
-        TreeNode(), m_save(save)
+StateNode::StateNode(bool save) : TreeNode(), save(save)
 {
 }
 
-bool StateNode::save() const
+bool StateNode::Save() const
 {
-    return m_save;
+    return save;
 }

@@ -35,14 +35,14 @@ public:
      *
      * \param document the document.
      */
-    virtual void startGlyph(Html *document);
+    virtual void StartGlyph(Html *document);
 
     /**
      * Called after the drawing.
      *
      * @param document the document.
      */
-    virtual void endGlyph(Html *document);
+    virtual void EndGlyph(Html *document);
 };
 
 #endif

@@ -24,45 +24,44 @@
 using namespace std;
 using namespace node;
 
-CMapNode::CMapNode() :
-        TreeNode(), m_codespace(nullptr)
+CMapNode::CMapNode() : TreeNode(), codespace(nullptr)
 {
 }
 
 CMapNode::~CMapNode()
 {
-    for (auto &i : m_charnodes)
+    for (auto &i : charnodes)
     {
         delete i;
     }
 
-    if (m_codespace)
+    if (codespace)
     {
-        delete m_codespace;
+        delete codespace;
     }
 }
 
-void CMapNode::add(CharNode *node)
+void CMapNode::Add(CharNode *node)
 {
-    m_charnodes.push_back(node);
+    charnodes.push_back(node);
 }
 
-void CMapNode::setCodespace(CodeSpaceNode *codespace)
+void CMapNode::SetCodespace(CodeSpaceNode *codespace)
 {
-    m_codespace = codespace;
+    this->codespace = codespace;
 }
 
-CodeSpaceNode *CMapNode::codeSpace() const
+CodeSpaceNode *CMapNode::CodeSpace() const
 {
-    return m_codespace;
+    return codespace;
 }
 
-size_t CMapNode::nodes() const
+size_t CMapNode::Nodes() const
 {
-    return m_charnodes.size();
+    return charnodes.size();
 }
 
-CharNode *CMapNode::node(size_t index) const
+CharNode *CMapNode::Node(size_t index) const
 {
-    return m_charnodes.at(index);
+    return charnodes.at(index);
 }

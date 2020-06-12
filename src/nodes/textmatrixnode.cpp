@@ -22,12 +22,11 @@
 using namespace node;
 
 TextMatrixNode::TextMatrixNode(const std::initializer_list<double> &list) :
-        TreeNode(), values
-        { list }
+        TreeNode(), values(list)
 {
 }
 
-double TextMatrixNode::at(size_t index) const
+double TextMatrixNode::At(size_t index) const
 {
     return values.at(index);
 }

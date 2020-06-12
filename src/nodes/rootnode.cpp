@@ -22,30 +22,29 @@
 using namespace std;
 using namespace node;
 
-RootNode::RootNode() :
-        TreeNode()
+RootNode::RootNode() : TreeNode()
 {
 }
 
 RootNode::~RootNode()
 {
-    for (auto &i : m_child)
+    for (auto &i : child)
     {
         delete i;
     }
 }
 
-void RootNode::addChild(TreeNode *child)
+void RootNode::AddChild(TreeNode *child)
 {
-    m_child.push_back(child);
+    this->child.push_back(child);
 }
 
-TreeNode *RootNode::get(size_t index) const
+TreeNode *RootNode::Get(size_t index) const
 {
-    return m_child [index];
+    return child [index];
 }
 
-size_t RootNode::size() const
+size_t RootNode::Size() const
 {
-    return m_child.size();
+    return child.size();
 }
