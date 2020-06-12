@@ -22,7 +22,6 @@
 
 #include <string>
 
-
 /// PDF class converter.
 class Converter
 {
