@@ -58,7 +58,7 @@ Font *GraphicState::GetFont()
     return font;
 }
 
-void GraphicState::SetFont(Font *font)
+void GraphicState::SetFont(Font *f)
 {
-    this->font = font;
+    this->font = f;
 }

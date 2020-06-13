@@ -62,7 +62,7 @@ public:
     /**
      * Add a child to this glyph.
      *
-     * \param glyph the child to add.
+     * @param glyph the child to add.
      */
     void AddChild(Glyph *glyph);
 
@@ -77,14 +77,14 @@ public:
     /**
      * Draw this glyph.
      *
-     * \param document the document to generate in.
+     * @param document the document to generate in.
      */
-    virtual void DoGlyph(Html *);
+    virtual void DoGlyph(Html *document);
 
     /**
      * Called before the drawing.
      *
-     * \param document the document.
+     * @param document the document.
      */
     virtual void StartGlyph(Html *document);
 
@@ -98,7 +98,7 @@ public:
     /**
      * Sets the last used glyph.
      *
-     * \param glyph the last used glyph.
+     * @param glyph the last used glyph.
      */
     void SetLast(Glyph *glyph);
 };

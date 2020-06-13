@@ -107,7 +107,7 @@ public:
      * \param length the length to read.
      * \return the stream.
      */
-    char *getStream(int length);
+    char *getStream(std::streamsize length);
 
     /**
      * Get a image stream.

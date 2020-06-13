@@ -50,19 +50,19 @@ TreeNode *ObjNode::Value() const
     return value;
 }
 
-bool ObjNode::SameObject(int id, int generation) const
+bool ObjNode::SameObject(int i, int g) const
 {
-    return this->id == id && this->generation == generation;
+    return this->id == i && this->generation == g;
 }
 
-void ObjNode::SetValue(TreeNode *value)
+void ObjNode::SetValue(TreeNode *v)
 {
-    if (value)
+    if (v)
     {
-        delete value;
+        delete v;
     }
 
-    this->value = value;
+    this->value = v;
 }
 
 void ObjNode::SetStreamPos(istream::pos_type pos)

@@ -45,14 +45,14 @@ string BDCNode::Name()
     return name;
 }
 
-void BDCNode::SetValue(TreeNode *value)
+void BDCNode::SetValue(TreeNode *v)
 {
-    this->value = value;
+    this->value = v;
 }
 
-void BDCNode::SetName(const string &name)
+void BDCNode::SetName(const string &n)
 {
-    this->name = name;
+    this->name = n;
 }
 
 RootNode *BDCNode::Parent()

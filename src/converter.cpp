@@ -34,8 +34,8 @@
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& in, const string& out, const string& format) :
-    fileIn(in), format(format)
+Converter::Converter(const string& in, const string& out, const string& fileFormat) :
+    fileIn(in), format(fileFormat)
 {
     // Calculate the output file name
     if (fileOut.empty())

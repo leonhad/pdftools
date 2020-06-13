@@ -111,13 +111,13 @@ TreeNode *GenericParser::valueSequence()
     }
     else if (m_token->type() == TokenType::NUM)
     {
-        double value = m_token->toNumber();
-        size_t pos = m_scanner->pos();
+        int value = m_token->ToInt();
+        istream::pos_type pos = m_scanner->pos();
         match(TokenType::NUM);
 
         if (m_token->type() == TokenType::NUM)
         {
-            double generation = m_token->toNumber();
+            int generation = m_token->ToInt();
             match(TokenType::NUM);
             if (m_token->type() == TokenType::NAME && m_token->value() == "R")
             {

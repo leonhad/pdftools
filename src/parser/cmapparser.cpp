@@ -190,7 +190,7 @@ void CMapParser::bfRangeSequence(const int count)
                     uint16_t c = (uint16_t) (*chars << 8) + (*b & 255);
                     c++;
                     *chars = (char) c >> 8;
-                    *b = (char) c & 0xFF;
+                    *b = (char) (c & 0xFF);
                 }
             }
         }

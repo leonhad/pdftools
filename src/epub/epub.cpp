@@ -338,9 +338,9 @@ void EPUB::GeneratePages()
     }
 }
 
-bool EPUB::Generate(Document *document, const string &output)
+bool EPUB::Generate(Document *doc, const string &output)
 {
-    this->document = document;
+    this->document = doc;
     order = 1;
     if (zipFile->Open(output))
     {

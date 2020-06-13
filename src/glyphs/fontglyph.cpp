@@ -23,7 +23,7 @@
 
 using namespace std;
 
-FontGlyph::FontGlyph(string &&font, int size) : Glyph(), size(move(size)), font(font)
+FontGlyph::FontGlyph(string &&font, double size) : Glyph(), size(size), font(font)
 {
 }
 

@@ -32,7 +32,7 @@ private:
     /**
      * The font size.
      */
-    int size;
+    double size;
 
     /**
      * Font face name.
@@ -43,15 +43,15 @@ public:
     /**
      * Creates a new instance.
      *
-     * \param font the font face name.
-     * \param size the font size.
+     * @param font the font face name.
+     * @param size the font size.
      */
-    FontGlyph(std::string &&font, int size);
+    FontGlyph(std::string &&font, double size);
 
     /**
      * Draw this glyph.
      *
-     * \param document the document to generate in.
+     * @param document the document to generate in.
      */
     virtual void DoGlyph(Html *document);
 };

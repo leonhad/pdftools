@@ -50,11 +50,11 @@ int main(int argc, char *argv [])
     const struct option long_options [] =
     {
         { "verbose", no_argument, &verbose_flag, 1 },
-        { "help", no_argument, 0, 'h' },
-        { "version", no_argument, 0, 'v' },
-        { "o", required_argument, 0, 'o' },
-        { "format", required_argument, 0, 'f' },
-        { 0, 0, 0, 0 }
+        { "help", no_argument, nullptr, 'h' },
+        { "version", no_argument, nullptr, 'v' },
+        { "o", required_argument, nullptr, 'o' },
+        { "format", required_argument, nullptr, 'f' },
+        { nullptr, 0, nullptr, 0 }
     };
     
     while (true)
@@ -108,6 +108,7 @@ int main(int argc, char *argv [])
                     error = true;
                     break;
                 }
+                break;
             default:
                 break;
         }

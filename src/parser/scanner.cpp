@@ -245,9 +245,9 @@ char *Scanner::getImageStream()
     return nullptr;
 }
 
-char *Scanner::getStream(int length)
+char *Scanner::getStream(streamsize length)
 {
-    char *stream = new char [length];
+    char *stream = new char [(unsigned long)length];
     m_filein->read(stream, length);
     return stream;
 }

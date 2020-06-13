@@ -102,7 +102,7 @@ void Parser::objectStreams(RootNode *root_node)
                 if (type && type->Name() == "/ObjStm")
                 {
                     int qtd = 0;
-                    int length = 0;
+                    size_t length = 0;
                     NumberNode *number = dynamic_cast<NumberNode *>(map->Get("/N"));
                     if (number)
                     {
@@ -111,14 +111,14 @@ void Parser::objectStreams(RootNode *root_node)
                     NumberNode *length_node = dynamic_cast<NumberNode *>(map->Get("/Length"));
                     if (number)
                     {
-                        length = (int) length_node->Value();
+                        length = (size_t) length_node->Value();
                     }
                     char *uncompressed = nullptr;
 
                     m_scanner->to_pos(root_object->StreamPos());
-                    char *stream = m_scanner->getStream(length);
+                    char *stream = m_scanner->getStream((streamsize)length);
 
-                    size_t total = length;
+                    size_t total = (size_t)length;
                     NameNode *filter = dynamic_cast<NameNode *>(map->Get("/Filter"));
                     if (filter && filter->Name() == "/FlateDecode")
                     {
@@ -137,7 +137,7 @@ void Parser::objectStreams(RootNode *root_node)
                         return;
                     }
                     stringstream stream_value;
-                    stream_value.write(uncompressed, total);
+                    stream_value.write(uncompressed, (streamsize)total);
                     stream_value.seekg(0);
                     delete [] uncompressed;
 

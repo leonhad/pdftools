@@ -37,16 +37,16 @@ public:
     /**
      * Creates a new instance.
      *
-     * \param size the font size.
+     * @param size the font size.
      */
     explicit FontSizeGlyph(double size);
 
     /**
      * Draw this glyph.
      *
-     * \param document the document to generate in.
+     * @param document the document to generate in.
      */
-    virtual void DoGlyph(Html *);
+    virtual void DoGlyph(Html *document);
 };
 
 #endif

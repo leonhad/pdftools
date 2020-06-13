@@ -79,7 +79,7 @@ Document *Context::document()
     return m_document;
 }
 
-void Context::setCurrentFont(string &alias, int size)
+void Context::setCurrentFont(string &alias, double size)
 {
     if (m_document && m_page)
     {

@@ -34,8 +34,8 @@ void TextGlyph::DoGlyph(Html *document)
 
     document->AddFont(current->size() * context->fontSize(), current->bold(), current->italic(),
             current->fixed());
-    string text = current->translate(text);
+    string t = current->translate(text);
 
-    document->AddElement(text + " ");
+    document->AddElement(t + " ");
     document->EndTag();
 }

@@ -53,9 +53,9 @@ Page::~Page()
     }
 }
 
-void Page::SetRoot(Glyph *root)
+void Page::SetRoot(Glyph *r)
 {
-    this->root = root;
+    this->root = r;
 }
 
 void Page::AddFontMap(string alias, string font_name)
@@ -101,10 +101,10 @@ void Page::SetCropBox(int a, int b, int c, int d)
     cropBox [3] = d;
 }
 
-void Page::SetDestination(int id, int generation)
+void Page::SetDestination(int i, int g)
 {
-    this->id = id;
-    this->generation = generation;
+    this->id = i;
+    this->generation = g;
 
     this->link = "section" + to_string(id) + "_" + to_string(generation);
 }

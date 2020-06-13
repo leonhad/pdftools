@@ -61,7 +61,7 @@ void Html::SetTitle(const string& title)
     xml.endTag();
 }
 
-void Html::AddFont(int size, bool bold, bool italic, bool fixed)
+void Html::AddFont(double size, bool bold, bool italic, bool fixed)
 {
     xml.startTag("div");
 

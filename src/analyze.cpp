@@ -148,10 +148,10 @@ TreeNode *Analyze::AnalyzeRoot()
     node::TreeNode* m_page_tree = GetRealValue(catalog->Get("/Pages"));
     document->setLang(GetStringValue(catalog->Get("/Lang")));
     
-    MapNode *names = dynamic_cast<MapNode *>(GetRealObjValue(catalog->Get("/Names")));
-    if (names)
+    MapNode *namesNode = dynamic_cast<MapNode *>(GetRealObjValue(catalog->Get("/Names")));
+    if (namesNode)
     {
-        MapNode *dests = dynamic_cast<MapNode *>(GetRealObjValue(names->Get("/Dests")));
+        MapNode *dests = dynamic_cast<MapNode *>(GetRealObjValue(namesNode->Get("/Dests")));
         AnalyzeNames(dests);
     }
     
@@ -234,15 +234,15 @@ void Analyze::AnalyzeNames(MapNode *values)
     }
     else
     {
-        ArrayNode *names = dynamic_cast<ArrayNode *>(values->Get("/Names"));
-        if (names)
+        ArrayNode *namesNode = dynamic_cast<ArrayNode *>(values->Get("/Names"));
+        if (namesNode)
         {
-            size_t size = names->Size();
+            size_t size = namesNode->Size();
             
             for (size_t i = 0; i < size; i += 2)
             {
-                string name = GetStringValue(names->Value(i));
-                this->names[name] = names->Value(i + 1);
+                string name = GetStringValue(namesNode->Value(i));
+                this->names[name] = namesNode->Value(i + 1);
             }
         }
     }
@@ -392,11 +392,11 @@ Page *Analyze::ProcessPage(int id, int generation, stringstream *stream_value, M
         MapNode *fonts = dynamic_cast<MapNode *>(GetRealObjValue(resources->Get("/Font")));
         if (fonts)
         {
-            vector<string> names = fonts->Names();
-            size_t size = names.size();
+            vector<string> namesList = fonts->Names();
+            size_t size = namesList.size();
             for (size_t loop = 0; loop < size; loop++)
             {
-                string alias = names [loop];
+                string alias = namesList[loop];
                 MapNode *fontmap = dynamic_cast<MapNode *>(GetRealObjValue(fonts->Get(alias)));
                 if (fontmap)
                 {
@@ -505,7 +505,7 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
     MapNode *node = dynamic_cast<MapNode *>(obj->Value());
     NameNode *filter = dynamic_cast<NameNode *>(GetRealObjValue(node->Get("/Filter")));
     ArrayNode *filter_array = dynamic_cast<ArrayNode *>(GetRealObjValue(node->Get("/Filter")));
-    int length = (int) GetNumberValue(GetRealObjValue(node->Get("/Length")));
+    unsigned int length = (unsigned int) GetNumberValue(GetRealObjValue(node->Get("/Length")));
     
     ifstream filestream;
     filestream.open(fileIn, ios::binary);
@@ -515,11 +515,11 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
     char *stream = scanner.getStream(length);
     filestream.close();
     
-    size_t total = length;
+    size_t total = (size_t)length;
     if (filter && filter->Name() == "/FlateDecode")
     {
         const char *value = FlatDecode(stream, length, total);
-        (*stream_value).write(value, total);
+        (*stream_value).write(value, (streamsize)total);
         delete [] value;
     }
     else if (filter_array)
@@ -544,7 +544,7 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
                 if (filter && filter->Name() == "/FlateDecode")
                 {
                     const char *value = FlatDecode(stream, length, total);
-                    (*stream_value).write(value, total);
+                    (*stream_value).write(value, (streamsize)total);
                     delete [] value;
                 }
                 else
@@ -565,7 +565,7 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
     }
     else if (not filter)
     {
-        (*stream_value).write(stream, total);
+        (*stream_value).write(stream, (streamsize)total);
     }
     else
     {

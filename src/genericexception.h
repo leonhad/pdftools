@@ -59,12 +59,12 @@ public:
     /**
      * Destroy the instance.
      */
-    virtual ~GenericException() = default;
+    virtual ~GenericException() override = default;
 
     /**
      * Gets the exception message.
      *
-     * \return the exception message.
+     * @return the exception message.
      */
     virtual const char* what() const noexcept override;
 };

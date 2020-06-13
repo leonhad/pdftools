@@ -97,7 +97,7 @@ public:
      * \param alias the font alias.
      * \param size the font size.
      */
-    void setCurrentFont(std::string &alias, int size);
+    void setCurrentFont(std::string &alias, double size);
 
     /**
      * Sets the current page.

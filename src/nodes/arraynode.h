@@ -46,7 +46,7 @@ namespace node
         /**
          * Destroy the instance.
          */
-        virtual ~ArrayNode();
+        virtual ~ArrayNode() override;
 
         /**
          * Adds a value in this array.

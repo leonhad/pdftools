@@ -44,6 +44,17 @@ double Token::toNumber() const
     }
 }
 
+int Token::ToInt() const
+{
+    try {
+        return stoi(m_value);
+    }
+    catch(...)
+    {
+        return 0;
+    }
+}
+
 string Token::value() const
 {
     return m_value;

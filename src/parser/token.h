@@ -526,35 +526,43 @@ public:
     /**
      * Sets the token value.
      *
-     * \param value the token value.
+     * @param value the token value.
      */
     void setValue(std::string value);
 
     /**
      * Sets the token type.
      *
-     * \param type the token type.
+     * @param type the token type.
      */
     void setType(TokenType type);
 
     /**
      * Converts the token value to number.
      *
-     * \return the number value.
+     * @return the number value.
      */
     double toNumber() const;
+    
+    
+    /**
+     * Converts the value to int.
+     *
+     * @return the int value.
+     */
+    int ToInt() const;
 
     /**
      * Gets the token value.
      *
-     * \return the token value.
+     * @return the token value.
      */
     std::string value() const;
 
     /**
      * Gets the token type.
      *
-     * \return the token type.
+     * @return the token type.
      */
     TokenType type() const;
 };

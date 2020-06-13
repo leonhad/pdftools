@@ -37,10 +37,10 @@ private:
     
 public:
     /// Creates a new converter instance.
-    /// @param fileIn  the input file name.
-    /// @param fileOut the file output name.
-    /// @param format the desired format.
-    Converter(const std::string& fileIn, const std::string& fileOut, const std::string& format);
+    /// @param in  the input file name.
+    /// @param out the file output name.
+    /// @param fileFormat the desired format.
+    Converter(const std::string& in, const std::string& out, const std::string& fileFormat);
     
     /// Convert the PDF file.
     void Convert();

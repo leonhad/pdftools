@@ -44,10 +44,10 @@ const char *Outline::Title()
     return title.c_str();
 }
 
-void Outline::SetLocation(double x, double y)
+void Outline::SetLocation(double newX, double newY)
 {
-    this->x = x;
-    this->y = y;
+    this->x = newX;
+    this->y = newY;
 }
 
 size_t Outline::Size()
@@ -60,9 +60,9 @@ Outline *Outline::Child(size_t index)
     return childs [index];
 }
 
-void Outline::SetTitle(string title)
+void Outline::SetTitle(string t)
 {
-    this->title = title;
+    this->title = t;
 }
 
 void Outline::AddChild(Outline *child)
@@ -70,10 +70,10 @@ void Outline::AddChild(Outline *child)
     this->childs.push_back(child);
 }
 
-void Outline::SetDestination(int id, int generation)
+void Outline::SetDestination(int i, int g)
 {
-    this->id = id;
-    this->generation = generation;
+    this->id = i;
+    this->generation = g;
 }
 
 int Outline::Id()

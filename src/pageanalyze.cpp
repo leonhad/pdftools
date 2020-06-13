@@ -114,10 +114,10 @@ void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
             continue;
         }
 
-        StateNode *state = dynamic_cast<StateNode *>(node);
-        if (state)
+        StateNode *stateNode = dynamic_cast<StateNode *>(node);
+        if (stateNode)
         {
-            if (state->Save())
+            if (stateNode->Save())
             {
                 this->state.Push();
             }

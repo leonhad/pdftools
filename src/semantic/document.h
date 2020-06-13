@@ -33,7 +33,7 @@ class PageLabel;
 
 namespace node
 {
-class TreeNode;
+    class TreeNode;
 }
 
 /**

@@ -34,9 +34,9 @@ RootNode::~RootNode()
     }
 }
 
-void RootNode::AddChild(TreeNode *child)
+void RootNode::AddChild(TreeNode *c)
 {
-    this->child.push_back(child);
+    this->child.push_back(c);
 }
 
 TreeNode *RootNode::Get(size_t index) const

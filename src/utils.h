@@ -31,7 +31,7 @@ void VerboseMessage(const std::wstring &msg);
 void VerboseMessage(const wchar_t *msg);
 void SetVerboseMode(const bool verbose);
 bool VerboseMode();
-char *FlatDecode(char *compressed, int size, size_t &deflated);
+char *FlatDecode(char *compressed, size_t size, size_t &deflated);
 char *Compress(const char *raw, size_t size, size_t &writed);
 std::string UTF16beToUTF8(const std::string &str);
 std::string CharsetToUTF8(const std::string &str);

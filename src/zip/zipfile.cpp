@@ -96,7 +96,7 @@ void ZipFile::AddSource(const string &filename, const char *buffer, size_t lengt
 
     if (file->compressed)
     {
-        m_output.write(file->deflate_buffer, file->compressed_size);
+        m_output.write(file->deflate_buffer, (streamsize)file->compressed_size);
     }
     else
     {
@@ -192,14 +192,14 @@ void ZipFile::WriteString(const string &str)
 
 void ZipFile::Write16(uint16_t c)
 {
-    m_output.put(c & 0xFF);
-    m_output.put((c >> 8) & 0xFF);
+    m_output.put((char)(c & 0xFF));
+    m_output.put((char)((c >> 8) & 0xFF));
 }
 
 void ZipFile::Write32(uint32_t c)
 {
-    m_output.put(c & 0xFF);
-    m_output.put((c >> 8) & 0xFF);
-    m_output.put((c >> 16) & 0xFF);
-    m_output.put((c >> 24) & 0xFF);
+    m_output.put((char)(c & 0xFF));
+    m_output.put((char)((c >> 8) & 0xFF));
+    m_output.put((char)((c >> 16) & 0xFF));
+    m_output.put((char)((c >> 24) & 0xFF));
 }

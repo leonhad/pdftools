@@ -41,6 +41,8 @@ constexpr int BOM_END = 0xFF;
 
 constexpr const char *UTF8 = "UTF-8";
 
+string Convert(const char *in, const char *out, const std::string &str);
+
 struct BufferStruct
 {
     char buffer [MAX_BUFFER_SIZE];
@@ -180,7 +182,7 @@ char *Compress(const char *raw, size_t size, size_t &writed)
     return ret;
 }
 
-char *FlatDecode(char *compressed, int size, size_t &deflated)
+char *FlatDecode(char *compressed, size_t size, size_t &deflated)
 {
     vector<BufferStruct> values;
     
@@ -195,7 +197,7 @@ char *FlatDecode(char *compressed, int size, size_t &deflated)
     int rsti = inflateInit(&zstream);
     if (rsti == Z_OK)
     {
-        zstream.avail_in = size;
+        zstream.avail_in = (uInt)size;
         zstream.next_in = (Bytef *) compressed;
         
         do
@@ -251,7 +253,7 @@ std::wstring SingleToWide(const std::string& str)
     return ws;
 }
 
-string convert(const char *in, const char *out, const string &str)
+string Convert(const char *in, const char *out, const string &str)
 {
     string ret;
     
@@ -281,7 +283,7 @@ string convert(const char *in, const char *out, const string &str)
 
 string UTF16beToUTF8(const string &str)
 {
-    return convert(UTF8, "UTF-16BE", str);
+    return Convert(UTF8, "UTF-16BE", str);
 }
 
 string CharsetToUTF8(const string &str)
@@ -290,8 +292,8 @@ string CharsetToUTF8(const string &str)
     bool convert_string = false;
     if (str.length() > WIDECHAR_SIZE)
     {
-        uint8_t first = str [0];
-        uint8_t second = str [1];
+        uint8_t first = (uint8_t)str[0];
+        uint8_t second = (uint8_t)str[1];
         if ((first == BOM_START && second == BOM_END) || (first == BOM_END && second == BOM_START))
         {
             // UTF-16LE or UTF-16BE
@@ -301,7 +303,7 @@ string CharsetToUTF8(const string &str)
     
     if (convert_string)
     {
-        ret = convert(UTF8, "UTF-16", str);
+        ret = Convert(UTF8, "UTF-16", str);
     }
     else
     {
@@ -310,7 +312,7 @@ string CharsetToUTF8(const string &str)
         
         for (size_t loop = 0; loop < size; loop++)
         {
-            uint8_t c = str [loop];
+            uint8_t c = (uint8_t)str[loop];
             const char *new_char = doc_encoding_table [c];
             converted << new_char;
         }

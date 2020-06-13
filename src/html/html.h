@@ -88,7 +88,7 @@ public:
      * @param italic if the font has a italic modifier.
      * @param fixed  if the font has a fixed face modifier.
      */
-    void AddFont(int size, bool bold, bool italic, bool fixed);
+    void AddFont(double size, bool bold, bool italic, bool fixed);
 
     /**
      * Add a tag by its name.

@@ -43,9 +43,9 @@ void Glyph::AddChild(Glyph *glyph)
     }
 }
 
-void Glyph::Execute(Html *document, Context *context)
+void Glyph::Execute(Html *document, Context *c)
 {
-    this->context = context;
+    this->context = c;
 
     StartGlyph(document);
     DoGlyph(document);

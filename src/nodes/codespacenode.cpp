@@ -27,14 +27,14 @@ CodeSpaceNode::CodeSpaceNode() :
 {
 }
 
-void CodeSpaceNode::SetStart(const string &start)
+void CodeSpaceNode::SetStart(const string &s)
 {
-    this->start = start;
+    this->start = s;
 }
 
-void CodeSpaceNode::SetFinish(const string &finish)
+void CodeSpaceNode::SetFinish(const string &f)
 {
-    this->finish = finish;
+    this->finish = f;
 }
 
 string CodeSpaceNode::Start() const

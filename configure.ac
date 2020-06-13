@@ -21,14 +21,18 @@ AC_ARG_ENABLE(debug,
 
 AC_CANONICAL_HOST
 
-# Checks for programs.
+dnl Checks for programs.
 AC_LANG([C++])
 AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
 AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
-AX_CHECK_COMPILE_FLAG([-Weverything], [CXXFLAGS="$CXXFLAGS -Weverything"])
 AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS="$CXXFLAGS -pedantic"])
+
+dnl Clang flags
+AX_CHECK_COMPILE_FLAG([-Weverything], [CXXFLAGS="$CXXFLAGS -Weverything"])
+AX_CHECK_COMPILE_FLAG([-Wno-c++98-compat], [CXXFLAGS="$CXXFLAGS -Wno-c++98-compat"])
+AX_CHECK_COMPILE_FLAG([-Wno-padded], [CXXFLAGS="$CXXFLAGS -Wno-padded"])
 
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET

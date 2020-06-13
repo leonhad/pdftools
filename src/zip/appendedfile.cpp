@@ -32,8 +32,8 @@ AppendedFile::AppendedFile(const std::string filename, const char *buffer, size_
     this->length = static_cast<uint32_t>(length);
     this->name = filename.c_str();
 
-    uint32_t crc = (uint32_t) ::crc32(0L, Z_NULL, 0);
-    this->crc = (uint32_t) ::crc32(crc, (Bytef *) buffer, (uInt) length);
+    uint32_t crcCode = (uint32_t) ::crc32(0L, Z_NULL, 0);
+    this->crc = (uint32_t) ::crc32(crcCode, (Bytef *) buffer, (uInt) length);
     
     this->deflate_buffer = nullptr;
 
@@ -82,6 +82,6 @@ uint32_t AppendedFile::CurrentDatetime() const
     }
 
     return (uint32_t) ((t.tm_mday + (32 * (t.tm_mon + 1)) + (512 * t.tm_year)) << 16)
-            | ((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
+            | (uint32_t)((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
 }
 

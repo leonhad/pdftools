@@ -31,17 +31,17 @@ string FontNode::Name() const
     return name;
 }
 
-int FontNode::Size() const
+double FontNode::Size() const
 {
     return size;
 }
 
-void FontNode::SetName(const string &name)
+void FontNode::SetName(const string &n)
 {
-    this->name = name;
+    this->name = n;
 }
 
-void FontNode::SetSize(int size)
+void FontNode::SetSize(double s)
 {
-    this->size = size;
+    this->size = s;
 }

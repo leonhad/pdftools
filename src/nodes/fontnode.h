@@ -39,7 +39,7 @@ namespace node
         /**
          * The font size.
          */
-        int size;
+        double size;
 
     public:
         /**
@@ -64,7 +64,7 @@ namespace node
          *
          * @return the font size.
          */
-        int Size() const;
+        double Size() const;
 
         /**
          * Sets the font name.
@@ -78,7 +78,7 @@ namespace node
          *
          * @param size the font size.
          */
-        void SetSize(int size);
+        void SetSize(double size);
     };
 }
 

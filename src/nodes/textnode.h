@@ -45,7 +45,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~TextNode() = default;
+        virtual ~TextNode() override = default;
 
         /**
          * Adds a text value.
