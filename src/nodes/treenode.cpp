@@ -21,7 +21,12 @@
 
 using namespace node;
 
+TreeNode::TreeNode()
+{
+    // Not used.
+}
+
 TreeNode::~TreeNode()
 {
-    // Unused.
+    // Not used.
 }

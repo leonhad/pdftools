@@ -56,7 +56,7 @@ public:
     /**
      * Do not use copy constructor.
      *
-     * \param obj the instance to copy.
+     * @param obj the instance to copy.
      */
     GraphicState(const GraphicState &obj) = delete;
 

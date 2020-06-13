@@ -57,9 +57,9 @@ bool ObjNode::SameObject(int i, int g) const
 
 void ObjNode::SetValue(TreeNode *v)
 {
-    if (v)
+    if (value)
     {
-        delete v;
+        delete value;
     }
 
     this->value = v;

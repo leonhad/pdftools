@@ -29,6 +29,11 @@ namespace node
     {
     public:
         /**
+         * Creates a new instance.
+         */
+        TreeNode();
+        
+        /**
          * Destroy this instance.
          */
         virtual ~TreeNode();

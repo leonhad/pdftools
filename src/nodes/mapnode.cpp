@@ -66,5 +66,5 @@ map<string, TreeNode *> MapNode::Values() const
 
 void MapNode::Push(string name, TreeNode *value)
 {
-    values [name] = value;
+    values.insert(pair<string, TreeNode *>(name, value));
 }
