@@ -5,16 +5,19 @@ AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADER([config.h])
 
-DEBUG_CFLAGS="-O3 -DNDEBUG"
 dnl This mechanism allows one to enable debug compilations...
 AC_ARG_ENABLE(debug,
 [  --enable-debug     enable debugging and disable optimization],
 [  if test "$enable_debug" = "yes"; then
-      DEBUG_CFLAGS="-fPIC -O0 -g3 -DDEBUG -fno-inline"
+      AX_CHECK_COMPILE_FLAG([-fPIC], [CXXFLAGS="$CXXFLAGS -fPIC"])
+      AX_CHECK_COMPILE_FLAG([-O0], [CXXFLAGS="$CXXFLAGS -O0"])
+      AX_CHECK_COMPILE_FLAG([-DDEBUG], [CXXFLAGS="$CXXFLAGS -DDEBUG"])
+      AX_CHECK_COMPILE_FLAG([-fno-inline], [CXXFLAGS="$CXXFLAGS -fno-inline"])
+   else 
+      AX_CHECK_COMPILE_FLAG([-O3], [CXXFLAGS="$CXXFLAGS -O3"])
+      AX_CHECK_COMPILE_FLAG([-DNDEBUG], [CXXFLAGS="$CXXFLAGS -DNDEBUG"])
    fi
 ])
-AM_CONDITIONAL(ENABLE_DEBUG, test "$enable_debug" = "yes")
-CXXFLAGS="$DEBUG_CFLAGS $CXXFLAGS"
 
 AC_CANONICAL_HOST
 
@@ -24,6 +27,8 @@ AC_PROG_CXX
 AX_CXX_COMPILE_STDCXX([11], [noext], [mandatory])
 AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
+AX_CHECK_COMPILE_FLAG([-Weverything], [CXXFLAGS="$CXXFLAGS -Weverything"])
+AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS="$CXXFLAGS -pedantic"])
 
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET

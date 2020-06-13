@@ -4,8 +4,8 @@
  * to provide a Microsoft Visual C friendly derivative. This code
  * provides functionality for both Unicode and Multibyte builds.
  */
-#ifndef __GETOPT_H_
-#define __GETOPT_H_
+#ifndef GETOPT_H
+#define GETOPT_H
 
 #if defined(EXPORTS_GETOPT)
 #pragma message("Exporting getopt library")
@@ -16,16 +16,16 @@
 #endif
 
  // Standard GNU options
-#define	null_argument		0	/*Argument Null*/
-#define	no_argument			0	/*Argument Switch Only*/
-#define required_argument	1	/*Argument Required*/
-#define optional_argument	2	/*Argument Optional*/	
+#define	null_argument 0	/*Argument Null*/
+#define	no_argument	0	/*Argument Switch Only*/
+#define required_argument 1	/*Argument Required*/
+#define optional_argument 2	/*Argument Optional*/	
 
 // Shorter Options
-#define ARG_NULL	0	/*Argument Null*/
-#define ARG_NONE	0	/*Argument Switch Only*/
-#define ARG_REQ		1	/*Argument Required*/
-#define ARG_OPT		2	/*Argument Optional*/
+#define ARG_NULL 0 /*Argument Null*/
+#define ARG_NONE 0 /*Argument Switch Only*/
+#define ARG_REQ	1 /*Argument Required*/
+#define ARG_OPT	2 /*Argument Optional*/
 
 #include <string.h>
 
