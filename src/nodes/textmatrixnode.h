@@ -49,7 +49,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~TextMatrixNode() = default;
+        virtual ~TextMatrixNode() override = default;
 
         /**
          * Get a text matrix value by its index.

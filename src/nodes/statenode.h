@@ -46,7 +46,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~StateNode() = default;
+        virtual ~StateNode() override = default;
 
         /**
          * Gets the state.

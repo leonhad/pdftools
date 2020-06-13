@@ -55,7 +55,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~CMapNode();
+        virtual ~CMapNode() override;
 
         /**
          * Adds a char node.

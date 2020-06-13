@@ -57,7 +57,7 @@ public:
     /**
      * Destroy this instance.
      */
-    virtual ~GenericParser();
+    ~GenericParser();
 
 protected:
     /**

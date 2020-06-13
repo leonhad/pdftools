@@ -47,7 +47,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~NameNode() = default;
+        virtual ~NameNode() override = default;
 
         /**
          * Gets the name.

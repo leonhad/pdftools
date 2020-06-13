@@ -47,7 +47,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~StringNode() = default;
+        virtual ~StringNode() override = default;
 
         /**
          * Gets the string value.

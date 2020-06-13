@@ -29,10 +29,11 @@ AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-pipe], [CXXFLAGS="$CXXFLAGS -pipe"])
 AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS="$CXXFLAGS -pedantic"])
 
-dnl Clang flags
+dnl clang flags
 AX_CHECK_COMPILE_FLAG([-Weverything], [CXXFLAGS="$CXXFLAGS -Weverything"])
 AX_CHECK_COMPILE_FLAG([-Wno-c++98-compat], [CXXFLAGS="$CXXFLAGS -Wno-c++98-compat"])
 AX_CHECK_COMPILE_FLAG([-Wno-padded], [CXXFLAGS="$CXXFLAGS -Wno-padded"])
+AX_CHECK_COMPILE_FLAG([-Wno-switch-enum], [CXXFLAGS="$CXXFLAGS -Wno-switch-enum"])
 
 AC_PROG_INSTALL
 AC_PROG_MAKE_SET

@@ -46,7 +46,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        ~BDCNode();
+        virtual ~BDCNode() override;
 
         /**
          * Gets the tree node value.

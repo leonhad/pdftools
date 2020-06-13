@@ -78,7 +78,7 @@ public:
     /**
      * Destroy this instance.
      */
-    virtual ~XREFNode();
+    virtual ~XREFNode() override;
 
     /**
      * Add a node to this XREF.

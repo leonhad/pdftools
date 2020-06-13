@@ -28,7 +28,7 @@
 using namespace node;
 
 PageAnalyze::PageAnalyze(Document *document) :
-        document(document), root(nullptr)
+        m_document(document), m_root(nullptr)
 {
 }
 
@@ -38,9 +38,9 @@ PageAnalyze::~PageAnalyze()
 
 Glyph *PageAnalyze::AnalyzeTree(RootNode *tree)
 {
-    root = new Glyph;
-    AnalyzeTree(tree, root);
-    return root;
+    m_root = new Glyph;
+    AnalyzeTree(tree, m_root);
+    return m_root;
 }
 
 void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
@@ -51,7 +51,7 @@ void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
     {
         TreeNode *node = tree->Get(loop);
 
-        if (document->treeRoot())
+        if (m_document->treeRoot())
         {
             BDCNode *bdc = dynamic_cast<BDCNode *>(node);
             if (bdc)
@@ -119,11 +119,11 @@ void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
         {
             if (stateNode->Save())
             {
-                this->state.Push();
+                this->m_state.Push();
             }
             else
             {
-                this->state.Pop();
+                this->m_state.Pop();
             }
         }
     }
@@ -131,7 +131,7 @@ void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
 
 FontGlyph *PageAnalyze::AnalyzeFont(FontNode *font)
 {
-    return new FontGlyph(font->Name(), font->Size() * state.GetTextFont());
+    return new FontGlyph(font->Name(), font->Size() * m_state.GetTextFont());
 }
 
 void PageAnalyze::AnalyzeText(TextNode *text, Glyph *parent)
@@ -141,7 +141,7 @@ void PageAnalyze::AnalyzeText(TextNode *text, Glyph *parent)
 
 FontSizeGlyph *PageAnalyze::AnalyzeTextMatrix(TextMatrixNode *text_matrix)
 {
-    state.SetTextMatrix(text_matrix->At(0), text_matrix->At(1), text_matrix->At(2),
+    m_state.SetTextMatrix(text_matrix->At(0), text_matrix->At(1), text_matrix->At(2),
             text_matrix->At(3), text_matrix->At(4), text_matrix->At(5));
-    return new FontSizeGlyph(state.GetTextFont());
+    return new FontSizeGlyph(m_state.GetTextFont());
 }

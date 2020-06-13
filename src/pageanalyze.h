@@ -38,9 +38,9 @@ namespace node
 class PageAnalyze
 {
 private:
-    GraphicState state;
-    Document *document;
-    Glyph *root;
+    GraphicState m_state;
+    Document *m_document;
+    Glyph *m_root;
 
 public:
     PageAnalyze(Document *document);

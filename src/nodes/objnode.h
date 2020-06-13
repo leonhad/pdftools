@@ -66,7 +66,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~ObjNode();
+        virtual ~ObjNode() override;
 
         /**
          * Sets the tree node value.

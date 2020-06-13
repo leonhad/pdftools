@@ -48,7 +48,7 @@ public:
     /**
      * Destroy this instance.
      */
-    virtual ~MapNode();
+    virtual ~MapNode() override;
 
     /**
      * Pushes a value to this map.

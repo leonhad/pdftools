@@ -37,6 +37,9 @@ namespace node
          * Destroy this instance.
          */
         virtual ~TreeNode();
+
+        /// Gets the node name.
+        virtual const char *NodeName() const;
     };
 }
 

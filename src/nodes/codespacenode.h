@@ -50,7 +50,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~CodeSpaceNode() = default;
+        virtual ~CodeSpaceNode() override = default;
 
         /**
          * Sets the code space start.

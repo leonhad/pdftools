@@ -46,7 +46,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~NumberNode() = default;
+        virtual ~NumberNode() override = default;
 
         /**
          * Gets the number value.

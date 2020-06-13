@@ -30,3 +30,8 @@ TreeNode::~TreeNode()
 {
     // Not used.
 }
+
+const char *TreeNode::NodeName() const
+{
+    return "TreeNode";
+}

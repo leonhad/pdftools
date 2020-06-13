@@ -50,7 +50,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~FontNode() = default;
+        virtual ~FontNode() override = default;
 
         /**
          * Gets the font name.

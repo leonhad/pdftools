@@ -53,7 +53,7 @@ namespace node
         /**
          * Destroy the instance.
          */
-        virtual ~CharNode() = default;
+        virtual ~CharNode() override = default;
 
         /**
          * Gets the char value.

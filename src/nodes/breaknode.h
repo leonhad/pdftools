@@ -38,7 +38,7 @@ public:
     /**
      * Destroy this instance.
      */
-    virtual ~BreakNode() = default;
+    virtual ~BreakNode() override = default;
 };
 }
 

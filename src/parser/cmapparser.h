@@ -57,7 +57,7 @@ public:
     /**
      * Destroy this instance.
      */
-    virtual ~CMapParser();
+    ~CMapParser();
 
     /**
      * Parses the CMap node.

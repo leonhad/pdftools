@@ -61,7 +61,7 @@ namespace parser
         /**
          * Destroy this instance.
          */
-        virtual ~Parser() = default;
+        ~Parser() = default;
 
         /**
          * Parses the root node.

@@ -46,7 +46,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~RootNode();
+        virtual ~RootNode() override;
 
         /**
          * Adds a child to this node.

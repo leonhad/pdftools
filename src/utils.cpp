@@ -49,7 +49,7 @@ struct BufferStruct
     size_t size;
 };
 
-const char *doc_encoding_table [256] =
+const static char *doc_encoding_table [256] =
 {
     "\x0000", "\x0001", "\x0002", "\x0003", "\x0004", "\x0005", "\x0006", "\x0007", // 00
     "\x0008", "\x0009", "\x000a", "\x000b", "\x000c", "\x000d", "\x000e", "\x000f", "\x0010",

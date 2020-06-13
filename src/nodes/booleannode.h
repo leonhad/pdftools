@@ -46,7 +46,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~BooleanNode() = default;
+        virtual ~BooleanNode() override = default;
 
         /**
          * Gets the node value.

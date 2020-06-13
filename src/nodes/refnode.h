@@ -52,7 +52,7 @@ namespace node
         /**
          * Destroy the instance.
          */
-        virtual ~RefNode() = default;
+        virtual ~RefNode() override = default;
 
         /**
          * Gets the object id.
