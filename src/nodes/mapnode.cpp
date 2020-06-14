@@ -40,7 +40,8 @@ MapNode::~MapNode()
 TreeNode *MapNode::Get(string name) const
 {
     auto i = m_values.find(name);
-    if (i != m_values.end()) {
+    if (i != m_values.end())
+    {
         return i->second;
     }
 

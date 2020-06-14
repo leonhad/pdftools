@@ -78,20 +78,10 @@ TreeNode *GenericParser::ValueSequence()
             Match(TokenType::NAME);
             TreeNode *value = ValueSequence();
             
-            if (!value)
-            {
-                VerboseMessage(L"Teste\n");
-            }
-            
             NameNode *n = dynamic_cast<NameNode *>(value);
             if (n && n->Name() [0] != '/')
             {
                 value = ValueSequence();
-                
-                if (!value)
-                {
-                    VerboseMessage(L"Teste\n");
-                }
             }
             
             map->Put(name, value);
