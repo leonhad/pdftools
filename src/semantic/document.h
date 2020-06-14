@@ -187,21 +187,21 @@ public:
      *
      * @param outline the document outline.
      */
-    void SetOutline(class Outline *outline);
+    void SetOutline(Outline *outline);
 
     /**
      * Gets the document outline.
      *
      * @return the document outline.
      */
-    class Outline *Outline();
+    Outline *CurrentOutline();
 
     /**
      * Add a font to this document.
      *
      * @param font the font to add.
      */
-    void AddFont(class Font *font);
+    void AddFont(Font *font);
 
     /**
      * Get a font by its name.
@@ -209,7 +209,7 @@ public:
      * @param name the font name.
      * @return the font by name.
      */
-    class Font *Font(const char *name);
+    Font *CurrentFont(const char *name);
 
     /**
      * Adds a page to this document.
@@ -231,7 +231,7 @@ public:
      * @param index the page index.
      * @return the page by index.
      */
-    Page *Page(size_t index);
+    Page *CurrentPage(size_t index);
 
     /**
      * Gets the total count of document pages.
@@ -247,7 +247,7 @@ public:
      * @param generation the page generation.
      * @return the page.
      */
-    class Page *Page(int id, int generation);
+    Page *CurrentPage(int id, int generation);
 
     /**
      * Gets if this document is encrypted.

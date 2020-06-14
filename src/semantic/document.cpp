@@ -38,7 +38,7 @@ Document::Document()
 
 Document::~Document()
 {
-    vector<class Page *>::iterator iteratorPages = m_pages.begin();
+    vector<Page *>::iterator iteratorPages = m_pages.begin();
     while (iteratorPages != m_pages.end())
     {
         delete *iteratorPages;
@@ -50,7 +50,7 @@ Document::~Document()
         delete *iteratorLavel;
         iteratorLavel++;
     }
-    vector<class Font *>::iterator iteratorFonts = m_fonts.begin();
+    vector<Font *>::iterator iteratorFonts = m_fonts.begin();
     while (iteratorFonts != m_fonts.end())
     {
         delete *iteratorFonts;
@@ -72,14 +72,14 @@ bool Document::TreeRoot()
     return m_tree_root;
 }
 
-void Document::AddFont(class Font *font)
+void Document::AddFont(Font *font)
 {
     m_fonts.push_back(font);
 }
 
-Font *Document::Font(const char *name)
+Font *Document::CurrentFont(const char *name)
 {
-    vector<class Font *>::iterator f = m_fonts.begin();
+    vector<Font *>::iterator f = m_fonts.begin();
     while (f != m_fonts.end())
     {
         if ((*f)->Name() == name)
@@ -101,7 +101,7 @@ bool Document::Encrypted()
     return m_encrypted;
 }
 
-Page *Document::Page(int id, int generation)
+Page *Document::CurrentPage(int id, int generation)
 {
     for (auto i = m_pages.begin(); i != m_pages.end(); i++)
     {
@@ -114,12 +114,12 @@ Page *Document::Page(int id, int generation)
     return nullptr;
 }
 
-void Document::SetOutline(class Outline *outline)
+void Document::SetOutline(Outline *outline)
 {
     m_outlines = outline;
 }
 
-class Outline *Document::Outline()
+Outline *Document::CurrentOutline()
 {
     return m_outlines;
 }
@@ -129,7 +129,7 @@ void Document::setId(const string &first, const string &second)
     m_id = first + second;
 }
 
-void Document::AddPage(class Page *page)
+void Document::AddPage(Page *page)
 {
     m_pages.push_back(page);
 }
@@ -139,7 +139,7 @@ void Document::AddPageLabel(PageLabel *label)
     m_page_label.push_back(label);
 }
 
-Page *Document::Page(size_t index)
+Page *Document::CurrentPage(size_t index)
 {
     return m_pages[index];
 }

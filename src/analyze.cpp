@@ -436,7 +436,7 @@ Font *Analyze::AnalyzeFont(MapNode *fontmap)
         }
     }
     
-    Font *from_document = m_document->Font(font->Name().c_str());
+    Font *from_document = m_document->CurrentFont(font->Name().c_str());
     if (from_document)
     {
         delete font;

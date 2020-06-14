@@ -166,7 +166,7 @@ void EPUB::GenerateContent(const string &output)
 
     for (size_t loop = 0; loop < m_document->Pages(); loop++)
     {
-        Page *page = m_document->Page(loop);
+        Page *page = m_document->CurrentPage(loop);
 
         xml.StartTag("item");
         xml.AddAttribute("id", page->Link());
@@ -188,7 +188,7 @@ void EPUB::GenerateContent(const string &output)
 
     for (size_t loop = 0; loop < m_document->Pages(); loop++)
     {
-        Page *page = m_document->Page(loop);
+        Page *page = m_document->CurrentPage(loop);
 
         xml.StartTag("itemref");
         xml.AddAttribute("idref", page->Link());
@@ -206,7 +206,7 @@ void EPUB::GenerateContent(const string &output)
 
 void EPUB::GenerateOutline(XML *xml, Outline *outline)
 {
-    Page *page = m_document->Page(outline->Id(), outline->Generation());
+    Page *page = m_document->CurrentPage(outline->Id(), outline->Generation());
 
     if (page)
     {
@@ -241,7 +241,7 @@ void EPUB::GenerateOutline(XML *xml, Outline *outline)
 
 void EPUB::GenerateToc(const string &output)
 {
-    Outline *outline = m_document->Outline();
+    Outline *outline = m_document->CurrentOutline();
 
     XML xml;
     xml.StartDocument("1.0", "UTF-8");
@@ -285,7 +285,7 @@ void EPUB::GenerateToc(const string &output)
         size_t size = m_document->Pages();
         for (size_t i = 0; i < size; i++)
         {
-            Page *page = m_document->Page(i);
+            Page *page = m_document->CurrentPage(i);
 
             xml.StartTag("navPoint");
             xml.AddAttribute("id", "navPoint-1");
@@ -318,7 +318,7 @@ void EPUB::GeneratePages()
     size_t size = m_document->Pages();
     for (size_t i = 0; i < size; i++)
     {
-        Page *page = m_document->Page(i);
+        Page *page = m_document->CurrentPage(i);
 
         Html html;
         html.StartDocument();
