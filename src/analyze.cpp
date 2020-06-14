@@ -82,6 +82,8 @@ void Analyze::AnalyzeXref()
                 string second = GetStringValue(array->Value(1));
                 m_document->setId(first, second);
             }
+            
+            break;
         }
         else
         {
@@ -106,6 +108,8 @@ void Analyze::AnalyzeXref()
                             string second = GetStringValue(array->Value(1));
                             m_document->setId(first, second);
                         }
+                        
+                        break;
                     }
                 }
             }
@@ -726,6 +730,7 @@ ObjNode *Analyze::GetObject(int id, int generation)
                 // Value found
                 done = true;
                 ret = obj;
+                break;
             }
         }
     }

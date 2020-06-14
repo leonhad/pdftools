@@ -59,12 +59,7 @@ vector<string> MapNode::Names() const
     return names;
 }
 
-map<string, TreeNode *> MapNode::Values() const
-{
-    return m_values;
-}
-
-void MapNode::Push(string name, TreeNode *value)
+void MapNode::Put(string name, TreeNode *value)
 {
     m_values.insert(pair<string, TreeNode *>(name, value));
 }

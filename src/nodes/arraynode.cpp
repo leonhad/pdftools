@@ -29,10 +29,6 @@ ArrayNode::ArrayNode() :
 
 ArrayNode::~ArrayNode()
 {
-    for (auto &i : m_values)
-    {
-        delete i;
-    }
 }
 
 TreeNode *ArrayNode::Value(size_t index) const
