@@ -2,7 +2,7 @@ language: cpp
 
 sudo: required
 dist: bionic
-osx_image: xcode11.5
+osx_image: xcode10.2
 
 addons:
   apt:
