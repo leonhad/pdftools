@@ -29,7 +29,7 @@ public:
 
     virtual ~Element() override;
 
-    virtual std::string toXML() const override;
+    virtual std::string ToXML() const override;
 };
 
 #endif

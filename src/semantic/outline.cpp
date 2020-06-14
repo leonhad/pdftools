@@ -23,16 +23,16 @@ using namespace std;
 
 Outline::Outline()
 {
-    id = 0;
-    generation = 0;
-    x = 0;
-    y = 0;
+    m_id = 0;
+    m_generation = 0;
+    m_x = 0;
+    m_y = 0;
 }
 
 Outline::~Outline()
 {
-    vector<Outline *>::iterator i = childs.begin();
-    while (i != childs.end())
+    vector<Outline *>::iterator i = m_childs.begin();
+    while (i != m_childs.end())
     {
         delete *i;
         i++;
@@ -41,47 +41,47 @@ Outline::~Outline()
 
 const char *Outline::Title()
 {
-    return title.c_str();
+    return m_title.c_str();
 }
 
 void Outline::SetLocation(double newX, double newY)
 {
-    this->x = newX;
-    this->y = newY;
+    this->m_x = newX;
+    this->m_y = newY;
 }
 
 size_t Outline::Size()
 {
-    return childs.size();
+    return m_childs.size();
 }
 
 Outline *Outline::Child(size_t index)
 {
-    return childs [index];
+    return m_childs [index];
 }
 
 void Outline::SetTitle(string t)
 {
-    this->title = t;
+    this->m_title = t;
 }
 
 void Outline::AddChild(Outline *child)
 {
-    this->childs.push_back(child);
+    this->m_childs.push_back(child);
 }
 
 void Outline::SetDestination(int i, int g)
 {
-    this->id = i;
-    this->generation = g;
+    this->m_id = i;
+    this->m_generation = g;
 }
 
 int Outline::Id()
 {
-    return id;
+    return m_id;
 }
 
 int Outline::Generation()
 {
-    return generation;
+    return m_generation;
 }

@@ -25,7 +25,7 @@
 
 using namespace std;
 
-Context::Context(Document *document)
+Context::Context(class Document *document)
 {
     m_document = document;
     m_page = nullptr;
@@ -39,57 +39,57 @@ Context::~Context()
 {
 }
 
-void Context::setFontSize(double size)
+void Context::SetFontSize(double size)
 {
     m_font_size = size;
 }
 
-double Context::fontSize()
+double Context::FontSize()
 {
     return m_font_size;
 }
 
-void Context::setFontChanged(bool changed)
+void Context::SetFontChanged(bool changed)
 {
     m_font_changed = changed;
 }
 
-bool Context::fontChanged()
+bool Context::FontChanged()
 {
     return m_font_changed;
 }
 
-bool Context::useFont()
+bool Context::UseFont()
 {
     return m_use_font;
 }
 
-void Context::setUseFont(bool use_font)
+void Context::SetUseFont(bool use_font)
 {
     m_use_font = use_font;
 }
 
-void Context::setCurrentPage(Page *page)
+void Context::SetCurrentPage(Page *page)
 {
     m_page = page;
 }
 
-Document *Context::document()
+Document *Context::Document()
 {
     return m_document;
 }
 
-void Context::setCurrentFont(string &alias, double size)
+void Context::SetCurrentFont(string &alias, double size)
 {
     if (m_document && m_page)
     {
         m_font_changed = true;
-        m_font = m_document->font(m_page->FontName(alias).c_str());
-        m_font->set_size(size);
+        m_font = m_document->Font(m_page->FontName(alias).c_str());
+        m_font->SetSize(size);
     }
 }
 
-Font *Context::font()
+Font *Context::Font()
 {
     return m_font;
 }

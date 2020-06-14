@@ -44,10 +44,10 @@ namespace node
 class Analyze
 {
 private:
-    std::string fileIn;
-    Document *document = nullptr;
-    node::RootNode *tree = nullptr;
-    std::map<std::string, node::TreeNode *> names;
+    std::string m_fileIn;
+    Document *m_document = nullptr;
+    node::RootNode *m_tree = nullptr;
+    std::map<std::string, node::TreeNode *> m_names;
     
 public:
     explicit Analyze(const std::string& filein);

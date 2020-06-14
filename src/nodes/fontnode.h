@@ -34,12 +34,12 @@ namespace node
         /**
          * The font name.
          */
-        std::string name;
+        std::string m_name;
 
         /**
          * The font size.
          */
-        double size;
+        double m_size;
 
     public:
         /**

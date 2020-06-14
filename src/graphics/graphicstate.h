@@ -35,17 +35,17 @@ private:
     /**
      * Stores the current font.
      */
-    Font *font;
+    Font *m_font;
 
     /**
      * Stores the state list.
      */
-    std::vector<State *> states;
+    std::vector<State *> m_states;
 
     /**
      * Stores the current state.
      */
-    State *currentState;
+    State *m_currentState;
 
 public:
     /**
@@ -78,33 +78,33 @@ public:
     /**
      * Sets a text matrix.
      *
-     * \param a the matrix value.
-     * \param b the matrix value.
-     * \param c the matrix value.
-     * \param d the matrix value.
-     * \param e the matrix value.
-     * \param f the matrix value.
+     * @param a the matrix value.
+     * @param b the matrix value.
+     * @param c the matrix value.
+     * @param d the matrix value.
+     * @param e the matrix value.
+     * @param f the matrix value.
      */
     void SetTextMatrix(double a, double b, double c, double d, double e, double f);
 
     /**
      * Gets the current text font.
      *
-     * \return the current text font.
+     * @return the current text font.
      */
     double GetTextFont();
 
     /**
      * Gets the current font.
      *
-     * \return the current font.
+     * @return the current font.
      */
     Font *GetFont();
 
     /**
      * Sets the current font.
      *
-     * \param font the font to set.
+     * @param font the font to set.
      */
     void SetFont(Font *font);
 };

@@ -32,7 +32,7 @@ PageParser::PageParser(istream *stream) :
         GenericParser
         { stream }
 {
-    m_scanner->disableCharsetConversion();
+    m_scanner->DisableCharsetConversion();
 }
 
 PageParser::~PageParser()
@@ -43,7 +43,7 @@ PageParser::~PageParser()
     }
 }
 
-RootNode *PageParser::parse()
+RootNode *PageParser::Parse()
 {
     if (m_root)
     {
@@ -55,24 +55,24 @@ RootNode *PageParser::parse()
     vector<TreeNode *> values;
     values.reserve(10);
 
-    nextToken();
-    while (m_scanner->good())
+    NextToken();
+    while (m_scanner->Good())
     {
-        TreeNode *value = valueSequence();
+        TreeNode *value = ValueSequence();
         if (value)
         {
             values.push_back(value);
         }
         else
         {
-            switch (m_token->type())
+            switch (m_token->Type())
             {
             case TokenType::BDC:
-                root = bdcSequence(values, root);
+                root = BdcSequence(values, root);
                 break;
             case TokenType::EMC:
             {
-                match(TokenType::EMC);
+                Match(TokenType::EMC);
                 BDCNode *bdc = dynamic_cast<BDCNode *>(root);
                 if (bdc)
                 {
@@ -81,57 +81,57 @@ RootNode *PageParser::parse()
                 break;
             }
             case TokenType::BI:
-                root->AddChild(biSequence());
+                root->AddChild(BiSequence());
                 break;
 
                 // Text positioning
             case TokenType::TM:
-                root->AddChild(tmSequence(values));
+                root->AddChild(TmSequence(values));
                 break;
 
             case TokenType::TF:
-                root->AddChild(fontSequence(values));
+                root->AddChild(FontSequence(values));
                 break;
 
                 // Graphic State
             case TokenType::Q_LO:
                 root->AddChild(new StateNode(true));
-                nextToken();
+                NextToken();
                 break;
             case TokenType::Q_UP:
                 root->AddChild(new StateNode(false));
-                nextToken();
+                NextToken();
                 break;
 
                 // Text
             case TokenType::TJ_LO:
-                match(TokenType::TJ_LO);
-                root->AddChild(textSequence(values));
+                Match(TokenType::TJ_LO);
+                root->AddChild(TextSequence(values));
                 break;
             case TokenType::TJ_UP:
-                tjupSequence(root, values);
+                TjupSequence(root, values);
                 break;
             case TokenType::T_AST:
-                match(TokenType::T_AST);
+                Match(TokenType::T_AST);
                 root->AddChild(new BreakNode);
                 break;
             case TokenType::DOUBLE_QUOTE:
             {
-                match(TokenType::DOUBLE_QUOTE);
+                Match(TokenType::DOUBLE_QUOTE);
                 root->AddChild(new BreakNode);
                 vector<TreeNode *> vector;
                 vector.assign(values.begin() + 3, values.end());
-                root->AddChild(textSequence(vector));
+                root->AddChild(TextSequence(vector));
                 break;
             }
             case TokenType::QUOTE:
-                match(TokenType::QUOTE);
+                Match(TokenType::QUOTE);
                 root->AddChild(new BreakNode);
-                root->AddChild(textSequence(values));
-                nextToken();
+                root->AddChild(TextSequence(values));
+                NextToken();
                 break;
             default:
-                nextToken();
+                NextToken();
                 break;
             }
             
@@ -151,9 +151,9 @@ RootNode *PageParser::parse()
     return m_root;
 }
 
-TreeNode *PageParser::tmSequence(vector<TreeNode *> &values)
+TreeNode *PageParser::TmSequence(vector<TreeNode *> &values)
 {
-    match(TokenType::TM);
+    Match(TokenType::TM);
 
     if (values.size() == 6)
     {
@@ -169,9 +169,9 @@ TreeNode *PageParser::tmSequence(vector<TreeNode *> &values)
     return nullptr;
 }
 
-TreeNode *PageParser::fontSequence(vector<TreeNode *> &values)
+TreeNode *PageParser::FontSequence(vector<TreeNode *> &values)
 {
-    match(TokenType::TF);
+    Match(TokenType::TF);
 
     if (values.size() == 2)
     {
@@ -196,22 +196,22 @@ TreeNode *PageParser::fontSequence(vector<TreeNode *> &values)
     }
 }
 
-TreeNode *PageParser::biSequence()
+TreeNode *PageParser::BiSequence()
 {
-    match(TokenType::BI);
-    while (m_token->type() != TokenType::ID)
+    Match(TokenType::BI);
+    while (m_token->Type() != TokenType::ID)
     {
-        match(TokenType::NAME);
-        TreeNode *value = valueSequence();
+        Match(TokenType::NAME);
+        TreeNode *value = ValueSequence();
         delete value;
     }
-    m_scanner->getImageStream();
-    nextToken();
-    match(TokenType::EI);
+    m_scanner->ImageStream();
+    NextToken();
+    Match(TokenType::EI);
     return nullptr;
 }
 
-TreeNode *PageParser::textSequence(vector<TreeNode *> &values)
+TreeNode *PageParser::TextSequence(vector<TreeNode *> &values)
 {
     TextNode *text = new TextNode;
     size_t size = values.size();
@@ -226,9 +226,9 @@ TreeNode *PageParser::textSequence(vector<TreeNode *> &values)
     return text;
 }
 
-void PageParser::tjupSequence(RootNode *root, vector<TreeNode *> &values)
+void PageParser::TjupSequence(RootNode *root, vector<TreeNode *> &values)
 {
-    match(TokenType::TJ_UP);
+    Match(TokenType::TJ_UP);
     size_t size = values.size();
     for (size_t loop = 0; loop < size; loop++)
     {
@@ -250,9 +250,9 @@ void PageParser::tjupSequence(RootNode *root, vector<TreeNode *> &values)
     }
 }
 
-BDCNode *PageParser::bdcSequence(vector<TreeNode *> &values, RootNode *parent)
+BDCNode *PageParser::BdcSequence(vector<TreeNode *> &values, RootNode *parent)
 {
-    match(TokenType::BDC);
+    Match(TokenType::BDC);
     BDCNode *node = new BDCNode(parent);
     parent->AddChild(node);
 

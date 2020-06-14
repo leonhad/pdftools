@@ -34,12 +34,12 @@ namespace node
         /**
          * The code space start.
          */
-        std::string start;
+        std::string m_start;
 
         /**
          * The code space finish.
          */
-        std::string finish;
+        std::string m_finish;
 
     public:
         /**

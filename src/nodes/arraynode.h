@@ -35,7 +35,7 @@ namespace node
         /**
          * The array values.
          */
-        std::vector<TreeNode *> values;
+        std::vector<TreeNode *> m_values;
 
     public:
         /**

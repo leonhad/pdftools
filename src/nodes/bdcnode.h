@@ -31,9 +31,9 @@ namespace node
     class BDCNode: public RootNode
     {
     private:
-        RootNode *parent;
-        TreeNode *value;
-        std::string name;
+        RootNode *m_parent;
+        TreeNode *m_value;
+        std::string m_name;
 
     public:
         /**

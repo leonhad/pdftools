@@ -22,26 +22,26 @@
 using namespace std;
 using namespace node;
 
-XREFNode::XREFNode() : TreeNode(), trailerNode(nullptr)
+XREFNode::XREFNode() : TreeNode(), m_trailerNode(nullptr)
 {
 }
 
 XREFNode::~XREFNode()
 {
-    if (trailerNode)
+    if (m_trailerNode)
     {
-        delete trailerNode;
+        delete m_trailerNode;
     }
 }
 
 void XREFNode::SetTrailer(TreeNode *trailer)
 {
-    this->trailerNode = trailer;
+    this->m_trailerNode = trailer;
 }
 
 TreeNode *XREFNode::Trailer() const
 {
-    return trailerNode;
+    return m_trailerNode;
 }
 
 void XREFNode::AddNode(uint16_t id, uint16_t generation, uint32_t address, char status)
@@ -51,5 +51,5 @@ void XREFNode::AddNode(uint16_t id, uint16_t generation, uint32_t address, char 
     xref.generation = generation;
     xref.address = address;
     xref.status = status;
-    references.push_back(xref);
+    m_references.push_back(xref);
 }

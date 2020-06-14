@@ -29,7 +29,7 @@ private:
     /**
      * The current text matrix.
      */
-    double textMatrix[3][3];
+    double m_textMatrix[3][3];
 
 public:
     /**
@@ -50,19 +50,19 @@ public:
     /**
      * Set the current text matrix.
      *
-     * \param a the matrix value.
-     * \param b the matrix value.
-     * \param c the matrix value.
-     * \param d the matrix value.
-     * \param e the matrix value.
-     * \param f the matrix value.
+     * @param a the matrix value.
+     * @param b the matrix value.
+     * @param c the matrix value.
+     * @param d the matrix value.
+     * @param e the matrix value.
+     * @param f the matrix value.
      */
     void SetTextMatrix(double a, double b, double c, double d, double e, double f);
 
     /**
      * Gets the current text font.
      *
-     * \return the current text font.
+     * @return the current text font.
      */
     double GetTextFont() const;
 };

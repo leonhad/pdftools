@@ -39,20 +39,20 @@ public:
     Font();
     ~Font();
 
-    void set_size(double size);
-    void set_fixed(bool fixed);
-    void set_name(std::string name);
-    void set_italic(bool italic);
-    std::string name();
-    double size();
-    bool italic();
-    bool bold();
-    bool fixed();
+    void SetSize(double size);
+    void SetFixed(bool fixed);
+    void SetName(std::string name);
+    void SetItalic(bool italic);
+    std::string Name();
+    double Size();
+    bool Italic();
+    bool Bold();
+    bool Fixed();
 
-    void set_charmap_start(std::string value);
-    void set_charmap_finish(std::string value);
-    void add_charmap(std::string character, std::string utf16value);
-    std::string translate(std::string &value);
+    void SetCharMapStart(std::string value);
+    void SetCharMapFinish(std::string value);
+    void AddCharMap(std::string character, std::string utf16value);
+    std::string Translate(std::string &value);
 };
 
 #endif

@@ -32,12 +32,12 @@ private:
     /**
      * The font size.
      */
-    double size;
+    double m_size;
 
     /**
      * Font face name.
      */
-    std::string font;
+    std::string m_font;
 
 public:
     /**

@@ -31,7 +31,7 @@ public:
     /**
      * Draw this glyph.
      *
-     * \param document the document to generate in.
+     * @param document the document to generate in.
      */
     virtual void DoGlyph(Html *document);
 };

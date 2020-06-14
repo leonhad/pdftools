@@ -38,11 +38,11 @@ GenericParser::~GenericParser()
     }
 }
 
-bool GenericParser::match(TokenType type)
+bool GenericParser::Match(TokenType type)
 {
-    if (m_token && m_token->type() == type)
+    if (m_token && m_token->Type() == type)
     {
-        nextToken();
+        NextToken();
     }
     else
     {
@@ -50,101 +50,101 @@ bool GenericParser::match(TokenType type)
         wstring msg = L"unexpected token: ";
         if (m_token)
         {
-            msg += SingleToWide(m_token->value());
+            msg += SingleToWide(m_token->Value());
         }
         ErrorMessage(msg);
 #endif
-        nextToken();
+        NextToken();
         return false;
     }
     return true;
 }
 
-void GenericParser::nextToken()
+void GenericParser::NextToken()
 {
-    m_token = m_scanner->nextToken();
+    m_token = m_scanner->NextToken();
 }
 
-TreeNode *GenericParser::valueSequence()
+TreeNode *GenericParser::ValueSequence()
 {
-    if (m_token->type() == TokenType::START_DICT)
+    if (m_token->Type() == TokenType::START_DICT)
     {
-        match(TokenType::START_DICT);
+        Match(TokenType::START_DICT);
         MapNode *map = new MapNode;
 
-        while (m_scanner->good() && m_token && m_token->type() != TokenType::END_DICT)
+        while (m_scanner->Good() && m_token && m_token->Type() != TokenType::END_DICT)
         {
-            string name = m_token->value();
-            match(TokenType::NAME);
-            TreeNode *value = valueSequence();
+            string name = m_token->Value();
+            Match(TokenType::NAME);
+            TreeNode *value = ValueSequence();
             NameNode *n = dynamic_cast<NameNode *>(value);
             if (n && n->Name() [0] != '/')
             {
-                value = valueSequence();
+                value = ValueSequence();
             }
             map->Push(name, value);
         }
-        match(TokenType::END_DICT);
+        Match(TokenType::END_DICT);
         return map;
     }
-    else if (m_token->type() == TokenType::TRUE)
+    else if (m_token->Type() == TokenType::TRUE)
     {
-        match(TokenType::TRUE);
+        Match(TokenType::TRUE);
         return new BooleanNode(true);
     }
-    else if (m_token->type() == TokenType::FALSE)
+    else if (m_token->Type() == TokenType::FALSE)
     {
-        match(TokenType::FALSE);
+        Match(TokenType::FALSE);
         return new BooleanNode(false);
     }
-    else if (m_token->type() == TokenType::NAME)
+    else if (m_token->Type() == TokenType::NAME)
     {
-        string name = m_token->value();
-        match(TokenType::NAME);
+        string name = m_token->Value();
+        Match(TokenType::NAME);
         return new NameNode(name);
     }
-    else if (m_token->type() == TokenType::STRING)
+    else if (m_token->Type() == TokenType::STRING)
     {
-        string value = m_token->value();
-        match(TokenType::STRING);
+        string value = m_token->Value();
+        Match(TokenType::STRING);
         return new StringNode(value);
     }
-    else if (m_token->type() == TokenType::NUM)
+    else if (m_token->Type() == TokenType::NUM)
     {
         int value = m_token->ToInt();
-        istream::pos_type pos = m_scanner->pos();
-        match(TokenType::NUM);
+        istream::pos_type pos = m_scanner->Pos();
+        Match(TokenType::NUM);
 
-        if (m_token->type() == TokenType::NUM)
+        if (m_token->Type() == TokenType::NUM)
         {
             int generation = m_token->ToInt();
-            match(TokenType::NUM);
-            if (m_token->type() == TokenType::NAME && m_token->value() == "R")
+            Match(TokenType::NUM);
+            if (m_token->Type() == TokenType::NAME && m_token->Value() == "R")
             {
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
                 return new RefNode(value, generation);
             }
             else
             {
-                m_scanner->to_pos(pos);
+                m_scanner->ToPos(pos);
             }
         }
         else
         {
-            m_scanner->to_pos(pos);
+            m_scanner->ToPos(pos);
         }
-        nextToken();
+        NextToken();
         return new NumberNode(value);
     }
-    else if (m_token->type() == TokenType::START_ARRAY)
+    else if (m_token->Type() == TokenType::START_ARRAY)
     {
         ArrayNode *array = new ArrayNode;
-        match(TokenType::START_ARRAY);
-        while (m_scanner->good() && m_token->type() != TokenType::END_ARRAY)
+        Match(TokenType::START_ARRAY);
+        while (m_scanner->Good() && m_token->Type() != TokenType::END_ARRAY)
         {
-            array->Push(valueSequence());
+            array->Push(ValueSequence());
         }
-        match(TokenType::END_ARRAY);
+        Match(TokenType::END_ARRAY);
         return array;
     }
 

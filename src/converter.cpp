@@ -34,56 +34,56 @@
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& in, const string& out, const string& fileFormat) :
-    fileIn(in), format(fileFormat)
+Converter::Converter(const string& in, const string& out, const string& format) :
+    m_fileIn(in), m_format(format)
 {
     // Calculate the output file name
-    if (fileOut.empty())
+    if (m_fileOut.empty())
     {
-        fileOut = in;
-        auto last_dot = fileOut.find_last_of('.');
+        m_fileOut = in;
+        auto last_dot = m_fileOut.find_last_of('.');
         if (last_dot != string::npos)
         {
-            fileOut = fileOut.substr(0, last_dot);
+            m_fileOut = m_fileOut.substr(0, last_dot);
         }
-        fileOut += ".";
-        fileOut += format;
+        m_fileOut += ".";
+        m_fileOut += m_format;
     }
     else
     {
-        fileOut = out;
+        m_fileOut = out;
     }
 }
 
 void Converter::Convert()
 {
-    Analyze analyze(fileIn);
+    Analyze analyze(m_fileIn);
     
     Document* m_document = analyze.AnalyzeTree();
     
     wstring msg;
     msg += L"Analyzing file ";
-    msg += SingleToWide(fileIn);
+    msg += SingleToWide(m_fileIn);
     msg += L" Pages: ";
-    msg += to_wstring(m_document->pages());
+    msg += to_wstring(m_document->Pages());
     msg += L" - Title: ";
     
-    if (m_document->title().empty())
+    if (m_document->Title().empty())
     {
         msg += L"No title";
     }
     else
     {
-        msg += SingleToWide(m_document->title());
+        msg += SingleToWide(m_document->Title());
     }
     
     VerboseMessage(msg);
     
     // Generate output file
-    unique_ptr<Generator> instance(Generator::GetInstance(format));
+    unique_ptr<Generator> instance(Generator::GetInstance(m_format));
     if (instance.get())
     {
-        if (not instance->Generate(m_document, fileOut))
+        if (not instance->Generate(m_document, m_fileOut))
         {
             throw GenericException("Cannot generate output file");
         }

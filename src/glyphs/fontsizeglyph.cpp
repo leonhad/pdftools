@@ -27,5 +27,5 @@ FontSizeGlyph::FontSizeGlyph(double size) : Glyph()
 
 void FontSizeGlyph::DoGlyph(Html *)
 {
-    context->setFontSize(m_size);
+    m_context->SetFontSize(m_size);
 }

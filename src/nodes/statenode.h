@@ -33,13 +33,13 @@ namespace node
         /**
          * The state.
          */
-        bool save;
+        bool m_save;
 
     public:
         /**
          * Creates a new instance.
          *
-         * \param save the state to store.
+         * @param save the state to store.
          */
         explicit StateNode(bool save);
 
@@ -51,7 +51,7 @@ namespace node
         /**
          * Gets the state.
          *
-         * \return the state.
+         * @return the state.
          */
         bool Save() const;
     };

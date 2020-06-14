@@ -35,7 +35,7 @@ namespace node
         /**
          * The list of childhood nodes.
          */
-        std::vector<TreeNode *> child;
+        std::vector<TreeNode *> m_child;
 
     public:
         /**

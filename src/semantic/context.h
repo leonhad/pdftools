@@ -70,7 +70,7 @@ public:
      *
      * \param document the document.
      */
-    explicit Context(Document *document);
+    Context(Document *document);
 
     /**
      * Destroy the instance.
@@ -80,73 +80,73 @@ public:
     /**
      * Sets the use of font.
      *
-     * \param use_font true if use the font.
+     * @param use_font true if use the font.
      */
-    void setUseFont(bool use_font);
+    void SetUseFont(bool use_font);
 
     /**
      * Sets if the font is changed.
      *
-     * \param changed true if the font is changed.
+     * @param changed true if the font is changed.
      */
-    void setFontChanged(bool changed);
+    void SetFontChanged(bool changed);
 
     /**
      * Sets the current font.
      *
-     * \param alias the font alias.
-     * \param size the font size.
+     * @param alias the font alias.
+     * @param size the font size.
      */
-    void setCurrentFont(std::string &alias, double size);
+    void SetCurrentFont(std::string &alias, double size);
 
     /**
      * Sets the current page.
      *
-     * \param page the current page.
+     * @param page the current page.
      */
-    void setCurrentPage(Page *page);
+    void SetCurrentPage(Page *page);
 
     /**
      * Sets the font size.
      *
-     * \param size the font size.
+     * @param size the font size.
      */
-    void setFontSize(double size);
+    void SetFontSize(double size);
 
     /**
      * Gets if use font.
      *
-     * \return true if use font.
+     * @return true if use font.
      */
-    bool useFont();
+    bool UseFont();
 
     /**
      * Gets if font is changed.
      *
-     * \return true if the font changed.
+     * @return true if the font changed.
      */
-    bool fontChanged();
+    bool FontChanged();
 
     /**
      * Gets the current font.
      *
-     * \return the current font.
+     * @return the current font.
      */
-    Font *font();
+    class Font *Font();
 
     /**
      * Gets the font size.
      *
-     * \return the font size.
+     * @return the font size.
      */
-    double fontSize();
+    double FontSize();
 
     /**
      * Gets the document.
      *
-     * \return the document.
+     * @return the document.
      */
-    Document *document();
+    class Document *Document();
 };
 
 #endif

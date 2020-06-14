@@ -28,10 +28,10 @@ TextNode::TextNode() : TreeNode()
 
 void TextNode::Add(const string &text)
 {
-    this->value += text;
+    this->m_value += text;
 }
 
 string TextNode::Text() const
 {
-    return value;
+    return m_value;
 }

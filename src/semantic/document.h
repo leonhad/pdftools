@@ -121,196 +121,196 @@ public:
     /**
      * Sets the document id.
      *
-     * \param id the id.
-     * \param generation the generation.
+     * @param id the id.
+     * @param generation the generation.
      */
     void setId(const std::string &id, const std::string &generation);
 
     /**
      * Sets the document tree root.
      *
-     * \param root the document tree root.
+     * @param root the document tree root.
      */
-    void setRoot(node::TreeNode *root);
+    void SetRoot(node::TreeNode *root);
 
     /**
      * Sets the document info node.
      *
-     * \param info the document info node.
+     * @param info the document info node.
      */
-    void setInfo(node::TreeNode *info);
+    void SetInfo(node::TreeNode *info);
 
     /**
      * Sets if the document is encrypted.
      *
-     * \param encrypt true if the document is encrypted.
+     * @param encrypt true if the document is encrypted.
      */
-    void setEncrypted(bool encrypt);
+    void SetEncrypted(bool encrypt);
 
     /**
      * Sets if the document tree root is parsed.
      *
-     * \param tree_root true if the document tree root is parsed.
+     * @param tree_root true if the document tree root is parsed.
      */
-    void setTreeRoot(bool tree_root);
+    void SetTreeRoot(bool tree_root);
 
     /**
      * Sets the document title.
      *
-     * \param title the document title.
+     * @param title the document title.
      */
-    void setTitle(std::string title);
+    void SetTitle(std::string title);
 
     /**
      * Sets the document subject.
      *
-     * \param subject the document subject.
+     * @param subject the document subject.
      */
-    void setSubject(std::string subject);
+    void SetSubject(std::string subject);
 
     /**
      * Sets the document author.
      *
-     * \param author the document author.
+     * @param author the document author.
      */
-    void setAuthor(std::string author);
+    void SetAuthor(std::string author);
 
     /**
      * Sets the document language.
      *
-     * \param lang the document language.
+     * @param lang the document language.
      */
-    void setLang(std::string lang);
+    void SetLang(std::string lang);
 
     /**
      * Sets the document outline.
      *
-     * \param outline the document outline.
+     * @param outline the document outline.
      */
-    void setOutline(Outline *outline);
+    void SetOutline(class Outline *outline);
 
     /**
      * Gets the document outline.
      *
-     * \return the document outline.
+     * @return the document outline.
      */
-    Outline *outline();
+    class Outline *Outline();
 
     /**
      * Add a font to this document.
      *
-     * \param font the font to add.
+     * @param font the font to add.
      */
-    void addFont(Font *font);
+    void AddFont(class Font *font);
 
     /**
      * Get a font by its name.
      *
-     * \param name the font name.
-     * \return the font by name.
+     * @param name the font name.
+     * @return the font by name.
      */
-    Font *font(const char *name);
+    class Font *Font(const char *name);
 
     /**
      * Adds a page to this document.
      *
-     * \param page the page to add.
+     * @param page the page to add.
      */
-    void addPage(Page *page);
+    void AddPage(Page *page);
 
     /**
      * Adds a page label to this document.
      *
-     * \param label the page label to add.
+     * @param label the page label to add.
      */
-    void addPageLabel(PageLabel *label);
+    void AddPageLabel(PageLabel *label);
 
     /**
      * Gets a page by index.
      *
-     * \param index the page index.
-     * \return the page by index.
+     * @param index the page index.
+     * @return the page by index.
      */
-    Page *page(size_t index);
+    Page *Page(size_t index);
 
     /**
      * Gets the total count of document pages.
      *
-     * \return the total count of document pages.
+     * @return the total count of document pages.
      */
-    size_t pages();
+    size_t Pages();
 
     /**
      * Gets a page by its id.
      *
-     * \param id the page id.
-     * \param generation the page generation.
-     * \return the page.
+     * @param id the page id.
+     * @param generation the page generation.
+     * @return the page.
      */
-    Page *page(int id, int generation);
+    class Page *Page(int id, int generation);
 
     /**
      * Gets if this document is encrypted.
      *
-     * \return true if this document is encrypted.
+     * @return true if this document is encrypted.
      */
-    bool encrypted();
+    bool Encrypted();
 
     /**
      * Gets if the tree node is parsed.
      *
-     * \return true if the tree node is parsed.
+     * @return true if the tree node is parsed.
      */
-    bool treeRoot();
+    bool TreeRoot();
 
     /**
      * Gets the page language.
      *
-     * \return the page language.
+     * @return the page language.
      */
-    std::string lang();
+    std::string Lang();
 
     /**
      * Gets the document id.
      *
-     * \return the document id.
+     * @return the document id.
      */
-    std::string id();
+    std::string Id();
 
     /**
      * Gets the document title.
      *
-     * \return the document title.
+     * @return the document title.
      */
-    std::string title();
+    std::string Title();
 
     /**
      * Gets the document subject.
      *
-     * \return the document subject.
+     * @return the document subject.
      */
-    std::string subject();
+    std::string Subject();
 
     /**
      * Gets the document author.
      *
-     * \return the document author.
+     * @return the document author.
      */
-    std::string author();
+    std::string Author();
 
     /**
      * Gets the document root node.
      *
-     * \return the document root node.
+     * @return the document root node.
      */
-    node::TreeNode *rootNode();
+    node::TreeNode *RootNode();
 
     /**
      * Gets the document info node.
      *
-     * \return the document info node.
+     * @return the document info node.
      */
-    node::TreeNode *infoNode();
+    node::TreeNode *InfoNode();
 };
 
 #endif

@@ -39,15 +39,15 @@ public:
     XML();
     ~XML();
 
-    void startDocument(const std::string& version, const std::string& charset);
-    void addDoctype(const std::string& name, const std::string& public_id,
+    void StartDocument(const std::string& version, const std::string& charset);
+    void SetDoctype(const std::string& name, const std::string& public_id,
             const std::string& sys_id);
-    void addAttribute(const std::string& id, const std::string& value);
-    void addElement(const std::string& value);
-    void startTag(const std::string& tag_name);
-    void endTag();
-    void endDocument();
-    const std::string content() const;
+    void AddAttribute(const std::string& id, const std::string& value);
+    void AddElement(const std::string& value);
+    void StartTag(const std::string& tag_name);
+    void EndTag();
+    void EndDocument();
+    const std::string Content() const;
 };
 
 #endif

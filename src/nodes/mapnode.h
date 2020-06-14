@@ -37,7 +37,7 @@ private:
     /**
      * Stores a map of nodes.
      */
-    std::map<std::string, TreeNode *> values;
+    std::map<std::string, TreeNode *> m_values;
 
 public:
     /**

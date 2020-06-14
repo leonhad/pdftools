@@ -38,7 +38,7 @@ Document::Document()
 
 Document::~Document()
 {
-    vector<Page *>::iterator iteratorPages = m_pages.begin();
+    vector<class Page *>::iterator iteratorPages = m_pages.begin();
     while (iteratorPages != m_pages.end())
     {
         delete *iteratorPages;
@@ -50,7 +50,7 @@ Document::~Document()
         delete *iteratorLavel;
         iteratorLavel++;
     }
-    vector<Font *>::iterator iteratorFonts = m_fonts.begin();
+    vector<class Font *>::iterator iteratorFonts = m_fonts.begin();
     while (iteratorFonts != m_fonts.end())
     {
         delete *iteratorFonts;
@@ -62,27 +62,27 @@ Document::~Document()
     }
 }
 
-void Document::setTreeRoot(bool tree_root)
+void Document::SetTreeRoot(bool tree_root)
 {
     m_tree_root = tree_root;
 }
 
-bool Document::treeRoot()
+bool Document::TreeRoot()
 {
     return m_tree_root;
 }
 
-void Document::addFont(Font *font)
+void Document::AddFont(class Font *font)
 {
     m_fonts.push_back(font);
 }
 
-Font *Document::font(const char *name)
+Font *Document::Font(const char *name)
 {
-    vector<Font *>::iterator f = m_fonts.begin();
+    vector<class Font *>::iterator f = m_fonts.begin();
     while (f != m_fonts.end())
     {
-        if ((*f)->name() == name)
+        if ((*f)->Name() == name)
         {
             return *f;
         }
@@ -91,17 +91,17 @@ Font *Document::font(const char *name)
     return nullptr;
 }
 
-void Document::setEncrypted(bool encrypt)
+void Document::SetEncrypted(bool encrypt)
 {
     m_encrypted = encrypt;
 }
 
-bool Document::encrypted()
+bool Document::Encrypted()
 {
     return m_encrypted;
 }
 
-Page *Document::page(int id, int generation)
+Page *Document::Page(int id, int generation)
 {
     for (auto i = m_pages.begin(); i != m_pages.end(); i++)
     {
@@ -114,12 +114,12 @@ Page *Document::page(int id, int generation)
     return nullptr;
 }
 
-void Document::setOutline(Outline *outline)
+void Document::SetOutline(class Outline *outline)
 {
     m_outlines = outline;
 }
 
-Outline *Document::outline()
+class Outline *Document::Outline()
 {
     return m_outlines;
 }
@@ -129,67 +129,67 @@ void Document::setId(const string &first, const string &second)
     m_id = first + second;
 }
 
-void Document::addPage(Page *page)
+void Document::AddPage(class Page *page)
 {
     m_pages.push_back(page);
 }
 
-void Document::addPageLabel(PageLabel *label)
+void Document::AddPageLabel(PageLabel *label)
 {
     m_page_label.push_back(label);
 }
 
-Page *Document::page(size_t index)
+Page *Document::Page(size_t index)
 {
     return m_pages[index];
 }
 
-size_t Document::pages()
+size_t Document::Pages()
 {
     return m_pages.size();
 }
 
-TreeNode *Document::rootNode()
+TreeNode *Document::RootNode()
 {
     return m_root;
 }
 
-TreeNode *Document::infoNode()
+TreeNode *Document::InfoNode()
 {
     return m_info;
 }
 
-string Document::id()
+string Document::Id()
 {
     return m_id;
 }
 
-void Document::setRoot(TreeNode *root)
+void Document::SetRoot(TreeNode *root)
 {
     m_root = root;
 }
 
-void Document::setInfo(TreeNode *info)
+void Document::SetInfo(TreeNode *info)
 {
     m_info = info;
 }
 
-void Document::setTitle(string title)
+void Document::SetTitle(string title)
 {
     m_title = title;
 }
 
-void Document::setSubject(string subject)
+void Document::SetSubject(string subject)
 {
     m_subject = subject;
 }
 
-void Document::setAuthor(string author)
+void Document::SetAuthor(string author)
 {
     m_author = author;
 }
 
-void Document::setLang(string lang)
+void Document::SetLang(string lang)
 {
     if (not lang.empty())
     {
@@ -197,22 +197,22 @@ void Document::setLang(string lang)
     }
 }
 
-string Document::lang()
+string Document::Lang()
 {
     return m_lang;
 }
 
-string Document::title()
+string Document::Title()
 {
     return m_title;
 }
 
-string Document::subject()
+string Document::Subject()
 {
     return m_subject;
 }
 
-string Document::author()
+string Document::Author()
 {
     return m_author;
 }

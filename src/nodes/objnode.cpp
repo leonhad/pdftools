@@ -23,54 +23,54 @@ using namespace std;
 using namespace node;
 
 ObjNode::ObjNode(int id, int generation) :
-        TreeNode(), id(id), generation(generation), streamPos(istream::beg), value(nullptr)
+        TreeNode(), m_id(id), m_generation(generation), m_streamPos(istream::beg), m_value(nullptr)
 {
 }
 
 ObjNode::~ObjNode()
 {
-    if (value)
+    if (m_value)
     {
-        delete value;
+        delete m_value;
     }
 }
 
 int ObjNode::Id() const
 {
-    return id;
+    return m_id;
 }
 
 int ObjNode::Generation() const
 {
-    return generation;
+    return m_generation;
 }
 
 TreeNode *ObjNode::Value() const
 {
-    return value;
+    return m_value;
 }
 
 bool ObjNode::SameObject(int i, int g) const
 {
-    return this->id == i && this->generation == g;
+    return this->m_id == i && this->m_generation == g;
 }
 
 void ObjNode::SetValue(TreeNode *v)
 {
-    if (value)
+    if (m_value)
     {
-        delete value;
+        delete m_value;
     }
 
-    this->value = v;
+    this->m_value = v;
 }
 
-void ObjNode::SetStreamPos(istream::pos_type pos)
+void ObjNode::SetStreamPos(streampos pos)
 {
-    this->streamPos = pos;
+    this->m_streamPos = pos;
 }
 
-istream::pos_type ObjNode::StreamPos() const
+streampos ObjNode::StreamPos() const
 {
-    return streamPos;
+    return m_streamPos;
 }

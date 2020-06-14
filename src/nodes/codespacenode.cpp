@@ -29,20 +29,20 @@ CodeSpaceNode::CodeSpaceNode() :
 
 void CodeSpaceNode::SetStart(const string &s)
 {
-    this->start = s;
+    this->m_start = s;
 }
 
 void CodeSpaceNode::SetFinish(const string &f)
 {
-    this->finish = f;
+    this->m_finish = f;
 }
 
 string CodeSpaceNode::Start() const
 {
-    return start;
+    return m_start;
 }
 
 string CodeSpaceNode::Finish() const
 {
-    return finish;
+    return m_finish;
 }

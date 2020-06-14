@@ -54,7 +54,7 @@ namespace parser
         /**
          * Creates a new instance.
          *
-         * \param filein the file to parse.
+         * \@param filein the file to parse.
          */
         explicit Parser(std::ifstream *filein);
 
@@ -66,48 +66,48 @@ namespace parser
         /**
          * Parses the root node.
          *
-         * \return the root node.
+         * @return the root node.
          */
-        node::RootNode *parse();
+        node::RootNode *Parse();
 
     private:
         /**
          * Verify the PDF version.
          *
-         * \return true if this file is a valid version.
+         * @return true if this file is a valid version.
          */
-        bool verifyVersion();
+        bool VerifyVersion();
 
         /**
          * Parses the object streams.
          *
-         * \param root the root node to parse.
+         * @param root the root node to parse.
          */
-        void objectStreams(node::RootNode *root);
+        void ObjectStreams(node::RootNode *root);
 
         /**
          * Parses the start XREF sequences.
          */
-        void startXrefSequence();
+        void StartXrefSequence();
 
         /**
          * Parses the comment sequences.
          */
-        void commentSequence();
+        void CommentSequence();
 
         /**
          * Parses the object sequences.
          *
-         * \return the object node.
+         * @return the object node.
          */
-        node::TreeNode *objectSequence();
+        node::TreeNode *ObjectSequence();
 
         /**
          * Parses the XREF sequences.
          *
-         * \return the XREF node.
+         * @return the XREF node.
          */
-        node::TreeNode *xrefSequence();
+        node::TreeNode *XrefSequence();
     };
 }
 

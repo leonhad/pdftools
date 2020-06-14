@@ -29,7 +29,7 @@ ArrayNode::ArrayNode() :
 
 ArrayNode::~ArrayNode()
 {
-    for (auto &i : values)
+    for (auto &i : m_values)
     {
         delete i;
     }
@@ -37,15 +37,15 @@ ArrayNode::~ArrayNode()
 
 TreeNode *ArrayNode::Value(size_t index) const
 {
-    return values [index];
+    return m_values [index];
 }
 
 size_t ArrayNode::Size() const
 {
-    return values.size();
+    return m_values.size();
 }
 
 void ArrayNode::Push(TreeNode *value)
 {
-    values.push_back(value);
+    m_values.push_back(value);
 }

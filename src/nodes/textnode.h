@@ -34,7 +34,7 @@ namespace node
         /**
          * The text value.
          */
-        std::string value;
+        std::string m_value;
 
     public:
         /**

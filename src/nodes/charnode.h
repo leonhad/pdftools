@@ -34,12 +34,12 @@ namespace node
         /**
          * This char.
          */
-        std::string thisChar;
+        std::string m_thisChar;
 
         /**
          * The unicode value.
          */
-        std::string unicode;
+        std::string m_unicode;
 
     public:
         /**

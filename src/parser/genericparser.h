@@ -25,7 +25,7 @@
 
 namespace node
 {
-class TreeNode;
+    class TreeNode;
 }
 
 namespace parser
@@ -35,51 +35,51 @@ namespace parser
  */
 class GenericParser
 {
-protected:
-    /**
-     * The file scanner.
-     */
-    Scanner *m_scanner;
+    protected:
+        /**
+         * The file scanner.
+         */
+        Scanner *m_scanner;
 
-    /**
-     * The current token.
-     */
-    Token *m_token;
+        /**
+         * The current token.
+         */
+        Token *m_token;
 
-public:
-    /**
-     * Creates a new instance.
-     *
-     * \param filein the file to parse.
-     */
-    explicit GenericParser(std::istream *filein);
+    public:
+        /**
+         * Creates a new instance.
+         *
+         * @param filein the file to parse.
+         */
+        explicit GenericParser(std::istream *filein);
 
-    /**
-     * Destroy this instance.
-     */
-    ~GenericParser();
+        /**
+         * Destroy this instance.
+         */
+        ~GenericParser();
 
-protected:
-    /**
-     * Gets the tree node sequence value.
-     *
-     * \return the tree node sequence value.
-     */
-    node::TreeNode *valueSequence();
+    protected:
+        /**
+         * Gets the tree node sequence value.
+         *
+         * @return the tree node sequence value.
+         */
+        node::TreeNode *ValueSequence();
 
-    /**
-     * Checks if the current token have the some type.
-     *
-     * \param type the type to check with the current token.
-     * \return true if are the same.
-     */
-    bool match(TokenType type);
+        /**
+         * Checks if the current token have the some type.
+         *
+         * @param type the type to check with the current token.
+         * @return true if are the same.
+         */
+        bool Match(TokenType type);
 
-    /**
-     * Reads the next token.
-     */
-    void nextToken();
-};
+        /**
+         * Reads the next token.
+         */
+        void NextToken();
+    };
 }
 
 #endif

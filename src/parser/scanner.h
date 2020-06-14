@@ -63,89 +63,89 @@ public:
     /**
      * Reads the next token.
      *
-     * \return the next token.
+     * @return the next token.
      */
-    Token *nextToken();
+    Token *NextToken();
 
     /**
      * If this scanner have more tokens.
      *
-     * \return true if this scanner have more tokens.
+     * @return true if this scanner have more tokens.
      */
-    bool good() const;
+    bool Good() const;
 
     /**
      * Ignore a line.
      */
-    void ignoreLine();
+    void IgnoreLine();
 
     /**
      * Ignore a stream of bytes by its length.
      *
-     * \param length the length to ignore.
-     * \return the size skipped.
+     * @param length the length to ignore.
+     * @return the size skipped.
      */
-    std::istream::pos_type ignoreStream(int length);
+    std::streampos IgnoreStream(int length);
 
     /**
      * Gets the current position.
      *
-     * \return the current position.
+     * @return the current position.
      */
-    std::istream::pos_type pos() const;
+    std::streampos Pos() const;
 
     /**
      * Change the current position.
      *
-     * \param pos the position to switch.
+     * @param pos the position to switch.
      */
-    void to_pos(std::istream::pos_type pos);
+    void ToPos(std::streampos pos);
 
     /**
      * Gets a stream of bytes.
      *
-     * \param length the length to read.
-     * \return the stream.
+     * @param length the length to read.
+     * @return the stream.
      */
-    char *getStream(std::streamsize length);
+    char *Stream(std::streamsize length);
 
     /**
      * Get a image stream.
      *
-     * \return the image stream.
+     * @return the image stream.
      */
-    char *getImageStream();
+    char *ImageStream();
 
     /**
      * Disable the charset conversion.
      */
-    void disableCharsetConversion();
+    void DisableCharsetConversion();
 
     /**
      * Clears the file stream.
      */
-    void clear();
+    void Clear();
 
 private:
     /**
      * Retuns a char to the buffer.
      */
-    void ungetChar();
+    void UngetChar();
 
     /**
      * Gets the next char.
      *
-     * \return the next char.
+     * @return the next char.
      */
-    char nextChar();
+    char NextChar();
 
     /**
      * Gets the token type by a string.
      *
-     * \param s the string to lookup.
-     * \return the token type by a string.
+     * @param s the string to lookup.
+     * @return the token type by a string.
      */
-    TokenType reserved_lookup(const char *s);
+    TokenType ReservedLookup(const char *s);
 };
 }
 

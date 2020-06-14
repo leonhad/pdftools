@@ -35,7 +35,7 @@ XML::~XML()
     }
 }
 
-const string XML::content() const
+const string XML::Content() const
 {
     stringstream m_buffer;
     m_buffer << "<?xml version=\"" << m_version << "\" encoding=\"" << m_charset << "\"?>" << endl;
@@ -54,45 +54,45 @@ const string XML::content() const
     }
     if (m_root)
     {
-        m_buffer << m_root->toXML();
+        m_buffer << m_root->ToXML();
     }
     return m_buffer.str();
 }
 
-void XML::startDocument(const string &version, const string &charset)
+void XML::StartDocument(const string &version, const string &charset)
 {
     m_version = version;
     m_charset = charset;
 }
 
-void XML::addDoctype(const string &name, const string &public_id, const string &sys_id)
+void XML::SetDoctype(const string &name, const string &public_id, const string &sys_id)
 {
     m_doctype_name = name;
     m_public_id = public_id;
     m_sys_id = sys_id;
 }
 
-void XML::endDocument()
+void XML::EndDocument()
 {
 }
 
-void XML::addAttribute(const string &id, const string &value)
-{
-    if (m_last_tag)
-    {
-        m_last_tag->addAttribute(id, value);
-    }
-}
-
-void XML::addElement(const string &value)
+void XML::AddAttribute(const string &id, const string &value)
 {
     if (m_last_tag)
     {
-        m_last_tag->addTag(new Element(value));
+        m_last_tag->AddAttribute(id, value);
     }
 }
 
-void XML::startTag(const string &tag_name)
+void XML::AddElement(const string &value)
+{
+    if (m_last_tag)
+    {
+        m_last_tag->AddTag(new Element(value));
+    }
+}
+
+void XML::StartTag(const string &tag_name)
 {
     XmlTag *tag = new XmlTag
     { tag_name };
@@ -102,16 +102,16 @@ void XML::startTag(const string &tag_name)
     }
     if (m_last_tag)
     {
-        m_last_tag->addTag(tag);
-        tag->setParent(m_last_tag);
+        m_last_tag->AddTag(tag);
+        tag->SetParent(m_last_tag);
     }
     m_last_tag = tag;
 }
 
-void XML::endTag()
+void XML::EndTag()
 {
     if (m_last_tag)
     {
-        m_last_tag = m_last_tag->parent();
+        m_last_tag = m_last_tag->Parent();
     }
 }

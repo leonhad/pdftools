@@ -23,39 +23,39 @@ using namespace std;
 using namespace node;
 
 BDCNode::BDCNode(RootNode *parent) :
-        RootNode(), parent(parent), value(nullptr)
+        RootNode(), m_parent(parent), m_value(nullptr)
 {
 }
 
 BDCNode::~BDCNode()
 {
-    if (value)
+    if (m_value)
     {
-        delete value;
+        delete m_value;
     }
 }
 
 TreeNode *BDCNode::Value()
 {
-    return value;
+    return m_value;
 }
 
 string BDCNode::Name()
 {
-    return name;
+    return m_name;
 }
 
 void BDCNode::SetValue(TreeNode *v)
 {
-    this->value = v;
+    this->m_value = v;
 }
 
 void BDCNode::SetName(const string &n)
 {
-    this->name = n;
+    this->m_name = n;
 }
 
 RootNode *BDCNode::Parent()
 {
-    return parent;
+    return m_parent;
 }

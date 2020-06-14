@@ -31,7 +31,7 @@ MapNode::MapNode() : TreeNode()
 
 MapNode::~MapNode()
 {
-    for (auto &i : values)
+    for (auto &i : m_values)
     {
         delete i.second;
     }
@@ -39,8 +39,8 @@ MapNode::~MapNode()
 
 TreeNode *MapNode::Get(string name) const
 {
-    auto i = values.find(name);
-    if (i != values.end()) {
+    auto i = m_values.find(name);
+    if (i != m_values.end()) {
         return i->second;
     }
 
@@ -50,8 +50,8 @@ TreeNode *MapNode::Get(string name) const
 vector<string> MapNode::Names() const
 {
     vector<string> names;
-    names.reserve(values.size());
-    for (const auto &p : values)
+    names.reserve(m_values.size());
+    for (const auto &p : m_values)
     {
         names.push_back(p.first);
     }
@@ -61,10 +61,10 @@ vector<string> MapNode::Names() const
 
 map<string, TreeNode *> MapNode::Values() const
 {
-    return values;
+    return m_values;
 }
 
 void MapNode::Push(string name, TreeNode *value)
 {
-    values.insert(pair<string, TreeNode *>(name, value));
+    m_values.insert(pair<string, TreeNode *>(name, value));
 }

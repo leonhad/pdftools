@@ -27,94 +27,94 @@ using namespace std;
 
 Page::Page(Document *parent)
 {
-    mediaBox = nullptr;
-    cropBox = nullptr;
-    document = parent;
-    id = 0;
-    generation = 0;
-    root = nullptr;
+    m_mediaBox = nullptr;
+    m_cropBox = nullptr;
+    m_document = parent;
+    m_id = 0;
+    m_generation = 0;
+    m_root = nullptr;
 }
 
 Page::~Page()
 {
-    if (mediaBox)
+    if (m_mediaBox)
     {
-        delete [] mediaBox;
+        delete [] m_mediaBox;
     }
 
-    if (cropBox)
+    if (m_cropBox)
     {
-        delete [] cropBox;
+        delete [] m_cropBox;
     }
 
-    if (root)
+    if (m_root)
     {
-        delete root;
+        delete m_root;
     }
 }
 
 void Page::SetRoot(Glyph *r)
 {
-    this->root = r;
+    this->m_root = r;
 }
 
 void Page::AddFontMap(string alias, string font_name)
 {
-    fontMap [alias] = font_name;
+    m_fontMap [alias] = font_name;
 }
 
 string Page::FontName(string &alias)
 {
-    return fontMap [alias];
+    return m_fontMap [alias];
 }
 
 void Page::Execute(Html *html)
 {
-    Context *context = new Context(document);
-    context->setCurrentPage(this);
+    Context *context = new Context(m_document);
+    context->SetCurrentPage(this);
     html->AddSection(Link());
-    root->Execute(html, context);
+    m_root->Execute(html, context);
     html->EndTag();
     delete context;
 }
 
 const string Page::Link()
 {
-    return link;
+    return m_link;
 }
 
 void Page::SetMediaBox(int a, int b, int c, int d)
 {
-    mediaBox = new int [4];
-    mediaBox [0] = a;
-    mediaBox [1] = b;
-    mediaBox [2] = c;
-    mediaBox [3] = d;
+    m_mediaBox = new int [4];
+    m_mediaBox [0] = a;
+    m_mediaBox [1] = b;
+    m_mediaBox [2] = c;
+    m_mediaBox [3] = d;
 }
 
 void Page::SetCropBox(int a, int b, int c, int d)
 {
-    cropBox = new int [4];
-    cropBox [0] = a;
-    cropBox [1] = b;
-    cropBox [2] = c;
-    cropBox [3] = d;
+    m_cropBox = new int [4];
+    m_cropBox [0] = a;
+    m_cropBox [1] = b;
+    m_cropBox [2] = c;
+    m_cropBox [3] = d;
 }
 
 void Page::SetDestination(int i, int g)
 {
-    this->id = i;
-    this->generation = g;
+    this->m_id = i;
+    this->m_generation = g;
 
-    this->link = "section" + to_string(id) + "_" + to_string(generation);
+    this->m_link = "section" + to_string(m_id) + "_" + to_string(m_generation);
 }
 
 int Page::Id()
 {
-    return id;
+    return m_id;
 }
 
 int Page::Generation()
 {
-    return generation;
+    return m_generation;
 }

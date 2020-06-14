@@ -26,12 +26,12 @@
 class Outline
 {
 private:
-    std::vector<Outline *> childs;
-    std::string title;
-    int id;
-    int generation;
-    double x;
-    double y;
+    std::vector<Outline *> m_childs;
+    std::string m_title;
+    int m_id;
+    int m_generation;
+    double m_x;
+    double m_y;
 
 public:
     Outline();

@@ -30,7 +30,7 @@ CMapParser::CMapParser(istream *stream) :
         GenericParser
         { stream }
 {
-    m_scanner->disableCharsetConversion();
+    m_scanner->DisableCharsetConversion();
     m_root = nullptr;
 }
 
@@ -42,7 +42,7 @@ CMapParser::~CMapParser()
     }
 }
 
-CMapNode *CMapParser::parse()
+CMapNode *CMapParser::Parse()
 {
     int val;
 
@@ -52,124 +52,124 @@ CMapNode *CMapParser::parse()
     }
     m_root = new CMapNode();
 
-    nextToken();
+    NextToken();
 
     // /CIDInit
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
     // /ProcSet
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
     // findresource
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
     // begin
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
     // 12
-    match(TokenType::NUM);
+    Match(TokenType::NUM);
     // dict
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
     // begin
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
     //begincmap
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
 
-    while (m_scanner->good())
+    while (m_scanner->Good())
     {
-        switch (m_token->type())
+        switch (m_token->Type())
         {
         case TokenType::NAME:
-            if (m_token->value() == "/CMapName")
+            if (m_token->Value() == "/CMapName")
             {
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
                 // /Name
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
                 // def
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
             }
-            else if (m_token->value() == "/CMapType")
+            else if (m_token->Value() == "/CMapType")
             {
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
                 // 2
-                match(TokenType::NUM);
+                Match(TokenType::NUM);
                 // def
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
             }
-            else if (m_token->value() == "/CIDSystemInfo")
+            else if (m_token->Value() == "/CIDSystemInfo")
             {
-                match(TokenType::NAME);
-                delete valueSequence();
+                Match(TokenType::NAME);
+                delete ValueSequence();
                 // def
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
             }
             else
             {
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
             }
             break;
         case TokenType::NUM:
-            val = (int) m_token->toNumber();
-            match(TokenType::NUM);
-            if (m_token->value() == "beginbfchar")
+            val = (int) m_token->ToNumber();
+            Match(TokenType::NUM);
+            if (m_token->Value() == "beginbfchar")
             {
-                match(TokenType::NAME);
-                bfCharSequence(val);
+                Match(TokenType::NAME);
+                BfCharSequence(val);
             }
-            else if (m_token->value() == "begincodespacerange")
+            else if (m_token->Value() == "begincodespacerange")
             {
-                match(TokenType::NAME);
-                m_root->SetCodespace(codespaceSequence());
+                Match(TokenType::NAME);
+                m_root->SetCodespace(CodespaceSequence());
             }
-            else if (m_token->value() == "beginbfrange")
+            else if (m_token->Value() == "beginbfrange")
             {
-                match(TokenType::NAME);
-                bfRangeSequence(val);
+                Match(TokenType::NAME);
+                BfRangeSequence(val);
             }
             else
             {
-                match(TokenType::NAME);
+                Match(TokenType::NAME);
                 ErrorMessage(L"invalid mode");
             }
             break;
         default:
-            nextToken();
+            NextToken();
             break;
         }
     }
     return m_root;
 }
 
-CodeSpaceNode *CMapParser::codespaceSequence()
+CodeSpaceNode *CMapParser::CodespaceSequence()
 {
     CodeSpaceNode *ret = new CodeSpaceNode;
-    ret->SetStart(m_token->value());
-    match(TokenType::STRING);
-    ret->SetFinish(m_token->value());
-    match(TokenType::STRING);
+    ret->SetStart(m_token->Value());
+    Match(TokenType::STRING);
+    ret->SetFinish(m_token->Value());
+    Match(TokenType::STRING);
     // endcodespacerange
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
     return ret;
 }
 
-void CMapParser::bfCharSequence(const int count)
+void CMapParser::BfCharSequence(const int count)
 {
     for (int loop = 0; loop < count; loop++)
     {
-        string character = m_token->value();
-        match(TokenType::STRING);
-        string unicode = m_token->value();
-        match(TokenType::STRING);
+        string character = m_token->Value();
+        Match(TokenType::STRING);
+        string unicode = m_token->Value();
+        Match(TokenType::STRING);
         m_root->Add(new CharNode(character, unicode));
     }
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
 }
 
-void CMapParser::bfRangeSequence(const int count)
+void CMapParser::BfRangeSequence(const int count)
 {
     for (int loop = 0; loop < count; loop++)
     {
-        string start = m_token->value();
-        match(TokenType::STRING);
-        string end = m_token->value();
-        match(TokenType::STRING);
-        TreeNode *node = valueSequence();
+        string start = m_token->Value();
+        Match(TokenType::STRING);
+        string end = m_token->Value();
+        Match(TokenType::STRING);
+        TreeNode *node = ValueSequence();
         StringNode *name = dynamic_cast<StringNode *>(node);
         if (name)
         {
@@ -219,5 +219,5 @@ void CMapParser::bfRangeSequence(const int count)
             }
         }
     }
-    match(TokenType::NAME);
+    Match(TokenType::NAME);
 }

@@ -39,7 +39,7 @@ Parser::Parser(ifstream *filein) : GenericParser{ filein }
 
     if (filein->is_open())
     {
-        nextToken();
+        NextToken();
     }
     else
     {
@@ -47,31 +47,31 @@ Parser::Parser(ifstream *filein) : GenericParser{ filein }
     }
 }
 
-RootNode *Parser::parse()
+RootNode *Parser::Parse()
 {
     RootNode *root = new RootNode();
     bool error = false;
-    match(TokenType::PERCENT);
-    if (verifyVersion())
+    Match(TokenType::PERCENT);
+    if (VerifyVersion())
     {
-        while (m_scanner->good() && not error)
+        while (m_scanner->Good() && not error)
         {
-            switch (m_token->type())
+            switch (m_token->Type())
             {
             case TokenType::PERCENT:
-                commentSequence();
+                CommentSequence();
                 break;
             case TokenType::NUM:
-                root->AddChild(objectSequence());
+                root->AddChild(ObjectSequence());
                 break;
             case TokenType::XREF:
-                root->AddChild(xrefSequence());
+                root->AddChild(XrefSequence());
                 break;
             case TokenType::START_XREF:
-                startXrefSequence();
+                StartXrefSequence();
                 break;
             default:
-                nextToken();
+                NextToken();
                 error = true;
                 break;
             }
@@ -81,12 +81,12 @@ RootNode *Parser::parse()
     {
          throw GenericException("Invalid input file.");
     }
-    m_scanner->clear();
-    objectStreams(root);
+    m_scanner->Clear();
+    ObjectStreams(root);
     return root;
 }
 
-void Parser::objectStreams(RootNode *root_node)
+void Parser::ObjectStreams(RootNode *root_node)
 {
     size_t size = root_node->Size();
 
@@ -115,8 +115,8 @@ void Parser::objectStreams(RootNode *root_node)
                     }
                     char *uncompressed = nullptr;
 
-                    m_scanner->to_pos(root_object->StreamPos());
-                    char *stream = m_scanner->getStream((streamsize)length);
+                    m_scanner->ToPos(root_object->StreamPos());
+                    char *stream = m_scanner->Stream((streamsize)length);
 
                     size_t total = (size_t)length;
                     NameNode *filter = dynamic_cast<NameNode *>(map->Get("/Filter"));
@@ -149,16 +149,16 @@ void Parser::objectStreams(RootNode *root_node)
                     int loop;
                     for (loop = 0; loop < qtd; loop++)
                     {
-                        nextToken();
-                        ids.push_back((int) m_token->toNumber());
-                        nextToken();
+                        NextToken();
+                        ids.push_back((int) m_token->ToNumber());
+                        NextToken();
                     }
-                    nextToken();
+                    NextToken();
                     vector<int>::iterator id;
                     for (id = ids.begin(); id < ids.end(); id++)
                     {
                         ObjNode *new_obj = new ObjNode(*id, 0);
-                        new_obj->SetValue(valueSequence());
+                        new_obj->SetValue(ValueSequence());
                         root_node->AddChild(new_obj);
                     }
                     m_scanner = temp;
@@ -168,67 +168,67 @@ void Parser::objectStreams(RootNode *root_node)
     }
 }
 
-void Parser::commentSequence()
+void Parser::CommentSequence()
 {
-    m_scanner->ignoreLine();
-    nextToken();
+    m_scanner->IgnoreLine();
+    NextToken();
 }
 
-TreeNode *Parser::xrefSequence()
+TreeNode *Parser::XrefSequence()
 {
     XREFNode *xref = new XREFNode;
-    match(TokenType::XREF);
+    Match(TokenType::XREF);
 
-    uint16_t id = (uint16_t) m_token->toNumber();
-    match(TokenType::NUM);
-    int count = (int) m_token->toNumber();
-    match(TokenType::NUM);
+    uint16_t id = (uint16_t) m_token->ToNumber();
+    Match(TokenType::NUM);
+    int count = (int) m_token->ToNumber();
+    Match(TokenType::NUM);
 
     for (int loop = 0; loop < count; loop++)
     {
-        uint32_t address = (uint32_t) m_token->toNumber();
-        match(TokenType::NUM);
-        uint16_t generation = (uint16_t) m_token->toNumber();
-        match(TokenType::NUM);
-        string name = m_token->value();
-        if (m_token->type() == TokenType::F_LO)
+        uint32_t address = (uint32_t) m_token->ToNumber();
+        Match(TokenType::NUM);
+        uint16_t generation = (uint16_t) m_token->ToNumber();
+        Match(TokenType::NUM);
+        string name = m_token->Value();
+        if (m_token->Type() == TokenType::F_LO)
         {
-            match(TokenType::F_LO);
+            Match(TokenType::F_LO);
         }
         else
         {
-            match(TokenType::N);
+            Match(TokenType::N);
         }
         xref->AddNode(id, generation, address, name.at(0));
         id++;
     }
     
-    match(TokenType::TRAILER);
-    xref->SetTrailer(valueSequence());
+    Match(TokenType::TRAILER);
+    xref->SetTrailer(ValueSequence());
     return xref;
 }
 
-void Parser::startXrefSequence()
+void Parser::StartXrefSequence()
 {
-    match(TokenType::START_XREF);
-    match(TokenType::NUM);
+    Match(TokenType::START_XREF);
+    Match(TokenType::NUM);
 
-    match(TokenType::PERCENT);
-    match(TokenType::PERCENT);
-    match(TokenType::END_PDF);
+    Match(TokenType::PERCENT);
+    Match(TokenType::PERCENT);
+    Match(TokenType::END_PDF);
 }
 
-TreeNode *Parser::objectSequence()
+TreeNode *Parser::ObjectSequence()
 {
-    double number = m_token->toNumber();
-    match(TokenType::NUM);
-    double generation_nunber = m_token->toNumber();
-    match(TokenType::NUM);
+    double number = m_token->ToNumber();
+    Match(TokenType::NUM);
+    double generation_nunber = m_token->ToNumber();
+    Match(TokenType::NUM);
 
     ObjNode *node = new ObjNode((int) number, (int) generation_nunber);
-    match(TokenType::OBJ);
-    node->SetValue(valueSequence());
-    if (m_token && m_token->type() == TokenType::STREAM)
+    Match(TokenType::OBJ);
+    node->SetValue(ValueSequence());
+    if (m_token && m_token->Type() == TokenType::STREAM)
     {
         int length = -1;
         MapNode *map = dynamic_cast<MapNode *>(node->Value());
@@ -240,23 +240,23 @@ TreeNode *Parser::objectSequence()
                 length = (int) numberNode->Value();
             }
         }
-        node->SetStreamPos(m_scanner->ignoreStream(length));
-        nextToken();
-        match(TokenType::END_STREAM);
+        node->SetStreamPos(m_scanner->IgnoreStream(length));
+        NextToken();
+        Match(TokenType::END_STREAM);
     }
-    match(TokenType::END_OBJ);
+    Match(TokenType::END_OBJ);
 
     return node;
 }
 
-bool Parser::verifyVersion()
+bool Parser::VerifyVersion()
 {
     if (m_token)
     {
-        string line = m_token->value();
+        string line = m_token->Value();
         if (pdf_versions(line))
         {
-            match(TokenType::NAME);
+            Match(TokenType::NAME);
             return true;
         }
     }

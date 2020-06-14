@@ -30,22 +30,22 @@
 
 using namespace std;
 
-EPUB::EPUB() : Generator(), document(nullptr), zipFile(new ZipFile), order(0)
+EPUB::EPUB() : Generator(), m_document(nullptr), m_zipFile(new ZipFile), m_order(0)
 {
 }
 
 EPUB::~EPUB()
 {
-    if (zipFile)
+    if (m_zipFile)
     {
-        delete zipFile;
+        delete m_zipFile;
     }
 }
 
 void EPUB::GenerateMimeType()
 {
     const char *mime = "application/epub+zip";
-    zipFile->AddSource("mimetype", mime);
+    m_zipFile->AddSource("mimetype", mime);
 }
 
 void EPUB::GenerateCss()
@@ -63,168 +63,168 @@ void EPUB::GenerateCss()
     css << ".f16 {font-size: 16pt}\n";
     css << ".f18 {font-size: 18pt}\n";
     css << "div {display:inline}\n";
-    zipFile->AddSource("style.css", css.str());
+    m_zipFile->AddSource("style.css", css.str());
 }
 
 void EPUB::GenerateContainer()
 {
     XML xml;
-    xml.startDocument("1.0", "UTF-8");
+    xml.StartDocument("1.0", "UTF-8");
 
-    xml.startTag("container");
-    xml.addAttribute("version", "1.0");
-    xml.addAttribute("xmlns", "urn:oasis:names:tc:opendocument:xmlns:container");
-    xml.startTag("rootfiles");
-    xml.startTag("rootfile");
-    xml.addAttribute("full-path", "content.opf");
-    xml.addAttribute("media-type", "application/oebps-package+xml");
-    xml.endTag();
-    xml.endTag();
-    xml.endTag();
+    xml.StartTag("container");
+    xml.AddAttribute("version", "1.0");
+    xml.AddAttribute("xmlns", "urn:oasis:names:tc:opendocument:xmlns:container");
+    xml.StartTag("rootfiles");
+    xml.StartTag("rootfile");
+    xml.AddAttribute("full-path", "content.opf");
+    xml.AddAttribute("media-type", "application/oebps-package+xml");
+    xml.EndTag();
+    xml.EndTag();
+    xml.EndTag();
 
-    xml.endDocument();
-    string content = xml.content();
-    zipFile->AddSource("META-INF/container.xml", content);
+    xml.EndDocument();
+    string content = xml.Content();
+    m_zipFile->AddSource("META-INF/container.xml", content);
 }
 
 void EPUB::GenerateContent(const string &output)
 {
     XML xml;
-    xml.startDocument("1.0", "UTF-8");
+    xml.StartDocument("1.0", "UTF-8");
 
-    xml.startTag("package");
-    xml.addAttribute("xmlns", "http://www.idpf.org/2007/opf");
-    xml.addAttribute("unique-identifier", "dcidid");
-    xml.addAttribute("version", "2.0");
+    xml.StartTag("package");
+    xml.AddAttribute("xmlns", "http://www.idpf.org/2007/opf");
+    xml.AddAttribute("unique-identifier", "dcidid");
+    xml.AddAttribute("version", "2.0");
 
-    xml.startTag("metadata");
-    xml.addAttribute("xmlns:dc", "http://purl.org/dc/elements/1.1/");
-    xml.addAttribute("xmlns:dcterms", "http://purl.org/dc/terms/");
-    xml.addAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
-    xml.addAttribute("xmlns:opf", "http://www.idpf.org/2007/opf");
+    xml.StartTag("metadata");
+    xml.AddAttribute("xmlns:dc", "http://purl.org/dc/elements/1.1/");
+    xml.AddAttribute("xmlns:dcterms", "http://purl.org/dc/terms/");
+    xml.AddAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    xml.AddAttribute("xmlns:opf", "http://www.idpf.org/2007/opf");
 
-    xml.startTag("dc:title");
-    if (not document->title().empty())
+    xml.StartTag("dc:title");
+    if (not m_document->Title().empty())
     {
-        xml.addElement(document->title());
+        xml.AddElement(m_document->Title());
     }
     else
     {
-        xml.addElement("No title");
+        xml.AddElement("No title");
     }
 
-    xml.endTag();
+    xml.EndTag();
 
-    xml.startTag("dc:language");
-    xml.addAttribute("xsi:type", "dcterms:RFC3066");
-    xml.addElement(document->lang().c_str());
-    xml.endTag();
+    xml.StartTag("dc:language");
+    xml.AddAttribute("xsi:type", "dcterms:RFC3066");
+    xml.AddElement(m_document->Lang().c_str());
+    xml.EndTag();
 
-    xml.startTag("dc:identifier");
-    xml.addAttribute("id", "dcidid");
-    xml.addAttribute("opf:scheme", "URI");
-    xml.addElement(output);
-    xml.endTag();
+    xml.StartTag("dc:identifier");
+    xml.AddAttribute("id", "dcidid");
+    xml.AddAttribute("opf:scheme", "URI");
+    xml.AddElement(output);
+    xml.EndTag();
 
-    xml.startTag("dc:subject");
-    xml.addElement(document->subject());
-    xml.endTag();
+    xml.StartTag("dc:subject");
+    xml.AddElement(m_document->Subject());
+    xml.EndTag();
 
-    xml.startTag("dc:relation");
-    xml.addElement(PACKAGE_URL);
-    xml.endTag();
+    xml.StartTag("dc:relation");
+    xml.AddElement(PACKAGE_URL);
+    xml.EndTag();
 
-    xml.startTag("dc:creator");
-    if (document->author().empty())
+    xml.StartTag("dc:creator");
+    if (m_document->Author().empty())
     {
-        xml.addElement(PACKAGE_STRING);
+        xml.AddElement(PACKAGE_STRING);
     }
     else
     {
-        xml.addElement(document->author());
+        xml.AddElement(m_document->Author());
     }
 
-    xml.endTag();
+    xml.EndTag();
 
-    xml.startTag("dc:publisher");
-    xml.addElement(PACKAGE_STRING);
-    xml.endTag();
+    xml.StartTag("dc:publisher");
+    xml.AddElement(PACKAGE_STRING);
+    xml.EndTag();
 
-    xml.startTag("dc:publisher");
-    xml.addElement(document->author());
-    xml.endTag();
+    xml.StartTag("dc:publisher");
+    xml.AddElement(m_document->Author());
+    xml.EndTag();
 
-    xml.endTag();
+    xml.EndTag();
 
-    xml.startTag("manifest");
+    xml.StartTag("manifest");
 
-    xml.startTag("item");
-    xml.addAttribute("id", "ncx");
-    xml.addAttribute("href", "toc.ncx");
-    xml.addAttribute("media-type", "application/x-dtbncx+xml");
-    xml.endTag();
+    xml.StartTag("item");
+    xml.AddAttribute("id", "ncx");
+    xml.AddAttribute("href", "toc.ncx");
+    xml.AddAttribute("media-type", "application/x-dtbncx+xml");
+    xml.EndTag();
 
-    for (size_t loop = 0; loop < document->pages(); loop++)
+    for (size_t loop = 0; loop < m_document->Pages(); loop++)
     {
-        Page *page = document->page(loop);
+        Page *page = m_document->Page(loop);
 
-        xml.startTag("item");
-        xml.addAttribute("id", page->Link());
-        xml.addAttribute("href", page->Link() + ".html");
-        xml.addAttribute("media-type", "application/xhtml+xml");
-        xml.endTag();
+        xml.StartTag("item");
+        xml.AddAttribute("id", page->Link());
+        xml.AddAttribute("href", page->Link() + ".html");
+        xml.AddAttribute("media-type", "application/xhtml+xml");
+        xml.EndTag();
     }
 
-    xml.startTag("item");
-    xml.addAttribute("id", "css");
-    xml.addAttribute("href", "style.css");
-    xml.addAttribute("media-type", "text/css");
-    xml.endTag();
+    xml.StartTag("item");
+    xml.AddAttribute("id", "css");
+    xml.AddAttribute("href", "style.css");
+    xml.AddAttribute("media-type", "text/css");
+    xml.EndTag();
 
-    xml.endTag();
+    xml.EndTag();
 
-    xml.startTag("spine");
-    xml.addAttribute("toc", "ncx");
+    xml.StartTag("spine");
+    xml.AddAttribute("toc", "ncx");
 
-    for (size_t loop = 0; loop < document->pages(); loop++)
+    for (size_t loop = 0; loop < m_document->Pages(); loop++)
     {
-        Page *page = document->page(loop);
+        Page *page = m_document->Page(loop);
 
-        xml.startTag("itemref");
-        xml.addAttribute("idref", page->Link());
-        xml.addAttribute("linear", "yes");
-        xml.endTag();
+        xml.StartTag("itemref");
+        xml.AddAttribute("idref", page->Link());
+        xml.AddAttribute("linear", "yes");
+        xml.EndTag();
     }
 
-    xml.endTag();
+    xml.EndTag();
 
-    xml.endTag();
-    xml.endDocument();
-    string content = xml.content();
-    zipFile->AddSource("content.opf", content);
+    xml.EndTag();
+    xml.EndDocument();
+    string content = xml.Content();
+    m_zipFile->AddSource("content.opf", content);
 }
 
 void EPUB::GenerateOutline(XML *xml, Outline *outline)
 {
-    Page *page = document->page(outline->Id(), outline->Generation());
+    Page *page = m_document->Page(outline->Id(), outline->Generation());
 
     if (page)
     {
-        string playorder{ to_string(order) };
-        order++;
+        string playorder{ to_string(m_order) };
+        m_order++;
 
-        xml->startTag("navPoint");
-        xml->addAttribute("id", playorder);
+        xml->StartTag("navPoint");
+        xml->AddAttribute("id", playorder);
 
-        xml->startTag("navLabel");
-        xml->startTag("text");
-        xml->addElement(outline->Title());
-        xml->endTag();
-        xml->endTag();
+        xml->StartTag("navLabel");
+        xml->StartTag("text");
+        xml->AddElement(outline->Title());
+        xml->EndTag();
+        xml->EndTag();
 
-        xml->startTag("content");
-        xml->addAttribute("src", page->Link() + ".html");
-        xml->endTag();
+        xml->StartTag("content");
+        xml->AddAttribute("src", page->Link() + ".html");
+        xml->EndTag();
     }
 
     size_t size = outline->Size();
@@ -235,95 +235,95 @@ void EPUB::GenerateOutline(XML *xml, Outline *outline)
 
     if (page)
     {
-        xml->endTag();
+        xml->EndTag();
     }
 }
 
 void EPUB::GenerateToc(const string &output)
 {
-    Outline *outline = document->outline();
+    Outline *outline = m_document->Outline();
 
     XML xml;
-    xml.startDocument("1.0", "UTF-8");
+    xml.StartDocument("1.0", "UTF-8");
 
-    xml.startTag("ncx");
-    xml.addAttribute("xmlns", "http://www.daisy.org/z3986/2005/ncx/");
-    xml.addAttribute("version", "2005-1");
+    xml.StartTag("ncx");
+    xml.AddAttribute("xmlns", "http://www.daisy.org/z3986/2005/ncx/");
+    xml.AddAttribute("version", "2005-1");
 
-    xml.startTag("head");
-    xml.startTag("meta");
-    xml.addAttribute("name", "dtb:uid");
-    xml.addAttribute("content", output);
-    xml.endTag();
-    xml.startTag("meta");
-    xml.addAttribute("name", "dtb:depth");
-    xml.addAttribute("content", "2");
-    xml.endTag();
-    xml.startTag("meta");
-    xml.addAttribute("name", "dtb:totalPageCount");
-    xml.addAttribute("content", "0");
-    xml.endTag();
-    xml.startTag("meta");
-    xml.addAttribute("name", "dtb:maxPageNumber");
-    xml.addAttribute("content", "0");
-    xml.endTag();
-    xml.endTag();
+    xml.StartTag("head");
+    xml.StartTag("meta");
+    xml.AddAttribute("name", "dtb:uid");
+    xml.AddAttribute("content", output);
+    xml.EndTag();
+    xml.StartTag("meta");
+    xml.AddAttribute("name", "dtb:depth");
+    xml.AddAttribute("content", "2");
+    xml.EndTag();
+    xml.StartTag("meta");
+    xml.AddAttribute("name", "dtb:totalPageCount");
+    xml.AddAttribute("content", "0");
+    xml.EndTag();
+    xml.StartTag("meta");
+    xml.AddAttribute("name", "dtb:maxPageNumber");
+    xml.AddAttribute("content", "0");
+    xml.EndTag();
+    xml.EndTag();
 
-    xml.startTag("docTitle");
-    xml.startTag("text");
-    xml.addElement(document->title());
-    xml.endTag();
-    xml.endTag();
+    xml.StartTag("docTitle");
+    xml.StartTag("text");
+    xml.AddElement(m_document->Title());
+    xml.EndTag();
+    xml.EndTag();
 
-    xml.startTag("navMap");
+    xml.StartTag("navMap");
     if (outline)
     {
         GenerateOutline(&xml, outline);
     }
     else
     {
-        size_t size = document->pages();
+        size_t size = m_document->Pages();
         for (size_t i = 0; i < size; i++)
         {
-            Page *page = document->page(i);
+            Page *page = m_document->Page(i);
 
-            xml.startTag("navPoint");
-            xml.addAttribute("id", "navPoint-1");
-            xml.addAttribute("playOrder", "1");
+            xml.StartTag("navPoint");
+            xml.AddAttribute("id", "navPoint-1");
+            xml.AddAttribute("playOrder", "1");
 
-            xml.startTag("navLabel");
-            xml.startTag("text");
-            xml.addElement("Main Title");
-            xml.endTag();
-            xml.endTag();
+            xml.StartTag("navLabel");
+            xml.StartTag("text");
+            xml.AddElement("Main Title");
+            xml.EndTag();
+            xml.EndTag();
 
-            xml.startTag("content");
-            xml.addAttribute("src", page->Link() + ".html");
-            xml.endTag();
-            xml.endTag();
+            xml.StartTag("content");
+            xml.AddAttribute("src", page->Link() + ".html");
+            xml.EndTag();
+            xml.EndTag();
         }
     }
 
-    xml.endTag();
+    xml.EndTag();
 
-    xml.endTag();
-    xml.endDocument();
-    string content = xml.content();
+    xml.EndTag();
+    xml.EndDocument();
+    string content = xml.Content();
 
-    zipFile->AddSource("toc.ncx", content);
+    m_zipFile->AddSource("toc.ncx", content);
 }
 
 void EPUB::GeneratePages()
 {
-    size_t size = document->pages();
+    size_t size = m_document->Pages();
     for (size_t i = 0; i < size; i++)
     {
-        Page *page = document->page(i);
+        Page *page = m_document->Page(i);
 
         Html html;
         html.StartDocument();
         html.StartHeader();
-        html.SetTitle(document->title());
+        html.SetTitle(m_document->Title());
         html.AddLink("stylesheet", "text/css", "style.css");
         html.EndTag();
         html.StartBody();
@@ -334,15 +334,15 @@ void EPUB::GeneratePages()
         html.EndDocument();
 
         const string fileout = page->Link() + ".html";
-        zipFile->AddSource(fileout, html.Content());
+        m_zipFile->AddSource(fileout, html.Content());
     }
 }
 
 bool EPUB::Generate(Document *doc, const string &output)
 {
-    this->document = doc;
-    order = 1;
-    if (zipFile->Open(output))
+    this->m_document = doc;
+    m_order = 1;
+    if (m_zipFile->Open(output))
     {
         GenerateMimeType();
         GenerateCss();
@@ -350,7 +350,7 @@ bool EPUB::Generate(Document *doc, const string &output)
         GenerateContent(output);
         GenerateToc(output);
         GeneratePages();
-        zipFile->Close();
+        m_zipFile->Close();
     }
     else
     {

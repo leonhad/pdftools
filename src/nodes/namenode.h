@@ -34,7 +34,7 @@ namespace node
         /**
          * The name.
          */
-        std::string name;
+        std::string m_name;
 
     public:
         /**
@@ -42,7 +42,7 @@ namespace node
          *
          * @param name the name.
          */
-        explicit NameNode(const std::string &name);
+        NameNode(const std::string &name);
 
         /**
          * Destroy this instance.

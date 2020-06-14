@@ -33,7 +33,7 @@ namespace node
         /**
          * The number value.
          */
-        double value;
+        double m_value;
 
     public:
         /**

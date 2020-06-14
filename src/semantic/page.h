@@ -31,14 +31,14 @@ class Html;
 class Page
 {
 private:
-    int *mediaBox;
-    int *cropBox;
-    int id;
-    int generation;
-    std::string link;
-    Glyph *root;
-    Document *document;
-    std::map<std::string, std::string> fontMap;
+    int *m_mediaBox;
+    int *m_cropBox;
+    int m_id;
+    int m_generation;
+    std::string m_link;
+    Glyph *m_root;
+    Document *m_document;
+    std::map<std::string, std::string> m_fontMap;
 
 public:
     Page(Document *parent);

@@ -33,7 +33,7 @@ namespace node
         /**
          * The node value.
          */
-        bool value;
+        bool m_value;
 
     public:
         /**

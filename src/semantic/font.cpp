@@ -35,42 +35,42 @@ Font::~Font()
 {
 }
 
-void Font::set_size(double size)
+void Font::SetSize(double size)
 {
     m_size = size;
 }
 
-double Font::size()
+double Font::Size()
 {
     return m_size;
 }
 
-bool Font::fixed()
+bool Font::Fixed()
 {
     return m_fixed;
 }
 
-void Font::set_fixed(bool fixed)
+void Font::SetFixed(bool fixed)
 {
     m_fixed = fixed;
 }
 
-void Font::set_italic(bool italic)
+void Font::SetItalic(bool italic)
 {
     m_italic = italic;
 }
 
-bool Font::italic()
+bool Font::Italic()
 {
     return m_italic;
 }
 
-bool Font::bold()
+bool Font::Bold()
 {
     return m_bold;
 }
 
-void Font::set_name(string name)
+void Font::SetName(string name)
 {
     if (name.find("Bold") != string::npos)
     {
@@ -79,27 +79,27 @@ void Font::set_name(string name)
     m_name = name;
 }
 
-string Font::name()
+string Font::Name()
 {
     return m_name;
 }
 
-void Font::set_charmap_start(string value)
+void Font::SetCharMapStart(string value)
 {
     m_charmap_start = value;
 }
 
-void Font::set_charmap_finish(string value)
+void Font::SetCharMapFinish(string value)
 {
     m_charmap_finish = value;
 }
 
-void Font::add_charmap(string character, string utf16value)
+void Font::AddCharMap(string character, string utf16value)
 {
     m_charmap [character] = UTF16beToUTF8(utf16value);
 }
 
-string Font::translate(string &value)
+string Font::Translate(string &value)
 {
     string ret;
     size_t size = m_charmap_start.size();

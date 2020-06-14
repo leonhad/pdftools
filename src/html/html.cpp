@@ -24,8 +24,8 @@ using namespace std;
 
 Html::Html()
 {
-    xml.startDocument("1.0", "UTF-8");
-    xml.addDoctype("html", "-//W3C//DTD XHTML 1.1//EN",
+    m_xml.StartDocument("1.0", "UTF-8");
+    m_xml.SetDoctype("html", "-//W3C//DTD XHTML 1.1//EN",
             "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd");
 }
 
@@ -35,35 +35,35 @@ Html::~Html()
 
 void Html::BreakLine()
 {
-    xml.startTag("br");
-    xml.endTag();
+    m_xml.StartTag("br");
+    m_xml.EndTag();
 }
 
 void Html::AddParagraph()
 {
-    xml.startTag("p");
+    m_xml.StartTag("p");
 }
 
 void Html::StartHeader()
 {
-    xml.startTag("head");
+    m_xml.StartTag("head");
 }
 
 void Html::StartBody()
 {
-    xml.startTag("body");
+    m_xml.StartTag("body");
 }
 
 void Html::SetTitle(const string& title)
 {
-    xml.startTag("title");
-    xml.addElement(title);
-    xml.endTag();
+    m_xml.StartTag("title");
+    m_xml.AddElement(title);
+    m_xml.EndTag();
 }
 
 void Html::AddFont(double size, bool bold, bool italic, bool fixed)
 {
-    xml.startTag("div");
+    m_xml.StartTag("div");
 
     stringstream css;
     if (size <= 8)
@@ -114,43 +114,43 @@ void Html::AddFont(double size, bool bold, bool italic, bool fixed)
         css << " m";
     }
 
-    xml.addAttribute("class", css.str());
+    m_xml.AddAttribute("class", css.str());
 }
 
 void Html::AddLink(const string &rel, const string &type, const string &href)
 {
-    xml.startTag("link");
-    xml.addAttribute("rel", rel);
-    xml.addAttribute("type", type);
-    xml.addAttribute("href", href);
-    xml.endTag();
+    m_xml.StartTag("link");
+    m_xml.AddAttribute("rel", rel);
+    m_xml.AddAttribute("type", type);
+    m_xml.AddAttribute("href", href);
+    m_xml.EndTag();
 }
 
 void Html::AddElement(const string& value)
 {
-    xml.addElement(value);
+    m_xml.AddElement(value);
 }
 
 void Html::AddSection(const std::string &name)
 {
-    xml.startTag("div");
-    xml.addAttribute("class", "section");
-    xml.addAttribute("id", name);
+    m_xml.StartTag("div");
+    m_xml.AddAttribute("class", "section");
+    m_xml.AddAttribute("id", name);
 }
 
 void Html::EndTag()
 {
-    xml.endTag();
+    m_xml.EndTag();
 }
 
 void Html::StartDocument()
 {
-    xml.startTag("html");
-    xml.addAttribute("xmlns", "http://www.w3.org/1999/xhtml");
+    m_xml.StartTag("html");
+    m_xml.AddAttribute("xmlns", "http://www.w3.org/1999/xhtml");
 }
 
 void Html::EndDocument()
 {
     EndTag();
-    xml.endDocument();
+    m_xml.EndDocument();
 }

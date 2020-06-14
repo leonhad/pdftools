@@ -35,12 +35,12 @@ XmlTag::~XmlTag()
     }
 }
 
-string XmlTag::name() const
+string XmlTag::Name() const
 {
     return m_name;
 }
 
-std::string XmlTag::toXML() const
+std::string XmlTag::ToXML() const
 {
     stringstream buffer;
     buffer << "<" << m_name;
@@ -54,29 +54,29 @@ std::string XmlTag::toXML() const
 
     for (XmlTag *tag : m_children)
     {
-        buffer << tag->toXML();
+        buffer << tag->ToXML();
     }
 
     buffer << "</" << m_name << ">" << endl;
     return buffer.str();
 }
 
-XmlTag *XmlTag::parent() const
+XmlTag *XmlTag::Parent() const
 {
     return m_parent;
 }
 
-void XmlTag::setParent(XmlTag *parent)
+void XmlTag::SetParent(XmlTag *parent)
 {
     m_parent = parent;
 }
 
-void XmlTag::addTag(XmlTag *tag)
+void XmlTag::AddTag(XmlTag *tag)
 {
     m_children.push_back(tag);
 }
 
-void XmlTag::addAttribute(const std::string &id, const std::string &value)
+void XmlTag::AddAttribute(const std::string &id, const std::string &value)
 {
     m_atributes [id] = value;
 }

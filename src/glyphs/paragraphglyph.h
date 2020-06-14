@@ -33,7 +33,7 @@ public:
     /**
      * Called before the drawing.
      *
-     * \param document the document.
+     * @param document the document.
      */
     virtual void StartGlyph(Html *document);
 

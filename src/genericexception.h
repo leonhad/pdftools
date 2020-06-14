@@ -38,21 +38,21 @@ public:
     /**
      * Creates a new instance.
      *
-     * \param msg the exception message.
+     * @param msg the exception message.
      */
     explicit GenericException(const char *msg);
 
     /**
      * Creates a new instance.
      *
-     * \param msg the exception message.
+     * @param msg the exception message.
      */
     explicit GenericException(std::string msg);
 
     /**
      * Creates a new instance.
      *
-     * \param ex the original exception.
+     * @param ex the original exception.
      */
     GenericException(GenericException &&ex);
 

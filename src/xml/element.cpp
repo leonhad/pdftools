@@ -31,7 +31,7 @@ Element::~Element()
 {
 }
 
-std::string Element::toXML() const
+std::string Element::ToXML() const
 {
     stringstream buffer;
     for (char c : m_name)

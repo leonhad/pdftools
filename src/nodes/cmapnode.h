@@ -39,12 +39,12 @@ namespace node
         /**
          * Stores a char node list.
          */
-        std::vector<CharNode *> charnodes;
+        std::vector<CharNode *> m_charnodes;
 
         /**
          * This node code space value.
          */
-        CodeSpaceNode *codespace;
+        CodeSpaceNode *m_codespace;
 
     public:
         /**

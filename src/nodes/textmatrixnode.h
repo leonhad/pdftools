@@ -36,7 +36,7 @@ namespace node
         /**
          * Matrix nodes.
          */
-        std::vector<double> values;
+        std::vector<double> m_values;
 
     public:
         /**

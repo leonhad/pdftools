@@ -28,7 +28,7 @@ RootNode::RootNode() : TreeNode()
 
 RootNode::~RootNode()
 {
-    for (auto &i : child)
+    for (auto &i : m_child)
     {
         delete i;
     }
@@ -36,15 +36,15 @@ RootNode::~RootNode()
 
 void RootNode::AddChild(TreeNode *c)
 {
-    this->child.push_back(c);
+    this->m_child.push_back(c);
 }
 
 TreeNode *RootNode::Get(size_t index) const
 {
-    return child [index];
+    return m_child [index];
 }
 
 size_t RootNode::Size() const
 {
-    return child.size();
+    return m_child.size();
 }

@@ -34,7 +34,7 @@ namespace node
         /**
          * The string value.
          */
-        std::string value;
+        std::string m_value;
 
     public:
         /**
@@ -48,6 +48,8 @@ namespace node
          * Destroy this instance.
          */
         virtual ~StringNode() override = default;
+        
+        virtual const char * NodeName() const override;
 
         /**
          * Gets the string value.

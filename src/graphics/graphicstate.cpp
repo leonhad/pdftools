@@ -23,26 +23,26 @@
 
 using namespace std;
 
-GraphicState::GraphicState() : font(nullptr), currentState(new State)
+GraphicState::GraphicState() : m_font(nullptr), m_currentState(new State)
 {
 }
 
 GraphicState::~GraphicState()
 {
-    if (currentState)
+    if (m_currentState)
     {
-        delete currentState;
+        delete m_currentState;
     }
 }
 
 double GraphicState::GetTextFont()
 {
-    return currentState->GetTextFont();
+    return m_currentState->GetTextFont();
 }
 
 void GraphicState::SetTextMatrix(double a, double b, double c, double d, double e, double f)
 {
-    currentState->SetTextMatrix(a, b, c, d, e, f);
+    m_currentState->SetTextMatrix(a, b, c, d, e, f);
 }
 
 void GraphicState::Push()
@@ -55,10 +55,10 @@ void GraphicState::Pop()
 
 Font *GraphicState::GetFont()
 {
-    return font;
+    return m_font;
 }
 
 void GraphicState::SetFont(Font *f)
 {
-    this->font = f;
+    this->m_font = f;
 }

@@ -37,22 +37,22 @@ namespace node
         /**
          * The object id.
          */
-        int id;
+        int m_id;
 
         /**
          * The object generation.
          */
-        int generation;
+        int m_generation;
 
         /**
          * The binary object stream position.
          */
-        std::istream::pos_type streamPos;
+        std::streampos m_streamPos;
 
         /**
          * The tree node value.
          */
-        TreeNode *value;
+        TreeNode *m_value;
 
     public:
         /**
@@ -80,7 +80,7 @@ namespace node
          *
          * @param pos the binary stream position.
          */
-        void SetStreamPos(std::istream::pos_type pos);
+        void SetStreamPos(std::streampos pos);
 
         /**
          * Gets the object id.
@@ -101,7 +101,7 @@ namespace node
          *
          *@return the binary stream position.
          */
-        std::istream::pos_type StreamPos() const;
+        std::streampos StreamPos() const;
 
         /**
          * Gets the tree node value.

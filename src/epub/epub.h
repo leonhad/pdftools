@@ -43,17 +43,17 @@ private:
     /**
      * The document to generate the ePub.
      */
-    Document *document;
+    Document *m_document;
 
     /**
      * A pointer to ePub ZIP file.
      */
-    ZipFile *zipFile;
+    ZipFile *m_zipFile;
 
     /**
      * The generated file order.
      */
-    int order;
+    int m_order;
 
 public:
     /**

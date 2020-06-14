@@ -62,12 +62,12 @@ private:
     /**
      * A list of all object references.
      */
-    std::vector<ObjectReference> references;
+    std::vector<ObjectReference> m_references;
 
     /**
      * The tree node trailer.
      */
-    TreeNode *trailerNode;
+    TreeNode *m_trailerNode;
 
 public:
     /**

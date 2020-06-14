@@ -35,18 +35,18 @@ private:
     /**
      * The childhood list.
      */
-    std::vector<Glyph *> childs;
+    std::vector<Glyph *> m_childs;
 
 protected:
     /**
      * The context used in drawing.
      */
-    Context *context;
+    Context *m_context;
 
     /**
      * The last glyph used.
      */
-    Glyph *lastGlyph;
+    Glyph *m_lastGlyph;
 
 public:
     /**

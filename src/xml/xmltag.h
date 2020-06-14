@@ -37,13 +37,13 @@ public:
     XmlTag(const std::string &name);
     virtual ~XmlTag();
 
-    std::string name() const;
-    virtual std::string toXML() const;
-    XmlTag *parent() const;
+    std::string Name() const;
+    virtual std::string ToXML() const;
+    XmlTag *Parent() const;
 
-    void setParent(XmlTag *parent);
-    void addTag(XmlTag *tag);
-    void addAttribute(const std::string &id, const std::string &value);
+    void SetParent(XmlTag *parent);
+    void AddTag(XmlTag *tag);
+    void AddAttribute(const std::string &id, const std::string &value);
 };
 
 #endif // XMLTAG_H

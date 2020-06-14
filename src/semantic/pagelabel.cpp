@@ -25,28 +25,28 @@ using namespace std;
 
 PageLabel::PageLabel(int start, int range, page_type type, string &name)
 {
-    this->startNumber = start;
-    this->range = range;
-    this->type = type;
-    this->name = name;
+    this->m_startNumber = start;
+    this->m_range = range;
+    this->m_type = type;
+    this->m_name = name;
 }
 
 int PageLabel::Start()
 {
-    return startNumber;
+    return m_startNumber;
 }
 
 int PageLabel::Range()
 {
-    return range;
+    return m_range;
 }
 
 page_type PageLabel::Type()
 {
-    return type;
+    return m_type;
 }
 
 string &PageLabel::Name()
 {
-    return name;
+    return m_name;
 }

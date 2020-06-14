@@ -33,12 +33,12 @@ namespace node
         /**
          * The object id.
          */
-        int id;
+        int m_id;
 
         /**
          * The object generation.
          */
-        int generation;
+        int m_generation;
 
     public:
         /**

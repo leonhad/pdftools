@@ -32,7 +32,7 @@ private:
     /**
      * The XML genetator.
      */
-    XML xml;
+    XML m_xml;
 
 public:
     /**
@@ -127,7 +127,7 @@ public:
      */
     inline const std::string Content() const
     {
-        return xml.content();
+        return m_xml.Content();
     }
 };
 

@@ -26,28 +26,28 @@ State::State()
 
 double State::GetTextFont() const
 {
-    return textMatrix [1] [1];
+    return m_textMatrix [1] [1];
 }
 
 void State::SetTextMatrix(double a, double b, double c, double d, double e, double f)
 {
-    textMatrix [0] [0] = a;
-    textMatrix [0] [1] = b;
-    textMatrix [1] [0] = c;
-    textMatrix [1] [1] = d;
-    textMatrix [2] [0] = e;
-    textMatrix [2] [1] = f;
+    m_textMatrix [0] [0] = a;
+    m_textMatrix [0] [1] = b;
+    m_textMatrix [1] [0] = c;
+    m_textMatrix [1] [1] = d;
+    m_textMatrix [2] [0] = e;
+    m_textMatrix [2] [1] = f;
 }
 
 void State::Reset()
 {
-    textMatrix [0] [0] = 1;
-    textMatrix [0] [1] = 0;
-    textMatrix [0] [2] = 0;
-    textMatrix [1] [0] = 0;
-    textMatrix [1] [1] = 1;
-    textMatrix [1] [2] = 0;
-    textMatrix [2] [0] = 0;
-    textMatrix [2] [1] = 0;
-    textMatrix [2] [2] = 1;
+    m_textMatrix [0] [0] = 1;
+    m_textMatrix [0] [1] = 0;
+    m_textMatrix [0] [2] = 0;
+    m_textMatrix [1] [0] = 0;
+    m_textMatrix [1] [1] = 1;
+    m_textMatrix [1] [2] = 0;
+    m_textMatrix [2] [0] = 0;
+    m_textMatrix [2] [1] = 0;
+    m_textMatrix [2] [2] = 1;
 }

@@ -144,22 +144,22 @@ m_filein(m_filein), m_charset_conversion(true)
 {
 }
 
-void Scanner::disableCharsetConversion()
+void Scanner::DisableCharsetConversion()
 {
     m_charset_conversion = false;
 }
 
-istream::pos_type Scanner::pos() const
+streampos Scanner::Pos() const
 {
     return m_filein->tellg();
 }
 
-void Scanner::clear()
+void Scanner::Clear()
 {
     m_filein->clear();
 }
 
-void Scanner::to_pos(istream::pos_type pos)
+void Scanner::ToPos(streampos pos)
 {
     if (m_filein->good())
     {
@@ -171,13 +171,13 @@ void Scanner::to_pos(istream::pos_type pos)
     }
 }
 
-istream::pos_type Scanner::ignoreStream(int length)
+streampos Scanner::IgnoreStream(int length)
 {
     // endstream buffer (ndstream + \0)
     char buff [9];
     
     // Ignore first new line
-    while (m_filein->good() && nextChar() != '\n')
+    while (m_filein->good() && NextChar() != '\n')
     {
     }
     istream::pos_type ret = m_filein->tellg();
@@ -213,14 +213,14 @@ istream::pos_type Scanner::ignoreStream(int length)
     return ret;
 }
 
-char *Scanner::getImageStream()
+char *Scanner::ImageStream()
 {
     // Ignore first new line
-    while (m_filein->good() && nextChar() != '\n')
+    while (m_filein->good() && NextChar() != '\n')
     {
     }
     
-    ungetChar();
+    UngetChar();
     
     while (m_filein->good())
     {
@@ -233,8 +233,8 @@ char *Scanner::getImageStream()
             // treat '\r\n', '\r' or '\n'
             if (next == 'E' || m_filein->get() == 'I')
             {
-                ungetChar();
-                ungetChar();
+                UngetChar();
+                UngetChar();
                 break;
             }
             
@@ -245,14 +245,14 @@ char *Scanner::getImageStream()
     return nullptr;
 }
 
-char *Scanner::getStream(streamsize length)
+char *Scanner::Stream(streamsize length)
 {
     char *stream = new char [(unsigned long)length];
     m_filein->read(stream, length);
     return stream;
 }
 
-char Scanner::nextChar()
+char Scanner::NextChar()
 {
     int ret = EOF;
     
@@ -267,30 +267,30 @@ char Scanner::nextChar()
                 return '\n';
             }
             
-            ungetChar();
+            UngetChar();
         }
     }
     return (char) ret;
 }
 
-bool Scanner::good() const
+bool Scanner::Good() const
 {
     return m_filein->good();
 }
 
-void Scanner::ignoreLine()
+void Scanner::IgnoreLine()
 {
-    while (nextChar() != '\n')
+    while (NextChar() != '\n')
     {
     }
 }
 
-void Scanner::ungetChar()
+void Scanner::UngetChar()
 {
     m_filein->unget();
 }
 
-TokenType Scanner::reserved_lookup(const char *s)
+TokenType Scanner::ReservedLookup(const char *s)
 {
     int size = sizeof(words) / sizeof(reserved_words);
     for (int i = 0; i < size; i++)
@@ -303,7 +303,7 @@ TokenType Scanner::reserved_lookup(const char *s)
     return TokenType::NAME;
 }
 
-Token *Scanner::nextToken()
+Token *Scanner::NextToken()
 {
     string token_string;
     TokenType current_token = TokenType::ENDFILE;
@@ -313,7 +313,7 @@ Token *Scanner::nextToken()
     bool save;
     while (state != StateType::DONE && m_filein->good())
     {
-        char c = nextChar();
+        char c = NextChar();
         save = true;
         switch (state)
         {
@@ -339,10 +339,10 @@ Token *Scanner::nextToken()
                 }
                 else if (c == '>')
                 {
-                    wchar_t next = nextChar();
+                    wchar_t next = NextChar();
                     if (next != '>')
                     {
-                        ungetChar();
+                        UngetChar();
                         save = false;
                         current_token = TokenType::ERROR;
                     }
@@ -361,10 +361,10 @@ Token *Scanner::nextToken()
                 }
                 else if (c == '<')
                 {
-                    wchar_t next = nextChar();
+                    wchar_t next = NextChar();
                     if (next != '<')
                     {
-                        ungetChar();
+                        UngetChar();
                         save = false;
                         state = StateType::INHEXSTR;
                     }
@@ -408,7 +408,7 @@ Token *Scanner::nextToken()
                 if (not isdigit(c) && (c != '.'))
                 {
                     /* backup in the input */
-                    ungetChar();
+                    UngetChar();
                     save = false;
                     state = StateType::DONE;
                     current_token = TokenType::NUM;
@@ -452,13 +452,13 @@ Token *Scanner::nextToken()
                 else if (c == '\\')
                 {
                     // save the next char
-                    c = nextChar();
+                    c = NextChar();
                     if (c >= '0' && c <= '9')
                     {
                         string value
                         { c };
-                        value += nextChar();
-                        char c3 = nextChar();
+                        value += NextChar();
+                        char c3 = NextChar();
                         if (isnum(c3))
                         {
                             // for \99 only
@@ -520,9 +520,9 @@ Token *Scanner::nextToken()
                 if (is_space(c) || strchr(special_chars, c))
                 {
                     save = false;
-                    ungetChar();
+                    UngetChar();
                     state = StateType::DONE;
-                    current_token = reserved_lookup(token_string.c_str());
+                    current_token = ReservedLookup(token_string.c_str());
                 }
                 
                 break;
@@ -536,8 +536,8 @@ Token *Scanner::nextToken()
         }
     }
     
-    m_current.setType(current_token);
-    m_current.setValue(token_string);
+    m_current.SetType(current_token);
+    m_current.SetValue(token_string);
     
     return &m_current;
 }

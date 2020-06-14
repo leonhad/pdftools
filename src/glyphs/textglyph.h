@@ -31,20 +31,20 @@ private:
     /**
      * The text to draw.
      */
-    std::string text;
+    std::string m_text;
 
 public:
     /**
      * Creates a new instance.
      *
-     * \param text the texto to draw.
+     * @param text the texto to draw.
      */
-    explicit TextGlyph(std::string &&text);
+    TextGlyph(std::string &&text);
 
     /**
      * Draw this glyph.
      *
-     * \param document the document to generate in.
+     * @param document the document to generate in.
      */
     virtual void DoGlyph(Html *document);
 };
