@@ -30,7 +30,7 @@ TextGlyph::TextGlyph(string &&text) : m_text(move(text))
 
 void TextGlyph::DoGlyph(Html *document)
 {
-    Font *current = m_context->Font();
+    Font *current = m_context->CurrentFont();
 
     document->AddFont(current->Size() * m_context->FontSize(), current->Bold(), current->Italic(),
             current->Fixed());

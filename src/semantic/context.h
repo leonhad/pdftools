@@ -68,7 +68,7 @@ public:
     /**
      * Creates a new instance.
      *
-     * \param document the document.
+     * @param document the document.
      */
     Context(Document *document);
 
@@ -132,7 +132,7 @@ public:
      *
      * @return the current font.
      */
-    class Font *Font();
+    Font *CurrentFont();
 
     /**
      * Gets the font size.
@@ -146,7 +146,7 @@ public:
      *
      * @return the document.
      */
-    class Document *Document();
+    Document *CurrentDocument();
 };
 
 #endif

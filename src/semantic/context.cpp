@@ -25,7 +25,7 @@
 
 using namespace std;
 
-Context::Context(class Document *document)
+Context::Context(Document *document)
 {
     m_document = document;
     m_page = nullptr;
@@ -74,7 +74,7 @@ void Context::SetCurrentPage(Page *page)
     m_page = page;
 }
 
-Document *Context::Document()
+Document *Context::CurrentDocument()
 {
     return m_document;
 }
@@ -89,7 +89,7 @@ void Context::SetCurrentFont(string &alias, double size)
     }
 }
 
-Font *Context::Font()
+Font *Context::CurrentFont()
 {
     return m_font;
 }
