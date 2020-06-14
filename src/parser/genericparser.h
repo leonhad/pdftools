@@ -30,11 +30,11 @@ namespace node
 
 namespace parser
 {
-/**
- * The generic parser used in this project.
- */
-class GenericParser
-{
+    /**
+     * The generic parser used in this project.
+     */
+    class GenericParser
+    {
     protected:
         /**
          * The file scanner.

@@ -46,7 +46,8 @@ double Token::ToNumber() const
 
 int Token::ToInt() const
 {
-    try {
+    try
+    {
         return stoi(m_value);
     }
     catch(...)

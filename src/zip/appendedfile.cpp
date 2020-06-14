@@ -50,7 +50,8 @@ AppendedFile::AppendedFile(const std::string filename, const char *buffer, size_
     }
 }
 
-AppendedFile::~AppendedFile() {
+AppendedFile::~AppendedFile()
+{
     if (deflate_buffer)
     {
         delete [] deflate_buffer;
