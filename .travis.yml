@@ -13,7 +13,7 @@ addons:
 script:
   - autoreconf -f -i
   - ./configure
-  - make
+  - make -j
 
 before_install:
   - echo $LANG
