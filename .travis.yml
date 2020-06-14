@@ -1,8 +1,8 @@
 language: cpp
 
 sudo: required
-dist: trusty
-osx_image: xcode10.1
+dist: bionic
+osx_image: xcode11.5
 
 addons:
   apt:
@@ -13,8 +13,7 @@ addons:
 script:
   - autoreconf -f -i
   - ./configure
-  - make -j
-  - make check 
+  - make
 
 before_install:
   - echo $LANG
@@ -30,7 +29,7 @@ os:
 
 branches:
   only:
-  - master
+    - master
 
 notifications:
   email: true
