@@ -2,7 +2,7 @@
 .vs
 *.exe
 packages
-tests/gtest
+src/tests/test
 .scannerwork
 .dirstamp
 *.la
