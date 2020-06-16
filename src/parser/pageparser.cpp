@@ -139,9 +139,9 @@ RootNode *PageParser::Parse()
             size_t size = values.size();
             for (size_t loop = 0; loop < size; loop++)
             {
-                if (values [loop])
+                if (values[loop])
                 {
-                    delete values [loop];
+                    delete values[loop];
                 }
             }
             

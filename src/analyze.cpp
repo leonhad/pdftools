@@ -524,10 +524,11 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
     {
         const char *value = FlatDecode(stream, length, total);
 #ifdef DEBUG
-        wstring str = L"Stream>>>\n";
-        str += SingleToWide(value);
-        str += L"<<<\n";
-        VerboseMessage(str);
+        static int stream;
+        stream++;
+        
+        ofstream out(m_fileIn + ".stream." + to_string(stream));
+        out.write(value, length);
 #endif
         (*stream_value).write(value, (streamsize)total);
         delete [] value;
