@@ -523,6 +523,9 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
     if (filter && filter->Name() == "/FlateDecode")
     {
         const char *value = FlatDecode(stream, length, total);
+#ifdef DEBUG
+        cout << "Stream>>>\n" << value << "<<<\n";
+#endif
         (*stream_value).write(value, (streamsize)total);
         delete [] value;
     }
@@ -548,6 +551,9 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
                 if (filter && filter->Name() == "/FlateDecode")
                 {
                     const char *value = FlatDecode(stream, length, total);
+#ifdef DEBUG
+                    cout << "Stream>\n" << value << "<\n";
+#endif
                     (*stream_value).write(value, (streamsize)total);
                     delete [] value;
                 }

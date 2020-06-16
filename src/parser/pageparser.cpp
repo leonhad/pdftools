@@ -49,6 +49,7 @@ RootNode *PageParser::Parse()
     {
         delete m_root;
     }
+    
     m_root = new RootNode();
     RootNode *root = m_root;
 

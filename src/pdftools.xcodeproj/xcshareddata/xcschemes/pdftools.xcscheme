@@ -61,7 +61,7 @@
       </BuildableProductRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "/Users/leonardo/PDF/pdf3.pdf"
+            argument = "/Users/leonardo/PDF/pdf21.pdf"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

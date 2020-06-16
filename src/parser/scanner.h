@@ -26,127 +26,127 @@
 
 namespace parser
 {
-/**
- * A generic scanner to read PDF files.
- */
-class Scanner
-{
-private:
     /**
-     * A pointer to file input.
+     * A generic scanner to read PDF files.
      */
-    std::istream *m_filein;
+    class Scanner
+    {
+    private:
+        /**
+         * A pointer to file input.
+         */
+        std::istream *m_filein;
 
-    /**
-     * The current token.
-     */
-    Token m_current;
+        /**
+         * The current token.
+         */
+        Token m_current;
 
-    /**
-     * If the scanner can do a charset conversion.
-     */
-    bool m_charset_conversion;
+        /**
+         * If the scanner can do a charset conversion.
+         */
+        bool m_charset_conversion;
 
-public:
-    /**
-     * Create a new instance.
-     *
-     * @param m_filein the file to read.
-     */
-    Scanner(std::istream *m_filein);
+    public:
+        /**
+         * Create a new instance.
+         *
+         * @param m_filein the file to read.
+         */
+        Scanner(std::istream *m_filein);
 
-    /**
-     * Destroy this instance.
-     */
-    ~Scanner() = default;
+        /**
+         * Destroy this instance.
+         */
+        ~Scanner() = default;
 
-    /**
-     * Reads the next token.
-     *
-     * @return the next token.
-     */
-    Token *NextToken();
+        /**
+         * Reads the next token.
+         *
+         * @return the next token.
+         */
+        Token *NextToken();
 
-    /**
-     * If this scanner have more tokens.
-     *
-     * @return true if this scanner have more tokens.
-     */
-    bool Good() const;
+        /**
+         * If this scanner have more tokens.
+         *
+         * @return true if this scanner have more tokens.
+         */
+        bool Good() const;
 
-    /**
-     * Ignore a line.
-     */
-    void IgnoreLine();
+        /**
+         * Ignore a line.
+         */
+        void IgnoreLine();
 
-    /**
-     * Ignore a stream of bytes by its length.
-     *
-     * @param length the length to ignore.
-     * @return the size skipped.
-     */
-    std::streampos IgnoreStream(int length);
+        /**
+         * Ignore a stream of bytes by its length.
+         *
+         * @param length the length to ignore.
+         * @return the size skipped.
+         */
+        std::streampos IgnoreStream(int length);
 
-    /**
-     * Gets the current position.
-     *
-     * @return the current position.
-     */
-    std::streampos Pos() const;
+        /**
+         * Gets the current position.
+         *
+         * @return the current position.
+         */
+        std::streampos Pos() const;
 
-    /**
-     * Change the current position.
-     *
-     * @param pos the position to switch.
-     */
-    void ToPos(std::streampos pos);
+        /**
+         * Change the current position.
+         *
+         * @param pos the position to switch.
+         */
+        void ToPos(std::streampos pos);
 
-    /**
-     * Gets a stream of bytes.
-     *
-     * @param length the length to read.
-     * @return the stream.
-     */
-    char *Stream(std::streamsize length);
+        /**
+         * Gets a stream of bytes.
+         *
+         * @param length the length to read.
+         * @return the stream.
+         */
+        char *Stream(std::streamsize length);
 
-    /**
-     * Get a image stream.
-     *
-     * @return the image stream.
-     */
-    char *ImageStream();
+        /**
+         * Get a image stream.
+         *
+         * @return the image stream.
+         */
+        char *ImageStream();
 
-    /**
-     * Disable the charset conversion.
-     */
-    void DisableCharsetConversion();
+        /**
+         * Disable the charset conversion.
+         */
+        void DisableCharsetConversion();
 
-    /**
-     * Clears the file stream.
-     */
-    void Clear();
+        /**
+         * Clears the file stream.
+         */
+        void Clear();
 
-private:
-    /**
-     * Retuns a char to the buffer.
-     */
-    void UngetChar();
+    private:
+        /**
+         * Retuns a char to the buffer.
+         */
+        void UngetChar();
 
-    /**
-     * Gets the next char.
-     *
-     * @return the next char.
-     */
-    char NextChar();
+        /**
+         * Gets the next char.
+         *
+         * @return the next char.
+         */
+        char NextChar();
 
-    /**
-     * Gets the token type by a string.
-     *
-     * @param s the string to lookup.
-     * @return the token type by a string.
-     */
-    TokenType ReservedLookup(const char *s);
-};
+        /**
+         * Gets the token type by a string.
+         *
+         * @param s the string to lookup.
+         * @return the token type by a string.
+         */
+        TokenType ReservedLookup(const char *s);
+    };
 }
 
 #endif

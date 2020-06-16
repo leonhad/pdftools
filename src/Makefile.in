@@ -392,7 +392,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
+SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics tests
 pdftools_SOURCES = \
 	main.cpp \
 	utils.cpp \

@@ -1,4 +1,4 @@
-SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics
+SUBDIRS = nodes parser glyphs semantic zip xml html epub graphics tests
 
 bin_PROGRAMS = pdftools
 

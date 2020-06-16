@@ -113,8 +113,8 @@ TreeNode *GenericParser::ValueSequence()
     }
     else if (m_token->Type() == TokenType::NUM)
     {
-        int value = m_token->ToInt();
-        istream::pos_type pos = m_scanner->Pos();
+        double value = m_token->ToNumber();
+        streampos pos = m_scanner->Pos();
         Match(TokenType::NUM);
 
         if (m_token->Type() == TokenType::NUM)
@@ -124,7 +124,7 @@ TreeNode *GenericParser::ValueSequence()
             if (m_token->Type() == TokenType::NAME && m_token->Value() == "R")
             {
                 Match(TokenType::NAME);
-                return new RefNode(value, generation);
+                return new RefNode((int)value, generation);
             }
             else
             {

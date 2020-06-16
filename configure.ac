@@ -130,5 +130,6 @@ AC_CONFIG_FILES([Makefile
                  src/html/Makefile
                  src/epub/Makefile
                  src/graphics/Makefile
+                 src/tests/Makefile
 ])
 AC_OUTPUT
