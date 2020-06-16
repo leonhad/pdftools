@@ -524,7 +524,10 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
     {
         const char *value = FlatDecode(stream, length, total);
 #ifdef DEBUG
-        cout << "Stream>>>\n" << value << "<<<\n";
+        wstring str = L"Stream>>>\n";
+        str += SingleToWide(value);
+        str += L"<<<\n";
+        VerboseMessage(str);
 #endif
         (*stream_value).write(value, (streamsize)total);
         delete [] value;
