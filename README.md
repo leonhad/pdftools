@@ -9,7 +9,7 @@ Mail suggestions to leonhad@gmail.com. Reports bugs on
 Always include the PDFTools version number, which you can get by
 running `pdftools --version'.
 
-[![License](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENCE)
+[![License](https://img.shields.io/badge/License-GPL%203.0-blue.svg)](LICENSE)
 [![Build Status](https://travis-ci.org/leonhad/pdftools.svg?branch=master)](https://travis-ci.org/leonhad/pdftools) [![DepShield Badge](https://depshield.sonatype.org/badges/leonhad/pdftools/depshield.svg)](https://depshield.github.io)
 
 # Zip File Format
