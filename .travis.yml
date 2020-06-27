@@ -1,6 +1,5 @@
 language: cpp
 
-sudo: required
 dist: bionic
 osx_image: xcode10.2
 
