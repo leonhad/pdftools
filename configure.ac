@@ -13,6 +13,7 @@ AC_ARG_ENABLE(debug,
       AX_CHECK_COMPILE_FLAG([-O0], [CXXFLAGS="$CXXFLAGS -O0"])
       AX_CHECK_COMPILE_FLAG([-DDEBUG], [CXXFLAGS="$CXXFLAGS -DDEBUG"])
       AX_CHECK_COMPILE_FLAG([-fno-inline], [CXXFLAGS="$CXXFLAGS -fno-inline"])
+      AX_CHECK_COMPILE_FLAG([-fsanitize=address -fno-omit-frame-pointer], [CXXFLAGS="$CXXFLAGS -fsanitize=address -fno-omit-frame-pointer"])
    else 
       AX_CHECK_COMPILE_FLAG([-O3], [CXXFLAGS="$CXXFLAGS -O3"])
       AX_CHECK_COMPILE_FLAG([-DNDEBUG], [CXXFLAGS="$CXXFLAGS -DNDEBUG"])

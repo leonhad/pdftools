@@ -15,7 +15,7 @@ Release
 *.gcov
 *.user
 *.gcda
-
+.DS_Store
 *.gcno
 
 cppunit.xmL
