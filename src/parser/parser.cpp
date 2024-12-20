@@ -21,19 +21,20 @@
 #include "../utils.h"
 #include "../nodes/nodes.h"
 #include "../genericexception.h"
+#include <fstream>
 
 using namespace std;
 using namespace parser;
 using namespace node;
 
-inline bool pdf_versions(string const &version)
+inline bool pdf_versions(string const& version)
 {
     return version == "PDF-1.1" || version == "PDF-1.2" || version == "PDF-1.3"
-            || version == "PDF-1.4" || version == "PDF-1.5" || version == "PDF-1.6"
-            || version == "PDF-1.7";
+        || version == "PDF-1.4" || version == "PDF-1.5" || version == "PDF-1.6"
+        || version == "PDF-1.7";
 }
 
-Parser::Parser(ifstream *filein) : GenericParser{ filein }
+Parser::Parser(ifstream *filein) : GenericParser{filein}
 {
     m_linear = false;
 
@@ -47,13 +48,13 @@ Parser::Parser(ifstream *filein) : GenericParser{ filein }
     }
 }
 
-RootNode *Parser::Parse()
+std::shared_ptr<RootNode> Parser::Parse()
 {
-    RootNode *root = new RootNode();
-    bool error = false;
+    std::shared_ptr<RootNode> root(new RootNode());
     Match(TokenType::PERCENT);
     if (VerifyVersion())
     {
+        bool error = false;
         while (m_scanner->Good() && not error)
         {
             switch (m_token->Type())
@@ -79,48 +80,44 @@ RootNode *Parser::Parse()
     }
     else
     {
-         throw GenericException("Invalid input file.");
+        throw GenericException("Invalid input file.");
     }
     m_scanner->Clear();
     ObjectStreams(root);
     return root;
 }
 
-void Parser::ObjectStreams(RootNode *root_node)
+void Parser::ObjectStreams(const std::shared_ptr<RootNode>& root_node)
 {
-    size_t size = root_node->Size();
+    const size_t size = root_node->Size();
 
     for (size_t i = 0; i < size; i++)
     {
-        ObjNode *root_object = dynamic_cast<ObjNode *>(root_node->Get(i));
-        if (root_object)
+        if (const auto root_object = std::dynamic_pointer_cast<ObjNode>(root_node->Get(i)))
         {
-            MapNode *map = dynamic_cast<MapNode *>(root_object->Value());
-            if (map)
+            if (const auto map = std::dynamic_pointer_cast<MapNode>(root_object->Value()))
             {
-                NameNode *type = dynamic_cast<NameNode *>(map->Get("/Type"));
+                const auto type = std::dynamic_pointer_cast<NameNode>(map->Get("/Type"));
                 if (type && type->Name() == "/ObjStm")
                 {
                     int qtd = 0;
                     size_t length = 0;
-                    NumberNode *number = dynamic_cast<NumberNode *>(map->Get("/N"));
-                    if (number)
+                    if (const auto number = std::dynamic_pointer_cast<NumberNode>(map->Get("/N")))
                     {
-                        qtd = (int) number->Value();
+                        qtd = static_cast<int>(number->Value());
                     }
-                    NumberNode *length_node = dynamic_cast<NumberNode *>(map->Get("/Length"));
-                    if (number)
+
+                    if (const auto length_node = std::dynamic_pointer_cast<NumberNode>(map->Get("/Length")))
                     {
-                        length = (size_t) length_node->Value();
+                        length = static_cast<size_t>(length_node->Value());
                     }
-                    char *uncompressed = nullptr;
+                    const char* uncompressed = nullptr;
 
                     m_scanner->ToPos(root_object->StreamPos());
-                    char *stream = m_scanner->Stream((streamsize)length);
+                    const char* stream = m_scanner->Stream(static_cast<streamsize>(length)).data();
 
-                    size_t total = (size_t)length;
-                    NameNode *filter = dynamic_cast<NameNode *>(map->Get("/Filter"));
-                    if (filter && filter->Name() == "/FlateDecode")
+                    size_t total = length;
+                    if (const auto filter = std::dynamic_pointer_cast<NameNode>(map->Get("/Filter")); filter && filter->Name() == "/FlateDecode")
                     {
                         uncompressed = FlatDecode(stream, length, total);
                         delete [] stream;
@@ -132,35 +129,34 @@ void Parser::ObjectStreams(RootNode *root_node)
                     else
                     {
                         wstring msg = L"compression not supported: ";
-                        msg+= SingleToWide(filter->Name());
+                        msg += SingleToWide(filter->Name());
                         ErrorMessage(msg);
                         return;
                     }
                     stringstream stream_value;
-                    stream_value.write(uncompressed, (streamsize)total);
+                    stream_value.write(uncompressed, static_cast<streamsize>(total));
                     stream_value.seekg(0);
                     delete [] uncompressed;
 
-                    Scanner *temp = m_scanner;
-                    m_scanner = new Scanner
-                    { &stream_value };
+                    const shared_ptr<Scanner> temp = m_scanner;
+                    m_scanner = make_shared<Scanner>(&stream_value);
 
                     vector<int> ids;
-                    int loop;
-                    for (loop = 0; loop < qtd; loop++)
+                    for (int loop = 0; loop < qtd; loop++)
                     {
                         NextToken();
-                        ids.push_back((int) m_token->ToNumber());
+                        ids.push_back(static_cast<int>(m_token->ToNumber()));
                         NextToken();
                     }
                     NextToken();
-                    vector<int>::iterator id;
-                    for (id = ids.begin(); id < ids.end(); id++)
+
+                    for (const auto id : ids)
                     {
-                        ObjNode *new_obj = new ObjNode(*id, 0);
+                        const auto new_obj = make_shared<ObjNode>(id, 0);
                         new_obj->SetValue(ValueSequence());
                         root_node->AddChild(new_obj);
                     }
+
                     m_scanner = temp;
                 }
             }
@@ -174,21 +170,21 @@ void Parser::CommentSequence()
     NextToken();
 }
 
-TreeNode *Parser::XrefSequence()
+std::shared_ptr<TreeNode> Parser::XrefSequence()
 {
-    XREFNode *xref = new XREFNode;
+    std::shared_ptr<XREFNode> xref(new XREFNode);
     Match(TokenType::XREF);
 
-    uint16_t id = (uint16_t) m_token->ToNumber();
+    auto id = static_cast<uint16_t>(m_token->ToNumber());
     Match(TokenType::NUM);
-    int count = (int) m_token->ToNumber();
+    const auto count = static_cast<int>(m_token->ToNumber());
     Match(TokenType::NUM);
 
     for (int loop = 0; loop < count; loop++)
     {
-        uint32_t address = (uint32_t) m_token->ToNumber();
+        const auto address = static_cast<uint32_t>(m_token->ToNumber());
         Match(TokenType::NUM);
-        uint16_t generation = (uint16_t) m_token->ToNumber();
+        const auto generation = static_cast<uint16_t>(m_token->ToNumber());
         Match(TokenType::NUM);
         string name = m_token->Value();
         if (m_token->Type() == TokenType::F_LO)
@@ -199,10 +195,11 @@ TreeNode *Parser::XrefSequence()
         {
             Match(TokenType::N);
         }
+
         xref->AddNode(id, generation, address, name.at(0));
         id++;
     }
-    
+
     Match(TokenType::TRAILER);
     xref->SetTrailer(ValueSequence());
     return xref;
@@ -218,28 +215,27 @@ void Parser::StartXrefSequence()
     Match(TokenType::END_PDF);
 }
 
-TreeNode *Parser::ObjectSequence()
+std::shared_ptr<TreeNode> Parser::ObjectSequence()
 {
-    double number = m_token->ToNumber();
+    const double number = m_token->ToNumber();
     Match(TokenType::NUM);
-    double generation_nunber = m_token->ToNumber();
+    const double generation_number = m_token->ToNumber();
     Match(TokenType::NUM);
 
-    ObjNode *node = new ObjNode((int) number, (int) generation_nunber);
+    const auto node = make_shared<ObjNode>(static_cast<int>(number), static_cast<int>(generation_number));
     Match(TokenType::OBJ);
     node->SetValue(ValueSequence());
     if (m_token && m_token->Type() == TokenType::STREAM)
     {
         int length = -1;
-        MapNode *map = dynamic_cast<MapNode *>(node->Value());
-        if (map)
+        if (const auto map = std::dynamic_pointer_cast<MapNode>(node->Value()))
         {
-            NumberNode *numberNode = dynamic_cast<NumberNode *>(map->Get("/Length"));
-            if (numberNode)
+            if (const auto numberNode = std::dynamic_pointer_cast<NumberNode>(map->Get("/Length")))
             {
-                length = (int) numberNode->Value();
+                length = static_cast<int>(numberNode->Value());
             }
         }
+
         node->SetStreamPos(m_scanner->IgnoreStream(length));
         NextToken();
         Match(TokenType::END_STREAM);
@@ -253,12 +249,12 @@ bool Parser::VerifyVersion()
 {
     if (m_token)
     {
-        string line = m_token->Value();
-        if (pdf_versions(line))
+        if (const string line = m_token->Value(); pdf_versions(line))
         {
             Match(TokenType::NAME);
             return true;
         }
     }
+
     return false;
 }

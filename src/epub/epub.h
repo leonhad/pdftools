@@ -20,6 +20,8 @@
 #ifndef EPUB_H
 #define EPUB_H
 
+#include <memory>
+
 #include "../generator.h"
 
 class ZipFile;
@@ -37,18 +39,18 @@ class XML;
 /**
  * Generate an ePub file.
  */
-class EPUB: public Generator
+class EPUB final : public Generator
 {
 private:
     /**
      * The document to generate the ePub.
      */
-    Document *m_document;
+    std::shared_ptr<Document> m_document;
 
     /**
      * A pointer to ePub ZIP file.
      */
-    ZipFile *m_zipFile;
+    std::shared_ptr<ZipFile> m_zipFile;
 
     /**
      * The generated file order.
@@ -64,7 +66,7 @@ public:
     /**
      * Destroy this instance.
      */
-    virtual ~EPUB();
+    ~EPUB() override = default;
 
     /**
      * Generate the ePub file.
@@ -72,22 +74,22 @@ public:
      * @param document the document to parse.
      * @param output the output file.
      */
-    virtual bool Generate(Document *document, const std::string &output);
+    bool Generate(const std::shared_ptr<Document> &document, const std::string& output) override;
 
 private:
     void GenerateContainer();
 
-    void GeneratePages();
+    void GeneratePages() const;
 
-    void GenerateContent(const std::string &output);
+    void GenerateContent(const std::string& output) const;
 
-    void GenerateToc(const std::string &output);
+    void GenerateToc(const std::string& output);
 
-    void GenerateOutline(XML *xml, Outline *outline);
+    void GenerateOutline(const std::shared_ptr<XML>& xml, const std::shared_ptr<Outline>& outline);
 
-    void GenerateMimeType();
+    void GenerateMimeType() const;
 
-    void GenerateCss();
+    void GenerateCss() const;
 };
 
 #endif

@@ -25,7 +25,7 @@
 /**
  * Stores a font size glyph.
  */
-class FontSizeGlyph: public Glyph
+class FontSizeGlyph final : public Glyph
 {
 private:
     /**
@@ -46,7 +46,7 @@ public:
      *
      * @param document the document to generate in.
      */
-    virtual void DoGlyph(Html *document);
+    virtual void DoGlyph(const std::shared_ptr<Html>& document);
 };
 
 #endif

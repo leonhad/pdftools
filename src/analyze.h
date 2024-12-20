@@ -20,10 +20,8 @@
 #ifndef ANALYZE_H
 #define ANALYZE_H
 
-#include <vector>
 #include <map>
-#include <sstream>
-#include <fstream>
+#include <memory>
 #include <string>
 
 class Outline;
@@ -45,39 +43,40 @@ class Analyze
 {
 private:
     std::string m_fileIn;
-    Document *m_document = nullptr;
-    node::RootNode *m_tree = nullptr;
-    std::map<std::string, node::TreeNode *> m_names;
-    
+    std::shared_ptr<Document> m_document = nullptr;
+    std::shared_ptr<node::RootNode> m_tree = nullptr;
+    std::map<std::string, std::shared_ptr<node::TreeNode>> m_names;
+
 public:
-    explicit Analyze(const std::string& filein);
-    ~Analyze();
-    
-    Document *AnalyzeTree();
-    
+    explicit Analyze(std::string filein);
+    ~Analyze() = default;
+
+    std::shared_ptr<Document> AnalyzeTree();
+
 private:
     void AnalyzeXref();
     void AnalyzeInfo();
-    node::TreeNode *AnalyzeRoot();
-    void AnalyzeNames(node::MapNode *values);
-    void AnalyzeOutlines(node::MapNode *values, Outline *parent = nullptr);
-    void AnalyzeOutline(node::ArrayNode *values, Outline *outline);
-    void AnalyzePages(node::TreeNode *page, node::ArrayNode *mediabox = nullptr);
-    Font *AnalyzeFont(node::MapNode *fontmap);
-    
-    Page *ProcessPage(int id, int generation, std::stringstream *stream_value,
-                      node::MapNode *catalog, node::ArrayNode * mediabox);
+    std::shared_ptr<node::TreeNode> AnalyzeRoot();
+    void AnalyzeNames(const std::shared_ptr<node::MapNode>& values);
+    void AnalyzeOutlines(const std::shared_ptr<node::MapNode>& values, const std::shared_ptr<Outline>& parent = nullptr);
+    void AnalyzeOutline(const std::shared_ptr<node::ArrayNode>& values, const std::shared_ptr<Outline>& outline);
+    void AnalyzePages(const std::shared_ptr<node::TreeNode>& page, const std::shared_ptr<node::ArrayNode>& media_box = nullptr);
+    std::shared_ptr<Font> AnalyzeFont(const std::shared_ptr<node::MapNode>& fontmap);
 
-    std::string GetStringValue(node::TreeNode *value);
-    double GetNumberValue(node::TreeNode *value, int default_value = 0);
-    
-    node::ObjNode *GetObject(int id, int generation);
-    node::ObjNode *GetObject(node::RefNode *ref);
-    node::TreeNode *GetRealValue(node::TreeNode *value);
-    node::TreeNode *GetRealObjValue(node::TreeNode *value);
-    node::TreeNode *GetNamedValue(std::string name);
-    void GetStream(node::ArrayNode *array, std::stringstream *stream_value);
-    void GetStream(node::ObjNode *obj, std::stringstream *stream_value);
+    std::shared_ptr<Page> ProcessPage(int id, int generation, std::stringstream* stream_value,
+                                      const std::shared_ptr<node::MapNode>& catalog,
+                                      const std::shared_ptr<node::ArrayNode>& media_box);
+
+    std::string GetStringValue(const std::shared_ptr<node::TreeNode>& value);
+    double GetNumberValue(const std::shared_ptr<node::TreeNode>& value, int default_value = 0);
+
+    [[nodiscard]] std::shared_ptr<node::ObjNode> GetObject(int id, int generation) const;
+    [[nodiscard]] std::shared_ptr<node::ObjNode> GetObject(const std::shared_ptr<node::RefNode>& ref) const;
+    std::shared_ptr<node::TreeNode> GetRealValue(std::shared_ptr<node::TreeNode> value);
+    std::shared_ptr<node::TreeNode> GetRealObjValue(std::shared_ptr<node::TreeNode> value);
+    std::shared_ptr<node::TreeNode> GetNamedValue(const std::string& name);
+    void GetStream(const std::shared_ptr<node::ArrayNode>& array, std::stringstream* stream_value);
+    void GetStream(const std::shared_ptr<node::ObjNode>& obj, std::stringstream* stream_value);
 };
 
 #endif

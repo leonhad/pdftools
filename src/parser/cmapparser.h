@@ -20,16 +20,13 @@
 #ifndef CMAPPARSER_H
 #define CMAPPARSER_H
 
-#include "scanner.h"
 #include "genericparser.h"
 #include <istream>
 
 namespace node
 {
     class TreeNode;
-
     class CMapNode;
-
     class CodeSpaceNode;
 }
 
@@ -38,13 +35,13 @@ namespace parser
     /**
      * Parses a CMap.
      */
-    class CMapParser: public GenericParser
+    class CMapParser : public GenericParser
     {
     private:
         /**
          * The CMap node root.
          */
-        node::CMapNode *m_root;
+        std::shared_ptr<node::CMapNode> m_root;
 
     public:
         /**
@@ -57,14 +54,14 @@ namespace parser
         /**
          * Destroy this instance.
          */
-        ~CMapParser();
+        ~CMapParser() = default;
 
         /**
          * Parses the CMap node.
          *
          * @return the CMap tree node.
          */
-        node::CMapNode *Parse();
+        std::shared_ptr<node::CMapNode> Parse();
 
     private:
         /**
@@ -72,21 +69,21 @@ namespace parser
          *
          * @param count the total chars to parse.
          */
-        void BfCharSequence(const int count);
+        void BfCharSequence(int count);
 
         /**
          * Parses a BF rage sequence.
          *
          * @param count the total range to parse.
          */
-        void BfRangeSequence(const int count);
+        void BfRangeSequence(int count);
 
         /**
          * Gets the code space sequence.
          *
          * @return the code space sequence.
          */
-        node::CodeSpaceNode *CodespaceSequence();
+        std::shared_ptr<node::CodeSpaceNode> CodeSpaceSequence();
     };
 }
 

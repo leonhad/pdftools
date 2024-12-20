@@ -20,6 +20,7 @@
 #ifndef GLYPH_H
 #define GLYPH_H
 
+#include <memory>
 #include <vector>
 
 class Html;
@@ -27,7 +28,7 @@ class Html;
 class Context;
 
 /**
- * Draw a HTML glyph.
+ * Draw an HTML glyph.
  */
 class Glyph
 {
@@ -35,18 +36,18 @@ private:
     /**
      * The childhood list.
      */
-    std::vector<Glyph *> m_childs;
+    std::vector<std::shared_ptr<Glyph>> m_children;
 
 protected:
     /**
      * The context used in drawing.
      */
-    Context *m_context;
+    std::shared_ptr<Context> m_context;
 
     /**
      * The last glyph used.
      */
-    Glyph *m_lastGlyph;
+    std::shared_ptr<Glyph> m_lastGlyph;
 
 public:
     /**
@@ -57,14 +58,14 @@ public:
     /**
      * Destroy this instance.
      */
-    virtual ~Glyph();
+    virtual ~Glyph() = default;
 
     /**
      * Add a child to this glyph.
      *
      * @param glyph the child to add.
      */
-    void AddChild(Glyph *glyph);
+    void AddChild(const std::shared_ptr<Glyph>& glyph);
 
     /**
      * Draw this list into HTML document.
@@ -72,35 +73,35 @@ public:
      * @param document the document to draw.
      * @param context the variable context used in this process.
      */
-    void Execute(Html *document, Context *context);
+    void Execute(const std::shared_ptr<Html>& document, const std::shared_ptr<Context>& context);
 
     /**
      * Draw this glyph.
      *
      * @param document the document to generate in.
      */
-    virtual void DoGlyph(Html *document);
+    virtual void DoGlyph(const std::shared_ptr<Html>& document);
 
     /**
      * Called before the drawing.
      *
      * @param document the document.
      */
-    virtual void StartGlyph(Html *document);
+    virtual void StartGlyph(const std::shared_ptr<Html>& document);
 
     /**
      * Called after the drawing.
      *
      * @param document the document.
      */
-    virtual void EndGlyph(Html *document);
+    virtual void EndGlyph(const std::shared_ptr<Html>& document);
 
     /**
      * Sets the last used glyph.
      *
      * @param glyph the last used glyph.
      */
-    void SetLast(Glyph *glyph);
+    void SetLast(const std::shared_ptr<Glyph>& glyph);
 };
 
 #endif

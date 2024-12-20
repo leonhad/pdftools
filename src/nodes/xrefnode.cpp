@@ -22,31 +22,24 @@
 using namespace std;
 using namespace node;
 
-XREFNode::XREFNode() : TreeNode(), m_trailerNode(nullptr)
+XREFNode::XREFNode() : m_trailerNode(nullptr)
 {
 }
 
-XREFNode::~XREFNode()
-{
-    if (m_trailerNode)
-    {
-        delete m_trailerNode;
-    }
-}
 
-void XREFNode::SetTrailer(TreeNode *trailer)
+void XREFNode::SetTrailer(const std::shared_ptr<TreeNode>& trailer)
 {
     this->m_trailerNode = trailer;
 }
 
-TreeNode *XREFNode::Trailer() const
+std::shared_ptr<TreeNode> XREFNode::Trailer() const
 {
     return m_trailerNode;
 }
 
-void XREFNode::AddNode(uint16_t id, uint16_t generation, uint32_t address, char status)
+void XREFNode::AddNode(const uint16_t id, const uint16_t generation, const uint32_t address, const char status)
 {
-    ObjectReference xref;
+    ObjectReference xref{};
     xref.id = id;
     xref.generation = generation;
     xref.address = address;

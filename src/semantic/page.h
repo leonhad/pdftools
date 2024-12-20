@@ -22,6 +22,7 @@
 
 #include <string>
 #include <map>
+#include <memory>
 
 class Context;
 class Document;
@@ -31,31 +32,31 @@ class Html;
 class Page
 {
 private:
-    int *m_mediaBox;
-    int *m_cropBox;
+    int* m_mediaBox;
+    int* m_cropBox;
     int m_id;
     int m_generation;
     std::string m_link;
-    Glyph *m_root;
-    Document *m_document;
+    std::shared_ptr<Glyph> m_root;
+    std::shared_ptr<Document> m_document;
     std::map<std::string, std::string> m_fontMap;
 
 public:
-    Page(Document *parent);
+    explicit Page(const std::shared_ptr<Document>& parent);
     ~Page();
 
     void SetMediaBox(int a, int b, int c, int d);
     void SetCropBox(int a, int b, int c, int d);
     void SetDestination(int id, int generation);
-    void SetRoot(Glyph *root);
-    int Id();
-    int Generation();
-    const std::string Link();
+    void SetRoot(const std::shared_ptr<Glyph>& root);
+    [[nodiscard]] int Id() const;
+    [[nodiscard]] int Generation() const;
+    std::string Link();
 
-    void Execute(Html *html);
+    void Execute(const std::shared_ptr<Html>& html);
 
-    void AddFontMap(std::string alias, std::string font_name);
-    std::string FontName(std::string &alias);
+    void AddFontMap(const std::string& alias, const std::string& font_name);
+    std::string FontName(const std::string& alias);
 };
 
 #endif

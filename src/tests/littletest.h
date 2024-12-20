@@ -26,7 +26,6 @@
 #include <string>
 #include <iostream>
 #include <sstream>
-#include <algorithm>
 #include <sys/time.h>
 #include <vector>
 
@@ -54,7 +53,7 @@
 
 #define LT_CREATE_RUNNER(__lt_suite_name__, __lt_runner_name__) \
     std::cout << "** Initializing Runner \"" << #__lt_runner_name__ << "\" **" << std::endl; \
-    littletest::test_runner __lt_runner_name__ 
+    littletest::test_runner __lt_runner_name__
 
 #define LT_RUNNER(__lt_runner_name__) __lt_runner_name__
 
@@ -81,13 +80,11 @@
 #define LT_END_TEST(__lt_test_name__) \
             } \
     }; \
-    __lt_test_name__ ## _class __lt_test_name__; \
-
+    __lt_test_name__ ## _class __lt_test_name__;
 #define LT_BEGIN_AUTO_TEST(__lt_suite_name__, __lt_test_name__) LT_BEGIN_TEST(__lt_suite_name__, __lt_test_name__)
 
 #define LT_END_AUTO_TEST(__lt_test_name__) \
-    LT_END_TEST(__lt_test_name__) \
-
+    LT_END_TEST(__lt_test_name__)
 #define LT_SWITCH_MODE(__lt_mode__) \
         switch(__lt_mode__) \
         { \
@@ -268,59 +265,69 @@
 
 namespace littletest
 {
-
-struct check_unattended : public std::exception
-{
-    check_unattended(const std::string& message):
-        message(message)
+    struct check_unattended : public std::exception
     {
-    }
-    ~check_unattended() throw() { }
+        check_unattended(const std::string& message):
+            message(message)
+        {
+        }
 
-    virtual const char* what() const throw()
-    {
-        return message.c_str();
-    }
-    
+        ~check_unattended() throw()
+        {
+        }
+
+        virtual const char* what() const throw()
+        {
+            return message.c_str();
+        }
+
     private:
         std::string message;
-};
+    };
 
-struct assert_unattended : public std::exception
-{
-    assert_unattended(const std::string& message):
-        message(message)
+    struct assert_unattended : public std::exception
     {
-    }
-    ~assert_unattended() throw() { }
-    virtual const char* what() const throw()
-    {
-        return message.c_str();
-    } 
-    
+        assert_unattended(const std::string& message):
+            message(message)
+        {
+        }
+
+        ~assert_unattended() throw()
+        {
+        }
+
+        virtual const char* what() const throw()
+        {
+            return message.c_str();
+        }
+
     private:
         std::string message;
-};
+    };
 
-struct warn_unattended : public std::exception
-{
-    warn_unattended(const std::string& message):
-        message(message)
+    struct warn_unattended : public std::exception
     {
-    }
-    ~warn_unattended() throw() { }
-    virtual const char* what() const throw()
-    {
-        return message.c_str();
-    } 
-    
+        warn_unattended(const std::string& message):
+            message(message)
+        {
+        }
+
+        ~warn_unattended() throw()
+        {
+        }
+
+        virtual const char* what() const throw()
+        {
+            return message.c_str();
+        }
+
     private:
         std::string message;
-};
+    };
 
-template <class suite_impl>
-class suite
-{
+    template <class suite_impl>
+    class suite
+    {
     public:
         void suite_set_up()
         {
@@ -332,22 +339,27 @@ class suite
             static_cast<suite_impl*>(this)->tear_down();
         }
 
-        suite() { }
-        suite(const suite<suite_impl>&) { }
-};
+        suite()
+        {
+        }
 
-double calculate_duration(timeval* before, timeval* after)
-{
-    return ((after->tv_sec * 1000 + (after->tv_usec / 1000.0)) -
-           (before->tv_sec * 1000 + (before->tv_usec / 1000.0)));
-}
+        suite(const suite<suite_impl>&)
+        {
+        }
+    };
 
-class test_base;
+    double calculate_duration(timeval* before, timeval* after)
+    {
+        return ((after->tv_sec * 1000 + (after->tv_usec / 1000.0)) -
+            (before->tv_sec * 1000 + (before->tv_usec / 1000.0)));
+    }
 
-std::vector<test_base*> auto_test_vector;
+    class test_base;
 
-class test_runner
-{
+    std::vector<test_base*> auto_test_vector;
+
+    class test_runner
+    {
     public:
         test_runner() :
             last_checkpoint_file(""),
@@ -365,8 +377,8 @@ class test_runner
         template <class test_impl>
         test_runner& run(test_impl* t)
         {
-            std::cout << "Running test (" << 
-                test_counter << "): " << 
+            std::cout << "Running test (" <<
+                test_counter << "): " <<
                 t->__lt_name__ << std::endl;
 
             t->run_test(this);
@@ -407,7 +419,7 @@ class test_runner
             std::cout << (failures_counter + success_counter) << " checks" << std::endl;
             std::cout << "-> " << success_counter << " successes" << std::endl;
             std::cout << "-> " << failures_counter << " failures" << std::endl;
-            std::cout << "Total run time: " << total_time << " ms"<< std::endl;
+            std::cout << "Total run time: " << total_time << " ms" << std::endl;
             std::cout << "Total time spent in tests: " << good_time_total << " ms" << std::endl;
             std::cout << "Average set up time: " << (total_set_up_time / test_counter) << " ms" << std::endl;
             std::cout << "Average tear down time: " << (total_tear_down_time / test_counter) << " ms" << std::endl;
@@ -493,22 +505,29 @@ class test_runner
         double total_set_up_time;
         double total_tear_down_time;
         double total_time;
-};
+    };
 
-class test_base
-{
+    class test_base
+    {
     public:
         const char* __lt_name__;
-        virtual void run_test(test_runner*) { }
-        virtual void operator()() { }
+
+        virtual void run_test(test_runner*)
+        {
+        }
+
+        void operator()(littletest::test_runner* __lt_tr__)
+        {
+        }
+
         virtual ~test_base() = default;
-};
+    };
 
-test_runner auto_test_runner;
+    test_runner auto_test_runner;
 
-template <class test_impl>
-class test : public test_base
-{
+    template <class test_impl>
+    class test : public test_base
+    {
         virtual void run_test(test_runner* tr)
         {
             double set_up_duration = 0.0, tear_down_duration = 0.0, test_duration = 0.0;
@@ -516,41 +535,45 @@ class test : public test_base
             try
             {
                 gettimeofday(&before, NULL);
-                static_cast<test_impl* >(this)->suite_set_up();
+                static_cast<test_impl*>(this)->suite_set_up();
                 gettimeofday(&after, NULL);
                 set_up_duration = calculate_duration(&before, &after);
                 tr->add_set_up_time(set_up_duration);
             }
-            catch(std::exception& e)
+            catch (std::exception& e)
             {
-                std::cout << "Exception during " << static_cast<test_impl* >(this)->__lt_name__ << " set up" << std::endl;
+                std::cout << "Exception during " << static_cast<test_impl*>(this)->__lt_name__ << " set up" <<
+                    std::endl;
                 std::cout << e.what() << std::endl;
             }
-            catch(...)
+            catch (...)
             {
-                std::cout << "Exception during " << static_cast<test_impl* >(this)->__lt_name__ << " set up" << std::endl;
+                std::cout << "Exception during " << static_cast<test_impl*>(this)->__lt_name__ << " set up" <<
+                    std::endl;
             }
             try
             {
                 gettimeofday(&before, NULL);
                 (*static_cast<test_impl*>(this))(tr);
             }
-            catch(assert_unattended& au)
+            catch (assert_unattended& au)
             {
                 ;
             }
-            catch(std::exception& e)
+            catch (std::exception& e)
             {
-                std::cout << "Exception during " << static_cast<test_impl* >(this)->__lt_name__ << " run" << std::endl;
+                std::cout << "Exception during " << static_cast<test_impl*>(this)->__lt_name__ << " run" << std::endl;
                 std::cout << e.what() << std::endl;
-                if(tr->last_checkpoint_line != -1)
-                    std::cout << "Last checkpoint in " << tr->last_checkpoint_file << ":" << tr->last_checkpoint_line << std::endl;
+                if (tr->last_checkpoint_line != -1)
+                    std::cout << "Last checkpoint in " << tr->last_checkpoint_file << ":" << tr->last_checkpoint_line <<
+                        std::endl;
             }
-            catch(...)
+            catch (...)
             {
-                std::cout << "Exception during " << static_cast<test_impl* >(this)->__lt_name__ << " run" << std::endl;
-                if(tr->last_checkpoint_line != -1)
-                    std::cout << "Last checkpoint in " << tr->last_checkpoint_file << ":" << tr->last_checkpoint_line << std::endl;
+                std::cout << "Exception during " << static_cast<test_impl*>(this)->__lt_name__ << " run" << std::endl;
+                if (tr->last_checkpoint_line != -1)
+                    std::cout << "Last checkpoint in " << tr->last_checkpoint_file << ":" << tr->last_checkpoint_line <<
+                        std::endl;
             }
             gettimeofday(&after, NULL);
 
@@ -558,35 +581,43 @@ class test : public test_base
 
             tr->add_good_time(test_duration);
 
-            std::cout << "- Time spent during \"" << static_cast<test_impl* >(this)->__lt_name__ << "\": " << test_duration << " ms"<< std::endl;
+            std::cout << "- Time spent during \"" << static_cast<test_impl*>(this)->__lt_name__ << "\": " <<
+                test_duration << " ms" << std::endl;
 
             try
             {
                 gettimeofday(&before, NULL);
-                static_cast<test_impl* >(this)->suite_tear_down();
+                static_cast<test_impl*>(this)->suite_tear_down();
                 gettimeofday(&after, NULL);
                 tear_down_duration = calculate_duration(&before, &after);
                 tr->add_tear_down_time(tear_down_duration);
             }
-            catch(std::exception& e)
+            catch (std::exception& e)
             {
-                std::cout << "Exception during " << static_cast<test_impl* >(this)->__lt_name__ << " tear down" << std::endl;
+                std::cout << "Exception during " << static_cast<test_impl*>(this)->__lt_name__ << " tear down" <<
+                    std::endl;
                 std::cout << e.what() << std::endl;
             }
-            catch(...)
+            catch (...)
             {
-                std::cout << "Exception during " << static_cast<test_impl* >(this)->__lt_name__ << " tear down" << std::endl;
+                std::cout << "Exception during " << static_cast<test_impl*>(this)->__lt_name__ << " tear down" <<
+                    std::endl;
             }
             double total = set_up_duration + test_duration + tear_down_duration;
             tr->add_total_time(total);
         }
+
     protected:
-        test() { }
-        test(const test<test_impl>&) { }
+        test()
+        {
+        }
+
+        test(const test<test_impl>&)
+        {
+        }
 
         friend class test_runner;
-};
-
+    };
 };
 
 #endif //_LITTLETEST_HPP_

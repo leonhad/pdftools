@@ -20,6 +20,8 @@
 #ifndef BDCCOMMAND_H
 #define BDCCOMMAND_H
 
+#include <memory>
+
 #include "rootnode.h"
 #include <string>
 
@@ -28,60 +30,60 @@ namespace node
     /**
      * Stores a BCD node.
      */
-    class BDCNode: public RootNode
+    class BDCNode final : public RootNode
     {
     private:
-        RootNode *m_parent;
-        TreeNode *m_value;
+        std::shared_ptr<RootNode> m_parent;
+        std::shared_ptr<TreeNode> m_value;
         std::string m_name;
 
     public:
         /**
          * Create a new instance.
          *
-         * @param parent the parant node.
+         * @param parent the parent node.
          */
-        explicit BDCNode(RootNode *parent);
+        explicit BDCNode(const std::shared_ptr<RootNode>& parent);
 
         /**
          * Destroy this instance.
          */
-        virtual ~BDCNode() override;
+        ~BDCNode() override = default;
 
         /**
          * Gets the tree node value.
          *
          * @return the tree node value.
          */
-        TreeNode *Value();
+        std::shared_ptr<TreeNode> Value();
 
         /**
          * Gets this node parent.
          *
          * @return this node parent.
          */
-        RootNode *Parent();
+        std::shared_ptr<RootNode> Parent();
 
         /**
          * Gets the node name.
          *
          * @return the node name.
          */
-        std::string Name();
+        std::string &Name();
 
         /**
          * Sets the node value.
          *
          * @param value the node value.
          */
-        void SetValue(TreeNode *value);
+        void SetValue(const std::shared_ptr<TreeNode> &value);
 
         /**
          * Sets the node name.
          *
          * @param name the node name.
          */
-        void SetName(const std::string &name);
+        void SetName(const std::string& name);
     };
 }
 

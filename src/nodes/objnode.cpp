@@ -22,18 +22,11 @@
 using namespace std;
 using namespace node;
 
-ObjNode::ObjNode(int id, int generation) :
-        TreeNode(), m_id(id), m_generation(generation), m_streamPos(istream::beg), m_value(nullptr)
+ObjNode::ObjNode(const int id, const int generation) :
+    m_id(id), m_generation(generation), m_streamPos(istream::beg), m_value(nullptr)
 {
 }
 
-ObjNode::~ObjNode()
-{
-    if (m_value)
-    {
-        delete m_value;
-    }
-}
 
 int ObjNode::Id() const
 {
@@ -45,7 +38,7 @@ int ObjNode::Generation() const
     return m_generation;
 }
 
-TreeNode *ObjNode::Value() const
+std::shared_ptr<TreeNode> ObjNode::Value() const
 {
     return m_value;
 }
@@ -55,17 +48,12 @@ bool ObjNode::SameObject(int i, int g) const
     return this->m_id == i && this->m_generation == g;
 }
 
-void ObjNode::SetValue(TreeNode *v)
+void ObjNode::SetValue(const std::shared_ptr<TreeNode>& value)
 {
-    if (m_value)
-    {
-        delete m_value;
-    }
-
-    this->m_value = v;
+    this->m_value = value;
 }
 
-void ObjNode::SetStreamPos(streampos pos)
+void ObjNode::SetStreamPos(const streampos pos)
 {
     this->m_streamPos = pos;
 }

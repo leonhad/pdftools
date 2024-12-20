@@ -20,6 +20,7 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
+#include <memory>
 #include <string>
 
 class Document;
@@ -37,17 +38,17 @@ private:
     /**
      * The document.
      */
-    Document *m_document;
+    std::shared_ptr<Document> m_document;
 
     /**
      * The current page.
      */
-    Page *m_page;
+    std::shared_ptr<Page> m_page;
 
     /**
      * The current font.
      */
-    Font *m_font;
+    std::shared_ptr<Font> m_font;
 
     /**
      * Is the font is changed.
@@ -70,12 +71,12 @@ public:
      *
      * @param document the document.
      */
-    Context(Document *document);
+    explicit Context(const std::shared_ptr<Document>& document);
 
     /**
      * Destroy the instance.
      */
-    ~Context();
+    ~Context() = default;
 
     /**
      * Sets the use of font.
@@ -97,14 +98,14 @@ public:
      * @param alias the font alias.
      * @param size the font size.
      */
-    void SetCurrentFont(std::string &alias, double size);
+    void SetCurrentFont(std::string& alias, double size);
 
     /**
      * Sets the current page.
      *
      * @param page the current page.
      */
-    void SetCurrentPage(Page *page);
+    void SetCurrentPage(const std::shared_ptr<Page>& page);
 
     /**
      * Sets the font size.
@@ -114,39 +115,39 @@ public:
     void SetFontSize(double size);
 
     /**
-     * Gets if use font.
+     * Gets if we use font.
      *
-     * @return true if use font.
+     * @return true if we use font.
      */
-    bool UseFont();
+    [[nodiscard]] bool UseFont() const;
 
     /**
      * Gets if font is changed.
      *
      * @return true if the font changed.
      */
-    bool FontChanged();
+    [[nodiscard]] bool FontChanged() const;
 
     /**
      * Gets the current font.
      *
      * @return the current font.
      */
-    Font *CurrentFont();
+    std::shared_ptr<Font> CurrentFont();
 
     /**
      * Gets the font size.
      *
      * @return the font size.
      */
-    double FontSize();
+    [[nodiscard]] double FontSize() const;
 
     /**
      * Gets the document.
      *
      * @return the document.
      */
-    Document *CurrentDocument();
+    std::shared_ptr<Document> CurrentDocument();
 };
 
 #endif

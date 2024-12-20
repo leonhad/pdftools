@@ -20,9 +20,10 @@
 #ifndef CMAPNODE_H
 #define CMAPNODE_H
 
+#include <memory>
+
 #include "treenode.h"
 #include <vector>
-#include <cstring>
 
 namespace node
 {
@@ -33,18 +34,18 @@ namespace node
     /**
      * Stores a CMap node.
      */
-    class CMapNode: public TreeNode
+    class CMapNode final : public TreeNode
     {
     private:
         /**
          * Stores a char node list.
          */
-        std::vector<CharNode *> m_charnodes;
+        std::vector<std::shared_ptr<CharNode>> m_char_nodes;
 
         /**
          * This node code space value.
          */
-        CodeSpaceNode *m_codespace;
+        std::shared_ptr<CodeSpaceNode> m_code_space;
 
     public:
         /**
@@ -55,34 +56,34 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~CMapNode() override;
+        ~CMapNode() override = default;
 
         /**
          * Adds a char node.
          * @param node the char node to add.
          */
-        void Add(CharNode *node);
+        void Add(const std::shared_ptr<CharNode>& node);
 
         /**
          * Sets the code space.
          *
-         * @param codespace the code space to set.
+         * @param code_space the code space to set.
          */
-        void SetCodespace(CodeSpaceNode *codespace);
+        void SetCodeSpace(const std::shared_ptr<CodeSpaceNode>& code_space);
 
         /**
          * Gets the code space.
          *
          * @return the code space.
          */
-        CodeSpaceNode *CodeSpace() const;
+        [[nodiscard]] std::shared_ptr<CodeSpaceNode> CodeSpace() const;
 
         /**
          * Gets the total of childhood char nodes.
          *
          * @return the total of childhood char nodes.
          */
-        size_t Nodes() const;
+        [[nodiscard]] size_t Nodes() const;
 
         /**
          * Gets a char node by its index.
@@ -90,7 +91,7 @@ namespace node
          * @param index the char node index.
          * @return the char node.
          */
-        CharNode *Node(size_t index) const;
+        [[nodiscard]] std::shared_ptr<CharNode> Node(size_t index) const;
     };
 }
 

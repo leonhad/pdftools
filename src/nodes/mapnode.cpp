@@ -18,29 +18,20 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include <algorithm>
-#include <stdexcept>
 #include <vector>
 #include "mapnode.h"
 
 using namespace std;
 using namespace node;
 
-MapNode::MapNode() : TreeNode()
+MapNode::MapNode()
 {
 }
 
-MapNode::~MapNode()
-{
-    for (auto &i : m_values)
-    {
-        delete i.second;
-    }
-}
 
-TreeNode *MapNode::Get(string name) const
+std::shared_ptr<TreeNode> MapNode::Get(const string& name) const
 {
-    auto i = m_values.find(name);
-    if (i != m_values.end())
+    if (const auto i = m_values.find(name); i != m_values.end())
     {
         return i->second;
     }
@@ -52,15 +43,15 @@ vector<string> MapNode::Names() const
 {
     vector<string> names;
     names.reserve(m_values.size());
-    for (const auto &p : m_values)
+    for (const auto & [fst, snd] : m_values)
     {
-        names.push_back(p.first);
+        names.push_back(fst);
     }
 
     return names;
 }
 
-void MapNode::Put(string name, TreeNode *value)
+void MapNode::Put(const string& name, const std::shared_ptr<TreeNode>& value)
 {
-    m_values.insert(pair<string, TreeNode *>(name, value));
+    m_values.insert(pair(name, value));
 }

@@ -21,46 +21,29 @@
 #include "../utils.h"
 #include "token.h"
 #include "../nodes/nodes.h"
-#include "../glyphs/glyphs.h"
 #include <iostream>
 
 using namespace std;
 using namespace parser;
 using namespace node;
 
-PageParser::PageParser(istream *stream) :
-        GenericParser
-        { stream }
+PageParser::PageParser(istream *stream) : GenericParser{stream}
 {
     m_scanner->DisableCharsetConversion();
 }
 
-PageParser::~PageParser()
+std::shared_ptr<RootNode> PageParser::Parse()
 {
-    if (m_root)
-    {
-        delete m_root;
-    }
-}
+    m_root = make_shared<RootNode>();
+    std::shared_ptr root{m_root};
 
-RootNode *PageParser::Parse()
-{
-    if (m_root)
-    {
-        delete m_root;
-    }
-    
-    m_root = new RootNode();
-    RootNode *root = m_root;
-
-    vector<TreeNode *> values;
+    vector<std::shared_ptr<TreeNode>> values;
     values.reserve(10);
 
     NextToken();
     while (m_scanner->Good())
     {
-        TreeNode *value = ValueSequence();
-        if (value)
+        if (const auto value = ValueSequence())
         {
             values.push_back(value);
         }
@@ -72,20 +55,19 @@ RootNode *PageParser::Parse()
                 root = BdcSequence(values, root);
                 break;
             case TokenType::EMC:
-            {
-                Match(TokenType::EMC);
-                BDCNode *bdc = dynamic_cast<BDCNode *>(root);
-                if (bdc)
                 {
-                    root = bdc->Parent();
+                    Match(TokenType::EMC);
+                    if (auto bdc = std::dynamic_pointer_cast<BDCNode>(root))
+                    {
+                        root = bdc->Parent();
+                    }
+                    break;
                 }
-                break;
-            }
             case TokenType::BI:
                 root->AddChild(BiSequence());
                 break;
 
-                // Text positioning
+            // Text positioning
             case TokenType::TM:
                 root->AddChild(TmSequence(values));
                 break;
@@ -94,17 +76,17 @@ RootNode *PageParser::Parse()
                 root->AddChild(FontSequence(values));
                 break;
 
-                // Graphic State
+            // Graphic State
             case TokenType::Q_LO:
-                root->AddChild(new StateNode(true));
+                root->AddChild(make_shared<StateNode>(true));
                 NextToken();
                 break;
             case TokenType::Q_UP:
-                root->AddChild(new StateNode(false));
+                root->AddChild(make_shared<StateNode>(false));
                 NextToken();
                 break;
 
-                // Text
+            // Text
             case TokenType::TJ_LO:
                 Match(TokenType::TJ_LO);
                 root->AddChild(TextSequence(values));
@@ -114,20 +96,20 @@ RootNode *PageParser::Parse()
                 break;
             case TokenType::T_AST:
                 Match(TokenType::T_AST);
-                root->AddChild(new BreakNode);
+                root->AddChild(make_shared<BreakNode>());
                 break;
             case TokenType::DOUBLE_QUOTE:
-            {
-                Match(TokenType::DOUBLE_QUOTE);
-                root->AddChild(new BreakNode);
-                vector<TreeNode *> vector;
-                vector.assign(values.begin() + 3, values.end());
-                root->AddChild(TextSequence(vector));
-                break;
-            }
+                {
+                    Match(TokenType::DOUBLE_QUOTE);
+                    root->AddChild( make_shared<BreakNode>());
+                    vector<std::shared_ptr<TreeNode>> vector;
+                    vector.assign(values.begin() + 3, values.end());
+                    root->AddChild(TextSequence(vector));
+                    break;
+                }
             case TokenType::QUOTE:
                 Match(TokenType::QUOTE);
-                root->AddChild(new BreakNode);
+                root->AddChild(make_shared<BreakNode>());
                 root->AddChild(TextSequence(values));
                 NextToken();
                 break;
@@ -135,114 +117,104 @@ RootNode *PageParser::Parse()
                 NextToken();
                 break;
             }
-            
-            size_t size = values.size();
-            for (size_t loop = 0; loop < size; loop++)
-            {
-                if (values[loop])
-                {
-                    delete values[loop];
-                }
-            }
-            
+
             values.clear();
         }
     }
-    
+
     return m_root;
 }
 
-TreeNode *PageParser::TmSequence(vector<TreeNode *> &values)
+std::shared_ptr<TreeNode> PageParser::TmSequence(const vector<std::shared_ptr<TreeNode>>& values)
 {
     Match(TokenType::TM);
 
     if (values.size() == 6)
     {
-        NumberNode *a = dynamic_cast<NumberNode *>(values [0]);
-        NumberNode *b = dynamic_cast<NumberNode *>(values [1]);
-        NumberNode *c = dynamic_cast<NumberNode *>(values [2]);
-        NumberNode *d = dynamic_cast<NumberNode *>(values [3]);
-        NumberNode *e = dynamic_cast<NumberNode *>(values [4]);
-        NumberNode *f = dynamic_cast<NumberNode *>(values [5]);
+        const auto a = std::dynamic_pointer_cast<NumberNode>(values[0]);
+        const auto b = std::dynamic_pointer_cast<NumberNode>(values[1]);
+        const auto c = std::dynamic_pointer_cast<NumberNode>(values[2]);
+        const auto d = std::dynamic_pointer_cast<NumberNode>(values[3]);
+        const auto e = std::dynamic_pointer_cast<NumberNode>(values[4]);
+        const auto f = std::dynamic_pointer_cast<NumberNode>(values[5]);
 
-        return new TextMatrixNode({ a->Value(), b->Value(), c->Value(), d->Value(), e->Value(), f->Value() });
+        return make_shared<TextMatrixNode>(initializer_list<double>{
+            a->Value(), b->Value(), c->Value(), d->Value(), e->Value(), f->Value()
+        });
     }
     return nullptr;
 }
 
-TreeNode *PageParser::FontSequence(vector<TreeNode *> &values)
+std::shared_ptr<TreeNode> PageParser::FontSequence(const vector<std::shared_ptr<TreeNode>>& values)
 {
     Match(TokenType::TF);
 
     if (values.size() == 2)
     {
-        FontNode *font = new FontNode;
+        std::shared_ptr<FontNode> font(new FontNode);
 
-        NameNode *font_name = dynamic_cast<NameNode *>(values [0]);
-        if (font_name)
+        if (const auto font_name = std::dynamic_pointer_cast<NameNode>(values[0]))
         {
             font->SetName(font_name->Name());
         }
-        NumberNode *font_size = dynamic_cast<NumberNode *>(values [1]);
-        if (font_size)
+
+        if (const auto font_size = std::dynamic_pointer_cast<NumberNode>(values[1]))
         {
             font->SetSize(font_size->Value());
         }
+
         return font;
     }
-    else
-    {
-        ErrorMessage(L"Error parsing font object");
-        return nullptr;
-    }
+
+    ErrorMessage(L"Error parsing font object");
+    return nullptr;
 }
 
-TreeNode *PageParser::BiSequence()
+std::shared_ptr<TreeNode> PageParser::BiSequence()
 {
     Match(TokenType::BI);
     while (m_token->Type() != TokenType::ID)
     {
         Match(TokenType::NAME);
-        TreeNode *value = ValueSequence();
-        delete value;
+        auto value = ValueSequence();
+        // discard the result.
     }
+
     m_scanner->ImageStream();
     NextToken();
     Match(TokenType::EI);
     return nullptr;
 }
 
-TreeNode *PageParser::TextSequence(vector<TreeNode *> &values)
+std::shared_ptr<TreeNode> PageParser::TextSequence(const vector<std::shared_ptr<TreeNode>>& values)
 {
-    TextNode *text = new TextNode;
-    size_t size = values.size();
+    std::shared_ptr<TextNode> text(new TextNode);
+    const size_t size = values.size();
     for (size_t loop = 0; loop < size; loop++)
     {
-        StringNode *node = dynamic_cast<StringNode *>(values [loop]);
-        if (node)
+        if (const auto node = std::dynamic_pointer_cast<StringNode>(values[loop]))
         {
             text->Add(node->Value());
         }
     }
+
     return text;
 }
 
-void PageParser::TjupSequence(RootNode *root, vector<TreeNode *> &values)
+void PageParser::TjupSequence(const std::shared_ptr<RootNode>& root, const vector<std::shared_ptr<TreeNode>>& values)
 {
     Match(TokenType::TJ_UP);
-    size_t size = values.size();
+    const size_t size = values.size();
     for (size_t loop = 0; loop < size; loop++)
     {
-        ArrayNode *array = dynamic_cast<ArrayNode *>(values [loop]);
-        if (array)
+        if (const auto array = std::dynamic_pointer_cast<ArrayNode>(values[loop]))
         {
-            size_t array_size = array->Size();
+            const size_t array_size = array->Size();
             for (size_t y = 0; y < array_size; y++)
             {
-                StringNode *node = dynamic_cast<StringNode *>(array->Value(y));
-                if (node)
+                if (const auto node = std::dynamic_pointer_cast<StringNode>(array->Value(y)))
                 {
-                    TextNode *text = new TextNode;
+                    std::shared_ptr<TextNode> text(new TextNode);
                     text->Add(node->Value());
                     root->AddChild(text);
                 }
@@ -251,20 +223,23 @@ void PageParser::TjupSequence(RootNode *root, vector<TreeNode *> &values)
     }
 }
 
-BDCNode *PageParser::BdcSequence(vector<TreeNode *> &values, RootNode *parent)
+std::shared_ptr<BDCNode> PageParser::BdcSequence(vector<std::shared_ptr<TreeNode>>& values,
+                                                 const std::shared_ptr<RootNode>& parent)
 {
     Match(TokenType::BDC);
-    BDCNode *node = new BDCNode(parent);
+
+    auto node = make_shared<BDCNode>(parent);
     parent->AddChild(node);
 
-    NameNode *name = dynamic_cast<NameNode *>(values [0]);
-    if (name)
+    if (const auto name = std::dynamic_pointer_cast<NameNode>(values[0]))
     {
         node->SetName(name->Name());
     }
-    node->SetValue(values [1]);
+
+    node->SetValue(values[1]);
+
     // avoid double delete
-    values [1] = nullptr;
+    values[1] = nullptr;
 
     return node;
 }

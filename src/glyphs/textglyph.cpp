@@ -24,17 +24,16 @@
 
 using namespace std;
 
-TextGlyph::TextGlyph(string &&text) : m_text(move(text))
+TextGlyph::TextGlyph(string&& text) : m_text(move(text))
 {
 }
 
-void TextGlyph::DoGlyph(Html *document)
+void TextGlyph::DoGlyph(const std::shared_ptr<Html>& document)
 {
-    Font *current = m_context->CurrentFont();
+    const shared_ptr<Font> current = m_context->CurrentFont();
 
-    document->AddFont(current->Size() * m_context->FontSize(), current->Bold(), current->Italic(),
-            current->Fixed());
-    string t = current->Translate(m_text);
+    document->AddFont(current->Size() * m_context->FontSize(), current->Bold(), current->Italic(), current->Fixed());
+    const string t = current->Translate(m_text);
 
     document->AddElement(t + " ");
     document->EndTag();

@@ -20,11 +20,8 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#include "token.h"
 #include "genericparser.h"
 #include <string>
-#include <fstream>
-#include <stdexcept>
 
 namespace node
 {
@@ -37,7 +34,7 @@ namespace parser
     /**
      * Parses a PDF file.
      */
-    class Parser: public GenericParser
+    class Parser : public GenericParser
     {
     private:
         /**
@@ -68,7 +65,7 @@ namespace parser
          *
          * @return the root node.
          */
-        node::RootNode *Parse();
+        std::shared_ptr<node::RootNode> Parse();
 
     private:
         /**
@@ -83,7 +80,7 @@ namespace parser
          *
          * @param root the root node to parse.
          */
-        void ObjectStreams(node::RootNode *root);
+        void ObjectStreams(const std::shared_ptr<node::RootNode>& root);
 
         /**
          * Parses the start XREF sequences.
@@ -100,14 +97,14 @@ namespace parser
          *
          * @return the object node.
          */
-        node::TreeNode *ObjectSequence();
+        std::shared_ptr<node::TreeNode> ObjectSequence();
 
         /**
          * Parses the XREF sequences.
          *
          * @return the XREF node.
          */
-        node::TreeNode *XrefSequence();
+        std::shared_ptr<node::TreeNode> XrefSequence();
     };
 }
 

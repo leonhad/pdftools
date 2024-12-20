@@ -20,24 +20,14 @@
 #include "generator.h"
 #include "semantic/document.h"
 #include "epub/epub.h"
-#include <cstdlib>
-#include <cstring>
 
 using namespace std;
 
-Generator::Generator()
-{
-}
-
-Generator::~Generator()
-{
-}
-
-Generator *Generator::GetInstance(const string& format)
+std::shared_ptr<Generator> Generator::GetInstance(const string& format)
 {
     if (format == "epub")
     {
-        return new EPUB;
+        return make_shared<EPUB>();
     }
 
     return nullptr;

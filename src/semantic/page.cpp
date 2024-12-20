@@ -25,60 +25,44 @@
 
 using namespace std;
 
-Page::Page(Document *parent)
+Page::Page(const std::shared_ptr<Document>& parent): m_mediaBox(nullptr), m_cropBox(nullptr)
 {
-    m_mediaBox = nullptr;
-    m_cropBox = nullptr;
     m_document = parent;
     m_id = 0;
     m_generation = 0;
-    m_root = nullptr;
 }
 
 Page::~Page()
 {
-    if (m_mediaBox)
-    {
-        delete [] m_mediaBox;
-    }
-
-    if (m_cropBox)
-    {
-        delete [] m_cropBox;
-    }
-
-    if (m_root)
-    {
-        delete m_root;
-    }
+    delete [] m_mediaBox;
+    delete [] m_cropBox;
 }
 
-void Page::SetRoot(Glyph *r)
+void Page::SetRoot(const std::shared_ptr<Glyph>& root)
 {
-    this->m_root = r;
+    this->m_root = root;
 }
 
-void Page::AddFontMap(string alias, string font_name)
+void Page::AddFontMap(const string& alias, const string& font_name)
 {
-    m_fontMap [alias] = font_name;
+    m_fontMap[alias] = font_name;
 }
 
-string Page::FontName(string &alias)
+string Page::FontName(const string& alias)
 {
-    return m_fontMap [alias];
+    return m_fontMap[alias];
 }
 
-void Page::Execute(Html *html)
+void Page::Execute(const std::shared_ptr<Html>& html)
 {
-    Context *context = new Context(m_document);
-    context->SetCurrentPage(this);
+    const auto context = make_shared<Context>(m_document);
+    context->SetCurrentPage(std::shared_ptr<Page>(this));
     html->AddSection(Link());
     m_root->Execute(html, context);
     html->EndTag();
-    delete context;
 }
 
-const string Page::Link()
+string Page::Link()
 {
     return m_link;
 }
@@ -86,19 +70,19 @@ const string Page::Link()
 void Page::SetMediaBox(int a, int b, int c, int d)
 {
     m_mediaBox = new int [4];
-    m_mediaBox [0] = a;
-    m_mediaBox [1] = b;
-    m_mediaBox [2] = c;
-    m_mediaBox [3] = d;
+    m_mediaBox[0] = a;
+    m_mediaBox[1] = b;
+    m_mediaBox[2] = c;
+    m_mediaBox[3] = d;
 }
 
 void Page::SetCropBox(int a, int b, int c, int d)
 {
     m_cropBox = new int [4];
-    m_cropBox [0] = a;
-    m_cropBox [1] = b;
-    m_cropBox [2] = c;
-    m_cropBox [3] = d;
+    m_cropBox[0] = a;
+    m_cropBox[1] = b;
+    m_cropBox[2] = c;
+    m_cropBox[3] = d;
 }
 
 void Page::SetDestination(int i, int g)
@@ -109,12 +93,12 @@ void Page::SetDestination(int i, int g)
     this->m_link = "section" + to_string(m_id) + "_" + to_string(m_generation);
 }
 
-int Page::Id()
+int Page::Id() const
 {
     return m_id;
 }
 
-int Page::Generation()
+int Page::Generation() const
 {
     return m_generation;
 }

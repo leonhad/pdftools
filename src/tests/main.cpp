@@ -24,7 +24,7 @@ LT_BEGIN_TEST(ParserSuite, Stream1)
 
 ifstream filestream("stream1.txt", ios::binary);
 PageParser parser(&filestream);
-RootNode *root = parser.Parse();
+const auto root = parser.Parse();
 LT_ASSERT(root);
 filestream.close();
 LT_END_TEST(Stream1)

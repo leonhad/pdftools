@@ -23,32 +23,23 @@
 #include "../zip/zipfile.h"
 #include "../semantic/outline.h"
 #include "../semantic/document.h"
-#include "../semantic/context.h"
 #include "../semantic/page.h"
 #include "config.h"
 #include <sstream>
 
 using namespace std;
 
-EPUB::EPUB() : Generator(), m_document(nullptr), m_zipFile(new ZipFile), m_order(0)
+EPUB::EPUB() : m_document(nullptr), m_zipFile(new ZipFile), m_order(0)
 {
 }
 
-EPUB::~EPUB()
+void EPUB::GenerateMimeType() const
 {
-    if (m_zipFile)
-    {
-        delete m_zipFile;
-    }
-}
-
-void EPUB::GenerateMimeType()
-{
-    const char *mime = "application/epub+zip";
+    const char* mime = "application/epub+zip";
     m_zipFile->AddSource("mimetype", mime);
 }
 
-void EPUB::GenerateCss()
+void EPUB::GenerateCss() const
 {
     stringstream css;
     css << ".b {font-weight: bold}\n";
@@ -83,11 +74,11 @@ void EPUB::GenerateContainer()
     xml.EndTag();
 
     xml.EndDocument();
-    string content = xml.Content();
+    const string content = xml.Content();
     m_zipFile->AddSource("META-INF/container.xml", content);
 }
 
-void EPUB::GenerateContent(const string &output)
+void EPUB::GenerateContent(const string& output) const
 {
     XML xml;
     xml.StartDocument("1.0", "UTF-8");
@@ -117,7 +108,7 @@ void EPUB::GenerateContent(const string &output)
 
     xml.StartTag("dc:language");
     xml.AddAttribute("xsi:type", "dcterms:RFC3066");
-    xml.AddElement(m_document->Lang().c_str());
+    xml.AddElement(m_document->Lang());
     xml.EndTag();
 
     xml.StartTag("dc:identifier");
@@ -166,7 +157,7 @@ void EPUB::GenerateContent(const string &output)
 
     for (size_t loop = 0; loop < m_document->Pages(); loop++)
     {
-        Page *page = m_document->CurrentPage(loop);
+        const auto page = m_document->CurrentPage(loop);
 
         xml.StartTag("item");
         xml.AddAttribute("id", page->Link());
@@ -188,7 +179,7 @@ void EPUB::GenerateContent(const string &output)
 
     for (size_t loop = 0; loop < m_document->Pages(); loop++)
     {
-        Page *page = m_document->CurrentPage(loop);
+        const auto page = m_document->CurrentPage(loop);
 
         xml.StartTag("itemref");
         xml.AddAttribute("idref", page->Link());
@@ -200,21 +191,21 @@ void EPUB::GenerateContent(const string &output)
 
     xml.EndTag();
     xml.EndDocument();
-    string content = xml.Content();
+    const string content = xml.Content();
     m_zipFile->AddSource("content.opf", content);
 }
 
-void EPUB::GenerateOutline(XML *xml, Outline *outline)
+void EPUB::GenerateOutline(const std::shared_ptr<XML>& xml, const std::shared_ptr<Outline>& outline)
 {
-    Page *page = m_document->CurrentPage(outline->Id(), outline->Generation());
+    const auto page = m_document->CurrentPage(outline->Id(), outline->Generation());
 
     if (page)
     {
-        string playorder{ to_string(m_order) };
+        const string play_order{to_string(m_order)};
         m_order++;
 
         xml->StartTag("navPoint");
-        xml->AddAttribute("id", playorder);
+        xml->AddAttribute("id", play_order);
 
         xml->StartTag("navLabel");
         xml->StartTag("text");
@@ -227,7 +218,7 @@ void EPUB::GenerateOutline(XML *xml, Outline *outline)
         xml->EndTag();
     }
 
-    size_t size = outline->Size();
+    const size_t size = outline->Size();
     for (size_t loop = 0; loop < size; loop++)
     {
         GenerateOutline(xml, outline->Child(loop));
@@ -239,108 +230,108 @@ void EPUB::GenerateOutline(XML *xml, Outline *outline)
     }
 }
 
-void EPUB::GenerateToc(const string &output)
+void EPUB::GenerateToc(const string& output)
 {
-    Outline *outline = m_document->CurrentOutline();
+    std::shared_ptr<Outline> outline(m_document->CurrentOutline());
 
-    XML xml;
-    xml.StartDocument("1.0", "UTF-8");
+    std::shared_ptr<XML> xml(new XML);
+    xml->StartDocument("1.0", "UTF-8");
 
-    xml.StartTag("ncx");
-    xml.AddAttribute("xmlns", "http://www.daisy.org/z3986/2005/ncx/");
-    xml.AddAttribute("version", "2005-1");
+    xml->StartTag("ncx");
+    xml->AddAttribute("xmlns", "http://www.daisy.org/z3986/2005/ncx/");
+    xml->AddAttribute("version", "2005-1");
 
-    xml.StartTag("head");
-    xml.StartTag("meta");
-    xml.AddAttribute("name", "dtb:uid");
-    xml.AddAttribute("content", output);
-    xml.EndTag();
-    xml.StartTag("meta");
-    xml.AddAttribute("name", "dtb:depth");
-    xml.AddAttribute("content", "2");
-    xml.EndTag();
-    xml.StartTag("meta");
-    xml.AddAttribute("name", "dtb:totalPageCount");
-    xml.AddAttribute("content", "0");
-    xml.EndTag();
-    xml.StartTag("meta");
-    xml.AddAttribute("name", "dtb:maxPageNumber");
-    xml.AddAttribute("content", "0");
-    xml.EndTag();
-    xml.EndTag();
+    xml->StartTag("head");
+    xml->StartTag("meta");
+    xml->AddAttribute("name", "dtb:uid");
+    xml->AddAttribute("content", output);
+    xml->EndTag();
+    xml->StartTag("meta");
+    xml->AddAttribute("name", "dtb:depth");
+    xml->AddAttribute("content", "2");
+    xml->EndTag();
+    xml->StartTag("meta");
+    xml->AddAttribute("name", "dtb:totalPageCount");
+    xml->AddAttribute("content", "0");
+    xml->EndTag();
+    xml->StartTag("meta");
+    xml->AddAttribute("name", "dtb:maxPageNumber");
+    xml->AddAttribute("content", "0");
+    xml->EndTag();
+    xml->EndTag();
 
-    xml.StartTag("docTitle");
-    xml.StartTag("text");
-    xml.AddElement(m_document->Title());
-    xml.EndTag();
-    xml.EndTag();
+    xml->StartTag("docTitle");
+    xml->StartTag("text");
+    xml->AddElement(m_document->Title());
+    xml->EndTag();
+    xml->EndTag();
 
-    xml.StartTag("navMap");
+    xml->StartTag("navMap");
     if (outline)
     {
-        GenerateOutline(&xml, outline);
+        GenerateOutline(xml, outline);
     }
     else
     {
-        size_t size = m_document->Pages();
+        const size_t size = m_document->Pages();
         for (size_t i = 0; i < size; i++)
         {
-            Page *page = m_document->CurrentPage(i);
+            const auto page = m_document->CurrentPage(i);
 
-            xml.StartTag("navPoint");
-            xml.AddAttribute("id", "navPoint-1");
-            xml.AddAttribute("playOrder", "1");
+            xml->StartTag("navPoint");
+            xml->AddAttribute("id", "navPoint-1");
+            xml->AddAttribute("playOrder", "1");
 
-            xml.StartTag("navLabel");
-            xml.StartTag("text");
-            xml.AddElement("Main Title");
-            xml.EndTag();
-            xml.EndTag();
+            xml->StartTag("navLabel");
+            xml->StartTag("text");
+            xml->AddElement("Main Title");
+            xml->EndTag();
+            xml->EndTag();
 
-            xml.StartTag("content");
-            xml.AddAttribute("src", page->Link() + ".html");
-            xml.EndTag();
-            xml.EndTag();
+            xml->StartTag("content");
+            xml->AddAttribute("src", page->Link() + ".html");
+            xml->EndTag();
+            xml->EndTag();
         }
     }
 
-    xml.EndTag();
+    xml->EndTag();
 
-    xml.EndTag();
-    xml.EndDocument();
-    string content = xml.Content();
+    xml->EndTag();
+    xml->EndDocument();
+    const string content = xml->Content();
 
     m_zipFile->AddSource("toc.ncx", content);
 }
 
-void EPUB::GeneratePages()
+void EPUB::GeneratePages() const
 {
-    size_t size = m_document->Pages();
+    const size_t size = m_document->Pages();
     for (size_t i = 0; i < size; i++)
     {
-        Page *page = m_document->CurrentPage(i);
+        auto page = m_document->CurrentPage(i);
 
-        Html html;
-        html.StartDocument();
-        html.StartHeader();
-        html.SetTitle(m_document->Title());
-        html.AddLink("stylesheet", "text/css", "style.css");
-        html.EndTag();
-        html.StartBody();
+        std::shared_ptr<Html> html(new Html);
+        html->StartDocument();
+        html->StartHeader();
+        html->SetTitle(m_document->Title());
+        html->AddLink("stylesheet", "text/css", "style.css");
+        html->EndTag();
+        html->StartBody();
 
-        page->Execute(&html);
+        page->Execute(html);
 
-        html.EndTag();
-        html.EndDocument();
+        html->EndTag();
+        html->EndDocument();
 
         const string fileout = page->Link() + ".html";
-        m_zipFile->AddSource(fileout, html.Content());
+        m_zipFile->AddSource(fileout, html->Content());
     }
 }
 
-bool EPUB::Generate(Document *doc, const string &output)
+bool EPUB::Generate(const std::shared_ptr<Document>& document, const string& output)
 {
-    this->m_document = doc;
+    this->m_document = document;
     m_order = 1;
     if (m_zipFile->Open(output))
     {

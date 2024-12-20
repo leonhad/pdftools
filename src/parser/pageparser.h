@@ -20,9 +20,7 @@
 #ifndef PAGEPARSER_H
 #define PAGEPARSER_H
 
-#include "scanner.h"
 #include "genericparser.h"
-#include <istream>
 #include <vector>
 
 namespace node
@@ -41,13 +39,13 @@ namespace parser
     /**
      * Parses a PDF page.
      */
-    class PageParser: public GenericParser
+    class PageParser : public GenericParser
     {
     private:
         /**
          * The tree root node.
          */
-        node::RootNode *m_root = nullptr;
+        std::shared_ptr<node::RootNode> m_root = nullptr;
 
     public:
         /**
@@ -60,14 +58,14 @@ namespace parser
         /**
          * Destroy this instance.
          */
-        ~PageParser();
+        ~PageParser() = default;
 
         /**
          * Parses the page.
          *
          * @return the root node.
          */
-        node::RootNode *Parse();
+        std::shared_ptr<node::RootNode> Parse();
 
     private:
         /**
@@ -76,7 +74,7 @@ namespace parser
          * @param values the nodes to parse.
          * @return the sequence node.
          */
-        node::TreeNode *TmSequence(std::vector<node::TreeNode *> &values);
+        std::shared_ptr<node::TreeNode> TmSequence(const std::vector<std::shared_ptr<node::TreeNode>>& values);
 
         /**
          * Parses the font sequence.
@@ -84,14 +82,14 @@ namespace parser
          * @param values the nodes to parse.
          * @return the sequence node.
          */
-        node::TreeNode *FontSequence(std::vector<node::TreeNode *> &values);
+        std::shared_ptr<node::TreeNode> FontSequence(const std::vector<std::shared_ptr<node::TreeNode>>& values);
 
         /**
          * Parses the BI sequence.
          *
          * @return the node.
          */
-        node::TreeNode *BiSequence();
+        std::shared_ptr<node::TreeNode> BiSequence();
 
         /**
          * Parses the TM sequence.
@@ -100,7 +98,8 @@ namespace parser
          * @param parent the parent node.
          * @return the sequence node.
          */
-        node::BDCNode *BdcSequence(std::vector<node::TreeNode *> &values, node::RootNode *parent);
+        std::shared_ptr<node::BDCNode> BdcSequence(std::vector<std::shared_ptr<node::TreeNode>>& values,
+                                                   const std::shared_ptr<node::RootNode>& parent);
 
         /**
          * Parses the text sequence.
@@ -108,7 +107,7 @@ namespace parser
          * @param values the nodes to parse.
          * @return the sequence node.
          */
-        node::TreeNode *TextSequence(std::vector<node::TreeNode *> &values);
+        static std::shared_ptr<node::TreeNode> TextSequence(const std::vector<std::shared_ptr<node::TreeNode>>& values);
 
         /**
          * Parses the TJUP node.
@@ -116,7 +115,7 @@ namespace parser
          * @param root the root node.
          * @param values the node values.
          */
-        void TjupSequence(node::RootNode *root, std::vector<node::TreeNode *> &values);
+        void TjupSequence(const std::shared_ptr<node::RootNode>& root, const std::vector<std::shared_ptr<node::TreeNode>>& values);
     };
 }
 

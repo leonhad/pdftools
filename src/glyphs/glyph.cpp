@@ -26,59 +26,50 @@ Glyph::Glyph() : m_context(nullptr), m_lastGlyph(nullptr)
 {
 }
 
-Glyph::~Glyph()
-{
-    vector<Glyph *>::iterator i;
-    for (i = m_childs.begin(); i != m_childs.end(); ++i)
-    {
-        delete *i;
-    }
-}
-
-void Glyph::AddChild(Glyph *glyph)
+void Glyph::AddChild(const std::shared_ptr<Glyph>& glyph)
 {
     if (glyph)
     {
-        m_childs.push_back(glyph);
+        m_children.push_back(glyph);
     }
 }
 
-void Glyph::Execute(Html *document, Context *c)
+void Glyph::Execute(const std::shared_ptr<Html>& document, const std::shared_ptr<Context>& context)
 {
-    this->m_context = c;
+    this->m_context = context;
 
     StartGlyph(document);
     DoGlyph(document);
 
-    size_t size = m_childs.size();
+    const size_t size = m_children.size();
     if (size > 0)
     {
-        m_lastGlyph = this;
+        m_lastGlyph = std::shared_ptr<Glyph>(this);
     }
 
     for (size_t i = 0; i < size; i++)
     {
-        m_childs [i]->SetLast(m_lastGlyph);
-        m_childs [i]->Execute(document, m_context);
-        m_lastGlyph = m_childs [i];
+        m_children[i]->SetLast(m_lastGlyph);
+        m_children[i]->Execute(document, m_context);
+        m_lastGlyph = m_children[i];
     }
-    
+
     EndGlyph(document);
 }
 
-void Glyph::SetLast(Glyph *glyph)
+void Glyph::SetLast(const std::shared_ptr<Glyph>& glyph)
 {
     this->m_lastGlyph = glyph;
 }
 
-void Glyph::DoGlyph(Html *)
+void Glyph::DoGlyph(const std::shared_ptr<Html>&)
 {
 }
 
-void Glyph::StartGlyph(Html *)
+void Glyph::StartGlyph(const std::shared_ptr<Html>&)
 {
 }
 
-void Glyph::EndGlyph(Html *)
+void Glyph::EndGlyph(const std::shared_ptr<Html>&)
 {
 }

@@ -22,6 +22,7 @@
 
 #include "treenode.h"
 #include <map>
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -30,13 +31,13 @@ namespace node
     /**
      * Stores a map node.
      */
-    class MapNode: public TreeNode
+    class MapNode : public TreeNode
     {
     private:
         /**
          * Stores a map of nodes.
          */
-        std::map<std::string, TreeNode *> m_values;
+        std::map<std::string, std::shared_ptr<TreeNode>> m_values;
 
     public:
         /**
@@ -47,7 +48,7 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~MapNode() override;
+        ~MapNode() override = default;
 
         /**
          * Pushes a value to this map.
@@ -55,14 +56,14 @@ namespace node
          * @param name the node name.
          * @param value the node value.
          */
-        void Put(std::string name, TreeNode *value);
+        void Put(const std::string& name, const std::shared_ptr<TreeNode>& value);
 
         /**
          * Gets the node names.
          *
          * @return the node names.
          */
-        std::vector<std::string> Names() const;
+        [[nodiscard]] std::vector<std::string> Names() const;
 
         /**
          * Gets a map by its name.
@@ -70,7 +71,7 @@ namespace node
          * @param name the node name.
          * @return the node.
          */
-        TreeNode *Get(std::string name) const;
+        [[nodiscard]] std::shared_ptr<TreeNode> Get(const std::string& name) const;
     };
 }
 

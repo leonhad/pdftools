@@ -20,12 +20,12 @@
 #include "fontsizeglyph.h"
 #include "../semantic/context.h"
 
-FontSizeGlyph::FontSizeGlyph(double size) : Glyph()
+FontSizeGlyph::FontSizeGlyph(const double size)
 {
     this->m_size = size;
 }
 
-void FontSizeGlyph::DoGlyph(Html *)
+void FontSizeGlyph::DoGlyph(const std::shared_ptr<Html>&)
 {
     m_context->SetFontSize(m_size);
 }

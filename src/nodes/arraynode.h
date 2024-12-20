@@ -23,37 +23,38 @@
 #include "treenode.h"
 #include <vector>
 #include <cstddef>
+#include <memory>
 
 namespace node
 {
     /**
      * Stores a array node.
      */
-    class ArrayNode: public TreeNode
+    class ArrayNode final : public TreeNode
     {
     private:
         /**
          * The array values.
          */
-        std::vector<TreeNode *> m_values;
+        std::vector<std::shared_ptr<TreeNode>> m_values;
 
     public:
         /**
          * Creates a new instance.
          */
-        ArrayNode();
+        ArrayNode() = default;
 
         /**
          * Destroy the instance.
          */
-        virtual ~ArrayNode() override;
+        ~ArrayNode() override = default;
 
         /**
          * Adds a value in this array.
          *
          * @param value the value to store of.
          */
-        void Push(TreeNode *value);
+        void Push(const std::shared_ptr<TreeNode>& value);
 
         /**
          * Gets the value by its index.
@@ -61,14 +62,14 @@ namespace node
          * @param index the index to search of.
          * @return the value by index.
          */
-        TreeNode *Value(size_t index) const;
+        [[nodiscard]] std::shared_ptr<TreeNode> Value(size_t index) const;
 
         /**
          * Gets this array size.
          *
          * @return the array size.
          */
-        size_t Size() const;
+        [[nodiscard]] size_t Size() const;
     };
 }
 

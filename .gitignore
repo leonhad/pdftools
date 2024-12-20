@@ -17,6 +17,8 @@ Release
 *.gcda
 .DS_Store
 *.gcno
+.idea
+build
 
 cppunit.xmL
 

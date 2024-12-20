@@ -23,7 +23,7 @@
 
 using namespace std;
 
-PageLabel::PageLabel(int start, int range, page_type type, string &name)
+PageLabel::PageLabel(const int start, const int range, const page_type type, const string& name)
 {
     this->m_startNumber = start;
     this->m_range = range;
@@ -31,22 +31,22 @@ PageLabel::PageLabel(int start, int range, page_type type, string &name)
     this->m_name = name;
 }
 
-int PageLabel::Start()
+int PageLabel::Start() const
 {
     return m_startNumber;
 }
 
-int PageLabel::Range()
+int PageLabel::Range() const
 {
     return m_range;
 }
 
-page_type PageLabel::Type()
+page_type PageLabel::Type() const
 {
     return m_type;
 }
 
-string &PageLabel::Name()
+string& PageLabel::Name()
 {
     return m_name;
 }

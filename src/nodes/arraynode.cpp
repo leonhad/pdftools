@@ -22,18 +22,9 @@
 using namespace std;
 using namespace node;
 
-ArrayNode::ArrayNode() :
-        TreeNode()
+shared_ptr<TreeNode> ArrayNode::Value(const size_t index) const
 {
-}
-
-ArrayNode::~ArrayNode()
-{
-}
-
-TreeNode *ArrayNode::Value(size_t index) const
-{
-    return m_values [index];
+    return m_values[index];
 }
 
 size_t ArrayNode::Size() const
@@ -41,7 +32,7 @@ size_t ArrayNode::Size() const
     return m_values.size();
 }
 
-void ArrayNode::Push(TreeNode *value)
+void ArrayNode::Push(const std::shared_ptr<TreeNode>& value)
 {
     m_values.push_back(value);
 }

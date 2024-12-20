@@ -20,6 +20,7 @@
 #ifndef DOCUMENT_H
 #define DOCUMENT_H
 
+#include <memory>
 #include <string>
 #include <vector>
 
@@ -80,32 +81,32 @@ private:
     /**
      * Stores the document tree root.
      */
-    node::TreeNode *m_root;
+    std::shared_ptr<node::TreeNode> m_root;
 
     /**
      * Stores the document info node.
      */
-    node::TreeNode *m_info;
+    std::shared_ptr<node::TreeNode> m_info;
 
     /**
      * Stores the document outlines.
      */
-    Outline *m_outlines;
+    std::shared_ptr<Outline> m_outline;
 
     /**
      * The list of document fonts.
      */
-    std::vector<Font *> m_fonts;
+    std::vector<std::shared_ptr<Font>> m_fonts;
 
     /**
      * The list of document pages.
      */
-    std::vector<Page *> m_pages;
+    std::vector<std::shared_ptr<Page>> m_pages;
 
     /**
      * The list of document page labels.
      */
-    std::vector<PageLabel *> m_page_label;
+    std::vector<std::shared_ptr<PageLabel>> m_page_label;
 
 public:
     /**
@@ -116,7 +117,7 @@ public:
     /**
      * Destroy this instance.
      */
-    ~Document();
+    ~Document() = default;
 
     /**
      * Sets the document id.
@@ -131,14 +132,14 @@ public:
      *
      * @param root the document tree root.
      */
-    void SetRoot(node::TreeNode *root);
+    void SetRoot(node::TreeNode &root);
 
     /**
      * Sets the document info node.
      *
      * @param info the document info node.
      */
-    void SetInfo(node::TreeNode *info);
+    void SetInfo(node::TreeNode &info);
 
     /**
      * Sets if the document is encrypted.
@@ -159,49 +160,49 @@ public:
      *
      * @param title the document title.
      */
-    void SetTitle(std::string title);
+    void SetTitle(const std::string& title);
 
     /**
      * Sets the document subject.
      *
      * @param subject the document subject.
      */
-    void SetSubject(std::string subject);
+    void SetSubject(const std::string& subject);
 
     /**
      * Sets the document author.
      *
      * @param author the document author.
      */
-    void SetAuthor(std::string author);
+    void SetAuthor(const std::string& author);
 
     /**
      * Sets the document language.
      *
      * @param lang the document language.
      */
-    void SetLang(std::string lang);
+    void SetLang(const std::string& lang);
 
     /**
      * Sets the document outline.
      *
      * @param outline the document outline.
      */
-    void SetOutline(Outline *outline);
+    void SetOutline(std::shared_ptr<Outline> outline);
 
     /**
      * Gets the document outline.
      *
      * @return the document outline.
      */
-    Outline *CurrentOutline();
+    [[nodiscard]] std::shared_ptr<Outline> CurrentOutline() const;
 
     /**
      * Add a font to this document.
      *
      * @param font the font to add.
      */
-    void AddFont(Font *font);
+    void AddFont(const std::shared_ptr<Font>& font);
 
     /**
      * Get a font by its name.
@@ -209,21 +210,21 @@ public:
      * @param name the font name.
      * @return the font by name.
      */
-    Font *CurrentFont(const char *name);
+    std::shared_ptr<Font> CurrentFont(const std::string &name);
 
     /**
      * Adds a page to this document.
      *
      * @param page the page to add.
      */
-    void AddPage(Page *page);
+    void AddPage(const std::shared_ptr<Page>& page);
 
     /**
      * Adds a page label to this document.
      *
      * @param label the page label to add.
      */
-    void AddPageLabel(PageLabel *label);
+    void AddPageLabel(const std::shared_ptr<PageLabel>& label);
 
     /**
      * Gets a page by index.
@@ -231,14 +232,14 @@ public:
      * @param index the page index.
      * @return the page by index.
      */
-    Page *CurrentPage(size_t index);
+    [[nodiscard]] std::shared_ptr<Page> CurrentPage(size_t index) const;
 
     /**
      * Gets the total count of document pages.
      *
      * @return the total count of document pages.
      */
-    size_t Pages();
+    [[nodiscard]] size_t Pages() const;
 
     /**
      * Gets a page by its id.
@@ -247,21 +248,21 @@ public:
      * @param generation the page generation.
      * @return the page.
      */
-    Page *CurrentPage(int id, int generation);
+    std::shared_ptr<Page> CurrentPage(int id, int generation);
 
     /**
      * Gets if this document is encrypted.
      *
      * @return true if this document is encrypted.
      */
-    bool Encrypted();
+    [[nodiscard]] bool Encrypted() const;
 
     /**
      * Gets if the tree node is parsed.
      *
      * @return true if the tree node is parsed.
      */
-    bool TreeRoot();
+    [[nodiscard]] bool TreeRoot() const;
 
     /**
      * Gets the page language.
@@ -303,14 +304,14 @@ public:
      *
      * @return the document root node.
      */
-    node::TreeNode *RootNode();
+    std::shared_ptr<node::TreeNode> RootNode();
 
     /**
      * Gets the document info node.
      *
      * @return the document info node.
      */
-    node::TreeNode *InfoNode();
+    std::shared_ptr<node::TreeNode> InfoNode();
 };
 
 #endif
