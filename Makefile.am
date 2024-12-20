@@ -4,9 +4,6 @@ SUBDIRS = src
 
 EXTRA_DIST = \
 	BUGS \
-	README.DEFLATE \
-	README.APPNOTE \
-	README.ZLIB \
 	README.md \
 	debian \
 	vs
