@@ -39,20 +39,20 @@ class PageAnalyze
 {
 private:
     GraphicState m_state;
-    Document *m_document;
-    Glyph *m_root;
+    std::shared_ptr<Document> m_document;
+    std::shared_ptr<Glyph> m_root;
 
 public:
-    PageAnalyze(Document *document);
-    ~PageAnalyze();
+    explicit PageAnalyze(const std::shared_ptr<Document>& document);
+    ~PageAnalyze() = default;
 
-    Glyph *AnalyzeTree(node::RootNode *tree);
+    std::shared_ptr<Glyph> AnalyzeTree(const std::shared_ptr<node::RootNode>& tree);
 
 private:
-    void AnalyzeTree(node::RootNode *tree, Glyph *parent);
-    void AnalyzeText(node::TextNode *text, Glyph *parent);
-    FontSizeGlyph *AnalyzeTextMatrix(node::TextMatrixNode *text_matrix);
-    FontGlyph *AnalyzeFont(node::FontNode *font);
+    void AnalyzeTree(const std::shared_ptr<node::RootNode>& tree, const std::shared_ptr<Glyph>& parent);
+    static void AnalyzeText(const std::shared_ptr<node::TextNode>& text, const std::shared_ptr<Glyph>& parent);
+    std::shared_ptr<FontSizeGlyph> AnalyzeTextMatrix(const std::shared_ptr<node::TextMatrixNode>& text_matrix);
+    std::shared_ptr<FontGlyph> AnalyzeFont(const std::shared_ptr<node::FontNode>& font);
 };
 
 #endif

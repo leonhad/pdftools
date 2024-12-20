@@ -23,37 +23,38 @@
 #include "treenode.h"
 #include <vector>
 #include <cstddef>
+#include <memory>
 
 namespace node
 {
     /**
      * Stores a root node.
      */
-    class RootNode: public TreeNode
+    class RootNode : public TreeNode
     {
     private:
         /**
          * The list of childhood nodes.
          */
-        std::vector<TreeNode *> m_child;
+        std::vector<std::shared_ptr<TreeNode>> m_child;
 
     public:
         /**
          * Creates a new instance.
          */
-        RootNode();
+        RootNode() = default;
 
         /**
          * Destroy this instance.
          */
-        virtual ~RootNode() override;
+        ~RootNode() override = default;
 
         /**
          * Adds a child to this node.
          *
          * @param child the child to add.
          */
-        void AddChild(TreeNode *child);
+        void AddChild(const std::shared_ptr<TreeNode>& child);
 
         /**
          * Gets a child by its index.
@@ -61,14 +62,14 @@ namespace node
          * @param index the index.
          * @return the child.
          */
-        TreeNode *Get(size_t index) const;
+        [[nodiscard]] std::shared_ptr<TreeNode> Get(size_t index) const;
 
         /**
          * The total of childhood.
          *
          * @return the total of childhood.
          */
-        size_t Size() const;
+        [[nodiscard]] size_t Size() const;
     };
 }
 

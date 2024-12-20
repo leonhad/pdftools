@@ -40,10 +40,10 @@ public:
     /// @param in  the input file name.
     /// @param out the file output name.
     /// @param format the desired format.
-    Converter(const std::string& in, const std::string& out, const std::string& format);
+    Converter(const std::string& in, const std::string& out, std::string  format);
     
     /// Convert the PDF file.
-    void Convert();
+    void Convert() const;
 };
 
 #endif

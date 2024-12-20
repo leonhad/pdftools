@@ -25,7 +25,7 @@
 
 class Html;
 
-class TextGlyph: public Glyph
+class TextGlyph final : public Glyph
 {
 private:
     /**
@@ -39,14 +39,14 @@ public:
      *
      * @param text the texto to draw.
      */
-    TextGlyph(std::string &&text);
+    explicit TextGlyph(std::string &&text);
 
     /**
      * Draw this glyph.
      *
      * @param document the document to generate in.
      */
-    virtual void DoGlyph(Html *document);
+    void DoGlyph(const std::shared_ptr<Html> &document) override;
 };
 
 #endif

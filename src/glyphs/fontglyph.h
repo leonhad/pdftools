@@ -26,7 +26,7 @@
 /**
  * Stores a font glyph.
  */
-class FontGlyph: public Glyph
+class FontGlyph final : public Glyph
 {
 private:
     /**
@@ -53,7 +53,7 @@ public:
      *
      * @param document the document to generate in.
      */
-    virtual void DoGlyph(Html *document);
+    void DoGlyph(const std::shared_ptr<Html> &document) override;
 };
 
 #endif

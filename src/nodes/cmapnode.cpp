@@ -24,44 +24,31 @@
 using namespace std;
 using namespace node;
 
-CMapNode::CMapNode() : TreeNode(), m_codespace(nullptr)
+CMapNode::CMapNode() : m_code_space(nullptr)
 {
 }
 
-CMapNode::~CMapNode()
+void CMapNode::Add(const std::shared_ptr<CharNode>& node)
 {
-    for (auto &i : m_charnodes)
-    {
-        delete i;
-    }
-
-    if (m_codespace)
-    {
-        delete m_codespace;
-    }
+    m_char_nodes.push_back(node);
 }
 
-void CMapNode::Add(CharNode *node)
+void CMapNode::SetCodeSpace(const std::shared_ptr<CodeSpaceNode>& code_space)
 {
-    m_charnodes.push_back(node);
+    this->m_code_space = code_space;
 }
 
-void CMapNode::SetCodespace(CodeSpaceNode *c)
+std::shared_ptr<CodeSpaceNode> CMapNode::CodeSpace() const
 {
-    this->m_codespace = c;
-}
-
-CodeSpaceNode *CMapNode::CodeSpace() const
-{
-    return m_codespace;
+    return m_code_space;
 }
 
 size_t CMapNode::Nodes() const
 {
-    return m_charnodes.size();
+    return m_char_nodes.size();
 }
 
-CharNode *CMapNode::Node(size_t index) const
+std::shared_ptr<CharNode> CMapNode::Node(const size_t index) const
 {
-    return m_charnodes.at(index);
+    return m_char_nodes.at(index);
 }

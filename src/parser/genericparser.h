@@ -20,6 +20,8 @@
 #ifndef GENERICPARSER_H
 #define GENERICPARSER_H
 
+#include <memory>
+
 #include "scanner.h"
 #include <sstream>
 
@@ -39,12 +41,12 @@ namespace parser
         /**
          * The file scanner.
          */
-        Scanner *m_scanner;
+        std::shared_ptr<Scanner> m_scanner;
 
         /**
          * The current token.
          */
-        Token *m_token;
+        std::shared_ptr<Token> m_token;
 
     public:
         /**
@@ -57,7 +59,7 @@ namespace parser
         /**
          * Destroy this instance.
          */
-        ~GenericParser();
+        ~GenericParser() = default;
 
     protected:
         /**
@@ -65,10 +67,10 @@ namespace parser
          *
          * @return the tree node sequence value.
          */
-        node::TreeNode *ValueSequence();
+        std::shared_ptr<node::TreeNode> ValueSequence();
 
         /**
-         * Checks if the current token have the some type.
+         * Checks if the current token have some type.
          *
          * @param type the type to check with the current token.
          * @return true if are the same.

@@ -20,8 +20,6 @@
 #ifndef SCANNER_H
 #define SCANNER_H
 
-#include <istream>
-#include <stdint.h>
 #include "token.h"
 
 namespace parser
@@ -53,7 +51,7 @@ namespace parser
          *
          * @param m_filein the file to read.
          */
-        Scanner(std::istream *m_filein);
+        explicit Scanner(std::istream *m_filein);
 
         /**
          * Destroy this instance.
@@ -65,14 +63,14 @@ namespace parser
          *
          * @return the next token.
          */
-        Token *NextToken();
+        Token &NextToken();
 
         /**
          * If this scanner have more tokens.
          *
          * @return true if this scanner have more tokens.
          */
-        bool Good() const;
+        [[nodiscard]] bool Good() const;
 
         /**
          * Ignore a line.
@@ -85,21 +83,21 @@ namespace parser
          * @param length the length to ignore.
          * @return the size skipped.
          */
-        std::streampos IgnoreStream(int length);
+        [[nodiscard]] std::streampos IgnoreStream(int length) const;
 
         /**
          * Gets the current position.
          *
          * @return the current position.
          */
-        std::streampos Pos() const;
+        [[nodiscard]] std::streampos Pos() const;
 
         /**
          * Change the current position.
          *
          * @param pos the position to switch.
          */
-        void ToPos(std::streampos pos);
+        void ToPos(std::streampos pos) const;
 
         /**
          * Gets a stream of bytes.
@@ -107,14 +105,12 @@ namespace parser
          * @param length the length to read.
          * @return the stream.
          */
-        char *Stream(std::streamsize length);
+        [[nodiscard]] std::string Stream(std::streamsize length) const;
 
         /**
-         * Get a image stream.
-         *
-         * @return the image stream.
+         * Handles an image stream.
          */
-        char *ImageStream();
+        void ImageStream() const;
 
         /**
          * Disable the charset conversion.
@@ -124,28 +120,28 @@ namespace parser
         /**
          * Clears the file stream.
          */
-        void Clear();
+        void Clear() const;
 
     private:
         /**
-         * Retuns a char to the buffer.
+         * Returns a char to the buffer.
          */
-        void UngetChar();
+        void UnGetChar() const;
 
         /**
          * Gets the next char.
          *
          * @return the next char.
          */
-        char NextChar();
+        [[nodiscard]] char NextChar() const;
 
         /**
          * Gets the token type by a string.
          *
-         * @param s the string to lookup.
+         * @param reserved_word the string to lookup.
          * @return the token type by a string.
          */
-        TokenType ReservedLookup(const char *s);
+        static TokenType ReservedLookup(const std::string& reserved_word);
     };
 }
 

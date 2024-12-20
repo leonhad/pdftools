@@ -44,12 +44,12 @@ namespace node
          *
          * @param list the list values.
          */
-        explicit TextMatrixNode(const std::initializer_list<double> &list);
+        TextMatrixNode(const std::initializer_list<double> &list);
 
         /**
          * Destroy this instance.
          */
-        virtual ~TextMatrixNode() override = default;
+        ~TextMatrixNode() override = default;
 
         /**
          * Get a text matrix value by its index.
@@ -57,7 +57,7 @@ namespace node
          * @param index the index.
          * @return  the text matrix value.
          */
-        double At(size_t index) const;
+        [[nodiscard]] double At(size_t index) const;
     };
 }
 

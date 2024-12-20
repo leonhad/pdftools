@@ -22,40 +22,33 @@
 using namespace std;
 using namespace node;
 
-BDCNode::BDCNode(RootNode *parent) :
-        RootNode(), m_parent(parent), m_value(nullptr)
+BDCNode::BDCNode(const std::shared_ptr<RootNode>& parent) :
+    m_parent{parent}, m_value{nullptr}
 {
 }
 
-BDCNode::~BDCNode()
-{
-    if (m_value)
-    {
-        delete m_value;
-    }
-}
 
-TreeNode *BDCNode::Value()
+std::shared_ptr<TreeNode> BDCNode::Value()
 {
     return m_value;
 }
 
-string BDCNode::Name()
+string& BDCNode::Name()
 {
     return m_name;
 }
 
-void BDCNode::SetValue(TreeNode *v)
+void BDCNode::SetValue(const std::shared_ptr<TreeNode>& v)
 {
     this->m_value = v;
 }
 
-void BDCNode::SetName(const string &n)
+void BDCNode::SetName(const string& name)
 {
-    this->m_name = n;
+    this->m_name = name;
 }
 
-RootNode *BDCNode::Parent()
+std::shared_ptr<RootNode> BDCNode::Parent()
 {
     return m_parent;
 }

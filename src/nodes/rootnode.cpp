@@ -22,26 +22,14 @@
 using namespace std;
 using namespace node;
 
-RootNode::RootNode() : TreeNode()
+void RootNode::AddChild(const std::shared_ptr<TreeNode>& child)
 {
+    this->m_child.push_back(child);
 }
 
-RootNode::~RootNode()
+std::shared_ptr<TreeNode> RootNode::Get(const size_t index) const
 {
-    for (auto &i : m_child)
-    {
-        delete i;
-    }
-}
-
-void RootNode::AddChild(TreeNode *c)
-{
-    this->m_child.push_back(c);
-}
-
-TreeNode *RootNode::Get(size_t index) const
-{
-    return m_child [index];
+    return m_child[index];
 }
 
 size_t RootNode::Size() const

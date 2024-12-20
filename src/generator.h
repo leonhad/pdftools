@@ -20,6 +20,7 @@
 #ifndef GENERATOR_H
 #define GENERATOR_H
 
+#include <memory>
 #include <string>
 
 class Document;
@@ -29,19 +30,19 @@ class Document;
 class Generator
 {
 protected:
-    Generator();
+    Generator() = default;
 
 public:
-    virtual ~Generator();
+    virtual ~Generator() = default;
 
-    /// Gets a instance from a desired format.
+    /// Gets an instance from a desired format.
     /// @param format the desired format.
-    static Generator *GetInstance(const std::string& format);
-    
+    static std::shared_ptr<Generator> GetInstance(const std::string& format);
+
     /// Generate the document.
     /// @param document the document to generate.
     /// @param output the output file.
-    virtual bool Generate(Document *document, const std::string& output) = 0;
+    virtual bool Generate(const std::shared_ptr<Document> &document, const std::string& output) = 0;
 };
 
 #endif

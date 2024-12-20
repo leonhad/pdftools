@@ -25,7 +25,7 @@
 /**
  * Stores a break glyph.
  */
-class BreakGlyph: public Glyph
+class BreakGlyph final : public Glyph
 {
 public:
     /**
@@ -33,7 +33,7 @@ public:
      *
      * @param document the document to generate in.
      */
-    virtual void DoGlyph(Html *document);
+    virtual void DoGlyph(const std::shared_ptr<Html>& document);
 };
 
 #endif

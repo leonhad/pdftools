@@ -22,30 +22,26 @@
 #include "utils.h"
 #include "analyze.h"
 #include "generator.h"
-#include "parser/scanner.h"
 #include "semantic/document.h"
-#include "nodes/nodes.h"
 #include "genericexception.h"
-#include <iostream>
-#include <sstream>
-#include <fstream>
 #include <memory>
+#include <utility>
 
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& in, const string& out, const string& format) :
-    m_fileIn(in), m_format(format)
+Converter::Converter(const string& in, const string& out, string format) :
+    m_fileIn(in), m_format(std::move(format))
 {
     // Calculate the output file name
     if (m_fileOut.empty())
     {
         m_fileOut = in;
-        auto last_dot = m_fileOut.find_last_of('.');
-        if (last_dot != string::npos)
+        if (const auto last_dot = m_fileOut.find_last_of('.'); last_dot != string::npos)
         {
             m_fileOut = m_fileOut.substr(0, last_dot);
         }
+
         m_fileOut += ".";
         m_fileOut += m_format;
     }
@@ -55,19 +51,19 @@ Converter::Converter(const string& in, const string& out, const string& format) 
     }
 }
 
-void Converter::Convert()
+void Converter::Convert() const
 {
     Analyze analyze(m_fileIn);
-    
-    Document* m_document = analyze.AnalyzeTree();
-    
+
+    auto m_document = analyze.AnalyzeTree();
+
     wstring msg;
     msg += L"Analyzing file ";
     msg += SingleToWide(m_fileIn);
     msg += L" Pages: ";
     msg += to_wstring(m_document->Pages());
     msg += L" - Title: ";
-    
+
     if (m_document->Title().empty())
     {
         msg += L"No title";
@@ -76,12 +72,11 @@ void Converter::Convert()
     {
         msg += SingleToWide(m_document->Title());
     }
-    
+
     VerboseMessage(msg);
-    
+
     // Generate output file
-    unique_ptr<Generator> instance(Generator::GetInstance(m_format));
-    if (instance.get())
+    if (const auto instance(Generator::GetInstance(m_format)); instance)
     {
         if (not instance->Generate(m_document, m_fileOut))
         {

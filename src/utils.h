@@ -20,18 +20,17 @@
 #pragma once
 
 #include <string>
-#include <cstdint>
 #include <stdexcept>
 
 std::wstring SingleToWide(const std::string& str);
-void ErrorMessage(const std::exception &e);
-void ErrorMessage(const wchar_t *msg);
+void ErrorMessage(const std::exception& e);
+void ErrorMessage(const wchar_t* msg);
 void ErrorMessage(const std::wstring& msg);
-void VerboseMessage(const std::wstring &msg);
-void VerboseMessage(const wchar_t *msg);
-void SetVerboseMode(const bool verbose);
+void VerboseMessage(const std::wstring& msg);
+void VerboseMessage(const wchar_t* msg);
+void SetVerboseMode(bool verbose);
 bool VerboseMode();
-char *FlatDecode(char *compressed, size_t size, size_t &deflated);
-char *Compress(const char *raw, size_t size, size_t &writed);
-std::string UTF16beToUTF8(const std::string &str);
-std::string CharsetToUTF8(const std::string &str);
+const char* FlatDecode(const char* compressed, size_t size, size_t& deflated);
+char* Compress(const char* raw, size_t size, size_t& writed);
+std::string UTF16beToUTF8(const std::string& str);
+std::string CharsetToUTF8(const std::string& str);

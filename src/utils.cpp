@@ -20,6 +20,8 @@
 #include "config.h"
 #include "genericexception.h"
 #include "utils.h"
+
+#include <cstdint>
 #include <iostream>
 #include <vector>
 #include <zlib.h>
@@ -182,7 +184,7 @@ char *Compress(const char *raw, size_t size, size_t &writed)
     return ret;
 }
 
-char *FlatDecode(char *compressed, size_t size, size_t &deflated)
+const char *FlatDecode(const char *compressed, size_t size, size_t &deflated)
 {
     vector<BufferStruct> values;
     
@@ -194,11 +196,11 @@ char *FlatDecode(char *compressed, size_t size, size_t &deflated)
     zstream.next_in = Z_NULL;
     
     size_t total = 0;
-    int rsti = inflateInit(&zstream);
+    const int rsti = inflateInit(&zstream);
     if (rsti == Z_OK)
     {
-        zstream.avail_in = (uInt)size;
-        zstream.next_in = (Bytef *) compressed;
+        zstream.avail_in = static_cast<uInt>(size);
+        zstream.next_in = (Byte*) compressed;
         
         do
         {
@@ -292,8 +294,8 @@ string CharsetToUTF8(const string &str)
     bool convert_string = false;
     if (str.length() > WIDECHAR_SIZE)
     {
-        uint8_t first = (uint8_t)str[0];
-        uint8_t second = (uint8_t)str[1];
+        auto first = static_cast<uint8_t>(str[0]);
+        auto second = static_cast<uint8_t>(str[1]);
         if ((first == BOM_START && second == BOM_END) || (first == BOM_END && second == BOM_START))
         {
             // UTF-16LE or UTF-16BE

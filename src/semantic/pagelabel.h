@@ -35,22 +35,22 @@ enum page_type
     /**
      * Roman type in upper case.
      */
-    UPCASE_ROMAN,
+    UPPERCASE_ROMAN,
 
     /**
      * Roman in lower case.
      */
-    LOWCASE_ROMAN,
+    LOWERCASE_ROMAN,
 
     /**
      * Letters in upper case.
      */
-    UPCASE_LETTERS,
+    UPPERCASE_LETTERS,
 
     /**
      * Letters in lower case.
      */
-    LOWCASE_LETTERS
+    LOWERCASE_LETTERS
 };
 
 /**
@@ -88,35 +88,35 @@ public:
      * @param type the page type.
      * @param name the label name.
      */
-    PageLabel(int start, int range, page_type type, std::string &name);
+    PageLabel(int start, int range, page_type type, const std::string& name);
 
     /**
      * Gets the page start.
      *
      * @return the page start.
      */
-    int Start();
+    [[nodiscard]] int Start() const;
 
     /**
      * Gets the page range.
      *
      * @return the page range.
      */
-    int Range();
+    [[nodiscard]] int Range() const;
 
     /**
      * Gets the page type.
      *
      * @return the page type.
      */
-    page_type Type();
+    [[nodiscard]] page_type Type() const;
 
     /**
      * Gets the page name.
      *
      * @return the page name.
      */
-    std::string &Name();
+    [[nodiscard]] std::string& Name();
 };
 
 #endif

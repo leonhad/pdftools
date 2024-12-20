@@ -30,85 +30,65 @@
 #include "semantic/font.h"
 #include "semantic/page.h"
 #include "semantic/pagelabel.h"
-#include <iostream>
 #include "genericexception.h"
+#include <fstream>
+#include <utility>
+#include <iostream>
 
 using namespace std;
 using namespace parser;
 using namespace node;
 
-Analyze::Analyze(const string &filein) : m_fileIn(filein)
+Analyze::Analyze(string filein) : m_fileIn(std::move(filein))
 {
-}
-
-Analyze::~Analyze()
-{
-    for (auto i = m_names.begin(); i != m_names.end(); i++)
-    {
-        delete (*i).second;
-    }
-    
-    if (m_document)
-    {
-        delete m_document;
-    }
-    
-    if (m_tree)
-    {
-        delete m_tree;
-    }
 }
 
 void Analyze::AnalyzeXref()
 {
-    size_t size = m_tree->Size();
-    
+    const size_t size = m_tree->Size();
+
     for (size_t i = 0; i < size; i++)
     {
-        TreeNode *value = m_tree->Get(i);
-        XREFNode *xref = dynamic_cast<XREFNode *>(value);
-        if (xref)
+        const auto value = m_tree->Get(i);
+        if (const auto xref = std::dynamic_pointer_cast<XREFNode>(value))
         {
-            MapNode *trailer = dynamic_cast<MapNode *>(xref->Trailer());
-            
-            m_document->SetRoot(GetRealValue(trailer->Get("/Root")));
-            m_document->SetInfo(GetRealValue(trailer->Get("/Info")));
+            const auto trailer = std::dynamic_pointer_cast<MapNode>(xref->Trailer());
+
+            m_document->SetRoot(*GetRealValue(trailer->Get("/Root")));
+            m_document->SetInfo(*GetRealValue(trailer->Get("/Info")));
             m_document->SetEncrypted(GetRealValue(trailer->Get("/Encrypt")) != nullptr);
-            
-            ArrayNode *array = dynamic_cast<ArrayNode *>(trailer->Get("/ID"));
-            if (array && array->Size() == 2)
+
+            if (const auto array = std::dynamic_pointer_cast<ArrayNode>(trailer->Get("/ID")); array && array->Size() ==
+                2)
             {
-                string first = GetStringValue(array->Value(0));
-                string second = GetStringValue(array->Value(1));
+                const string first = GetStringValue(array->Value(0));
+                const string second = GetStringValue(array->Value(1));
                 m_document->setId(first, second);
             }
-            
+
             break;
         }
         else
         {
-            ObjNode *obj = dynamic_cast<ObjNode *>(value);
-            if (obj)
+            if (const auto obj = std::dynamic_pointer_cast<ObjNode>(value))
             {
-                MapNode *values = dynamic_cast<MapNode *>(obj->Value());
-                if (values)
+                if (const auto values = std::dynamic_pointer_cast<MapNode>(obj->Value()))
                 {
-                    NameNode *type = dynamic_cast<NameNode *>(values->Get("/Type"));
-                    
                     // analyze only XREF Objects
-                    if (type && type->Name() == "/XRef")
+                    if (const auto type = std::dynamic_pointer_cast<NameNode>(values->Get("/Type")); type && type->
+                        Name() == "/XRef")
                     {
-                        m_document->SetRoot(GetRealValue(values->Get("/Root")));
-                        m_document->SetInfo(GetRealValue(values->Get("/Info")));
-                        
-                        ArrayNode *array = dynamic_cast<ArrayNode *>(values->Get("/ID"));
-                        if (array && array->Size() == 2)
+                        m_document->SetRoot(*GetRealValue(values->Get("/Root")));
+                        m_document->SetInfo(*GetRealValue(values->Get("/Info")));
+
+                        if (const auto array = std::dynamic_pointer_cast<ArrayNode>(values->Get("/ID")); array && array
+                            ->Size() == 2)
                         {
-                            string first = GetStringValue(array->Value(0));
-                            string second = GetStringValue(array->Value(1));
+                            const string first = GetStringValue(array->Value(0));
+                            const string second = GetStringValue(array->Value(1));
                             m_document->setId(first, second);
                         }
-                        
+
                         break;
                     }
                 }
@@ -119,11 +99,10 @@ void Analyze::AnalyzeXref()
 
 void Analyze::AnalyzeInfo()
 {
-    ObjNode *obj = dynamic_cast<ObjNode *>(m_document->InfoNode());
-    if (obj)
+    const auto root = m_document->RootNode();
+    if (const auto obj = std::dynamic_pointer_cast<ObjNode>(root))
     {
-        MapNode *info = dynamic_cast<MapNode *>(obj->Value());
-        if (info)
+        if (const auto info = std::dynamic_pointer_cast<MapNode>(obj->Value()))
         {
             m_document->SetTitle(GetStringValue(info->Get("/Title")));
             m_document->SetAuthor(GetStringValue(info->Get("/Author")));
@@ -132,49 +111,45 @@ void Analyze::AnalyzeInfo()
     }
 }
 
-TreeNode *Analyze::AnalyzeRoot()
+std::shared_ptr<TreeNode> Analyze::AnalyzeRoot()
 {
-    ObjNode *obj_root = dynamic_cast<ObjNode *>(m_document->RootNode());
+    const auto root = m_document->RootNode();
+    const auto obj_root = std::dynamic_pointer_cast<ObjNode>(root);
     if (not obj_root)
     {
         // Invalid file
         return nullptr;
     }
-    
-    MapNode *catalog = dynamic_cast<MapNode *>(obj_root->Value());
-    NameNode *name = dynamic_cast<NameNode *>(catalog->Get("/Type"));
-    if (not name || name->Name() != "/Catalog")
+
+    const auto catalog = std::dynamic_pointer_cast<MapNode>(obj_root->Value());
+    if (const auto name = std::dynamic_pointer_cast<NameNode>(catalog->Get("/Type")); not name || name->Name() !=
+        "/Catalog")
     {
         // Invalid file
         return nullptr;
     }
-    
-    node::TreeNode* m_page_tree = GetRealValue(catalog->Get("/Pages"));
+
+    const auto m_page_tree = GetRealValue(catalog->Get("/Pages"));
     m_document->SetLang(GetStringValue(catalog->Get("/Lang")));
-    
-    MapNode *namesNode = dynamic_cast<MapNode *>(GetRealObjValue(catalog->Get("/Names")));
-    if (namesNode)
+
+    if (const auto namesNode = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(catalog->Get("/Names"))))
     {
-        MapNode *dests = dynamic_cast<MapNode *>(GetRealObjValue(namesNode->Get("/Dests")));
-        AnalyzeNames(dests);
+        const auto destinations = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(namesNode->Get("/Dests")));
+        AnalyzeNames(destinations);
     }
-    
-    MapNode *page_labels = dynamic_cast<MapNode *>(GetRealObjValue(catalog->Get("/PageLabels")));
-    if (page_labels)
+
+    if (const auto page_labels = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(catalog->Get("/PageLabels"))))
     {
-        ArrayNode *array = dynamic_cast<ArrayNode *>(GetRealValue(page_labels->Get("/Nums")));
-        if (array)
+        if (const auto array = std::dynamic_pointer_cast<ArrayNode>(GetRealValue(page_labels->Get("/Nums"))))
         {
-            size_t size = array->Size();
-            
+            const size_t size = array->Size();
+
             for (size_t loop = 0; loop < size; loop += 2)
             {
-                int page = (int) GetNumberValue(array->Value(loop));
-                MapNode *attributes =
-                    dynamic_cast<MapNode *>(GetRealObjValue(array->Value(loop + 1)));
-                if (attributes)
+                int page = static_cast<int>(GetNumberValue(array->Value(loop)));
+                if (const auto attributes = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(array->Value(loop + 1))))
                 {
-                    NameNode *name_type = dynamic_cast<NameNode *>(attributes->Get("/S"));
+                    const auto name_type = std::dynamic_pointer_cast<NameNode>(attributes->Get("/S"));
                     page_type type = ARABIC;
                     if (name_type)
                     {
@@ -184,65 +159,61 @@ TreeNode *Analyze::AnalyzeRoot()
                         }
                         else if (name_type->Name() == "R")
                         {
-                            type = UPCASE_ROMAN;
+                            type = UPPERCASE_ROMAN;
                         }
                         else if (name_type->Name() == "r")
                         {
-                            type = LOWCASE_ROMAN;
+                            type = LOWERCASE_ROMAN;
                         }
                         else if (name_type->Name() == "A")
                         {
-                            type = UPCASE_LETTERS;
+                            type = UPPERCASE_LETTERS;
                         }
                         else if (name_type->Name() == "a")
                         {
-                            type = LOWCASE_LETTERS;
+                            type = LOWERCASE_LETTERS;
                         }
                     }
-                    
+
                     string newName = GetStringValue(attributes->Get("/P"));
-                    int range = (int) GetNumberValue(attributes->Get("/St"), 1);
-                    m_document->AddPageLabel(new PageLabel(page, range, type, newName));
+                    const int range = static_cast<int>(GetNumberValue(attributes->Get("/St"), 1));
+                    m_document->AddPageLabel(std::make_shared<PageLabel>(page, range, type, newName));
                 }
             }
         }
     }
-    
-    MapNode *outlines = dynamic_cast<MapNode *>(GetRealObjValue(catalog->Get("/Outlines")));
-    if (outlines)
+
+    if (const auto outlines = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(catalog->Get("/Outlines"))))
     {
         AnalyzeOutlines(outlines);
     }
-    
-    TreeNode *tree_root = catalog->Get("/StructTreeRoot");
-    if (tree_root)
+
+    if (const auto tree_root = catalog->Get("/StructTreeRoot"))
     {
         m_document->SetTreeRoot(true);
     }
-    
+
     return m_page_tree;
 }
 
-void Analyze::AnalyzeNames(MapNode *values)
+void Analyze::AnalyzeNames(const std::shared_ptr<MapNode>& values)
 {
-    ArrayNode *kids = dynamic_cast<ArrayNode *>(values->Get("/Kids"));
-    if (kids)
+    if (const auto children = std::dynamic_pointer_cast<ArrayNode>(values->Get("/Kids")))
     {
-        size_t size = kids->Size();
-        
+        const size_t size = children->Size();
+
         for (size_t i = 0; i < size; i++)
         {
-            MapNode *map_kids = dynamic_cast<MapNode *>(GetRealObjValue(kids->Value(i)));
+            const auto map_kids = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(children->Value(i)));
             AnalyzeNames(map_kids);
         }
     }
     else
     {
-        ArrayNode *namesNode = dynamic_cast<ArrayNode *>(values->Get("/Names"));
-        if (namesNode)
+        if (const auto namesNode = std::dynamic_pointer_cast<ArrayNode>(values->Get("/Names")))
         {
-            size_t size = namesNode->Size();
-            
+            const size_t size = namesNode->Size();
+
             for (size_t i = 0; i < size; i += 2)
             {
                 string name = GetStringValue(namesNode->Value(i));
@@ -252,60 +223,57 @@ void Analyze::AnalyzeNames(MapNode *values)
     }
 }
 
-TreeNode *Analyze::GetNamedValue(string name)
+std::shared_ptr<TreeNode> Analyze::GetNamedValue(const string& name)
 {
     try
     {
         return m_names.at(name);
     }
-    catch (out_of_range &)
+    catch (out_of_range&)
     {
         return nullptr;
     }
 }
 
-void Analyze::AnalyzeOutlines(MapNode *values, Outline *parent)
+void Analyze::AnalyzeOutlines(const std::shared_ptr<MapNode>& values, const std::shared_ptr<Outline>& parent)
 {
-    NameNode *type = dynamic_cast<NameNode *>(values->Get("/Type"));
-    if (type && type->Name() != "/Outlines")
+    if (const auto type = std::dynamic_pointer_cast<NameNode>(values->Get("/Type")); type && type->Name() !=
+        "/Outlines")
     {
         ErrorMessage(L"Invalid outlines");
         return;
     }
-    
-    Outline *outline = new Outline;
-    string named_dest = GetStringValue(values->Get("/Dest"));
-    if (not named_dest.empty())
+
+    auto outline = make_shared<Outline>();
+    if (const string named_dest = GetStringValue(values->Get("/Dest")); not named_dest.empty())
     {
-        MapNode *map = dynamic_cast<MapNode *>(GetRealObjValue(GetNamedValue(named_dest)));
-        if (map)
+        if (const auto map = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(GetNamedValue(named_dest))))
         {
-            ArrayNode *dest = dynamic_cast<ArrayNode *>(GetRealObjValue(map->Get("/D")));
+            const auto dest = std::dynamic_pointer_cast<ArrayNode>(GetRealObjValue(map->Get("/D")));
             AnalyzeOutline(dest, outline);
         }
     }
-    
-    ArrayNode *destinations = dynamic_cast<ArrayNode *>(values->Get("/Dest"));
-    if (destinations && destinations->Size() > 0)
+
+    if (const auto destinations = std::dynamic_pointer_cast<ArrayNode>(values->Get("/Dest")); destinations &&
+        destinations->Size() > 0)
     {
         AnalyzeOutline(destinations, outline);
     }
     else
     {
-        MapNode *actions = dynamic_cast<MapNode *>(GetRealObjValue(values->Get("/A")));
-        if (actions)
+        if (const auto actions = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(values->Get("/A"))))
         {
-            NameNode *subtype = dynamic_cast<NameNode *>(GetRealObjValue(actions->Get("/S")));
-            if (subtype && subtype->Name() == "/GoTo")
+            if (const auto subtype = std::dynamic_pointer_cast<NameNode>(GetRealObjValue(actions->Get("/S"))); subtype
+                && subtype->Name() == "/GoTo")
             {
-                ArrayNode *dest = dynamic_cast<ArrayNode *>(GetRealObjValue(actions->Get("/D")));
+                const auto dest = std::dynamic_pointer_cast<ArrayNode>(GetRealObjValue(actions->Get("/D")));
                 AnalyzeOutline(dest, outline);
             }
         }
     }
-    
+
     outline->SetTitle(GetStringValue(values->Get("/Title")));
-    
+
     if (not parent)
     {
         // root node
@@ -318,32 +286,29 @@ void Analyze::AnalyzeOutlines(MapNode *values, Outline *parent)
             parent->AddChild(outline);
         }
     }
-    
-    MapNode *first = dynamic_cast<MapNode *>(GetRealObjValue(values->Get("/First")));
-    if (first)
+
+    if (const auto first = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(values->Get("/First"))))
     {
         AnalyzeOutlines(first, outline);
     }
-    
-    MapNode *next = dynamic_cast<MapNode *>(GetRealObjValue(values->Get("/Next")));
-    if (next && parent)
+
+    if (const auto next = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(values->Get("/Next"))); next && parent)
     {
         AnalyzeOutlines(next, parent);
     }
 }
 
-void Analyze::AnalyzeOutline(ArrayNode *values, Outline *outline)
+void Analyze::AnalyzeOutline(const std::shared_ptr<ArrayNode>& values, const std::shared_ptr<Outline>& outline)
 {
     if (values && values->Size() > 0)
     {
-        RefNode *ref = dynamic_cast<RefNode *>(values->Value(0));
-        if (ref)
+        if (const auto ref = std::dynamic_pointer_cast<RefNode>(values->Value(0)))
         {
             outline->SetDestination(ref->Id(), ref->Generation());
         }
-        
-        NameNode *command = dynamic_cast<NameNode *>(values->Value(1));
-        if (command && command->Name() == "/XYZ")
+
+        if (const auto command = std::dynamic_pointer_cast<NameNode>(values->Value(1)); command && command->Name() ==
+            "/XYZ")
         {
             double x = GetNumberValue(values->Value(2));
             double y = GetNumberValue(values->Value(3));
@@ -352,196 +317,185 @@ void Analyze::AnalyzeOutline(ArrayNode *values, Outline *outline)
     }
 }
 
-Document *Analyze::AnalyzeTree()
+std::shared_ptr<Document> Analyze::AnalyzeTree()
 {
     VerboseMessage(L"Parsing file " + SingleToWide(m_fileIn));
-    
+
     ifstream filestream;
     filestream.open(m_fileIn, ios::binary);
 
     Parser parser(&filestream);
     m_tree = parser.Parse();
     filestream.close();
-    
+
     if (not m_tree)
     {
         // Invalid tree
         throw GenericException("Invalid file.");
     }
-    m_document = new Document;
-    
+    m_document = make_shared<Document>();
+
     AnalyzeXref();
     AnalyzeInfo();
-    
+
     if (m_document->Encrypted())
     {
         throw GenericException("Encrypted file is not supported.");
     }
-    else
-    {
-        TreeNode *m_page_tree = AnalyzeRoot();
-        AnalyzePages(m_page_tree);
-        return m_document;
-    }
+
+    const auto m_page_tree = AnalyzeRoot();
+    AnalyzePages(m_page_tree);
+    return m_document;
 }
 
-Page *Analyze::ProcessPage(int id, int generation, stringstream *stream_value, MapNode *catalog, ArrayNode *)
+std::shared_ptr<Page> Analyze::ProcessPage(const int id, const int generation, stringstream* stream_value,
+                                           const std::shared_ptr<MapNode>& catalog, const std::shared_ptr<ArrayNode>&)
 {
-    Page *page = new Page(m_document);
+    const auto page = make_shared<Page>(m_document);
     page->SetDestination(id, generation);
-    
-    MapNode *resources = dynamic_cast<MapNode *>(GetRealObjValue(catalog->Get("/Resources")));
-    if (resources)
+
+    if (const auto resources = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(catalog->Get("/Resources"))))
     {
-        MapNode *fonts = dynamic_cast<MapNode *>(GetRealObjValue(resources->Get("/Font")));
-        if (fonts)
+        if (const auto fonts = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(resources->Get("/Font"))))
         {
-            vector<string> namesList = fonts->Names();
-            size_t size = namesList.size();
+            const vector<string> namesList = fonts->Names();
+            const size_t size = namesList.size();
             for (size_t loop = 0; loop < size; loop++)
             {
                 string alias = namesList[loop];
-                MapNode *fontmap = dynamic_cast<MapNode *>(GetRealObjValue(fonts->Get(alias)));
-                if (fontmap)
+                if (const auto fontmap = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(fonts->Get(alias))))
                 {
-                    Font *font = AnalyzeFont(fontmap);
+                    const auto font = AnalyzeFont(fontmap);
                     page->AddFontMap(alias, font->Name());
                 }
             }
         }
     }
-    
+
     stream_value->seekg(0);
     PageParser parser(stream_value);
-    RootNode *root = parser.Parse();
-    
+    const auto root = parser.Parse();
+
     PageAnalyze analyze(m_document);
     page->SetRoot(analyze.AnalyzeTree(root));
-    
+
     return page;
 }
 
-Font *Analyze::AnalyzeFont(MapNode *fontmap)
+std::shared_ptr<Font> Analyze::AnalyzeFont(const std::shared_ptr<MapNode>& fontmap)
 {
-    Font *font = new Font;
-    
+    std::shared_ptr<Font> font(new Font());
+
     font->SetName("Unnamed");
-    MapNode *descriptor = dynamic_cast<MapNode *>(GetRealObjValue(fontmap->Get("/FontDescriptor")));
+    const auto descriptor = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(fontmap->Get("/FontDescriptor")));
     if (descriptor)
     {
-        NameNode *name = dynamic_cast<NameNode *>(descriptor->Get("/FontName"));
-        if (name)
+        if (const auto name = std::dynamic_pointer_cast<NameNode>(descriptor->Get("/FontName")))
         {
             font->SetName(name->Name());
         }
     }
-    
-    Font *from_document = m_document->CurrentFont(font->Name().c_str());
-    if (from_document)
+
+    if (const auto from_document = m_document->CurrentFont(font->Name()))
     {
-        delete font;
         return from_document;
     }
     else
     {
         m_document->AddFont(font);
     }
-    
+
     if (descriptor)
     {
-        int flags = (int) GetNumberValue(GetRealObjValue(descriptor->Get("/Flags")));
+        const int flags = static_cast<int>(GetNumberValue(GetRealObjValue(descriptor->Get("/Flags"))));
         if (flags & 1)
         {
             font->SetFixed(true);
         }
-        
+
         if (flags & 64)
         {
             font->SetItalic(true);
         }
     }
-    
-    ObjNode *to_unicode = dynamic_cast<ObjNode *>(GetRealValue(fontmap->Get("/ToUnicode")));
-    if (to_unicode)
+
+    if (const auto to_unicode = std::dynamic_pointer_cast<ObjNode>(GetRealValue(fontmap->Get("/ToUnicode"))))
     {
         stringstream stream;
         GetStream(to_unicode, &stream);
-        
+
         stream.seekg(0);
         CMapParser parser(&stream);
-        CMapNode *root = parser.Parse();
-        
-        if (root)
+
+        if (const auto root = parser.Parse())
         {
-            CodeSpaceNode *codespace = root->CodeSpace();
-            if (codespace)
+            if (const auto code_space = root->CodeSpace())
             {
-                font->SetCharMapStart(codespace->Start());
-                font->SetCharMapFinish(codespace->Finish());
+                font->SetCharMapStart(code_space->Start());
+                font->SetCharMapFinish(code_space->Finish());
             }
-            
-            size_t size = root->Nodes();
+
+            const size_t size = root->Nodes();
             for (size_t loop = 0; loop < size; loop++)
             {
-                CharNode *cnode = root->Node(loop);
+                const auto cnode = root->Node(loop);
                 font->AddCharMap(cnode->Character(), cnode->Unicode());
             }
         }
     }
-    
+
     return font;
 }
 
-void Analyze::GetStream(ArrayNode *array, stringstream *stream_value)
+void Analyze::GetStream(const std::shared_ptr<ArrayNode>& array, stringstream* stream_value)
 {
     if (array)
     {
         for (size_t loop = 0; loop < array->Size(); loop++)
         {
-            ObjNode *obj = dynamic_cast<ObjNode *>(GetRealValue(array->Value(loop)));
+            const auto obj = std::dynamic_pointer_cast<ObjNode>(GetRealValue(array->Value(loop)));
             GetStream(obj, stream_value);
         }
     }
 }
 
-void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
+void Analyze::GetStream(const std::shared_ptr<ObjNode>& obj, stringstream* stream_value)
 {
-    MapNode *node = dynamic_cast<MapNode *>(obj->Value());
-    NameNode *filter = dynamic_cast<NameNode *>(GetRealObjValue(node->Get("/Filter")));
-    ArrayNode *filter_array = dynamic_cast<ArrayNode *>(GetRealObjValue(node->Get("/Filter")));
-    unsigned int length = (unsigned int) GetNumberValue(GetRealObjValue(node->Get("/Length")));
-    
+    const auto node = std::dynamic_pointer_cast<MapNode>(obj->Value());
+    auto filter = std::dynamic_pointer_cast<NameNode>(GetRealObjValue(node->Get("/Filter")));
+    const auto filter_array = std::dynamic_pointer_cast<ArrayNode>(GetRealObjValue(node->Get("/Filter")));
+    const unsigned int length = static_cast<unsigned int>(GetNumberValue(GetRealObjValue(node->Get("/Length"))));
+
     ifstream filestream;
     filestream.open(m_fileIn, ios::binary);
-    Scanner scanner{ &filestream };
+    Scanner scanner{&filestream};
     scanner.ToPos(obj->StreamPos());
-    
-    char *stream = scanner.Stream(length);
+
+    const auto stream = scanner.Stream(length);
     filestream.close();
-    
-    size_t total = (size_t)length;
+
+    auto total = static_cast<size_t>(length);
     if (filter && filter->Name() == "/FlateDecode")
     {
-        const char *value = FlatDecode(stream, length, total);
+        const char* value = FlatDecode(stream.c_str(), length, total);
 #ifdef DEBUG
-        static int stream;
-        stream++;
-        
-        ofstream out(m_fileIn + ".stream." + to_string(stream));
+        static int stream_count;
+        stream_count++;
+
+        ofstream out(m_fileIn + ".stream." + to_string(stream_count));
         out.write(value, length);
 #endif
-        (*stream_value).write(value, (streamsize)total);
+        (*stream_value).write(value, static_cast<streamsize>(total));
         delete [] value;
     }
     else if (filter_array)
     {
-        size_t size = filter_array->Size();
-        if (size > 1)
+        if (size_t size = filter_array->Size(); size > 1)
         {
 #ifdef DEBUG
             for (size_t loop = 0; loop < size; loop++)
             {
-                filter = dynamic_cast<NameNode *> (GetRealValue(filter_array->Value(loop)));
+                filter = std::dynamic_pointer_cast<NameNode>(GetRealValue(filter_array->Value(loop)));
                 cout << filter->Name() << endl;
             }
 #endif
@@ -551,14 +505,14 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
         {
             for (size_t loop = 0; loop < size; loop++)
             {
-                filter = dynamic_cast<NameNode *>(GetRealValue(filter_array->Value(loop)));
+                filter = std::dynamic_pointer_cast<NameNode>(GetRealValue(filter_array->Value(loop)));
                 if (filter && filter->Name() == "/FlateDecode")
                 {
-                    const char *value = FlatDecode(stream, length, total);
+                    const char* value = FlatDecode(stream.c_str(), length, total);
 #ifdef DEBUG
                     cout << "Stream>\n" << value << "<\n";
 #endif
-                    (*stream_value).write(value, (streamsize)total);
+                    stream_value->write(value, static_cast<streamsize>(total));
                     delete [] value;
                 }
                 else
@@ -579,7 +533,7 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
     }
     else if (not filter)
     {
-        (*stream_value).write(stream, (streamsize)total);
+        stream_value->write(stream.c_str(), static_cast<streamsize>(total));
     }
     else
     {
@@ -587,163 +541,145 @@ void Analyze::GetStream(ObjNode *obj, stringstream *stream_value)
         message += SingleToWide(filter->Name());
         ErrorMessage(message);
     }
-    
-    delete [] stream;
 }
 
-void Analyze::AnalyzePages(TreeNode *page, ArrayNode *mediabox)
+void Analyze::AnalyzePages(const std::shared_ptr<TreeNode>& page, const std::shared_ptr<ArrayNode>& media_box)
 {
-    ObjNode *obj_pages = dynamic_cast<ObjNode *>(page);
+    const auto obj_pages = std::dynamic_pointer_cast<ObjNode>(page);
     if (not obj_pages)
     {
         // Invalid file.
         return;
     }
-    
-    MapNode *catalog = dynamic_cast<MapNode *>(obj_pages->Value());
-    NameNode *type = dynamic_cast<NameNode *>(catalog->Get("/Type"));
-    if (type)
+
+    const auto catalog = std::dynamic_pointer_cast<MapNode>(obj_pages->Value());
+    if (const auto type = std::dynamic_pointer_cast<NameNode>(catalog->Get("/Type")))
     {
         if (type->Name() == "/Pages")
         {
-            ArrayNode *kids = dynamic_cast<ArrayNode *>(catalog->Get("/Kids"));
-            ArrayNode *media = dynamic_cast<ArrayNode *>(catalog->Get("/MediaBox"));
+            const auto children = std::dynamic_pointer_cast<ArrayNode>(catalog->Get("/Kids"));
+            auto media = std::dynamic_pointer_cast<ArrayNode>(catalog->Get("/MediaBox"));
             if (not media)
             {
-                media = mediabox;
+                media = media_box;
             }
-            
-            if (kids)
+
+            if (children)
             {
-                size_t kids_size = kids->Size();
-                for (size_t loop = 0; loop < kids_size; loop++)
+                const size_t children_size = children->Size();
+                for (size_t loop = 0; loop < children_size; loop++)
                 {
-                    AnalyzePages(GetRealValue(kids->Value(loop)), media);
+                    AnalyzePages(GetRealValue(children->Value(loop)), media);
                 }
             }
         }
         else if (type->Name() == "/Page")
         {
-            ArrayNode *media = dynamic_cast<ArrayNode *>(catalog->Get("/MediaBox"));
+            auto media = std::dynamic_pointer_cast<ArrayNode>(catalog->Get("/MediaBox"));
             if (not media)
             {
-                media = mediabox;
+                media = media_box;
             }
-            
-            ObjNode *contents = dynamic_cast<ObjNode *>(GetRealValue(catalog->Get("/Contents")));
-            if (contents)
+
+            if (const auto contents = std::dynamic_pointer_cast<ObjNode>(GetRealValue(catalog->Get("/Contents"))))
             {
                 stringstream stream_value;
-                MapNode *snode = dynamic_cast<MapNode *>(contents->Value());
-                if (snode)
+                if (const auto snode = std::dynamic_pointer_cast<MapNode>(contents->Value()))
                 {
                     GetStream(contents, &stream_value);
                 }
                 else
                 {
-                    ArrayNode *array = dynamic_cast<ArrayNode *>(contents->Value());
+                    const auto array = std::dynamic_pointer_cast<ArrayNode>(contents->Value());
                     GetStream(array, &stream_value);
                 }
-                
-                m_document->AddPage(ProcessPage(obj_pages->Id(), obj_pages->Generation(),
-                                                &stream_value, catalog, media));
+
+                m_document->AddPage(
+                    ProcessPage(obj_pages->Id(), obj_pages->Generation(), &stream_value, catalog, media));
             }
         }
     }
 }
 
-TreeNode *Analyze::GetRealValue(TreeNode *value)
+std::shared_ptr<TreeNode> Analyze::GetRealValue(std::shared_ptr<TreeNode> value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
-    if (ref)
+    if (const auto ref = std::dynamic_pointer_cast<RefNode>(value))
     {
         return GetObject(ref);
     }
-    
+
     return value;
 }
 
-TreeNode *Analyze::GetRealObjValue(TreeNode *value)
+std::shared_ptr<TreeNode> Analyze::GetRealObjValue(std::shared_ptr<TreeNode> value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
-    if (ref)
+    if (const auto ref = std::dynamic_pointer_cast<RefNode>(value))
     {
-        ObjNode *node = GetObject(ref);
-        if (node)
+        if (const auto node = GetObject(ref))
         {
             return node->Value();
         }
-        
+
         return nullptr;
     }
-    
+
     return value;
 }
 
-string Analyze::GetStringValue(TreeNode *value)
+string Analyze::GetStringValue(const std::shared_ptr<TreeNode>& value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
-    if (ref)
+    if (const auto ref = std::dynamic_pointer_cast<RefNode>(value))
     {
         return GetStringValue(GetObject(ref)->Value());
     }
-    
-    StringNode *str = dynamic_cast<StringNode *>(value);
-    if (str)
+
+    if (const auto str = std::dynamic_pointer_cast<StringNode>(value))
     {
         return str->Value();
     }
-    
-    return string();
+
+    return "";
 }
 
-double Analyze::GetNumberValue(TreeNode *value, int default_value)
+double Analyze::GetNumberValue(const std::shared_ptr<TreeNode>& value, const int default_value)
 {
-    RefNode *ref = dynamic_cast<RefNode *>(value);
-    if (ref)
+    if (const auto ref = std::dynamic_pointer_cast<RefNode>(value))
     {
         return GetNumberValue(GetObject(ref)->Value());
     }
-    
-    NumberNode *num = dynamic_cast<NumberNode *>(value);
-    if (num)
+
+    if (const auto num = std::dynamic_pointer_cast<NumberNode>(value))
     {
         return num->Value();
     }
-    
+
     return default_value;
 }
 
-ObjNode *Analyze::GetObject(RefNode *ref)
+std::shared_ptr<ObjNode> Analyze::GetObject(const std::shared_ptr<RefNode>& ref) const
 {
     if (not ref)
     {
         return nullptr;
     }
-    
+
     return GetObject(ref->Id(), ref->Generation());
 }
 
-ObjNode *Analyze::GetObject(int id, int generation)
+std::shared_ptr<ObjNode> Analyze::GetObject(const int id, const int generation) const
 {
-    size_t size = m_tree->Size();
-    ObjNode *ret = nullptr;
-    bool done = false;
-    
+    const size_t size = m_tree->Size();
+    std::shared_ptr<ObjNode> ret = nullptr;
+
     for (size_t i = 0; i < size; i++)
     {
-        if (not done)
+        if (const auto obj = std::dynamic_pointer_cast<ObjNode>(m_tree->Get(i)); obj && obj->SameObject(id, generation))
         {
-            ObjNode *obj = dynamic_cast<ObjNode *>(m_tree->Get(i));
-            if (obj && obj->SameObject(id, generation))
-            {
-                // Value found
-                done = true;
-                ret = obj;
-                break;
-            }
+            // Value found
+            ret = obj;
+            break;
         }
     }
-    
+
     return ret;
 }

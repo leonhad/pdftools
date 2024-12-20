@@ -21,17 +21,15 @@
 #define OBJNODE_H
 
 #include "treenode.h"
-#include <vector>
-#include <cstdint>
-#include <cstddef>
 #include <istream>
+#include <memory>
 
 namespace node
 {
     /**
      * Stores a object node.
      */
-    class ObjNode: public TreeNode
+    class ObjNode final : public TreeNode
     {
     private:
         /**
@@ -52,7 +50,7 @@ namespace node
         /**
          * The tree node value.
          */
-        TreeNode *m_value;
+        std::shared_ptr<TreeNode> m_value;
 
     public:
         /**
@@ -66,14 +64,14 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~ObjNode() override;
+        ~ObjNode() override = default;
 
         /**
          * Sets the tree node value.
          *
          * @param value the tree node value.
          */
-        void SetValue(TreeNode *value);
+        void SetValue(const std::shared_ptr<TreeNode>& value);
 
         /**
          * Sets the binary stream position.
@@ -87,28 +85,28 @@ namespace node
          *
          * @return the object id.
          */
-        int Id() const;
+        [[nodiscard]] int Id() const;
 
         /**
          * Gets the object generation.
          *
          * @return the object generation.
          */
-        int Generation() const;
+        [[nodiscard]] int Generation() const;
 
         /**
          * Gets the binary stream position.
          *
          *@return the binary stream position.
          */
-        std::streampos StreamPos() const;
+        [[nodiscard]] std::streampos StreamPos() const;
 
         /**
          * Gets the tree node value.
          *
          * @return the tree node value.
          */
-        TreeNode *Value() const;
+        [[nodiscard]] std::shared_ptr<TreeNode> Value() const;
 
         /**
          * Check if the references is this object.
@@ -117,7 +115,7 @@ namespace node
          * @param generation the object generation.
          * @return true if the references is this object.
          */
-        bool SameObject(int id, int generation) const;
+        [[nodiscard]] bool SameObject(int id, int generation) const;
     };
 }
 

@@ -22,88 +22,89 @@
 
 #include "treenode.h"
 #include <vector>
-#include <stdint.h>
+#include <cstdint>
+#include <memory>
 
 namespace node
 {
-/**
- * A XREF object reference.
- */
-class ObjectReference
-{
-public:
     /**
-     * PDF object address.
+     * A XREF object reference.
      */
-    uint32_t address;
+    class ObjectReference
+    {
+    public:
+        /**
+         * PDF object address.
+         */
+        uint32_t address;
+
+        /**
+         * PDF object ID.
+         */
+        uint16_t id;
+
+        /**
+         * PDF object generation.
+         */
+        uint16_t generation;
+
+        /**
+         * Object status.
+         */
+        char status;
+    };
 
     /**
-     * PDF object ID.
+     * Stores a XREF node.
      */
-    uint16_t id;
+    class XREFNode : public TreeNode
+    {
+    private:
+        /**
+         * A list of all object references.
+         */
+        std::vector<ObjectReference> m_references;
 
-    /**
-     * PDF object genetarion.
-     */
-    uint16_t generation;
+        /**
+         * The tree node trailer.
+         */
+        std::shared_ptr<TreeNode> m_trailerNode;
 
-    /**
-     * Object status.
-     */
-    char status;
-};
+    public:
+        /**
+         * Creates a new instance.
+         */
+        XREFNode();
 
-/**
- * Stotes a XREF node.
- */
-class XREFNode: public TreeNode
-{
-private:
-    /**
-     * A list of all object references.
-     */
-    std::vector<ObjectReference> m_references;
+        /**
+         * Destroy this instance.
+         */
+        ~XREFNode() override = default;
 
-    /**
-     * The tree node trailer.
-     */
-    TreeNode *m_trailerNode;
+        /**
+         * Add a node to this XREF.
+         *
+         * @param id the object ID.
+         * @param generation the object generation.
+         * @param address the object address.
+         * @param status the object status.
+         */
+        void AddNode(uint16_t id, uint16_t generation, uint32_t address, char status);
 
-public:
-    /**
-     * Creates a new instance.
-     */
-    XREFNode();
+        /**
+         * Sets the trailer node.
+         *
+         * @param trailer the trailer node to set.
+         */
+        void SetTrailer(const std::shared_ptr<TreeNode>& trailer);
 
-    /**
-     * Destroy this instance.
-     */
-    virtual ~XREFNode() override;
-
-    /**
-     * Add a node to this XREF.
-     *
-     * @param id the object ID.
-     * @param generation the object generation.
-     * @param address the object address.
-     * @param status the object status.
-     */
-    void AddNode(uint16_t id, uint16_t generation, uint32_t address, char status);
-
-    /**
-     * Sets the trailer node.
-     *
-     * @param trailer the trailer node to set.
-     */
-    void SetTrailer(TreeNode *trailer);
-
-    /**
-     * Gets the the tree node trailer.
-     *
-     * @return the tree node trailer.
-     */
-    TreeNode *Trailer() const;
-};
+        /**
+         * Gets the tree node trailer.
+         *
+         * @return the tree node trailer.
+         */
+        [[nodiscard]] std::shared_ptr<TreeNode> Trailer() const;
+    };
 }
 
 #endif

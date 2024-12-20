@@ -20,127 +20,128 @@
 #include "scanner.h"
 #include "../utils.h"
 #include <cstring>
+#include <sstream>
 
 using namespace std;
 using namespace parser;
 
 namespace parser
 {
-    constexpr const char *special_chars = "\r\n<()/[]>";
-    constexpr const int HEX_BASE = 16;
-    
+    constexpr auto special_chars = "\r\n<()/[]>";
+    constexpr int HEX_BASE = 16;
+
     enum class StateType
     {
         START, INNUM, INNAME, INSTRING, INHEXSTR, DONE
     };
-    
+
     struct reserved_words
     {
         TokenType type;
-        const char *name;
+        const char* name;
     };
-    
-    const static reserved_words words [] =
+
+    const static reserved_words words[] =
     {
-        { TokenType::OBJ, "obj" },
-        { TokenType::END_OBJ, "endobj" },
-        { TokenType::END_PDF, "EOF" },
-        { TokenType::XREF, "xref" },
-        { TokenType::TRUE, "true" },
-        { TokenType::FALSE, "false" },
-        { TokenType::STREAM, "stream" },
-        { TokenType::END_STREAM, "endstream" },
-        { TokenType::START_XREF, "startxref" },
-        { TokenType::TRAILER, "trailer" },
-        { TokenType::BT, "BT" },
-        { TokenType::ET, "ET" },
-        { TokenType::MP, "MP" },
-        { TokenType::DP, "DP" },
-        { TokenType::BMC, "BMC" },
-        { TokenType::BDC, "BDC" },
-        { TokenType::EMC, "EMC" },
-        { TokenType::BX, "BX" },
-        { TokenType::EX, "EX" },
-        { TokenType::TJ_UP, "TJ" },
-        { TokenType::TJ_LO, "Tj" },
-        { TokenType::QUOTE, "'" },
-        { TokenType::DOUBLE_QUOTE, "\"" },
-        { TokenType::GS, "gs" },
-        { TokenType::TF, "Tf" },
-        { TokenType::TW, "Tw" },
-        { TokenType::TZ, "Tz" },
-        { TokenType::TL, "TL" },
-        { TokenType::T_AST, "T*" },
-        { TokenType::TR, "Tr" },
-        { TokenType::TS, "Ts" },
-        { TokenType::TC, "Tc" },
-        { TokenType::TM, "Tm" },
-        { TokenType::D0, "d0" },
-        { TokenType::D1, "d1" },
-        { TokenType::SH, "sh" },
-        { TokenType::N, "n" },
-        { TokenType::TD_LO, "Td" },
-        { TokenType::TD_UP, "TD" },
-        { TokenType::SCN_UP, "SCN" },
-        { TokenType::SCN_LO, "scn" },
-        { TokenType::SC_UP, "SC" },
-        { TokenType::SC_LO, "sc" },
-        { TokenType::G_LO, "g" },
-        { TokenType::G_UP, "G" },
-        { TokenType::RE, "re" },
-        { TokenType::RI, "ri" },
-        { TokenType::CS_UP, "CS" },
-        { TokenType::CS_LO, "cs" },
-        { TokenType::W_LO, "w" },
-        { TokenType::W_UP, "W" },
-        { TokenType::W_AST, "W*" },
-        { TokenType::Q_UP, "Q" },
-        { TokenType::Q_LO, "q" },
-        { TokenType::F_AST, "f*" },
-        { TokenType::F_UP, "F" },
-        { TokenType::F_LO, "f" },
-        { TokenType::RG_UP, "RG" },
-        { TokenType::RG_LO, "rg" },
-        { TokenType::M_LO, "m" },
-        { TokenType::M_UP, "M" },
-        { TokenType::K_LO, "k" },
-        { TokenType::K_UP, "K" },
-        { TokenType::J_LO, "j" },
-        { TokenType::J_UP, "J" },
-        { TokenType::S_LO, "s" },
-        { TokenType::S_UP, "S" },
-        { TokenType::C, "c" },
-        { TokenType::CM, "cm" },
-        { TokenType::DO, "Do" },
-        { TokenType::L, "l" },
-        { TokenType::D, "d" },
-        { TokenType::H, "h" },
-        { TokenType::V, "v" },
-        { TokenType::Y, "y" },
-        { TokenType::I, "i" },
-        { TokenType::BI, "BI" },
-        { TokenType::ID, "ID" },
-        { TokenType::B_UP, "B" },
-        { TokenType::B_UP_AST, "B*" },
-        { TokenType::B_LO, "b" },
-        { TokenType::B_LO_AST, "b*" },
-        { TokenType::EI, "EI" }
+        {TokenType::OBJ, "obj"},
+        {TokenType::END_OBJ, "endobj"},
+        {TokenType::END_PDF, "EOF"},
+        {TokenType::XREF, "xref"},
+        {TokenType::TRUE, "true"},
+        {TokenType::FALSE, "false"},
+        {TokenType::STREAM, "stream"},
+        {TokenType::END_STREAM, "endstream"},
+        {TokenType::START_XREF, "startxref"},
+        {TokenType::TRAILER, "trailer"},
+        {TokenType::BT, "BT"},
+        {TokenType::ET, "ET"},
+        {TokenType::MP, "MP"},
+        {TokenType::DP, "DP"},
+        {TokenType::BMC, "BMC"},
+        {TokenType::BDC, "BDC"},
+        {TokenType::EMC, "EMC"},
+        {TokenType::BX, "BX"},
+        {TokenType::EX, "EX"},
+        {TokenType::TJ_UP, "TJ"},
+        {TokenType::TJ_LO, "Tj"},
+        {TokenType::QUOTE, "'"},
+        {TokenType::DOUBLE_QUOTE, "\""},
+        {TokenType::GS, "gs"},
+        {TokenType::TF, "Tf"},
+        {TokenType::TW, "Tw"},
+        {TokenType::TZ, "Tz"},
+        {TokenType::TL, "TL"},
+        {TokenType::T_AST, "T*"},
+        {TokenType::TR, "Tr"},
+        {TokenType::TS, "Ts"},
+        {TokenType::TC, "Tc"},
+        {TokenType::TM, "Tm"},
+        {TokenType::D0, "d0"},
+        {TokenType::D1, "d1"},
+        {TokenType::SH, "sh"},
+        {TokenType::N, "n"},
+        {TokenType::TD_LO, "Td"},
+        {TokenType::TD_UP, "TD"},
+        {TokenType::SCN_UP, "SCN"},
+        {TokenType::SCN_LO, "scn"},
+        {TokenType::SC_UP, "SC"},
+        {TokenType::SC_LO, "sc"},
+        {TokenType::G_LO, "g"},
+        {TokenType::G_UP, "G"},
+        {TokenType::RE, "re"},
+        {TokenType::RI, "ri"},
+        {TokenType::CS_UP, "CS"},
+        {TokenType::CS_LO, "cs"},
+        {TokenType::W_LO, "w"},
+        {TokenType::W_UP, "W"},
+        {TokenType::W_AST, "W*"},
+        {TokenType::Q_UP, "Q"},
+        {TokenType::Q_LO, "q"},
+        {TokenType::F_AST, "f*"},
+        {TokenType::F_UP, "F"},
+        {TokenType::F_LO, "f"},
+        {TokenType::RG_UP, "RG"},
+        {TokenType::RG_LO, "rg"},
+        {TokenType::M_LO, "m"},
+        {TokenType::M_UP, "M"},
+        {TokenType::K_LO, "k"},
+        {TokenType::K_UP, "K"},
+        {TokenType::J_LO, "j"},
+        {TokenType::J_UP, "J"},
+        {TokenType::S_LO, "s"},
+        {TokenType::S_UP, "S"},
+        {TokenType::C, "c"},
+        {TokenType::CM, "cm"},
+        {TokenType::DO, "Do"},
+        {TokenType::L, "l"},
+        {TokenType::D, "d"},
+        {TokenType::H, "h"},
+        {TokenType::V, "v"},
+        {TokenType::Y, "y"},
+        {TokenType::I, "i"},
+        {TokenType::BI, "BI"},
+        {TokenType::ID, "ID"},
+        {TokenType::B_UP, "B"},
+        {TokenType::B_UP_AST, "B*"},
+        {TokenType::B_LO, "b"},
+        {TokenType::B_LO_AST, "b*"},
+        {TokenType::EI, "EI"}
     };
-    
+
     constexpr bool isnum(const char c)
     {
         return (c >= '0' && c <= '9') || (c == '-') || (c == '+') || (c == '.');
     }
-    
+
     constexpr bool is_space(const char c)
     {
         return (c == '\0') || (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f')
-        || (c == '\r') || (c == EOF);
+            || (c == '\r') || (c == EOF);
     }
 }
 
-Scanner::Scanner(istream *m_filein) :
-m_filein(m_filein), m_charset_conversion(true)
+Scanner::Scanner(istream* m_filein) :
+    m_filein(m_filein), m_charset_conversion(true)
 {
 }
 
@@ -154,12 +155,12 @@ streampos Scanner::Pos() const
     return m_filein->tellg();
 }
 
-void Scanner::Clear()
+void Scanner::Clear() const
 {
     m_filein->clear();
 }
 
-void Scanner::ToPos(streampos pos)
+void Scanner::ToPos(const streampos pos) const
 {
     if (m_filein->good())
     {
@@ -171,17 +172,15 @@ void Scanner::ToPos(streampos pos)
     }
 }
 
-streampos Scanner::IgnoreStream(int length)
+streampos Scanner::IgnoreStream(const int length) const
 {
-    // endstream buffer (ndstream + \0)
-    char buff [9];
-    
     // Ignore first new line
     while (m_filein->good() && NextChar() != '\n')
     {
     }
-    istream::pos_type ret = m_filein->tellg();
-    
+
+    const istream::pos_type ret = m_filein->tellg();
+
     if (length >= 0)
     {
         m_filein->ignore(length);
@@ -190,72 +189,70 @@ streampos Scanner::IgnoreStream(int length)
     {
         while (m_filein->good())
         {
-            int next = m_filein->get();
-            if (next == 'e' && m_filein->good())
+            if (const int next = m_filein->get(); next == 'e' && m_filein->good())
             {
-                istream::pos_type pos = m_filein->tellg();
+                // endstream buffer (ndstream + \0)
+                char buff[9];
+                const istream::pos_type pos = m_filein->tellg();
+
                 memset(buff, 0, sizeof(buff));
                 m_filein->read(buff, sizeof(buff) - 1);
-                
+
                 // restore state, need by the parser anyway
                 m_filein->seekg(pos);
-                
+
                 if (strcmp("ndstream", buff) == 0)
                 {
                     // restore the endstream token
-                    m_filein->seekg((int) pos - 1);
+                    m_filein->seekg((int)pos - 1);
                     break;
                 }
-                // not the endstream
             }
         }
     }
     return ret;
 }
 
-char *Scanner::ImageStream()
+void Scanner::ImageStream() const
 {
     // Ignore first new line
     while (m_filein->good() && NextChar() != '\n')
     {
     }
-    
-    UngetChar();
-    
+
+    UnGetChar();
+
     while (m_filein->good())
     {
-        int ret = m_filein->get();
-        if ((ret == '\n' || ret == '\r') && m_filein->good())
+        if (const int ret = m_filein->get(); (ret == '\n' || ret == '\r') && m_filein->good())
         {
-            istream::pos_type pos = m_filein->tellg();
-            int next = m_filein->get();
-            
+            const istream::pos_type pos = m_filein->tellg();
+
             // treat '\r\n', '\r' or '\n'
-            if (next == 'E' || m_filein->get() == 'I')
+            if (const int next = m_filein->get(); next == 'E' || m_filein->get() == 'I')
             {
-                UngetChar();
-                UngetChar();
+                UnGetChar();
+                UnGetChar();
                 break;
             }
-            
-            // not endstream.
+
+            // not the end of stream.
             m_filein->seekg(pos);
         }
     }
-    return nullptr;
 }
 
-char *Scanner::Stream(streamsize length)
+string Scanner::Stream(const streamsize length) const
 {
-    char *stream = new char [(unsigned long)length];
+    const auto stream = static_cast<char*>(alloca(static_cast<unsigned long>(length)));
     m_filein->read(stream, length);
     return stream;
 }
 
-char Scanner::NextChar()
+char Scanner::NextChar() const
 {
     int ret = EOF;
-    
+
     if (m_filein->good() && not m_filein->eof())
     {
         ret = m_filein->get();
@@ -266,11 +263,11 @@ char Scanner::NextChar()
             {
                 return '\n';
             }
-            
-            UngetChar();
+
+            UnGetChar();
         }
     }
-    return (char) ret;
+    return static_cast<char>(ret);
 }
 
 bool Scanner::Good() const
@@ -285,31 +282,31 @@ void Scanner::IgnoreLine()
     }
 }
 
-void Scanner::UngetChar()
+void Scanner::UnGetChar() const
 {
     m_filein->unget();
 }
 
-TokenType Scanner::ReservedLookup(const char *s)
+TokenType Scanner::ReservedLookup(const string& reserved_word)
 {
-    int size = sizeof(words) / sizeof(reserved_words);
-    for (int i = 0; i < size; i++)
+    for (const auto [type, name] : words)
     {
-        if (not strcmp(words [i].name, s))
+        if (name == reserved_word)
         {
-            return words [i].type;
+            return type;
         }
     }
+
     return TokenType::NAME;
 }
 
-Token *Scanner::NextToken()
+Token& Scanner::NextToken()
 {
     string token_string;
-    TokenType current_token = TokenType::ENDFILE;
-    StateType state = StateType::START;
+    auto current_token = TokenType::ENDFILE;
+    auto state = StateType::START;
     int inner_string = 0;
-    
+
     bool save;
     while (state != StateType::DONE && m_filein->good())
     {
@@ -317,227 +314,227 @@ Token *Scanner::NextToken()
         save = true;
         switch (state)
         {
-            case StateType::START:
-                if (isnum(c))
+        case StateType::START:
+            if (isnum(c))
+            {
+                state = StateType::INNUM;
+            }
+            else if (c == '%')
+            {
+                current_token = TokenType::PERCENT;
+                state = StateType::DONE;
+            }
+            else if (c == '[')
+            {
+                current_token = TokenType::START_ARRAY;
+                state = StateType::DONE;
+            }
+            else if (c == ']')
+            {
+                current_token = TokenType::END_ARRAY;
+                state = StateType::DONE;
+            }
+            else if (c == '>')
+            {
+                wchar_t next = NextChar();
+                if (next != '>')
                 {
-                    state = StateType::INNUM;
-                }
-                else if (c == '%')
-                {
-                    current_token = TokenType::PERCENT;
-                    state = StateType::DONE;
-                }
-                else if (c == '[')
-                {
-                    current_token = TokenType::START_ARRAY;
-                    state = StateType::DONE;
-                }
-                else if (c == ']')
-                {
-                    current_token = TokenType::END_ARRAY;
-                    state = StateType::DONE;
-                }
-                else if (c == '>')
-                {
-                    wchar_t next = NextChar();
-                    if (next != '>')
-                    {
-                        UngetChar();
-                        save = false;
-                        current_token = TokenType::ERROR;
-                    }
-                    else
-                    {
-                        token_string += '>';
-                        current_token = TokenType::END_DICT;
-                    }
-                    
-                    state = StateType::DONE;
-                }
-                else if (c == '(')
-                {
-                    save = false;
-                    state = StateType::INSTRING;
-                }
-                else if (c == '<')
-                {
-                    wchar_t next = NextChar();
-                    if (next != '<')
-                    {
-                        UngetChar();
-                        save = false;
-                        state = StateType::INHEXSTR;
-                    }
-                    else
-                    {
-                        token_string += '<';
-                        state = StateType::DONE;
-                        current_token = TokenType::START_DICT;
-                    }
-                }
-                else if (is_space(c))
-                {
-                    save = false;
-                }
-                else if (isalpha(c) || c == '/' || c == '\'' || c == '"')
-                {
-                    state = StateType::INNAME;
-                }
-                else if (c == '\n' || c == '\r')
-                {
-                    state = StateType::DONE;
-                    current_token = TokenType::NEW_LINE;
-                }
-                else if (c == EOF)
-                {
-                    state = StateType::DONE;
-                    current_token = TokenType::ENDFILE;
-                }
-                else
-                {
-                    wstring msg = L"Invalid char ";
-                    msg += c;
-                    ErrorMessage(msg);
-                    state = StateType::DONE;
+                    UnGetChar();
                     save = false;
                     current_token = TokenType::ERROR;
                 }
-                
-                break;
-            case StateType::INNUM:
-                if (not isdigit(c) && (c != '.'))
+                else
                 {
-                    /* backup in the input */
-                    UngetChar();
-                    save = false;
-                    state = StateType::DONE;
-                    current_token = TokenType::NUM;
+                    token_string += '>';
+                    current_token = TokenType::END_DICT;
                 }
-                
-                break;
-            case StateType::INHEXSTR:
-                if (is_space(c))
+
+                state = StateType::DONE;
+            }
+            else if (c == '(')
+            {
+                save = false;
+                state = StateType::INSTRING;
+            }
+            else if (c == '<')
+            {
+                wchar_t next = NextChar();
+                if (next != '<')
                 {
+                    UnGetChar();
                     save = false;
+                    state = StateType::INHEXSTR;
                 }
-                else if (c == '>')
+                else
                 {
-                    save = false;
+                    token_string += '<';
                     state = StateType::DONE;
-                    
-                    string str;
-                    
-                    for (unsigned int loop = 0; loop < token_string.length(); loop += 2)
+                    current_token = TokenType::START_DICT;
+                }
+            }
+            else if (is_space(c))
+            {
+                save = false;
+            }
+            else if (isalpha(c) || c == '/' || c == '\'' || c == '"')
+            {
+                state = StateType::INNAME;
+            }
+            else if (c == '\n' || c == '\r')
+            {
+                state = StateType::DONE;
+                current_token = TokenType::NEW_LINE;
+            }
+            else if (c == EOF)
+            {
+                state = StateType::DONE;
+                current_token = TokenType::ENDFILE;
+            }
+            else
+            {
+                wstring msg = L"Invalid char ";
+                msg += c;
+                ErrorMessage(msg);
+                state = StateType::DONE;
+                save = false;
+                current_token = TokenType::ERROR;
+            }
+
+            break;
+        case StateType::INNUM:
+            if (not isdigit(c) && (c != '.'))
+            {
+                /* backup in the input */
+                UnGetChar();
+                save = false;
+                state = StateType::DONE;
+                current_token = TokenType::NUM;
+            }
+
+            break;
+        case StateType::INHEXSTR:
+            if (is_space(c))
+            {
+                save = false;
+            }
+            else if (c == '>')
+            {
+                save = false;
+                state = StateType::DONE;
+
+                string str;
+
+                for (unsigned int loop = 0; loop < token_string.length(); loop += 2)
+                {
+                    str.push_back(static_cast<char>(stoi(token_string.substr(loop, 2), nullptr, HEX_BASE)));
+                }
+
+                if (m_charset_conversion)
+                {
+                    token_string = CharsetToUTF8(str);
+                }
+                else
+                {
+                    token_string = str;
+                }
+                current_token = TokenType::STRING;
+            }
+
+            break;
+        case StateType::INSTRING:
+            if (c == '(')
+            {
+                inner_string++;
+            }
+            else if (c == '\\')
+            {
+                // save the next char
+                c = NextChar();
+                if (c >= '0' && c <= '9')
+                {
+                    string value
+                        {c};
+                    value += NextChar();
+                    char c3 = NextChar();
+                    if (isnum(c3))
                     {
-                        str.push_back(static_cast<char>(stoi(token_string.substr(loop, 2), nullptr, HEX_BASE)));
+                        // for \99 only
+                        value += c3;
                     }
-                    
+                    c = static_cast<char>(stoi(value, nullptr, 8));
+                }
+
+                switch (c)
+                {
+                case 'n':
+                    c = '\n';
+                    break;
+                case 'r':
+                    c = '\r';
+                    break;
+                case 't':
+                    c = '\t';
+                    break;
+                case 'b':
+                    c = '\b';
+                    break;
+                case 'f':
+                    c = '\f';
+                    break;
+                case '(':
+                case ')':
+                case '\\':
+                    // keep the same char
+                    break;
+                case '\n':
+                case '\r':
+                default:
+                    save = false;
+                    break;
+                }
+            }
+            else if (c == ')')
+            {
+                if (inner_string > 0)
+                {
+                    inner_string--;
+                }
+                else
+                {
                     if (m_charset_conversion)
                     {
-                        token_string = CharsetToUTF8(str);
+                        token_string = CharsetToUTF8(token_string);
                     }
-                    else
-                    {
-                        token_string = str;
-                    }
+
+                    save = false;
+                    state = StateType::DONE;
                     current_token = TokenType::STRING;
                 }
-                
-                break;
-            case StateType::INSTRING:
-                if (c == '(')
-                {
-                    inner_string++;
-                }
-                else if (c == '\\')
-                {
-                    // save the next char
-                    c = NextChar();
-                    if (c >= '0' && c <= '9')
-                    {
-                        string value
-                        { c };
-                        value += NextChar();
-                        char c3 = NextChar();
-                        if (isnum(c3))
-                        {
-                            // for \99 only
-                            value += c3;
-                        }
-                        c = static_cast<char>(stoi(value, nullptr, 8));
-                    }
-                    
-                    switch (c)
-                    {
-                        case 'n':
-                            c = '\n';
-                            break;
-                        case 'r':
-                            c = '\r';
-                            break;
-                        case 't':
-                            c = '\t';
-                            break;
-                        case 'b':
-                            c = '\b';
-                            break;
-                        case 'f':
-                            c = '\f';
-                            break;
-                        case '(':
-                        case ')':
-                        case '\\':
-                            // keep the same char
-                            break;
-                        case '\n':
-                        case '\r':
-                        default:
-                            save = false;
-                            break;
-                    }
-                }
-                else if (c == ')')
-                {
-                    if (inner_string > 0)
-                    {
-                        inner_string--;
-                    }
-                    else
-                    {
-                        if (m_charset_conversion)
-                        {
-                            token_string = CharsetToUTF8(token_string);
-                        }
-                        
-                        save = false;
-                        state = StateType::DONE;
-                        current_token = TokenType::STRING;
-                    }
-                }
-                
-                break;
-            case StateType::INNAME:
-                if (is_space(c) || strchr(special_chars, c))
-                {
-                    save = false;
-                    UngetChar();
-                    state = StateType::DONE;
-                    current_token = ReservedLookup(token_string.c_str());
-                }
-                
-                break;
-            default:
-                break;
+            }
+
+            break;
+        case StateType::INNAME:
+            if (is_space(c) || strchr(special_chars, c))
+            {
+                save = false;
+                UnGetChar();
+                state = StateType::DONE;
+                current_token = ReservedLookup(token_string);
+            }
+
+            break;
+        default:
+            break;
         }
-        
+
         if (save)
         {
             token_string.push_back(c);
         }
     }
-    
+
     m_current.SetType(current_token);
     m_current.SetValue(token_string);
-    
-    return &m_current;
+
+    return m_current;
 }

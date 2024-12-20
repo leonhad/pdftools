@@ -20,7 +20,7 @@
 #include "breakglyph.h"
 #include "../html/html.h"
 
-void BreakGlyph::DoGlyph(Html *document)
+void BreakGlyph::DoGlyph(const std::shared_ptr<Html>& document)
 {
     document->BreakLine();
 }

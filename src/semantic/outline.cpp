@@ -29,59 +29,49 @@ Outline::Outline()
     m_y = 0;
 }
 
-Outline::~Outline()
+const string& Outline::Title()
 {
-    vector<Outline *>::iterator i = m_childs.begin();
-    while (i != m_childs.end())
-    {
-        delete *i;
-        i++;
-    }
+    return m_title;
 }
 
-const char *Outline::Title()
+void Outline::SetLocation(const double x, const double y)
 {
-    return m_title.c_str();
+    this->m_x = x;
+    this->m_y = y;
 }
 
-void Outline::SetLocation(double newX, double newY)
+size_t Outline::Size() const
 {
-    this->m_x = newX;
-    this->m_y = newY;
+    return m_children.size();
 }
 
-size_t Outline::Size()
+std::shared_ptr<Outline> Outline::Child(const size_t index)
 {
-    return m_childs.size();
+    return m_children[index];
 }
 
-Outline *Outline::Child(size_t index)
+void Outline::SetTitle(const string& title)
 {
-    return m_childs [index];
+    this->m_title = title;
 }
 
-void Outline::SetTitle(string t)
+void Outline::AddChild(const std::shared_ptr<Outline>& child)
 {
-    this->m_title = t;
+    this->m_children.push_back(child);
 }
 
-void Outline::AddChild(Outline *child)
+void Outline::SetDestination(const int id, const int generation)
 {
-    this->m_childs.push_back(child);
+    this->m_id = id;
+    this->m_generation = generation;
 }
 
-void Outline::SetDestination(int i, int g)
-{
-    this->m_id = i;
-    this->m_generation = g;
-}
-
-int Outline::Id()
+int Outline::Id() const
 {
     return m_id;
 }
 
-int Outline::Generation()
+int Outline::Generation() const
 {
     return m_generation;
 }

@@ -23,55 +23,45 @@
 #include "semantic/font.h"
 #include "nodes/nodes.h"
 #include "semantic/document.h"
-#include <cstdlib>
 
 using namespace node;
 
-PageAnalyze::PageAnalyze(Document *document) :
-        m_document(document), m_root(nullptr)
+PageAnalyze::PageAnalyze(const std::shared_ptr<Document>& document) :
+    m_document(document), m_root(nullptr)
 {
 }
 
-PageAnalyze::~PageAnalyze()
-{
-}
 
-Glyph *PageAnalyze::AnalyzeTree(RootNode *tree)
+std::shared_ptr<Glyph> PageAnalyze::AnalyzeTree(const std::shared_ptr<RootNode>& tree)
 {
-    m_root = new Glyph;
+    m_root = std::make_shared<Glyph>();
     AnalyzeTree(tree, m_root);
     return m_root;
 }
 
-void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
+void PageAnalyze::AnalyzeTree(const std::shared_ptr<RootNode>& tree, const std::shared_ptr<Glyph>& parent)
 {
-    Glyph *node_parent = parent;
-    size_t size = tree->Size();
+    const auto& node_parent = parent;
+    const size_t size = tree->Size();
     for (size_t loop = 0; loop < size; loop++)
     {
-        TreeNode *node = tree->Get(loop);
+        const auto node = tree->Get(loop);
 
         if (m_document->TreeRoot())
         {
-            BDCNode *bdc = dynamic_cast<BDCNode *>(node);
-            if (bdc)
+            if (const auto bdc = std::dynamic_pointer_cast<BDCNode>(node))
             {
                 if (bdc->Name() == "/P")
                 {
-                    ParagraphGlyph *p = new ParagraphGlyph;
+                    std::shared_ptr<Glyph> p(new ParagraphGlyph);
                     AnalyzeTree(bdc, p);
                     node_parent->AddChild(p);
                 }
                 else if (bdc->Name() == "/Artifact")
                 {
-                    MapNode *attr = dynamic_cast<MapNode *>(bdc->Value());
-                    NameNode *type = dynamic_cast<NameNode *>(attr->Get("/Type"));
-                    if (type && type->Name() == "/Pagination")
-                    {
-                        // Ignore
-                        continue;
-                    }
-                    else
+                    const auto attr = std::dynamic_pointer_cast<MapNode>(bdc->Value());
+                    if (const auto type = std::dynamic_pointer_cast<NameNode>(attr->Get("/Type")); !type || type->Name()
+                        != "/Pagination")
                     {
                         AnalyzeTree(bdc, node_parent);
                     }
@@ -86,38 +76,33 @@ void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
         }
         else
         {
-            BDCNode *bdc = dynamic_cast<BDCNode *>(node);
-            if (bdc)
+            if (const auto bdc = std::dynamic_pointer_cast<BDCNode>(node))
             {
                 AnalyzeTree(bdc, node_parent);
             }
         }
 
-        TextMatrixNode *text_matrix = dynamic_cast<TextMatrixNode *>(node);
-        if (text_matrix)
+        if (const auto text_matrix = std::dynamic_pointer_cast<TextMatrixNode>(node))
         {
             node_parent->AddChild(AnalyzeTextMatrix(text_matrix));
             continue;
         }
 
-        FontNode *font = dynamic_cast<FontNode *>(node);
-        if (font)
+        if (const auto font = std::dynamic_pointer_cast<FontNode>(node))
         {
             node_parent->AddChild(AnalyzeFont(font));
             continue;
         }
 
-        TextNode *text = dynamic_cast<TextNode *>(node);
-        if (text)
+        if (const auto text = std::dynamic_pointer_cast<TextNode>(node))
         {
             AnalyzeText(text, node_parent);
             continue;
         }
 
-        StateNode *stateNode = dynamic_cast<StateNode *>(node);
-        if (stateNode)
+        if (const auto state_node = std::dynamic_pointer_cast<StateNode>(node))
         {
-            if (stateNode->Save())
+            if (state_node->Save())
             {
                 this->m_state.Push();
             }
@@ -129,19 +114,19 @@ void PageAnalyze::AnalyzeTree(RootNode *tree, Glyph *parent)
     }
 }
 
-FontGlyph *PageAnalyze::AnalyzeFont(FontNode *font)
+std::shared_ptr<FontGlyph> PageAnalyze::AnalyzeFont(const std::shared_ptr<FontNode>& font)
 {
-    return new FontGlyph(font->Name(), font->Size() * m_state.GetTextFont());
+    return std::make_shared<FontGlyph>(font->Name(), font->Size() * m_state.GetTextFont());
 }
 
-void PageAnalyze::AnalyzeText(TextNode *text, Glyph *parent)
+void PageAnalyze::AnalyzeText(const std::shared_ptr<TextNode>& text, const std::shared_ptr<Glyph>& parent)
 {
-    parent->AddChild(new TextGlyph(text->Text()));
+    parent->AddChild(std::make_shared<TextGlyph>(text->Text()));
 }
 
-FontSizeGlyph *PageAnalyze::AnalyzeTextMatrix(TextMatrixNode *text_matrix)
+std::shared_ptr<FontSizeGlyph> PageAnalyze::AnalyzeTextMatrix(const std::shared_ptr<TextMatrixNode>& text_matrix)
 {
     m_state.SetTextMatrix(text_matrix->At(0), text_matrix->At(1), text_matrix->At(2),
-            text_matrix->At(3), text_matrix->At(4), text_matrix->At(5));
-    return new FontSizeGlyph(m_state.GetTextFont());
+                          text_matrix->At(3), text_matrix->At(4), text_matrix->At(5));
+    return std::make_shared<FontSizeGlyph>(m_state.GetTextFont());
 }

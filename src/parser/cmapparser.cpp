@@ -22,35 +22,23 @@
 #include "scanner.h"
 #include "cmapparser.h"
 
+#include <cstring>
+
 using namespace std;
 using namespace parser;
 using namespace node;
 
-CMapParser::CMapParser(istream *stream) :
-        GenericParser
-        { stream }
+CMapParser::CMapParser(istream *stream) : GenericParser{stream}
 {
     m_scanner->DisableCharsetConversion();
     m_root = nullptr;
 }
 
-CMapParser::~CMapParser()
-{
-    if (m_root)
-    {
-        delete m_root;
-    }
-}
-
-CMapNode *CMapParser::Parse()
+std::shared_ptr<CMapNode> CMapParser::Parse()
 {
     int val;
 
-    if (m_root)
-    {
-        delete m_root;
-    }
-    m_root = new CMapNode();
+    m_root = make_shared<CMapNode>();
 
     NextToken();
 
@@ -58,7 +46,7 @@ CMapNode *CMapParser::Parse()
     Match(TokenType::NAME);
     // /ProcSet
     Match(TokenType::NAME);
-    // findresource
+    // find resource
     Match(TokenType::NAME);
     // begin
     Match(TokenType::NAME);
@@ -68,7 +56,7 @@ CMapNode *CMapParser::Parse()
     Match(TokenType::NAME);
     // begin
     Match(TokenType::NAME);
-    //begincmap
+    //begin cmap
     Match(TokenType::NAME);
 
     while (m_scanner->Good())
@@ -95,7 +83,9 @@ CMapNode *CMapParser::Parse()
             else if (m_token->Value() == "/CIDSystemInfo")
             {
                 Match(TokenType::NAME);
-                delete ValueSequence();
+                auto value = ValueSequence();
+                // Ignore the return.
+
                 // def
                 Match(TokenType::NAME);
             }
@@ -105,7 +95,7 @@ CMapNode *CMapParser::Parse()
             }
             break;
         case TokenType::NUM:
-            val = (int) m_token->ToNumber();
+            val = (int)m_token->ToNumber();
             Match(TokenType::NUM);
             if (m_token->Value() == "beginbfchar")
             {
@@ -115,7 +105,7 @@ CMapNode *CMapParser::Parse()
             else if (m_token->Value() == "begincodespacerange")
             {
                 Match(TokenType::NAME);
-                m_root->SetCodespace(CodespaceSequence());
+                m_root->SetCodeSpace(CodeSpaceSequence());
             }
             else if (m_token->Value() == "beginbfrange")
             {
@@ -136,14 +126,14 @@ CMapNode *CMapParser::Parse()
     return m_root;
 }
 
-CodeSpaceNode *CMapParser::CodespaceSequence()
+std::shared_ptr<CodeSpaceNode> CMapParser::CodeSpaceSequence()
 {
-    CodeSpaceNode *ret = new CodeSpaceNode;
+    auto ret = make_shared<CodeSpaceNode>();
     ret->SetStart(m_token->Value());
     Match(TokenType::STRING);
     ret->SetFinish(m_token->Value());
     Match(TokenType::STRING);
-    // endcodespacerange
+    // end code space range
     Match(TokenType::NAME);
     return ret;
 }
@@ -156,7 +146,7 @@ void CMapParser::BfCharSequence(const int count)
         Match(TokenType::STRING);
         string unicode = m_token->Value();
         Match(TokenType::STRING);
-        m_root->Add(new CharNode(character, unicode));
+        m_root->Add(make_shared<CharNode>(character, unicode));
     }
     Match(TokenType::NAME);
 }
@@ -169,55 +159,58 @@ void CMapParser::BfRangeSequence(const int count)
         Match(TokenType::STRING);
         string end = m_token->Value();
         Match(TokenType::STRING);
-        TreeNode *node = ValueSequence();
-        StringNode *name = dynamic_cast<StringNode *>(node);
-        if (name)
+        std::shared_ptr<TreeNode> node = ValueSequence();
+        if (const auto name = std::dynamic_pointer_cast<StringNode>(node))
         {
-            char *chars = const_cast<char *>(start.c_str());
-            char *b = chars;
+            // FIXME fix this mess.
+
+            char* chars = const_cast<char*>(start.c_str());
+            char* b = chars;
             b++;
-            size_t size = start.size();
+            const size_t size = start.size();
 
             while (strcmp(chars, end.c_str()) <= 0)
             {
-                m_root->Add(new CharNode(string(chars, size), name->Value()));
+                m_root->Add(make_shared<CharNode>(string(chars, size), name->Value()));
                 if (size == 1)
                 {
                     (*chars)++;
                 }
                 else
                 {
-                    uint16_t c = (uint16_t) (*chars << 8) + (*b & 255);
+                    uint16_t c = static_cast<uint16_t>(*chars << 8) + (*b & 255);
                     c++;
-                    *chars = (char) c >> 8;
-                    *b = (char) (c & 0xFF);
+                    *chars = c >> 8;
+                    *b = static_cast<char>(c & 0xFF);
                 }
             }
         }
         else
         {
             ErrorMessage(L"test map");
-            ArrayNode *array = dynamic_cast<ArrayNode *>(node);
-            char *chars = const_cast<char *>(start.c_str());
-            size_t size = start.size();
+            const auto array = std::dynamic_pointer_cast<ArrayNode>(node);
+            auto chars = const_cast<char*>(start.c_str());
+            const size_t size = start.size();
             size_t loop2 = 0;
 
             while (memcmp(chars, end.c_str(), size) < 0)
             {
-                name = dynamic_cast<StringNode *>(array->Value(loop2));
-                m_root->Add(new CharNode(string(chars, size), name->Value()));
+                const auto name = std::dynamic_pointer_cast<StringNode>(array->Value(loop2));
+                m_root->Add(make_shared<CharNode>(string(chars, size), name->Value()));
                 if (size == 1)
                 {
                     (*chars)++;
                 }
                 else
                 {
-                    uint16_t *c = (uint16_t *) chars;
+                    auto* c = reinterpret_cast<uint16_t*>(chars);
                     (*c)++;
                 }
+
                 loop2++;
             }
         }
     }
+
     Match(TokenType::NAME);
 }

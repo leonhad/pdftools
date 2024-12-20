@@ -18,6 +18,11 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 #include "document.h"
+
+#include <algorithm>
+#include <utility>
+#include "../nodes/treenode.h"
+
 #include "font.h"
 #include "outline.h"
 #include "page.h"
@@ -32,129 +37,104 @@ Document::Document()
     m_info = nullptr;
     m_encrypted = false;
     m_tree_root = false;
-    m_outlines = nullptr;
+    m_outline = nullptr;
     m_lang = "en";
 }
 
-Document::~Document()
-{
-    vector<Page *>::iterator iteratorPages = m_pages.begin();
-    while (iteratorPages != m_pages.end())
-    {
-        delete *iteratorPages;
-        iteratorPages++;
-    }
-    vector<PageLabel *>::iterator iteratorLavel = m_page_label.begin();
-    while (iteratorLavel != m_page_label.end())
-    {
-        delete *iteratorLavel;
-        iteratorLavel++;
-    }
-    vector<Font *>::iterator iteratorFonts = m_fonts.begin();
-    while (iteratorFonts != m_fonts.end())
-    {
-        delete *iteratorFonts;
-        iteratorFonts++;
-    }
-    if (m_outlines)
-    {
-        delete m_outlines;
-    }
-}
-
-void Document::SetTreeRoot(bool tree_root)
+void Document::SetTreeRoot(const bool tree_root)
 {
     m_tree_root = tree_root;
 }
 
-bool Document::TreeRoot()
+bool Document::TreeRoot() const
 {
     return m_tree_root;
 }
 
-void Document::AddFont(Font *font)
+void Document::AddFont(const shared_ptr<Font>& font)
 {
     m_fonts.push_back(font);
 }
 
-Font *Document::CurrentFont(const char *name)
+std::shared_ptr<Font> Document::CurrentFont(const string& name)
 {
-    vector<Font *>::iterator f = m_fonts.begin();
-    while (f != m_fonts.end())
+    const auto filter = [name](auto& font)
     {
-        if ((*f)->Name() == name)
-        {
-            return *f;
-        }
-        f++;
+        return font->Name() == name;
+    };
+
+    if (const auto it = std::find_if(m_fonts.begin(), m_fonts.end(), filter); it != m_fonts.end())
+    {
+        return *it;
     }
+
     return nullptr;
 }
 
-void Document::SetEncrypted(bool encrypt)
+void Document::SetEncrypted(const bool encrypt)
 {
     m_encrypted = encrypt;
 }
 
-bool Document::Encrypted()
+bool Document::Encrypted() const
 {
     return m_encrypted;
 }
 
-Page *Document::CurrentPage(int id, int generation)
+std::shared_ptr<Page> Document::CurrentPage(const int id, const int generation)
 {
-    for (auto i = m_pages.begin(); i != m_pages.end(); i++)
+    for (auto& m_page : m_pages)
     {
-        if ((*i)->Id() == id && (*i)->Generation() == generation)
+        if (m_page->Id() == id && m_page->Generation() == generation)
         {
-            return *i;
+            return m_page;
         }
     }
-    
+
     return nullptr;
 }
 
-void Document::SetOutline(Outline *outline)
+void Document::SetOutline(shared_ptr<Outline> outline)
 {
-    m_outlines = outline;
+    m_outline = std::move(outline);
 }
 
-Outline *Document::CurrentOutline()
+std::shared_ptr<Outline> Document::CurrentOutline() const
 {
-    return m_outlines;
+    return m_outline;
 }
 
-void Document::setId(const string &first, const string &second)
+void Document::setId(const string& id, const string& generation)
 {
-    m_id = first + second;
+    m_id = id + generation;
 }
 
-void Document::AddPage(Page *page)
+void Document::AddPage(const std::shared_ptr<Page>& page)
 {
     m_pages.push_back(page);
 }
 
-void Document::AddPageLabel(PageLabel *label)
+void Document::AddPageLabel(const std::shared_ptr<PageLabel>& label)
 {
     m_page_label.push_back(label);
 }
 
-Page *Document::CurrentPage(size_t index)
+std::shared_ptr<Page> Document::CurrentPage(const size_t index) const
 {
     return m_pages[index];
 }
 
-size_t Document::Pages()
+size_t Document::Pages() const
 {
     return m_pages.size();
 }
 
-TreeNode *Document::RootNode()
+shared_ptr<TreeNode> Document::RootNode()
 {
     return m_root;
 }
 
-TreeNode *Document::InfoNode()
+shared_ptr<TreeNode> Document::InfoNode()
 {
     return m_info;
 }
@@ -164,32 +144,32 @@ string Document::Id()
     return m_id;
 }
 
-void Document::SetRoot(TreeNode *root)
+void Document::SetRoot(TreeNode& root)
 {
-    m_root = root;
+    m_root = std::make_shared<TreeNode>(root);
 }
 
-void Document::SetInfo(TreeNode *info)
+void Document::SetInfo(TreeNode& info)
 {
-    m_info = info;
+    m_info = make_shared<TreeNode>(info);
 }
 
-void Document::SetTitle(string title)
+void Document::SetTitle(const string& title)
 {
     m_title = title;
 }
 
-void Document::SetSubject(string subject)
+void Document::SetSubject(const string& subject)
 {
     m_subject = subject;
 }
 
-void Document::SetAuthor(string author)
+void Document::SetAuthor(const string& author)
 {
     m_author = author;
 }
 
-void Document::SetLang(string lang)
+void Document::SetLang(const string& lang)
 {
     if (not lang.empty())
     {

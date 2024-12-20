@@ -20,13 +20,14 @@
 #ifndef OUTLINE_H
 #define OUTLINE_H
 
+#include <memory>
 #include <vector>
 #include <string>
 
 class Outline
 {
 private:
-    std::vector<Outline *> m_childs;
+    std::vector<std::shared_ptr<Outline>> m_children;
     std::string m_title;
     int m_id;
     int m_generation;
@@ -35,19 +36,19 @@ private:
 
 public:
     Outline();
-    ~Outline();
+    ~Outline() = default;
 
-    void AddChild(Outline *child);
+    void AddChild(const std::shared_ptr<Outline>& child);
     void SetDestination(int id, int generation);
     void SetLocation(double x, double y);
-    void SetTitle(std::string title);
+    void SetTitle(const std::string& title);
 
-    int Id();
-    int Generation();
-    const char *Title();
+    [[nodiscard]] int Id() const;
+    [[nodiscard]] int Generation() const;
+    const std::string& Title();
 
-    size_t Size();
-    Outline *Child(size_t index);
+    [[nodiscard]] size_t Size() const;
+    std::shared_ptr<Outline> Child(size_t index);
 };
 
 #endif

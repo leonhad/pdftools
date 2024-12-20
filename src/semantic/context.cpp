@@ -21,11 +21,10 @@
 #include "document.h"
 #include "page.h"
 #include "font.h"
-#include <cstdlib>
 
 using namespace std;
 
-Context::Context(Document *document)
+Context::Context(const std::shared_ptr<Document>& document)
 {
     m_document = document;
     m_page = nullptr;
@@ -35,61 +34,57 @@ Context::Context(Document *document)
     m_font_size = 1;
 }
 
-Context::~Context()
-{
-}
-
-void Context::SetFontSize(double size)
+void Context::SetFontSize(const double size)
 {
     m_font_size = size;
 }
 
-double Context::FontSize()
+double Context::FontSize() const
 {
     return m_font_size;
 }
 
-void Context::SetFontChanged(bool changed)
+void Context::SetFontChanged(const bool changed)
 {
     m_font_changed = changed;
 }
 
-bool Context::FontChanged()
+bool Context::FontChanged() const
 {
     return m_font_changed;
 }
 
-bool Context::UseFont()
+bool Context::UseFont() const
 {
     return m_use_font;
 }
 
-void Context::SetUseFont(bool use_font)
+void Context::SetUseFont(const bool use_font)
 {
     m_use_font = use_font;
 }
 
-void Context::SetCurrentPage(Page *page)
+void Context::SetCurrentPage(const std::shared_ptr<Page>& page)
 {
     m_page = page;
 }
 
-Document *Context::CurrentDocument()
+std::shared_ptr<Document> Context::CurrentDocument()
 {
     return m_document;
 }
 
-void Context::SetCurrentFont(string &alias, double size)
+void Context::SetCurrentFont(string &alias, const double size)
 {
     if (m_document && m_page)
     {
         m_font_changed = true;
-        m_font = m_document->CurrentFont(m_page->FontName(alias).c_str());
+        m_font = m_document->CurrentFont(m_page->FontName(alias));
         m_font->SetSize(size);
     }
 }
 
-Font *Context::CurrentFont()
+std::shared_ptr<Font> Context::CurrentFont()
 {
     return m_font;
 }

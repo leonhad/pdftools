@@ -27,7 +27,7 @@ class Html;
 /**
  * Stores a paragraph glyph.
  */
-class ParagraphGlyph: public Glyph
+class ParagraphGlyph final : public Glyph
 {
 public:
     /**
@@ -35,14 +35,14 @@ public:
      *
      * @param document the document.
      */
-    virtual void StartGlyph(Html *document);
+    void StartGlyph(const std::shared_ptr<Html>& document) override;
 
     /**
      * Called after the drawing.
      *
      * @param document the document.
      */
-    virtual void EndGlyph(Html *document);
+    void EndGlyph(const std::shared_ptr<Html>& document) override;
 };
 
 #endif
