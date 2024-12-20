@@ -1,5 +1,6 @@
 PDFTools NEWS - User visible changes.
 
+2024-12-20 Fixed memory leaks and upgrade C++ version to 17.
 2015-12-29 Project migrated to GitHub.
 
 -----
