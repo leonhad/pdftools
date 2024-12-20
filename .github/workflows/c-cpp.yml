@@ -1,5 +1,9 @@
 name: C/C++ CI
 
+permissions:
+  contents: read
+  pull-requests: read
+
 on:
   push:
     branches: [ "master" ]
