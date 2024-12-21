@@ -35,7 +35,7 @@ EPUB::EPUB() : m_document(nullptr), m_zipFile(new ZipFile), m_order(0)
 
 void EPUB::GenerateMimeType() const
 {
-    const char* mime = "application/epub+zip";
+    const auto mime = "application/epub+zip";
     m_zipFile->AddSource("mimetype", mime);
 }
 
@@ -57,7 +57,7 @@ void EPUB::GenerateCss() const
     m_zipFile->AddSource("style.css", css.str());
 }
 
-void EPUB::GenerateContainer()
+void EPUB::GenerateContainer() const
 {
     XML xml;
     xml.StartDocument("1.0", "UTF-8");
@@ -232,7 +232,7 @@ void EPUB::GenerateOutline(const std::shared_ptr<XML>& xml, const std::shared_pt
 
 void EPUB::GenerateToc(const string& output)
 {
-    std::shared_ptr<Outline> outline(m_document->CurrentOutline());
+    const auto outline(m_document->CurrentOutline());
 
     std::shared_ptr<XML> xml(new XML);
     xml->StartDocument("1.0", "UTF-8");
@@ -309,7 +309,7 @@ void EPUB::GeneratePages() const
     const size_t size = m_document->Pages();
     for (size_t i = 0; i < size; i++)
     {
-        auto page = m_document->CurrentPage(i);
+        const auto page = m_document->CurrentPage(i);
 
         std::shared_ptr<Html> html(new Html);
         html->StartDocument();

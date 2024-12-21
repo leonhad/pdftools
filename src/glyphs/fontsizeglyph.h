@@ -27,7 +27,6 @@
  */
 class FontSizeGlyph final : public Glyph
 {
-private:
     /**
      * The font size.
      */
@@ -46,7 +45,7 @@ public:
      *
      * @param document the document to generate in.
      */
-    virtual void DoGlyph(const std::shared_ptr<Html>& document);
+    void DoGlyph(const std::shared_ptr<Html>& document) override;
 };
 
 #endif

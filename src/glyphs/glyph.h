@@ -32,7 +32,6 @@ class Context;
  */
 class Glyph
 {
-private:
     /**
      * The childhood list.
      */

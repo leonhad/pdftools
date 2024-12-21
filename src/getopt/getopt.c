@@ -43,7 +43,7 @@ static void exchange(char** argv, struct _getopt_data* d)
 		if (top - middle > middle - bottom)
 		{
 			int len = middle - bottom;
-			register int i;
+			int i;
 			for (i = 0; i < len; i++)
 			{
 				tem = argv[bottom + i];
@@ -55,7 +55,7 @@ static void exchange(char** argv, struct _getopt_data* d)
 		else
 		{
 			int len = top - middle;
-			register int i;
+			int i;
 			for (i = 0; i < len; i++)
 			{
 				tem = argv[bottom + i];
@@ -183,7 +183,7 @@ int _getopt_internal_r(int argc, char* const* argv, const char* optstring, const
 				}
 				else if (long_only || pfound->has_arg != p->has_arg || pfound->flag != p->flag || pfound->val != p->val)
 				{
-					struct option_list* newp = (struct option_list*)_alloca(sizeof(*newp));
+					struct option_list* newp = (struct option_list*)alloca(sizeof(*newp));
 					newp->p = p;
 					newp->next = ambig_list;
 					ambig_list = newp;

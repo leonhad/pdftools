@@ -77,7 +77,7 @@ public:
     bool Generate(const std::shared_ptr<Document> &document, const std::string& output) override;
 
 private:
-    void GenerateContainer();
+    void GenerateContainer() const;
 
     void GeneratePages() const;
 
