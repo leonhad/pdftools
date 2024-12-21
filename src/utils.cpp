@@ -31,27 +31,27 @@
 
 using namespace std;
 
-static bool _verbose = false;
+static bool verbose = false;
 
 constexpr int MAX_BUFFER_SIZE = 8192;
 
-constexpr int WIDECHAR_SIZE = 2;
+constexpr int WIDE_CHAR_SIZE = 2;
 
 constexpr int BOM_START = 0xFE;
 
 constexpr int BOM_END = 0xFF;
 
-constexpr const char *UTF8 = "UTF-8";
+constexpr const char* UTF8 = "UTF-8";
 
-string Convert(const char *in, const char *out, const std::string &str);
+string Convert(const char* in, const char* out, const std::string& str);
 
 struct BufferStruct
 {
-    char buffer [MAX_BUFFER_SIZE];
+    char buffer[MAX_BUFFER_SIZE];
     size_t size;
 };
 
-const static char *doc_encoding_table [256] =
+const static char* doc_encoding_table[256] =
 {
     "\x0000", "\x0001", "\x0002", "\x0003", "\x0004", "\x0005", "\x0006", "\x0007", // 00
     "\x0008", "\x0009", "\x000a", "\x000b", "\x000c", "\x000d", "\x000e", "\x000f", "\x0010",
@@ -87,28 +87,28 @@ const static char *doc_encoding_table [256] =
     "\x00f8", "\x00f9", "\x00fa", "\x00fb", "\x00fc", "\x00fd", "\x00fe", "\x00ff"
 };
 
-void VerboseMessage(const wchar_t *msg)
+void VerboseMessage(const wchar_t* msg)
 {
-    if (_verbose)
+    if (verbose)
     {
         wcout << PACKAGE_NAME << L": " << msg << endl;
     }
 }
 
-void VerboseMessage(const wstring &msg)
+void VerboseMessage(const wstring& msg)
 {
-    if (_verbose)
+    if (verbose)
     {
         wcout << PACKAGE_NAME << L": " << msg << endl;
     }
 }
 
-void ErrorMessage(const std::exception &e)
+void ErrorMessage(const std::exception& e)
 {
     wcerr << PACKAGE_NAME << L": " << e.what() << endl;
 }
 
-void ErrorMessage(const wchar_t *msg)
+void ErrorMessage(const wchar_t* msg)
 {
     wcerr << PACKAGE_NAME << L": " << msg << endl;
 }
@@ -120,94 +120,94 @@ void ErrorMessage(const std::wstring& msg)
 
 void SetVerboseMode(const bool verbose)
 {
-    _verbose = verbose;
+    ::verbose = verbose;
 }
 
 bool VerboseMode()
 {
-    return _verbose;
+    return verbose;
 }
 
-char *Compress(const char *raw, size_t size, size_t &writed)
+std::unique_ptr<char*> Compress(const char* raw, const size_t size, size_t& writen)
 {
-    z_stream zstream;
-    vector<BufferStruct> values;
-    writed = 0;
-    
+    writen = 0;
+
     /* allocate deflate state */
-    zstream.zalloc = Z_NULL;
-    zstream.zfree = Z_NULL;
-    zstream.opaque = Z_NULL;
-    
+    z_stream zstream;
+    zstream.zalloc = nullptr;
+    zstream.zfree = nullptr;
+    zstream.opaque = nullptr;
+
     int err = deflateInit2(&zstream, Z_DEFAULT_COMPRESSION, Z_DEFLATED, -MAX_WBITS, MAX_MEM_LEVEL,
                            Z_DEFAULT_STRATEGY);
     if (err != Z_OK)
     {
         throw GenericException("Error in deflate initialization.");
     }
-    zstream.avail_in = (uInt) size;
-    zstream.next_in = (Bytef *) raw;
-    
+    zstream.avail_in = static_cast<uInt>(size);
+    zstream.next_in = (Bytef*)raw;
+
+    vector<BufferStruct> values;
     size_t total = 0;
     do
     {
-        BufferStruct b;
+        BufferStruct b{};
         zstream.avail_out = MAX_BUFFER_SIZE;
-        zstream.next_out = (Bytef *) b.buffer;
-        
+        zstream.next_out = reinterpret_cast<Bytef*>(b.buffer);
+
         err = deflate(&zstream, Z_FINISH);
         if (err != Z_OK && err != Z_STREAM_END)
         {
             // stop on error
             throw GenericException("Error in deflate.");
         }
-        
+
         b.size = MAX_BUFFER_SIZE - zstream.avail_out;
-        
+
         total += b.size;
         values.push_back(b);
-    } while (err == Z_OK);
-    
-    deflateEnd(&zstream);
-    
-    writed = total;
-    char *ret = new char [total];
-    
-    size_t locate = 0;
-    vector<BufferStruct>::iterator i;
-    for (i = values.begin(); i != values.end(); i++)
-    {
-        memcpy(ret + locate, (*i).buffer, (*i).size);
-        locate += (*i).size;
     }
-    
+    while (err == Z_OK);
+
+    deflateEnd(&zstream);
+
+    writen = total;
+
+    auto ret = make_unique<char*>(new char [total]);
+
+    size_t locate = 0;
+    for (const auto& [buffer, size] : values)
+    {
+        memcpy(*ret + locate, buffer, size);
+        locate += size;
+    }
+
     return ret;
 }
 
-const char *FlatDecode(const char *compressed, size_t size, size_t &deflated)
+const char* FlatDecode(const char* compressed, size_t size, size_t& deflated)
 {
     vector<BufferStruct> values;
-    
+
     z_stream zstream;
-    zstream.zalloc = Z_NULL;
-    zstream.zfree = Z_NULL;
-    zstream.opaque = Z_NULL;
+    zstream.zalloc = nullptr;
+    zstream.zfree = nullptr;
+    zstream.opaque = nullptr;
     zstream.avail_in = 0;
-    zstream.next_in = Z_NULL;
-    
+    zstream.next_in = nullptr;
+
     size_t total = 0;
-    const int rsti = inflateInit(&zstream);
-    if (rsti == Z_OK)
+    if (const int result = inflateInit(&zstream); result == Z_OK)
     {
         zstream.avail_in = static_cast<uInt>(size);
-        zstream.next_in = (Byte*) compressed;
-        
+        zstream.next_in = (Byte*)compressed;
+
         do
         {
-            BufferStruct b;
+            BufferStruct b{};
             zstream.avail_out = MAX_BUFFER_SIZE;
-            zstream.next_out = (Bytef *) b.buffer;
-            
+            zstream.next_out = (Bytef*)b.buffer;
+
             int rst2 = inflate(&zstream, Z_NO_FLUSH);
             if (rst2 == Z_STREAM_END)
             {
@@ -216,7 +216,8 @@ const char *FlatDecode(const char *compressed, size_t size, size_t &deflated)
                 values.push_back(b);
                 break;
             }
-            else if (rst2 >= 0 || rst2 == Z_BUF_ERROR)
+
+            if (rst2 >= 0 || rst2 == Z_BUF_ERROR)
             {
                 b.size = MAX_BUFFER_SIZE - zstream.avail_out;
                 total += b.size;
@@ -228,23 +229,23 @@ const char *FlatDecode(const char *compressed, size_t size, size_t &deflated)
                 // Error in decompression
                 break;
             }
-        } while (zstream.avail_out == 0);
+        }
+        while (zstream.avail_out == 0);
     }
-    
+
     inflateEnd(&zstream);
-    
-    char *ret = new char [total + 1];
-    ret [total] = 0;
+
+    const auto ret = new char [total + 1];
+    ret[total] = 0;
     deflated = total;
-    
+
     size_t locate = 0;
-    vector<BufferStruct>::iterator i;
-    for (i = values.begin(); i != values.end(); i++)
+    for (auto & [buffer, size] : values)
     {
-        memcpy(ret + locate, (*i).buffer, (*i).size);
-        locate += (*i).size;
+        memcpy(ret + locate, buffer, size);
+        locate += size;
     }
-    
+
     return ret;
 }
 
@@ -255,54 +256,51 @@ std::wstring SingleToWide(const std::string& str)
     return ws;
 }
 
-string Convert(const char *in, const char *out, const string &str)
+string Convert(const char* in, const char* out, const string& str)
 {
     string ret;
-    
-    iconv_t conv_desc = iconv_open(in, out);
-    if ((size_t) conv_desc != (size_t) -1)
+
+    if (iconv_t conv_desc = iconv_open(in, out); reinterpret_cast<size_t>(conv_desc) != static_cast<size_t>(-1))
     {
         size_t len = str.length();
-        size_t utf8len = len * WIDECHAR_SIZE;
+        size_t utf8len = len * WIDE_CHAR_SIZE;
         const size_t original = utf8len;
-        const char *utf16 = str.c_str();
-        char *utf8 = new char [utf8len];
-        char *utf8start = utf8;
+        const char* utf16 = str.c_str();
+        auto utf8 = new char [utf8len];
+        const char* utf8start = utf8;
         memset(utf8, 0, len);
-        
-        size_t iconv_value = iconv(conv_desc, (ICONV_CONST char**)&utf16, &len, &utf8, &utf8len);
+
         // Handle failures.
-        if ((int) iconv_value != -1)
+        if (const size_t iconv_value = iconv(conv_desc, const_cast<char**>(&utf16), &len, &utf8, &utf8len); static_cast<int>(iconv_value) != -1)
         {
             ret = string(utf8start, original - utf8len);
         }
         delete [] utf8start;
         iconv_close(conv_desc);
     }
-    
+
     return ret;
 }
 
-string UTF16beToUTF8(const string &str)
+string UTF16beToUTF8(const string& str)
 {
     return Convert(UTF8, "UTF-16BE", str);
 }
 
-string CharsetToUTF8(const string &str)
+string CharsetToUTF8(const string& str)
 {
     string ret = str;
     bool convert_string = false;
-    if (str.length() > WIDECHAR_SIZE)
+    if (str.length() > WIDE_CHAR_SIZE)
     {
-        auto first = static_cast<uint8_t>(str[0]);
-        auto second = static_cast<uint8_t>(str[1]);
-        if ((first == BOM_START && second == BOM_END) || (first == BOM_END && second == BOM_START))
+        const auto first = static_cast<uint8_t>(str[0]);
+        if (const auto second = static_cast<uint8_t>(str[1]); (first == BOM_START && second == BOM_END) || (first == BOM_END && second == BOM_START))
         {
             // UTF-16LE or UTF-16BE
             convert_string = true;
         }
     }
-    
+
     if (convert_string)
     {
         ret = Convert(UTF8, "UTF-16", str);
@@ -310,17 +308,17 @@ string CharsetToUTF8(const string &str)
     else
     {
         stringstream converted;
-        size_t size = str.length();
-        
+        const size_t size = str.length();
+
         for (size_t loop = 0; loop < size; loop++)
         {
-            uint8_t c = (uint8_t)str[loop];
-            const char *new_char = doc_encoding_table [c];
+            const auto c = static_cast<uint8_t>(str[loop]);
+            const char* new_char = doc_encoding_table[c];
             converted << new_char;
         }
-        
+
         return converted.str();
     }
-    
+
     return ret;
 }

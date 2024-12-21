@@ -23,8 +23,8 @@
 #include <ctime>
 #include <zlib.h>
 
-AppendedFile::AppendedFile(const std::string& filename, const char *buffer, size_t length,
-                           std::streampos position)
+AppendedFile::AppendedFile(const std::string& filename, const char* buffer, size_t length,
+                           const std::streampos position)
 {
     this->position = position;
     this->date = CurrentDatetime();
@@ -33,10 +33,8 @@ AppendedFile::AppendedFile(const std::string& filename, const char *buffer, size
 
     auto crcCode = static_cast<uint32_t>(crc32(0L, nullptr, 0));
     this->crc = static_cast<uint32_t>(crc32(crcCode, (Bytef*)buffer, (uInt)length));
-    
-    this->deflate_buffer = nullptr;
 
-    this->deflate_buffer = Compress(buffer, length, this->compressed_size);
+    this->deflate_buffer = move(Compress(buffer, length, this->compressed_size));
 
     if (this->compressed_size < this->length)
     {
@@ -51,10 +49,7 @@ AppendedFile::AppendedFile(const std::string& filename, const char *buffer, size
 
 AppendedFile::~AppendedFile()
 {
-    if (deflate_buffer)
-    {
-        delete [] deflate_buffer;
-    }
+    delete[] *this->deflate_buffer;
 }
 
 uint32_t AppendedFile::CurrentDatetime()
@@ -82,6 +77,5 @@ uint32_t AppendedFile::CurrentDatetime()
     }
 
     return static_cast<uint32_t>((t.tm_mday + (32 * (t.tm_mon + 1)) + (512 * t.tm_year)) << 16)
-            | static_cast<uint32_t>((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
+        | static_cast<uint32_t>((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
 }
-

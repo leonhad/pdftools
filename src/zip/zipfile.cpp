@@ -91,7 +91,7 @@ void ZipFile::AddSource(const string &filename, const char *buffer, const size_t
 
     if (file->compressed)
     {
-        m_output.write(file->deflate_buffer, static_cast<streamsize>(file->compressed_size));
+        m_output.write(*file->deflate_buffer, static_cast<streamsize>(file->compressed_size));
     }
     else
     {
