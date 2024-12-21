@@ -114,17 +114,16 @@ void Parser::ObjectStreams(const std::shared_ptr<RootNode>& root_node)
                     const char* uncompressed = nullptr;
 
                     m_scanner->ToPos(root_object->StreamPos());
-                    const char* stream = m_scanner->Stream(static_cast<streamsize>(length)).data();
+                    const string stream = m_scanner->Stream(static_cast<streamsize>(length));
 
                     size_t total = length;
                     if (const auto filter = std::dynamic_pointer_cast<NameNode>(map->Get("/Filter")); filter && filter->Name() == "/FlateDecode")
                     {
-                        uncompressed = FlatDecode(stream, length, total);
-                        delete [] stream;
+                        uncompressed = FlatDecode(stream.c_str(), length, total);
                     }
                     else if (not filter)
                     {
-                        uncompressed = stream;
+                        uncompressed = stream.c_str();
                     }
                     else
                     {
