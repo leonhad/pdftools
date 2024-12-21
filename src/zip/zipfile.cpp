@@ -55,9 +55,9 @@ void ZipFile::AddSource(const string &filename, const string &buffer)
     AddSource(filename, buffer.c_str(), buffer.size());
 }
 
-void ZipFile::AddSource(const string &filename, const char *buffer, size_t length)
+void ZipFile::AddSource(const string &filename, const char *buffer, const size_t length)
 {
-    shared_ptr<AppendedFile> file(new AppendedFile(filename, buffer, length, m_output.tellp()));
+    const shared_ptr<AppendedFile> file(new AppendedFile(filename, buffer, length, m_output.tellp()));
 
     WriteString("\x50\x4B\x03\x04");
     // Unix Type
@@ -103,7 +103,7 @@ void ZipFile::AddSource(const string &filename, const char *buffer, size_t lengt
 
 void ZipFile::WriteCentralFile()
 {
-    size_t size = m_files.size();
+    const size_t size = m_files.size();
     m_cd_address = static_cast<uint32_t>(m_output.tellp());
 
     for (size_t i = 0; i < size; i++)
@@ -165,10 +165,10 @@ void ZipFile::WriteCentralDirectory()
     Write16(0);
     
     // number of files records (this disk)
-    Write16((uint16_t)m_files.size());
+    Write16(static_cast<uint16_t>(m_files.size()));
 
     // Total number of central directory records
-    Write16((uint16_t)m_files.size());
+    Write16(static_cast<uint16_t>(m_files.size()));
     
     // size of the central directory
     Write32(m_cd_size);
@@ -185,16 +185,16 @@ void ZipFile::WriteString(const string &str)
     m_output << str;
 }
 
-void ZipFile::Write16(uint16_t c)
+void ZipFile::Write16(const uint16_t word)
 {
-    m_output.put(static_cast<char>(c & 0xFF));
-    m_output.put(static_cast<char>(c >> 8 & 0xFF));
+    m_output.put(static_cast<char>(word & 0xFF));
+    m_output.put(static_cast<char>(word >> 8 & 0xFF));
 }
 
-void ZipFile::Write32(uint32_t c)
+void ZipFile::Write32(const uint32_t double_word)
 {
-    m_output.put(static_cast<char>(c & 0xFF));
-    m_output.put(static_cast<char>(c >> 8 & 0xFF));
-    m_output.put(static_cast<char>(c >> 16 & 0xFF));
-    m_output.put(static_cast<char>(c >> 24 & 0xFF));
+    m_output.put(static_cast<char>(double_word & 0xFF));
+    m_output.put(static_cast<char>(double_word >> 8 & 0xFF));
+    m_output.put(static_cast<char>(double_word >> 16 & 0xFF));
+    m_output.put(static_cast<char>(double_word >> 24 & 0xFF));
 }

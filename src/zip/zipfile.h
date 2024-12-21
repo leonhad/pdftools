@@ -82,9 +82,9 @@ private:
 
     void WriteCentralDirectory();
 
-    void Write16(uint16_t c);
+    void Write16(uint16_t word);
 
-    void Write32(uint32_t c);
+    void Write32(uint32_t double_word);
 
     void WriteString(const std::string& str);
 };
