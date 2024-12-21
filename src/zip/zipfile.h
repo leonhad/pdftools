@@ -22,8 +22,8 @@
 
 #include "appendedfile.h"
 #include <fstream>
+#include <memory>
 #include <vector>
-#include <stdint.h>
 #include <string>
 
 /**
@@ -31,9 +31,8 @@
  */
 class ZipFile
 {
-private:
     std::ofstream m_output;
-    std::vector<AppendedFile *> m_files;
+    std::vector<std::shared_ptr<AppendedFile>> m_files;
     uint32_t m_cd_address;
     uint32_t m_cd_size;
 
@@ -44,7 +43,7 @@ public:
     ZipFile();
 
     /**
-     * Destry this intance.
+     * Destroy this instance.
      */
     ~ZipFile();
 
@@ -54,7 +53,7 @@ public:
      * @param output the output file.
      * @return true if ha success.
      */
-    bool Open(const std::string &output);
+    bool Open(const std::string& output);
 
     /**
      * Close this file.
@@ -68,7 +67,7 @@ public:
      * @param buffer the buffer to read.
      * @param length the buffer length.
      */
-    void AddSource(const std::string &filename, const char *buffer, size_t length);
+    void AddSource(const std::string& filename, const char* buffer, size_t length);
 
     /**
      * Add a file to this ZIP file based on a string buffer.
@@ -76,18 +75,18 @@ public:
      * @param filename the file name.
      * @param buffer the buffer to read.
      */
-    void AddSource(const std::string &filename, const std::string &buffer);
-    
+    void AddSource(const std::string& filename, const std::string& buffer);
+
 private:
     void WriteCentralFile();
 
     void WriteCentralDirectory();
-    
+
     void Write16(uint16_t c);
 
     void Write32(uint32_t c);
 
-    void WriteString(const std::string &str);
+    void WriteString(const std::string& str);
 };
 
 #endif
