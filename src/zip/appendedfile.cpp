@@ -20,20 +20,19 @@
 #include "appendedfile.h"
 #include "../utils.h"
 #include "config.h"
-#include <stdexcept>
 #include <ctime>
 #include <zlib.h>
 
-AppendedFile::AppendedFile(const std::string filename, const char *buffer, size_t length,
+AppendedFile::AppendedFile(const std::string& filename, const char *buffer, size_t length,
                            std::streampos position)
 {
     this->position = position;
     this->date = CurrentDatetime();
     this->length = static_cast<uint32_t>(length);
-    this->name = filename.c_str();
+    this->name = filename;
 
-    uint32_t crcCode = (uint32_t) ::crc32(0L, Z_NULL, 0);
-    this->crc = (uint32_t) ::crc32(crcCode, (Bytef *) buffer, (uInt) length);
+    auto crcCode = static_cast<uint32_t>(crc32(0L, nullptr, 0));
+    this->crc = static_cast<uint32_t>(crc32(crcCode, (Bytef*)buffer, (uInt)length));
     
     this->deflate_buffer = nullptr;
 
@@ -58,10 +57,10 @@ AppendedFile::~AppendedFile()
     }
 }
 
-uint32_t AppendedFile::CurrentDatetime() const
+uint32_t AppendedFile::CurrentDatetime()
 {
     time_t rawTime = time(nullptr);
-    struct tm t;
+    tm t{};
 
 #ifdef HAVE_LOCALTIME_S
     localtime_s(&t, &rawTime);
@@ -82,7 +81,7 @@ uint32_t AppendedFile::CurrentDatetime() const
         t.tm_year -= 80;
     }
 
-    return (uint32_t) ((t.tm_mday + (32 * (t.tm_mon + 1)) + (512 * t.tm_year)) << 16)
-            | (uint32_t)((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
+    return static_cast<uint32_t>((t.tm_mday + (32 * (t.tm_mon + 1)) + (512 * t.tm_year)) << 16)
+            | static_cast<uint32_t>((t.tm_sec / 2) + (32 * t.tm_min) + (2048 * t.tm_hour));
 }
 

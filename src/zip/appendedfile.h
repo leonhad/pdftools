@@ -20,9 +20,8 @@
 #ifndef APPENDEDFILE_H
 #define APPENDEDFILE_H
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
-#include <sstream>
 
 /**
  * The ZIP header bytes.
@@ -30,8 +29,7 @@
 class AppendedFile
 {
 public:
-    AppendedFile(const std::string filename, const char *buffer, size_t length,
-                 std::streampos position);
+    AppendedFile(const std::string& filename, const char *buffer, size_t length,                 std::streampos position);
     
     ~AppendedFile();
     
@@ -73,7 +71,7 @@ public:
     char *deflate_buffer;
 
 private:
-    uint32_t CurrentDatetime() const;
+    static uint32_t CurrentDatetime() ;
 };
 
 #endif
