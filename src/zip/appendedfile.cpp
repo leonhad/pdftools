@@ -23,7 +23,7 @@
 #include <ctime>
 #include <zlib.h>
 
-AppendedFile::AppendedFile(const std::string& filename, const char* buffer, size_t length,
+AppendedFile::AppendedFile(const std::string& filename, const char* buffer, const size_t length,
                            const std::streampos position)
 {
     this->position = position;
@@ -31,8 +31,8 @@ AppendedFile::AppendedFile(const std::string& filename, const char* buffer, size
     this->length = static_cast<uint32_t>(length);
     this->name = filename;
 
-    auto crcCode = static_cast<uint32_t>(crc32(0L, nullptr, 0));
-    this->crc = static_cast<uint32_t>(crc32(crcCode, (Bytef*)buffer, (uInt)length));
+    const auto crc_code = static_cast<uint32_t>(crc32(0L, nullptr, 0));
+    this->crc = static_cast<uint32_t>(crc32(crc_code, (Bytef*)buffer, (uInt)length));
 
     this->deflate_buffer = move(Compress(buffer, length, this->compressed_size));
 

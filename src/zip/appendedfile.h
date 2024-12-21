@@ -30,7 +30,7 @@
 class AppendedFile
 {
 public:
-    AppendedFile(const std::string& filename, const char *buffer, size_t length,                 std::streampos position);
+    AppendedFile(const std::string& filename, const char* buffer, size_t length, std::streampos position);
 
     ~AppendedFile();
 
@@ -72,7 +72,7 @@ public:
     std::unique_ptr<char*> deflate_buffer;
 
 private:
-    static uint32_t CurrentDatetime() ;
+    static uint32_t CurrentDatetime();
 };
 
 #endif
