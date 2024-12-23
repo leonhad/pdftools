@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef BOOLEANNODE_H
-#define BOOLEANNODE_H
+#pragma once
 
 #include "treenode.h"
 
@@ -27,9 +26,8 @@ namespace node
     /**
      * Stores a boolean node.
      */
-    class BooleanNode: public TreeNode
+    class BooleanNode final : public TreeNode
     {
-    private:
         /**
          * The node value.
          */
@@ -46,15 +44,13 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~BooleanNode() override = default;
+        ~BooleanNode() override = default;
 
         /**
          * Gets the node value.
          *
          * @return the node value.
          */
-        bool Value() const;
+        [[nodiscard]] bool Value() const;
     };
 }
-
-#endif

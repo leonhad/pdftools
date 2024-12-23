@@ -47,11 +47,6 @@ AppendedFile::AppendedFile(const std::string& filename, const char* buffer, cons
     }
 }
 
-AppendedFile::~AppendedFile()
-{
-    delete[] *this->deflate_buffer;
-}
-
 uint32_t AppendedFile::CurrentDatetime()
 {
     time_t rawTime = time(nullptr);

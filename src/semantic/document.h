@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef DOCUMENT_H
-#define DOCUMENT_H
+#pragma once
 
 #include <memory>
 #include <string>
@@ -42,7 +41,6 @@ namespace node
  */
 class Document
 {
-private:
     /**
      * If the file is encrypted.
      */
@@ -125,21 +123,21 @@ public:
      * @param id the id.
      * @param generation the generation.
      */
-    void setId(const std::string &id, const std::string &generation);
+    void setId(const std::string& id, const std::string& generation);
 
     /**
      * Sets the document tree root.
      *
      * @param root the document tree root.
      */
-    void SetRoot(node::TreeNode &root);
+    void SetRoot(node::TreeNode& root);
 
     /**
      * Sets the document info node.
      *
      * @param info the document info node.
      */
-    void SetInfo(node::TreeNode &info);
+    void SetInfo(node::TreeNode& info);
 
     /**
      * Sets if the document is encrypted.
@@ -210,7 +208,7 @@ public:
      * @param name the font name.
      * @return the font by name.
      */
-    std::shared_ptr<Font> CurrentFont(const std::string &name);
+    std::shared_ptr<Font> CurrentFont(const std::string& name);
 
     /**
      * Adds a page to this document.
@@ -313,5 +311,3 @@ public:
      */
     std::shared_ptr<node::TreeNode> InfoNode();
 };
-
-#endif

@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef APPENDEDFILE_H
-#define APPENDEDFILE_H
+#pragma once
 
 #include <cstdint>
 #include <memory>
@@ -32,7 +31,7 @@ class AppendedFile
 public:
     AppendedFile(const std::string& filename, const char* buffer, size_t length, std::streampos position);
 
-    ~AppendedFile();
+    ~AppendedFile() = default;
 
     /**
      * The file name.
@@ -69,10 +68,8 @@ public:
      */
     std::streampos position;
 
-    std::unique_ptr<char*> deflate_buffer;
+    std::unique_ptr<char[]> deflate_buffer;
 
 private:
     static uint32_t CurrentDatetime();
 };
-
-#endif

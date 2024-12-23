@@ -22,12 +22,12 @@
 using namespace std;
 using namespace parser;
 
-void Token::SetValue(string value)
+void Token::SetValue(const string& value)
 {
     m_value = value;
 }
 
-void Token::SetType(TokenType type)
+void Token::SetType(const TokenType type)
 {
     m_type = type;
 }

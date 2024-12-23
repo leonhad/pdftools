@@ -29,7 +29,7 @@ double State::GetTextFont() const
     return m_textMatrix [1] [1];
 }
 
-void State::SetTextMatrix(double a, double b, double c, double d, double e, double f)
+void State::SetTextMatrix(const double a, const double b, const double c, const double d, const double e, const double f)
 {
     m_textMatrix [0] [0] = a;
     m_textMatrix [0] [1] = b;

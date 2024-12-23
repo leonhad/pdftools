@@ -26,7 +26,6 @@ XREFNode::XREFNode() : m_trailerNode(nullptr)
 {
 }
 
-
 void XREFNode::SetTrailer(const std::shared_ptr<TreeNode>& trailer)
 {
     this->m_trailerNode = trailer;

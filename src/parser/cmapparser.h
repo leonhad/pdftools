@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef CMAPPARSER_H
-#define CMAPPARSER_H
+#pragma once
 
 #include "genericparser.h"
 #include <istream>
@@ -37,7 +36,6 @@ namespace parser
      */
     class CMapParser : public GenericParser
     {
-    private:
         /**
          * The CMap node root.
          */
@@ -49,7 +47,7 @@ namespace parser
          *
          * @param stream the CMap stream to read.
          */
-        explicit CMapParser(std::istream *stream);
+        explicit CMapParser(std::istream* stream);
 
         /**
          * Destroy this instance.
@@ -86,5 +84,3 @@ namespace parser
         std::shared_ptr<node::CodeSpaceNode> CodeSpaceSequence();
     };
 }
-
-#endif

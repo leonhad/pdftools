@@ -19,17 +19,17 @@
  */
 #include "xmltag.h"
 #include <sstream>
+#include <utility>
 
 using namespace std;
 
-XmlTag::XmlTag(const string &name) :
-        m_name(name)
+XmlTag::XmlTag(string name) : m_name(std::move(name))
 {
 }
 
 XmlTag::~XmlTag()
 {
-    for (XmlTag *tag : m_children)
+    for (XmlTag* tag : m_children)
     {
         delete tag;
     }
@@ -45,14 +45,14 @@ std::string XmlTag::ToXML() const
     stringstream buffer;
     buffer << "<" << m_name;
 
-    for (const auto &value : m_atributes)
+    for (const auto& [fst, snd] : m_atributes)
     {
-        buffer << " " << value.first << "=\"" << value.second << "\"";
+        buffer << " " << fst << "=\"" << snd << "\"";
     }
 
     buffer << ">";
 
-    for (XmlTag *tag : m_children)
+    for (XmlTag* tag : m_children)
     {
         buffer << tag->ToXML();
     }
@@ -61,22 +61,22 @@ std::string XmlTag::ToXML() const
     return buffer.str();
 }
 
-XmlTag *XmlTag::Parent() const
+XmlTag* XmlTag::Parent() const
 {
     return m_parent;
 }
 
-void XmlTag::SetParent(XmlTag *parent)
+void XmlTag::SetParent(XmlTag* parent)
 {
     m_parent = parent;
 }
 
-void XmlTag::AddTag(XmlTag *tag)
+void XmlTag::AddTag(XmlTag* tag)
 {
     m_children.push_back(tag);
 }
 
-void XmlTag::AddAttribute(const std::string &id, const std::string &value)
+void XmlTag::AddAttribute(const std::string& id, const std::string& value)
 {
-    m_atributes [id] = value;
+    m_atributes[id] = value;
 }

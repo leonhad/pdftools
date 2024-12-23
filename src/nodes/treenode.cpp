@@ -21,17 +21,7 @@
 
 using namespace node;
 
-TreeNode::TreeNode()
-{
-    // Not used.
-}
-
-TreeNode::~TreeNode()
-{
-    // Not used.
-}
-
-const char *TreeNode::NodeName() const
+const char* TreeNode::NodeName() const
 {
     return "TreeNode";
 }

@@ -21,7 +21,7 @@
 
 using namespace node;
 
-StateNode::StateNode(bool save) : TreeNode(), m_save(save)
+StateNode::StateNode(const bool save) : m_save(save)
 {
 }
 

@@ -17,17 +17,15 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef XML_H
-#define XML_H
+#pragma once
 
 #include "xmltag.h"
 #include <string>
 
 class XML
 {
-private:
-    XmlTag *m_root = nullptr;
-    XmlTag *m_last_tag = nullptr;
+    XmlTag* m_root = nullptr;
+    XmlTag* m_last_tag = nullptr;
     std::string m_version;
     std::string m_charset;
 
@@ -41,13 +39,11 @@ public:
 
     void StartDocument(const std::string& version, const std::string& charset);
     void SetDoctype(const std::string& name, const std::string& public_id,
-            const std::string& sys_id);
+                    const std::string& sys_id);
     void AddAttribute(const std::string& id, const std::string& value);
     void AddElement(const std::string& value);
     void StartTag(const std::string& tag_name);
     void EndTag();
     void EndDocument();
-    const std::string Content() const;
+    [[nodiscard]] const std::string Content() const;
 };
-
-#endif

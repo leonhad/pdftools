@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef PAGEANALYZE_H
-#define PAGEANALYZE_H
+#pragma once
 
 #include "graphics/graphicstate.h"
 #include "glyphs/glyphs.h"
@@ -37,7 +36,6 @@ namespace node
 
 class PageAnalyze
 {
-private:
     GraphicState m_state;
     std::shared_ptr<Document> m_document;
     std::shared_ptr<Glyph> m_root;
@@ -51,8 +49,6 @@ public:
 private:
     void AnalyzeTree(const std::shared_ptr<node::RootNode>& tree, const std::shared_ptr<Glyph>& parent);
     static void AnalyzeText(const std::shared_ptr<node::TextNode>& text, const std::shared_ptr<Glyph>& parent);
-    std::shared_ptr<FontSizeGlyph> AnalyzeTextMatrix(const std::shared_ptr<node::TextMatrixNode>& text_matrix);
-    std::shared_ptr<FontGlyph> AnalyzeFont(const std::shared_ptr<node::FontNode>& font);
+    std::shared_ptr<FontSizeGlyph> AnalyzeTextMatrix(const std::shared_ptr<node::TextMatrixNode>& text_matrix) const;
+    std::shared_ptr<FontGlyph> AnalyzeFont(const std::shared_ptr<node::FontNode>& font) const;
 };
-
-#endif

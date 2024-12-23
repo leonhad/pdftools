@@ -68,29 +68,27 @@ void Analyze::AnalyzeXref()
 
             break;
         }
-        else
+
+        if (const auto obj = std::dynamic_pointer_cast<ObjNode>(value))
         {
-            if (const auto obj = std::dynamic_pointer_cast<ObjNode>(value))
+            if (const auto values = std::dynamic_pointer_cast<MapNode>(obj->Value()))
             {
-                if (const auto values = std::dynamic_pointer_cast<MapNode>(obj->Value()))
+                // analyze only XREF Objects
+                if (const auto type = std::dynamic_pointer_cast<NameNode>(values->Get("/Type")); type && type->
+                    Name() == "/XRef")
                 {
-                    // analyze only XREF Objects
-                    if (const auto type = std::dynamic_pointer_cast<NameNode>(values->Get("/Type")); type && type->
-                        Name() == "/XRef")
+                    m_document->SetRoot(*GetRealValue(values->Get("/Root")));
+                    m_document->SetInfo(*GetRealValue(values->Get("/Info")));
+
+                    if (const auto array = std::dynamic_pointer_cast<ArrayNode>(values->Get("/ID")); array && array
+                        ->Size() == 2)
                     {
-                        m_document->SetRoot(*GetRealValue(values->Get("/Root")));
-                        m_document->SetInfo(*GetRealValue(values->Get("/Info")));
-
-                        if (const auto array = std::dynamic_pointer_cast<ArrayNode>(values->Get("/ID")); array && array
-                            ->Size() == 2)
-                        {
-                            const string first = GetStringValue(array->Value(0));
-                            const string second = GetStringValue(array->Value(1));
-                            m_document->setId(first, second);
-                        }
-
-                        break;
+                        const string first = GetStringValue(array->Value(0));
+                        const string second = GetStringValue(array->Value(1));
+                        m_document->setId(first, second);
                     }
+
+                    break;
                 }
             }
         }
@@ -310,8 +308,8 @@ void Analyze::AnalyzeOutline(const std::shared_ptr<ArrayNode>& values, const std
         if (const auto command = std::dynamic_pointer_cast<NameNode>(values->Value(1)); command && command->Name() ==
             "/XYZ")
         {
-            double x = GetNumberValue(values->Value(2));
-            double y = GetNumberValue(values->Value(3));
+            const double x = GetNumberValue(values->Value(2));
+            const double y = GetNumberValue(values->Value(3));
             outline->SetLocation(x, y);
         }
     }
@@ -362,7 +360,7 @@ std::shared_ptr<Page> Analyze::ProcessPage(const int id, const int generation, s
             const size_t size = namesList.size();
             for (size_t loop = 0; loop < size; loop++)
             {
-                string alias = namesList[loop];
+                const string& alias = namesList[loop];
                 if (const auto fontmap = std::dynamic_pointer_cast<MapNode>(GetRealObjValue(fonts->Get(alias))))
                 {
                     const auto font = AnalyzeFont(fontmap);
@@ -400,10 +398,8 @@ std::shared_ptr<Font> Analyze::AnalyzeFont(const std::shared_ptr<MapNode>& fontm
     {
         return from_document;
     }
-    else
-    {
-        m_document->AddFont(font);
-    }
+
+    m_document->AddFont(font);
 
     if (descriptor)
     {
@@ -485,7 +481,7 @@ void Analyze::GetStream(const std::shared_ptr<ObjNode>& obj, stringstream* strea
         ofstream out(m_fileIn + ".stream." + to_string(stream_count));
         out.write(value, length);
 #endif
-        (*stream_value).write(value, static_cast<streamsize>(total));
+        stream_value->write(value, static_cast<streamsize>(total));
         delete [] value;
     }
     else if (filter_array)

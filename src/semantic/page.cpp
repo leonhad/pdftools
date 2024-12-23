@@ -67,7 +67,7 @@ string Page::Link()
     return m_link;
 }
 
-void Page::SetMediaBox(int a, int b, int c, int d)
+void Page::SetMediaBox(const int a, const int b, const int c, const int d)
 {
     m_mediaBox = new int [4];
     m_mediaBox[0] = a;
@@ -76,7 +76,7 @@ void Page::SetMediaBox(int a, int b, int c, int d)
     m_mediaBox[3] = d;
 }
 
-void Page::SetCropBox(int a, int b, int c, int d)
+void Page::SetCropBox(const int a, const int b, const int c, const int d)
 {
     m_cropBox = new int [4];
     m_cropBox[0] = a;
@@ -85,10 +85,10 @@ void Page::SetCropBox(int a, int b, int c, int d)
     m_cropBox[3] = d;
 }
 
-void Page::SetDestination(int i, int g)
+void Page::SetDestination(const int id, const int generation)
 {
-    this->m_id = i;
-    this->m_generation = g;
+    this->m_id = id;
+    this->m_generation = generation;
 
     this->m_link = "section" + to_string(m_id) + "_" + to_string(m_generation);
 }

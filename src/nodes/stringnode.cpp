@@ -19,10 +19,12 @@
  */
 #include "stringnode.h"
 
+#include <utility>
+
 using namespace std;
 using namespace node;
 
-StringNode::StringNode(const string &value) : TreeNode(), m_value(value)
+StringNode::StringNode(string value) : m_value(std::move(value))
 {
 }
 

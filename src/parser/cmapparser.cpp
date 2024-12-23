@@ -95,7 +95,7 @@ std::shared_ptr<CMapNode> CMapParser::Parse()
             }
             break;
         case TokenType::NUM:
-            val = (int)m_token->ToNumber();
+            val = static_cast<int>(m_token->ToNumber());
             Match(TokenType::NUM);
             if (m_token->Value() == "beginbfchar")
             {
@@ -195,8 +195,8 @@ void CMapParser::BfRangeSequence(const int count)
 
             while (memcmp(chars, end.c_str(), size) < 0)
             {
-                const auto name = std::dynamic_pointer_cast<StringNode>(array->Value(loop2));
-                m_root->Add(make_shared<CharNode>(string(chars, size), name->Value()));
+                const auto root_name = std::dynamic_pointer_cast<StringNode>(array->Value(loop2));
+                m_root->Add(make_shared<CharNode>(string(chars, size), root_name->Value()));
                 if (size == 1)
                 {
                     (*chars)++;

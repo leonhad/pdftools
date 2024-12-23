@@ -34,7 +34,7 @@ protected:
     XmlTag *m_parent = nullptr;
 
 public:
-    XmlTag(const std::string &name);
+    XmlTag(std::string name);
     virtual ~XmlTag();
 
     std::string Name() const;

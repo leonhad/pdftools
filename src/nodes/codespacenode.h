@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef CODESPACENODE_H
-#define CODESPACENODE_H
+#pragma once
 
 #include "treenode.h"
 #include <string>
@@ -28,9 +27,8 @@ namespace node
     /**
      * Stores a code space node.
      */
-    class CodeSpaceNode: public TreeNode
+    class CodeSpaceNode final : public TreeNode
     {
-    private:
         /**
          * The code space start.
          */
@@ -45,41 +43,39 @@ namespace node
         /**
          * Creates a new instance.
          */
-        CodeSpaceNode();
+        CodeSpaceNode() = default;
 
         /**
          * Destroy this instance.
          */
-        virtual ~CodeSpaceNode() override = default;
+        ~CodeSpaceNode() override = default;
 
         /**
          * Sets the code space start.
          *
          * @param start the code space start.
          */
-        void SetStart(const std::string &start);
+        void SetStart(const std::string& start);
 
         /**
          * Sets the code space finish.
          *
          * @param finish the code space finish.
          */
-        void SetFinish(const std::string &finish);
+        void SetFinish(const std::string& finish);
 
         /**
          * Gets the code space start.
          *
          * @return the code space start.
          */
-        std::string Start() const;
+        [[nodiscard]] std::string Start() const;
 
         /**
          * Gets the code space finish.
          *
          * @return the code space finish.
          */
-        std::string Finish() const;
+        [[nodiscard]] std::string Finish() const;
     };
 }
-
-#endif

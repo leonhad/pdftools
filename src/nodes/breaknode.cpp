@@ -21,6 +21,3 @@
 
 using namespace node;
 
-BreakNode::BreakNode() : TreeNode()
-{
-}

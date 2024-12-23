@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef OUTLINE_H
-#define OUTLINE_H
+#pragma once
 
 #include <memory>
 #include <vector>
@@ -26,7 +25,6 @@
 
 class Outline
 {
-private:
     std::vector<std::shared_ptr<Outline>> m_children;
     std::string m_title;
     int m_id;
@@ -50,5 +48,3 @@ public:
     [[nodiscard]] size_t Size() const;
     std::shared_ptr<Outline> Child(size_t index);
 };
-
-#endif

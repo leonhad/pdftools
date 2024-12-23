@@ -128,7 +128,7 @@ bool VerboseMode()
     return verbose;
 }
 
-std::unique_ptr<char*> Compress(const char* raw, const size_t size, size_t& writen)
+std::unique_ptr<char[]> Compress(const char* raw, const size_t size, size_t& writen)
 {
     writen = 0;
 
@@ -173,12 +173,12 @@ std::unique_ptr<char*> Compress(const char* raw, const size_t size, size_t& writ
 
     writen = total;
 
-    auto ret = make_unique<char*>(new char [total]);
+    unique_ptr<char[]> ret(new char [total]);
 
     size_t locate = 0;
     for (const auto& [buffer, size] : values)
     {
-        memcpy(*ret + locate, buffer, size);
+        memcpy(ret.get() + locate, buffer, size);
         locate += size;
     }
 

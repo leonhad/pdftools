@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef PAGEPARSER_H
-#define PAGEPARSER_H
+#pragma once
 
 #include "genericparser.h"
 #include <vector>
@@ -41,7 +40,6 @@ namespace parser
      */
     class PageParser : public GenericParser
     {
-    private:
         /**
          * The tree root node.
          */
@@ -53,7 +51,7 @@ namespace parser
          *
          * @param stream the object stream.
          */
-        explicit PageParser(std::istream *stream);
+        explicit PageParser(std::istream* stream);
 
         /**
          * Destroy this instance.
@@ -115,8 +113,7 @@ namespace parser
          * @param root the root node.
          * @param values the node values.
          */
-        void TjupSequence(const std::shared_ptr<node::RootNode>& root, const std::vector<std::shared_ptr<node::TreeNode>>& values);
+        void TjupSequence(const std::shared_ptr<node::RootNode>& root,
+                          const std::vector<std::shared_ptr<node::TreeNode>>& values);
     };
 }
-
-#endif

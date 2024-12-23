@@ -22,11 +22,6 @@
 using namespace std;
 using namespace node;
 
-CodeSpaceNode::CodeSpaceNode() :
-        TreeNode()
-{
-}
-
 void CodeSpaceNode::SetStart(const string &s)
 {
     this->m_start = s;

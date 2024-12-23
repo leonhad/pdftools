@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef NAMENODE_H
-#define NAMENODE_H
+#pragma once
 
 #include "treenode.h"
 #include <string>
@@ -28,9 +27,8 @@ namespace node
     /**
      * Stores a name node.
      */
-    class NameNode: public TreeNode
+    class NameNode final : public TreeNode
     {
-    private:
         /**
          * The name.
          */
@@ -42,20 +40,18 @@ namespace node
          *
          * @param name the name.
          */
-        NameNode(const std::string &name);
+        explicit NameNode(std::string  name);
 
         /**
          * Destroy this instance.
          */
-        virtual ~NameNode() override = default;
+        ~NameNode() override = default;
 
         /**
          * Gets the name.
          *
          * @return the name.
          */
-        std::string Name() const;
+        [[nodiscard]] std::string Name() const;
     };
 }
-
-#endif

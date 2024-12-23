@@ -29,10 +29,6 @@ Html::Html()
             "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd");
 }
 
-Html::~Html()
-{
-}
-
 void Html::BreakLine()
 {
     m_xml.StartTag("br");
@@ -61,7 +57,7 @@ void Html::SetTitle(const string& title)
     m_xml.EndTag();
 }
 
-void Html::AddFont(double size, bool bold, bool italic, bool fixed)
+void Html::AddFont(const double size, const bool bold, const bool italic, const bool fixed)
 {
     m_xml.StartTag("div");
 

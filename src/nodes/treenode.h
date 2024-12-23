@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef TREENODE_H
-#define TREENODE_H
+#pragma once
 
 namespace node
 {
@@ -31,16 +30,14 @@ namespace node
         /**
          * Creates a new instance.
          */
-        TreeNode();
-        
+        TreeNode() = default;
+
         /**
          * Destroy this instance.
          */
-        virtual ~TreeNode();
+        virtual ~TreeNode() = default;
 
         /// Gets the node name.
-        virtual const char *NodeName() const;
+        [[nodiscard]] virtual const char* NodeName() const;
     };
 }
-
-#endif

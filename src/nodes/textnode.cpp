@@ -22,10 +22,6 @@
 using namespace std;
 using namespace node;
 
-TextNode::TextNode() : TreeNode()
-{
-}
-
 void TextNode::Add(const string &text)
 {
     this->m_value += text;

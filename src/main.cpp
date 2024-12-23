@@ -40,14 +40,14 @@ using namespace std;
  * \param argv the program parameters.
  * \return the program return code.
  */
-int main(int argc, char* argv[])
+int main(const int argc, char* argv[])
 {
     int verbose_flag = 0;
     bool error = false;
     string fileout;
     string format = "epub";
 
-    const struct option long_options[] =
+    const option long_options[] =
     {
         {"verbose", no_argument, &verbose_flag, 1},
         {"help", no_argument, nullptr, 'h'},
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
     while (true)
     {
         int option_index = 0;
-        auto c = getopt_long(argc, argv, "hvo:f:", long_options, &option_index);
+        const auto c = getopt_long(argc, argv, "hvo:f:", long_options, &option_index);
 
         /* Detect the end of the options. */
         if (c == -1)
@@ -95,7 +95,7 @@ int main(int argc, char* argv[])
             wcout << PACKAGE_STRING;
             wcout << L"\n\nCopyright (C) 2014 Leonardo Alves da Costa.\n";
             wcout << L"License GPLv3+: GNU GPL version 3 or later ";
-            wcout << L" <http://gnu.org/licenses/gpl.html>\n";
+            wcout << L" <https://gnu.org/licenses/gpl.html>\n";
             wcout << L"This is free software: you are free to change and redistribute it.\n";
             wcout << L"There is NO WARRANTY, to the extent permitted by law.\n\n";
             wcout << L"Written by Leonardo Alves da Costa.\n";
@@ -130,19 +130,17 @@ int main(int argc, char* argv[])
         wcout << L"Try `" << PACKAGE_NAME << L" --help' for usage.\n";
         return EXIT_FAILURE;
     }
-    else
+
+    for (int loop = optind; loop < argc; loop++)
     {
-        for (int loop = optind; loop < argc; loop++)
+        try
         {
-            try
-            {
-                Converter converter(argv[loop], fileout, format);
-                converter.Convert();
-            }
-            catch (exception& e)
-            {
-                ErrorMessage(e);
-            }
+            Converter converter(argv[loop], fileout, format);
+            converter.Convert();
+        }
+        catch (exception& e)
+        {
+            ErrorMessage(e);
         }
     }
 

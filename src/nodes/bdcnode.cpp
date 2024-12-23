@@ -38,9 +38,9 @@ string& BDCNode::Name()
     return m_name;
 }
 
-void BDCNode::SetValue(const std::shared_ptr<TreeNode>& v)
+void BDCNode::SetValue(const std::shared_ptr<TreeNode>& value)
 {
-    this->m_value = v;
+    this->m_value = value;
 }
 
 void BDCNode::SetName(const string& name)

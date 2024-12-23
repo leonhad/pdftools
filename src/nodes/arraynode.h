@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef ARRAYNODE_H
-#define ARRAYNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <vector>
@@ -32,7 +31,6 @@ namespace node
      */
     class ArrayNode final : public TreeNode
     {
-    private:
         /**
          * The array values.
          */
@@ -72,5 +70,3 @@ namespace node
         [[nodiscard]] size_t Size() const;
     };
 }
-
-#endif

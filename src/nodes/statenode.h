@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef STATENODE_H
-#define STATENODE_H
+#pragma once
 
 #include "treenode.h"
 
@@ -27,9 +26,8 @@ namespace node
     /**
      * Stores a state node.
      */
-    class StateNode: public TreeNode
+    class StateNode final : public TreeNode
     {
-    private:
         /**
          * The state.
          */
@@ -46,15 +44,13 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~StateNode() override = default;
+        ~StateNode() override = default;
 
         /**
          * Gets the state.
          *
          * @return the state.
          */
-        bool Save() const;
+        [[nodiscard]] bool Save() const;
     };
 }
-
-#endif

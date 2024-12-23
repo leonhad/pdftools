@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef OBJNODE_H
-#define OBJNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <istream>
@@ -31,7 +30,6 @@ namespace node
      */
     class ObjNode final : public TreeNode
     {
-    private:
         /**
          * The object id.
          */
@@ -118,5 +116,3 @@ namespace node
         [[nodiscard]] bool SameObject(int id, int generation) const;
     };
 }
-
-#endif

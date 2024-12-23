@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef PAGELABEL_H
-#define PAGELABEL_H
+#pragma once
 
 #include <string>
 
@@ -58,7 +57,6 @@ enum page_type
  */
 class PageLabel
 {
-private:
     /**
      * The page start number.
      */
@@ -118,5 +116,3 @@ public:
      */
     [[nodiscard]] std::string& Name();
 };
-
-#endif

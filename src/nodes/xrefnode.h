@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef XREFNODE_H
-#define XREFNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <vector>
@@ -57,9 +56,8 @@ namespace node
     /**
      * Stores a XREF node.
      */
-    class XREFNode : public TreeNode
+    class XREFNode final : public TreeNode
     {
-    private:
         /**
          * A list of all object references.
          */
@@ -106,5 +104,3 @@ namespace node
         [[nodiscard]] std::shared_ptr<TreeNode> Trailer() const;
     };
 }
-
-#endif

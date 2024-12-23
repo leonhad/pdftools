@@ -24,11 +24,6 @@
 using namespace std;
 using namespace node;
 
-MapNode::MapNode()
-{
-}
-
-
 std::shared_ptr<TreeNode> MapNode::Get(const string& name) const
 {
     if (const auto i = m_values.find(name); i != m_values.end())

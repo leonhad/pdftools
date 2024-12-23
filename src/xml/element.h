@@ -17,19 +17,16 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef ELEMENT_H
-#define ELEMENT_H
+#pragma once
 
 #include "xmltag.h"
 
-class Element: public XmlTag
+class Element final : public XmlTag
 {
 public:
-    Element(const std::string &element);
+    explicit Element(const std::string& element);
 
-    virtual ~Element() override;
+    ~Element() override = default;
 
-    virtual std::string ToXML() const override;
+    [[nodiscard]] std::string ToXML() const override;
 };
-
-#endif

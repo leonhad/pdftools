@@ -80,29 +80,34 @@ std::shared_ptr<TreeNode> GenericParser::ValueSequence()
         Match(TokenType::END_DICT);
         return map;
     }
-    else if (m_token->Type() == TokenType::TRUE)
+
+    if (m_token->Type() == TokenType::TRUE)
     {
         Match(TokenType::TRUE);
         return make_shared<BooleanNode>(true);
     }
-    else if (m_token->Type() == TokenType::FALSE)
+
+    if (m_token->Type() == TokenType::FALSE)
     {
         Match(TokenType::FALSE);
         return make_shared<BooleanNode>(false);
     }
-    else if (m_token->Type() == TokenType::NAME)
+
+    if (m_token->Type() == TokenType::NAME)
     {
         const string name = m_token->Value();
         Match(TokenType::NAME);
         return make_shared<NameNode>(name);
     }
-    else if (m_token->Type() == TokenType::STRING)
+
+    if (m_token->Type() == TokenType::STRING)
     {
         const string value = m_token->Value();
         Match(TokenType::STRING);
         return make_shared<StringNode>(value);
     }
-    else if (m_token->Type() == TokenType::NUM)
+
+    if (m_token->Type() == TokenType::NUM)
     {
         const double value = m_token->ToNumber();
         const streampos pos = m_scanner->Pos();
@@ -117,10 +122,8 @@ std::shared_ptr<TreeNode> GenericParser::ValueSequence()
                 Match(TokenType::NAME);
                 return make_shared<RefNode>(value, generation);
             }
-            else
-            {
-                m_scanner->ToPos(pos);
-            }
+
+            m_scanner->ToPos(pos);
         }
         else
         {
@@ -129,7 +132,8 @@ std::shared_ptr<TreeNode> GenericParser::ValueSequence()
         NextToken();
         return make_shared<NumberNode>(value);
     }
-    else if (m_token->Type() == TokenType::START_ARRAY)
+
+    if (m_token->Type() == TokenType::START_ARRAY)
     {
         const std::shared_ptr<ArrayNode> array(new ArrayNode);
         Match(TokenType::START_ARRAY);

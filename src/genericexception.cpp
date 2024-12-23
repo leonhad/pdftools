@@ -19,24 +19,23 @@
  */
 #include "genericexception.h"
 
+#include <utility>
+
 using namespace std;
 
-GenericException::GenericException(const char *msg) :
-        m_msg(msg)
+GenericException::GenericException(const char* msg) : m_msg(msg)
 {
 }
 
-GenericException::GenericException(string msg) :
-        m_msg(msg)
+GenericException::GenericException(string msg) : m_msg(std::move(msg))
 {
 }
 
-GenericException::GenericException(GenericException &&ex) :
-        m_msg(move(ex.m_msg))
+GenericException::GenericException(GenericException&& ex) noexcept : m_msg(ex.m_msg)
 {
 }
 
-const char *GenericException::what() const noexcept
+const char* GenericException::what() const noexcept
 {
     return m_msg.c_str();
 }

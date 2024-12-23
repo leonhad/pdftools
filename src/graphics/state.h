@@ -17,19 +17,17 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef STATE_H
-#define STATE_H
+#pragma once
 
 /**
  * Stores a current state.
  */
 class State
 {
-private:
     /**
      * The current text matrix.
      */
-    double m_textMatrix[3][3];
+    double m_textMatrix[3][3]{};
 
 public:
     /**
@@ -64,7 +62,5 @@ public:
      *
      * @return the current text font.
      */
-    double GetTextFont() const;
+    [[nodiscard]] double GetTextFont() const;
 };
-
-#endif

@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef TEXTMATRIXNODE_H
-#define TEXTMATRIXNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <vector>
@@ -30,9 +29,8 @@ namespace node
     /**
      * Stores a text matrix node.
      */
-    class TextMatrixNode: public TreeNode
+    class TextMatrixNode final : public TreeNode
     {
-    private:
         /**
          * Matrix nodes.
          */
@@ -44,7 +42,7 @@ namespace node
          *
          * @param list the list values.
          */
-        TextMatrixNode(const std::initializer_list<double> &list);
+        TextMatrixNode(const std::initializer_list<double>& list);
 
         /**
          * Destroy this instance.
@@ -60,5 +58,3 @@ namespace node
         [[nodiscard]] double At(size_t index) const;
     };
 }
-
-#endif

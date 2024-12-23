@@ -17,29 +17,26 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef BREAKNODE_H
-#define BREAKNODE_H
+#pragma once
 
 #include "treenode.h"
 
 namespace node
 {
-/**
- * Stores a break node.
- */
-class BreakNode: public TreeNode
-{
-public:
     /**
-     * Creates a new instance.
+     * Stores a break node.
      */
-    BreakNode();
+    class BreakNode final : public TreeNode
+    {
+    public:
+        /**
+         * Creates a new instance.
+         */
+        BreakNode() = default;
 
-    /**
-     * Destroy this instance.
-     */
-    virtual ~BreakNode() override = default;
-};
+        /**
+         * Destroy this instance.
+         */
+        ~BreakNode() override = default;
+    };
 }
-
-#endif

@@ -138,7 +138,7 @@ std::shared_ptr<TreeNode> PageParser::TmSequence(const vector<std::shared_ptr<Tr
         const auto e = std::dynamic_pointer_cast<NumberNode>(values[4]);
         const auto f = std::dynamic_pointer_cast<NumberNode>(values[5]);
 
-        return make_shared<TextMatrixNode>(initializer_list<double>{
+        return make_shared<TextMatrixNode>(initializer_list{
             a->Value(), b->Value(), c->Value(), d->Value(), e->Value(), f->Value()
         });
     }

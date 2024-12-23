@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef SCANNER_H
-#define SCANNER_H
+#pragma once
 
 #include "token.h"
 
@@ -29,11 +28,10 @@ namespace parser
      */
     class Scanner
     {
-    private:
         /**
          * A pointer to file input.
          */
-        std::istream *m_filein;
+        std::istream* m_filein;
 
         /**
          * The current token.
@@ -51,7 +49,7 @@ namespace parser
          *
          * @param m_filein the file to read.
          */
-        explicit Scanner(std::istream *m_filein);
+        explicit Scanner(std::istream* m_filein);
 
         /**
          * Destroy this instance.
@@ -63,7 +61,7 @@ namespace parser
          *
          * @return the next token.
          */
-        Token &NextToken();
+        Token& NextToken();
 
         /**
          * If this scanner have more tokens.
@@ -75,7 +73,7 @@ namespace parser
         /**
          * Ignore a line.
          */
-        void IgnoreLine();
+        void IgnoreLine() const;
 
         /**
          * Ignore a stream of bytes by its length.
@@ -144,5 +142,3 @@ namespace parser
         static TokenType ReservedLookup(const std::string& reserved_word);
     };
 }
-
-#endif

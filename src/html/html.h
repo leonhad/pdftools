@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef HTML_H
-#define HTML_H
+#pragma once
 
 #include "../xml/xml.h"
 #include <string>
@@ -28,9 +27,8 @@
  */
 class Html
 {
-private:
     /**
-     * The XML genetator.
+     * The XML generator.
      */
     XML m_xml;
 
@@ -43,7 +41,7 @@ public:
     /**
      * Destroy the instance.
      */
-    ~Html();
+    ~Html() = default;
 
     /**
      * Starts the document.
@@ -95,21 +93,21 @@ public:
      *
      * @param element the tag name.
      */
-    void AddElement(const std::string &element);
+    void AddElement(const std::string& element);
 
     /**
      * Add a section by its name.
      *
      * @param name the section name.
      */
-    void AddSection(const std::string &name);
+    void AddSection(const std::string& name);
 
     /**
      * Sets the document title.
      *
      * @param title the document title.
      */
-    void SetTitle(const std::string &title);
+    void SetTitle(const std::string& title);
 
     /**
      * Add a link reference.
@@ -118,17 +116,15 @@ public:
      * @param type the link type.
      * @param href the link href.
      */
-    void AddLink(const std::string &rel, const std::string &type, const std::string &href);
+    void AddLink(const std::string& rel, const std::string& type, const std::string& href);
 
     /**
      * Gets the HTML content.
      *
      * @return the HTML content.
      */
-    inline const std::string Content() const
+    [[nodiscard]] std::string Content() const
     {
         return m_xml.Content();
     }
 };
-
-#endif

@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef ANALYZE_H
-#define ANALYZE_H
+#pragma once
 
 #include <map>
 #include <memory>
@@ -41,7 +40,6 @@ namespace node
 
 class Analyze
 {
-private:
     std::string m_fileIn;
     std::shared_ptr<Document> m_document = nullptr;
     std::shared_ptr<node::RootNode> m_tree = nullptr;
@@ -58,9 +56,11 @@ private:
     void AnalyzeInfo();
     std::shared_ptr<node::TreeNode> AnalyzeRoot();
     void AnalyzeNames(const std::shared_ptr<node::MapNode>& values);
-    void AnalyzeOutlines(const std::shared_ptr<node::MapNode>& values, const std::shared_ptr<Outline>& parent = nullptr);
+    void AnalyzeOutlines(const std::shared_ptr<node::MapNode>& values,
+                         const std::shared_ptr<Outline>& parent = nullptr);
     void AnalyzeOutline(const std::shared_ptr<node::ArrayNode>& values, const std::shared_ptr<Outline>& outline);
-    void AnalyzePages(const std::shared_ptr<node::TreeNode>& page, const std::shared_ptr<node::ArrayNode>& media_box = nullptr);
+    void AnalyzePages(const std::shared_ptr<node::TreeNode>& page,
+                      const std::shared_ptr<node::ArrayNode>& media_box = nullptr);
     std::shared_ptr<Font> AnalyzeFont(const std::shared_ptr<node::MapNode>& fontmap);
 
     std::shared_ptr<Page> ProcessPage(int id, int generation, std::stringstream* stream_value,
@@ -78,5 +78,3 @@ private:
     void GetStream(const std::shared_ptr<node::ArrayNode>& array, std::stringstream* stream_value);
     void GetStream(const std::shared_ptr<node::ObjNode>& obj, std::stringstream* stream_value);
 };
-
-#endif

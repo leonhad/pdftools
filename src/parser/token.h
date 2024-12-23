@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef TOKEN_H
-#define TOKEN_H
+#pragma once
 
 #include <string>
 
@@ -499,9 +498,8 @@ namespace parser
     /**
      * Stores a single token.
      */
-    class Token
+    class Token final
     {
-    private:
         /**
          * The token type.
          */
@@ -528,7 +526,7 @@ namespace parser
          *
          * @param value the token value.
          */
-        void SetValue(std::string value);
+        void SetValue(const std::string& value);
 
         /**
          * Sets the token type.
@@ -542,30 +540,27 @@ namespace parser
          *
          * @return the number value.
          */
-        double ToNumber() const;
-        
-        
+        [[nodiscard]] double ToNumber() const;
+
         /**
          * Converts the value to int.
          *
          * @return the int value.
          */
-        int ToInt() const;
+        [[nodiscard]] int ToInt() const;
 
         /**
          * Gets the token value.
          *
          * @return the token value.
          */
-        std::string Value() const;
+        [[nodiscard]] std::string Value() const;
 
         /**
          * Gets the token type.
          *
          * @return the token type.
          */
-        TokenType Type() const;
+        [[nodiscard]] TokenType Type() const;
     };
 }
-
-#endif

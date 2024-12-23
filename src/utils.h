@@ -31,6 +31,6 @@ void VerboseMessage(const wchar_t* msg);
 void SetVerboseMode(bool verbose);
 bool VerboseMode();
 const char* FlatDecode(const char* compressed, size_t size, size_t& deflated);
-std::unique_ptr<char*> Compress(const char* raw, size_t size, size_t& writen);
+std::unique_ptr<char[]> Compress(const char* raw, size_t size, size_t& writen);
 std::string UTF16beToUTF8(const std::string& str);
 std::string CharsetToUTF8(const std::string& str);

@@ -19,11 +19,13 @@
  */
 #include "charnode.h"
 
+#include <utility>
+
 using namespace std;
 using namespace node;
 
-CharNode::CharNode(const string &character, const string &unicode) :
-        TreeNode(), m_thisChar(character), m_unicode(unicode)
+CharNode::CharNode(string character, string unicode) :
+        m_thisChar(std::move(character)), m_unicode(std::move(unicode))
 {
 }
 

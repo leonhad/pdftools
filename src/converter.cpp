@@ -55,7 +55,7 @@ void Converter::Convert() const
 {
     Analyze analyze(m_fileIn);
 
-    auto m_document = analyze.AnalyzeTree();
+    const auto m_document = analyze.AnalyzeTree();
 
     wstring msg;
     msg += L"Analyzing file ";

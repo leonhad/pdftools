@@ -17,7 +17,6 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#include "config.h"
 #include "zipfile.h"
 #include <zlib.h>
 #include <cstring>
@@ -91,7 +90,7 @@ void ZipFile::AddSource(const string &filename, const char *buffer, const size_t
 
     if (file->compressed)
     {
-        m_output.write(*file->deflate_buffer, static_cast<streamsize>(file->compressed_size));
+        m_output.write(file->deflate_buffer.get(), static_cast<streamsize>(file->compressed_size));
     }
     else
     {

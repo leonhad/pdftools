@@ -22,19 +22,14 @@
 
 using namespace std;
 
-Element::Element(const string &element) :
-        XmlTag(element)
-{
-}
-
-Element::~Element()
+Element::Element(const string& element) : XmlTag(element)
 {
 }
 
 std::string Element::ToXML() const
 {
     stringstream buffer;
-    for (char c : m_name)
+    for (const char c : m_name)
     {
         switch (c)
         {

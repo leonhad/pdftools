@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef GENERICPARSER_H
-#define GENERICPARSER_H
+#pragma once
 
 #include <memory>
 
@@ -54,7 +53,7 @@ namespace parser
          *
          * @param filein the file to parse.
          */
-        explicit GenericParser(std::istream *filein);
+        explicit GenericParser(std::istream* filein);
 
         /**
          * Destroy this instance.
@@ -83,5 +82,3 @@ namespace parser
         void NextToken();
     };
 }
-
-#endif

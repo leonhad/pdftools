@@ -128,15 +128,15 @@ namespace parser
         {TokenType::EI, "EI"}
     };
 
-    constexpr bool isnum(const char c)
+    constexpr bool isNumber(const char c)
     {
-        return (c >= '0' && c <= '9') || (c == '-') || (c == '+') || (c == '.');
+        return (c >= '0' && c <= '9') || c == '-' || c == '+' || c == '.';
     }
 
-    constexpr bool is_space(const char c)
+    constexpr bool isSpace(const char c)
     {
-        return (c == '\0') || (c == ' ') || (c == '\t') || (c == '\n') || (c == '\v') || (c == '\f')
-            || (c == '\r') || (c == EOF);
+        return c == '\0' || c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+            || c == '\r' || c == EOF;
     }
 }
 
@@ -275,7 +275,7 @@ bool Scanner::Good() const
     return m_filein->good();
 }
 
-void Scanner::IgnoreLine()
+void Scanner::IgnoreLine() const
 {
     while (NextChar() != '\n')
     {
@@ -315,7 +315,7 @@ Token& Scanner::NextToken()
         switch (state)
         {
         case StateType::START:
-            if (isnum(c))
+            if (isNumber(c))
             {
                 state = StateType::INNUM;
             }
@@ -336,8 +336,7 @@ Token& Scanner::NextToken()
             }
             else if (c == '>')
             {
-                wchar_t next = NextChar();
-                if (next != '>')
+                if (wchar_t next = NextChar(); next != '>')
                 {
                     UnGetChar();
                     save = false;
@@ -372,7 +371,7 @@ Token& Scanner::NextToken()
                     current_token = TokenType::START_DICT;
                 }
             }
-            else if (is_space(c))
+            else if (isSpace(c))
             {
                 save = false;
             }
@@ -402,7 +401,7 @@ Token& Scanner::NextToken()
 
             break;
         case StateType::INNUM:
-            if (not isdigit(c) && (c != '.'))
+            if (not isdigit(c) && c != '.')
             {
                 /* backup in the input */
                 UnGetChar();
@@ -413,7 +412,7 @@ Token& Scanner::NextToken()
 
             break;
         case StateType::INHEXSTR:
-            if (is_space(c))
+            if (isSpace(c))
             {
                 save = false;
             }
@@ -455,8 +454,7 @@ Token& Scanner::NextToken()
                     string value
                         {c};
                     value += NextChar();
-                    char c3 = NextChar();
-                    if (isnum(c3))
+                    if (char c3 = NextChar(); isNumber(c3))
                     {
                         // for \99 only
                         value += c3;
@@ -514,7 +512,7 @@ Token& Scanner::NextToken()
 
             break;
         case StateType::INNAME:
-            if (is_space(c) || strchr(special_chars, c))
+            if (isSpace(c) || strchr(special_chars, c))
             {
                 save = false;
                 UnGetChar();

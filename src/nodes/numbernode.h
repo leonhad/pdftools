@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef NUMBERNODE_H
-#define NUMBERNODE_H
+#pragma once
 
 #include "treenode.h"
 
@@ -27,9 +26,8 @@ namespace node
     /**
      * Stores a number node.
      */
-    class NumberNode: public TreeNode
+    class NumberNode final : public TreeNode
     {
-    private:
         /**
          * The number value.
          */
@@ -46,14 +44,12 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~NumberNode() override = default;
+        ~NumberNode() override = default;
 
         /**
          * Gets the number value.
          * @return the number value.
          */
-        double Value() const;
+        [[nodiscard]] double Value() const;
     };
 }
-
-#endif

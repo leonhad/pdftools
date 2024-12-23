@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef NODES_H
-#define NODES_H
+#pragma once
 
 // The list of all nodes.
 
@@ -42,5 +41,3 @@
 #include "codespacenode.h"
 #include "statenode.h"
 #include "textmatrixnode.h"
-
-#endif

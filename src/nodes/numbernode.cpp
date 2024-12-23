@@ -21,7 +21,7 @@
 
 using namespace node;
 
-NumberNode::NumberNode(double value) : TreeNode(), m_value(value)
+NumberNode::NumberNode(const double value) : m_value(value)
 {
 }
 

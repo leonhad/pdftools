@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#pragma once
 
 #include <memory>
 #include <string>
@@ -34,7 +33,6 @@ class Page;
  */
 class Context
 {
-private:
     /**
      * The document.
      */
@@ -149,5 +147,3 @@ public:
      */
     std::shared_ptr<Document> CurrentDocument();
 };
-
-#endif

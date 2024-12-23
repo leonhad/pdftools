@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef CHARNODE_H
-#define CHARNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <string>
@@ -28,9 +27,8 @@ namespace node
     /**
      * Stores a char node.
      */
-    class CharNode: public TreeNode
+    class CharNode final : public TreeNode
     {
-    private:
         /**
          * This char.
          */
@@ -48,27 +46,25 @@ namespace node
          * @param character the char value.
          * @param unicode the unicode value.
          */
-        CharNode(const std::string &character, const std::string &unicode);
+        CharNode(std::string character, std::string unicode);
 
         /**
          * Destroy the instance.
          */
-        virtual ~CharNode() override = default;
+        ~CharNode() override = default;
 
         /**
          * Gets the char value.
          *
          * @return the char value.
          */
-        std::string Character() const;
+        [[nodiscard]] std::string Character() const;
 
         /**
-         * Gets the unicode value.
+         * Gets the Unicode value.
          *
          * @return the unicode value.
          */
-        std::string Unicode() const;
+        [[nodiscard]] std::string Unicode() const;
     };
 }
-
-#endif

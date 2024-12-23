@@ -17,42 +17,38 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef FONT_H
-#define FONT_H
+#pragma once
 
 #include <string>
 #include <map>
 
 class Font
 {
-private:
     bool m_italic;
     bool m_bold;
     bool m_fixed;
     double m_size;
     std::string m_name;
-    std::string m_charmap_start;
-    std::string m_charmap_finish;
+    std::string m_char_map_start;
+    std::string m_char_map_finish;
     std::map<std::string, std::string> m_charmap;
 
 public:
     Font();
-    ~Font();
+    ~Font() = default;
 
     void SetSize(double size);
     void SetFixed(bool fixed);
-    void SetName(std::string name);
+    void SetName(const std::string& name);
     void SetItalic(bool italic);
     std::string Name();
-    double Size();
-    bool Italic();
-    bool Bold();
-    bool Fixed();
+    double Size() const;
+    bool Italic() const;
+    bool Bold() const;
+    bool Fixed() const;
 
-    void SetCharMapStart(std::string value);
-    void SetCharMapFinish(std::string value);
-    void AddCharMap(std::string character, std::string utf16value);
+    void SetCharMapStart(const std::string& value);
+    void SetCharMapFinish(const std::string& value);
+    void AddCharMap(const std::string& character, const std::string& utf16value);
     std::string Translate(std::string &value);
 };
-
-#endif

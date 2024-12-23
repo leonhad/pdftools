@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef REFNODE_H
-#define REFNODE_H
+#pragma once
 
 #include "treenode.h"
 
@@ -27,9 +26,8 @@ namespace node
     /**
      * Stores a reference node.
      */
-    class RefNode: public TreeNode
+    class RefNode final : public TreeNode
     {
-    private:
         /**
          * The object id.
          */
@@ -52,22 +50,20 @@ namespace node
         /**
          * Destroy the instance.
          */
-        virtual ~RefNode() override = default;
+        ~RefNode() override = default;
 
         /**
          * Gets the object id.
          *
          * @return the object id.
          */
-        int Id() const;
+        [[nodiscard]] int Id() const;
 
         /**
          * Gets the generation.
          *
          * @return the generation.
          */
-        int Generation() const;
+        [[nodiscard]] int Generation() const;
     };
 }
-
-#endif

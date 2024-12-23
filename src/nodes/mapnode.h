@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef MAPNODE_H
-#define MAPNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <map>
@@ -31,9 +30,8 @@ namespace node
     /**
      * Stores a map node.
      */
-    class MapNode : public TreeNode
+    class MapNode final : public TreeNode
     {
-    private:
         /**
          * Stores a map of nodes.
          */
@@ -43,7 +41,7 @@ namespace node
         /**
          * Creates a new instance.
          */
-        MapNode();
+        MapNode() = default;
 
         /**
          * Destroy this instance.
@@ -74,5 +72,3 @@ namespace node
         [[nodiscard]] std::shared_ptr<TreeNode> Get(const std::string& name) const;
     };
 }
-
-#endif

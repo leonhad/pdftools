@@ -114,7 +114,7 @@ void PageAnalyze::AnalyzeTree(const std::shared_ptr<RootNode>& tree, const std::
     }
 }
 
-std::shared_ptr<FontGlyph> PageAnalyze::AnalyzeFont(const std::shared_ptr<FontNode>& font)
+std::shared_ptr<FontGlyph> PageAnalyze::AnalyzeFont(const std::shared_ptr<FontNode>& font) const
 {
     return std::make_shared<FontGlyph>(font->Name(), font->Size() * m_state.GetTextFont());
 }
@@ -124,7 +124,7 @@ void PageAnalyze::AnalyzeText(const std::shared_ptr<TextNode>& text, const std::
     parent->AddChild(std::make_shared<TextGlyph>(text->Text()));
 }
 
-std::shared_ptr<FontSizeGlyph> PageAnalyze::AnalyzeTextMatrix(const std::shared_ptr<TextMatrixNode>& text_matrix)
+std::shared_ptr<FontSizeGlyph> PageAnalyze::AnalyzeTextMatrix(const std::shared_ptr<TextMatrixNode>& text_matrix) const
 {
     m_state.SetTextMatrix(text_matrix->At(0), text_matrix->At(1), text_matrix->At(2),
                           text_matrix->At(3), text_matrix->At(4), text_matrix->At(5));

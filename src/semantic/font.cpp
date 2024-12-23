@@ -31,46 +31,42 @@ Font::Font()
     m_size = 0;
 }
 
-Font::~Font()
-{
-}
-
-void Font::SetSize(double size)
+void Font::SetSize(const double size)
 {
     m_size = size;
 }
 
-double Font::Size()
+double Font::Size() const
 {
     return m_size;
 }
 
-bool Font::Fixed()
+bool Font::Fixed() const
 {
     return m_fixed;
 }
 
-void Font::SetFixed(bool fixed)
+void Font::SetFixed(const bool fixed)
 {
     m_fixed = fixed;
 }
 
-void Font::SetItalic(bool italic)
+void Font::SetItalic(const bool italic)
 {
     m_italic = italic;
 }
 
-bool Font::Italic()
+bool Font::Italic() const
 {
     return m_italic;
 }
 
-bool Font::Bold()
+bool Font::Bold() const
 {
     return m_bold;
 }
 
-void Font::SetName(string name)
+void Font::SetName(const string& name)
 {
     if (name.find("Bold") != string::npos)
     {
@@ -84,17 +80,17 @@ string Font::Name()
     return m_name;
 }
 
-void Font::SetCharMapStart(string value)
+void Font::SetCharMapStart(const string& value)
 {
-    m_charmap_start = value;
+    m_char_map_start = value;
 }
 
-void Font::SetCharMapFinish(string value)
+void Font::SetCharMapFinish(const string& value)
 {
-    m_charmap_finish = value;
+    m_char_map_finish = value;
 }
 
-void Font::AddCharMap(string character, string utf16value)
+void Font::AddCharMap(const string& character, const string& utf16value)
 {
     m_charmap [character] = UTF16beToUTF8(utf16value);
 }
@@ -102,25 +98,24 @@ void Font::AddCharMap(string character, string utf16value)
 string Font::Translate(string &value)
 {
     string ret;
-    size_t size = m_charmap_start.size();
+    const size_t size = m_char_map_start.size();
 
-    if (m_charmap.size() == 0)
+    if (m_charmap.empty())
     {
         return value;
     }
 
-    const char *start = m_charmap_start.c_str();
-    const char *finish = m_charmap_finish.c_str();
+    const char *start = m_char_map_start.c_str();
+    const char *finish = m_char_map_finish.c_str();
 
     const char *buffer = value.c_str();
-    size_t length = value.size();
+    const size_t length = value.size();
     for (size_t loop = 0; loop < length; loop++, buffer += size)
     {
-        int f = memcmp(start, buffer, m_charmap_start.length());
-        int s = memcmp(finish, buffer, m_charmap_finish.length());
-        if (f <= 0 && s >= 0)
+        const int f = memcmp(start, buffer, m_char_map_start.length());
+        if (const int s = memcmp(finish, buffer, m_char_map_finish.length()); f <= 0 && s >= 0)
         {
-            string c = string(buffer, size);
+            auto c = string(buffer, size);
             ret += m_charmap [c];
         }
         else

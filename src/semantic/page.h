@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef PAGE_H
-#define PAGE_H
+#pragma once
 
 #include <string>
 #include <map>
@@ -31,7 +30,6 @@ class Html;
 
 class Page
 {
-private:
     int* m_mediaBox;
     int* m_cropBox;
     int m_id;
@@ -58,5 +56,3 @@ public:
     void AddFontMap(const std::string& alias, const std::string& font_name);
     std::string FontName(const std::string& alias);
 };
-
-#endif

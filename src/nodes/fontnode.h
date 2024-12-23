@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef FONTNODE_H
-#define FONTNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <string>
@@ -28,9 +27,8 @@ namespace node
     /**
      * Stores a font node.
      */
-    class FontNode: public TreeNode
+    class FontNode final : public TreeNode
     {
-    private:
         /**
          * The font name.
          */
@@ -50,28 +48,28 @@ namespace node
         /**
          * Destroy this instance.
          */
-        virtual ~FontNode() override = default;
+        ~FontNode() override = default;
 
         /**
          * Gets the font name.
          *
          * @return the font name.
          */
-        std::string Name() const;
+        [[nodiscard]] std::string Name() const;
 
         /**
          * Gets the font size.
          *
          * @return the font size.
          */
-        double Size() const;
+        [[nodiscard]] double Size() const;
 
         /**
          * Sets the font name.
          *
          * @param name the font name.
          */
-        void SetName(const std::string &name);
+        void SetName(const std::string& name);
 
         /**
          * Sets the font size.
@@ -81,5 +79,3 @@ namespace node
         void SetSize(double size);
     };
 }
-
-#endif

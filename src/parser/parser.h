@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef PARSER_H
-#define PARSER_H
+#pragma once
 
 #include "genericparser.h"
 #include <string>
@@ -34,9 +33,8 @@ namespace parser
     /**
      * Parses a PDF file.
      */
-    class Parser : public GenericParser
+    class Parser final : public GenericParser
     {
-    private:
         /**
          * If this is a linear file.
          */
@@ -53,7 +51,7 @@ namespace parser
          *
          * \@param filein the file to parse.
          */
-        explicit Parser(std::ifstream *filein);
+        explicit Parser(std::ifstream* filein);
 
         /**
          * Destroy this instance.
@@ -107,5 +105,3 @@ namespace parser
         std::shared_ptr<node::TreeNode> XrefSequence();
     };
 }
-
-#endif

@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef TEXTNODE_H
-#define TEXTNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <string>
@@ -28,9 +27,8 @@ namespace node
     /**
      * Stores a text node.
      */
-    class TextNode: public TreeNode
+    class TextNode final : public TreeNode
     {
-    private:
         /**
          * The text value.
          */
@@ -40,27 +38,25 @@ namespace node
         /**
          * Creates a new instance.
          */
-        TextNode();
+        TextNode() = default;
 
         /**
          * Destroy this instance.
          */
-        virtual ~TextNode() override = default;
+        ~TextNode() override = default;
 
         /**
          * Adds a text value.
          *
          * @param text the text value.
          */
-        void Add(const std::string &text);
+        void Add(const std::string& text);
 
         /**
          * Gets the text value.
          *
          * @return the text value.
          */
-        std::string Text() const;
+        [[nodiscard]] std::string Text() const;
     };
 }
-
-#endif

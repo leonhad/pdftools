@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef STRINGNODE_H
-#define STRINGNODE_H
+#pragma once
 
 #include "treenode.h"
 #include <string>
@@ -28,9 +27,8 @@ namespace node
     /**
      * Stores a string node.
      */
-    class StringNode: public TreeNode
+    class StringNode final : public TreeNode
     {
-    private:
         /**
          * The string value.
          */
@@ -42,22 +40,20 @@ namespace node
          *
          * @param value the string value.
          */
-        StringNode(const std::string &value);
+        explicit StringNode(std::string  value);
 
         /**
          * Destroy this instance.
          */
-        virtual ~StringNode() override = default;
-        
-        virtual const char * NodeName() const override;
+        ~StringNode() override = default;
+
+        [[nodiscard]] const char* NodeName() const override;
 
         /**
          * Gets the string value.
          *
          * @return the string value.
          */
-        std::string Value() const;
+        [[nodiscard]] std::string Value() const;
     };
 }
-
-#endif

@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef GENERICEXCEPTION_H
-#define GENERICEXCEPTION_H
+#pragma once
 
 #include <stdexcept>
 #include <string>
@@ -28,7 +27,6 @@
  */
 class GenericException : public std::exception
 {
-private:
     /**
      * The exception message.
      */
@@ -47,26 +45,24 @@ public:
      *
      * @param msg the exception message.
      */
-    explicit GenericException(std::string msg);
+    explicit GenericException(std::string  msg);
 
     /**
      * Creates a new instance.
      *
      * @param ex the original exception.
      */
-    GenericException(GenericException &&ex);
+    GenericException(GenericException &&ex) noexcept;
 
     /**
      * Destroy the instance.
      */
-    virtual ~GenericException() override = default;
+    ~GenericException() override = default;
 
     /**
      * Gets the exception message.
      *
      * @return the exception message.
      */
-    virtual const char* what() const noexcept override;
+    [[nodiscard]] const char* what() const noexcept override;
 };
-
-#endif

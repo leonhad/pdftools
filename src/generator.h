@@ -17,14 +17,12 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef GENERATOR_H
-#define GENERATOR_H
+#pragma once
 
 #include <memory>
 #include <string>
 
 class Document;
-
 
 /// The generator type.
 class Generator
@@ -42,7 +40,5 @@ public:
     /// Generate the document.
     /// @param document the document to generate.
     /// @param output the output file.
-    virtual bool Generate(const std::shared_ptr<Document> &document, const std::string& output) = 0;
+    virtual bool Generate(const std::shared_ptr<Document>& document, const std::string& output) = 0;
 };
-
-#endif

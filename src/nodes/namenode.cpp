@@ -19,10 +19,12 @@
  */
 #include "namenode.h"
 
+#include <utility>
+
 using namespace std;
 using namespace node;
 
-NameNode::NameNode(const std::string &name) : TreeNode(), m_name(name)
+NameNode::NameNode(std::string name) : m_name(std::move(name))
 {
 }
 

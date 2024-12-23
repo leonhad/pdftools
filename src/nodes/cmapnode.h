@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef CMAPNODE_H
-#define CMAPNODE_H
+#pragma once
 
 #include <memory>
 
@@ -36,7 +35,6 @@ namespace node
      */
     class CMapNode final : public TreeNode
     {
-    private:
         /**
          * Stores a char node list.
          */
@@ -94,5 +92,3 @@ namespace node
         [[nodiscard]] std::shared_ptr<CharNode> Node(size_t index) const;
     };
 }
-
-#endif
