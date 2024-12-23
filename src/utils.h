@@ -21,7 +21,6 @@
 
 #include <memory>
 #include <string>
-#include <stdexcept>
 
 std::wstring SingleToWide(const std::string& str);
 void ErrorMessage(const std::exception& e);

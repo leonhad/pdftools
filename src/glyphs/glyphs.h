@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef GLYPHS_H
-#define GLYPHS_H
+#pragma once
 
 #include "glyph.h"
 #include "textglyph.h"
@@ -26,5 +25,3 @@
 #include "breakglyph.h"
 #include "fontglyph.h"
 #include "fontsizeglyph.h"
-
-#endif

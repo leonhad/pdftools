@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef FONTGLYPH_H
-#define FONTGLYPH_H
+#pragma once
 
 #include <string>
 #include "glyph.h"
@@ -55,5 +54,3 @@ public:
      */
     void DoGlyph(const std::shared_ptr<Html> &document) override;
 };
-
-#endif

@@ -17,9 +17,9 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef GRAPHICSTATE_H
-#define GRAPHICSTATE_H
+#pragma once
 
+#include <memory>
 #include <vector>
 
 class Font;
@@ -31,21 +31,20 @@ class State;
  */
 class GraphicState
 {
-private:
     /**
      * Stores the current font.
      */
-    Font *m_font;
+    std::shared_ptr<Font> m_font;
 
     /**
      * Stores the state list.
      */
-    std::vector<State *> m_states;
+    std::vector<std::shared_ptr<State>> m_states;
 
     /**
      * Stores the current state.
      */
-    State *m_currentState;
+    std::shared_ptr<State> m_currentState;
 
 public:
     /**
@@ -63,7 +62,7 @@ public:
     /**
      * Destroy this instance.
      */
-    ~GraphicState();
+    ~GraphicState() = default;
 
     /**
      * Pushes a state.
@@ -85,28 +84,26 @@ public:
      * @param e the matrix value.
      * @param f the matrix value.
      */
-    void SetTextMatrix(double a, double b, double c, double d, double e, double f);
+    void SetTextMatrix(double a, double b, double c, double d, double e, double f) const;
 
     /**
      * Gets the current text font.
      *
      * @return the current text font.
      */
-    double GetTextFont();
+    [[nodiscard]] double GetTextFont() const;
 
     /**
      * Gets the current font.
      *
      * @return the current font.
      */
-    Font *GetFont();
+    std::shared_ptr<Font> GetFont();
 
     /**
      * Sets the current font.
      *
      * @param font the font to set.
      */
-    void SetFont(Font *font);
+    void SetFont(const std::shared_ptr<Font>& font);
 };
-
-#endif

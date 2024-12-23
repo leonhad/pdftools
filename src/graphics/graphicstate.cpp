@@ -19,7 +19,6 @@
  */
 #include "graphicstate.h"
 #include "state.h"
-#include <iostream>
 
 using namespace std;
 
@@ -27,20 +26,12 @@ GraphicState::GraphicState() : m_font(nullptr), m_currentState(new State)
 {
 }
 
-GraphicState::~GraphicState()
-{
-    if (m_currentState)
-    {
-        delete m_currentState;
-    }
-}
-
-double GraphicState::GetTextFont()
+double GraphicState::GetTextFont() const
 {
     return m_currentState->GetTextFont();
 }
 
-void GraphicState::SetTextMatrix(double a, double b, double c, double d, double e, double f)
+void GraphicState::SetTextMatrix(const double a, const double b, const double c, const double d, const double e, const double f) const
 {
     m_currentState->SetTextMatrix(a, b, c, d, e, f);
 }
@@ -53,12 +44,12 @@ void GraphicState::Pop()
 {
 }
 
-Font *GraphicState::GetFont()
+std::shared_ptr<Font> GraphicState::GetFont()
 {
     return m_font;
 }
 
-void GraphicState::SetFont(Font *f)
+void GraphicState::SetFont(const std::shared_ptr<Font>& font)
 {
-    this->m_font = f;
+    this->m_font = font;
 }

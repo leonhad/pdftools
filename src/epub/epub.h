@@ -17,8 +17,7 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef EPUB_H
-#define EPUB_H
+#pragma once
 
 #include <memory>
 
@@ -41,7 +40,6 @@ class XML;
  */
 class EPUB final : public Generator
 {
-private:
     /**
      * The document to generate the ePub.
      */
@@ -74,7 +72,7 @@ public:
      * @param document the document to parse.
      * @param output the output file.
      */
-    bool Generate(const std::shared_ptr<Document> &document, const std::string& output) override;
+    bool Generate(const std::shared_ptr<Document>& document, const std::string& output) override;
 
 private:
     void GenerateContainer() const;
@@ -91,5 +89,3 @@ private:
 
     void GenerateCss() const;
 };
-
-#endif
