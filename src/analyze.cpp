@@ -473,7 +473,7 @@ void Analyze::GetStream(const std::shared_ptr<ObjNode>& obj, stringstream* strea
     auto total = static_cast<size_t>(length);
     if (filter && filter->Name() == "/FlateDecode")
     {
-        const char* value = FlatDecode(stream.c_str(), length, total);
+        const char* value = FlatDecode(stream.get(), length, total);
 #ifdef DEBUG
         static int stream_count;
         stream_count++;
@@ -504,7 +504,7 @@ void Analyze::GetStream(const std::shared_ptr<ObjNode>& obj, stringstream* strea
                 filter = std::dynamic_pointer_cast<NameNode>(GetRealValue(filter_array->Value(loop)));
                 if (filter && filter->Name() == "/FlateDecode")
                 {
-                    const char* value = FlatDecode(stream.c_str(), length, total);
+                    const char* value = FlatDecode(stream.get(), length, total);
 #ifdef DEBUG
                     cout << "Stream>\n" << value << "<\n";
 #endif
@@ -529,7 +529,7 @@ void Analyze::GetStream(const std::shared_ptr<ObjNode>& obj, stringstream* strea
     }
     else if (not filter)
     {
-        stream_value->write(stream.c_str(), static_cast<streamsize>(total));
+        stream_value->write(stream.get(), static_cast<streamsize>(total));
     }
     else
     {

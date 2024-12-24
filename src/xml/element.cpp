@@ -46,5 +46,6 @@ std::string Element::ToXML() const
             buffer << c;
         }
     }
+
     return buffer.str();
 }

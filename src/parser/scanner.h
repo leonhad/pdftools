@@ -19,6 +19,8 @@
  */
 #pragma once
 
+#include <memory>
+
 #include "token.h"
 
 namespace parser
@@ -103,7 +105,7 @@ namespace parser
          * @param length the length to read.
          * @return the stream.
          */
-        [[nodiscard]] std::string Stream(std::streamsize length) const;
+        [[nodiscard]] std::unique_ptr<char[]> Stream(std::streamsize length) const;
 
         /**
          * Handles an image stream.

@@ -17,33 +17,29 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
-#ifndef XMLTAG_H
-#define XMLTAG_H
+#pragma once
 
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 
 class XmlTag
 {
 protected:
     std::string m_name;
-    std::vector<XmlTag *> m_children;
-    std::map<std::string, std::string> m_atributes;
-
-    XmlTag *m_parent = nullptr;
+    std::vector<std::shared_ptr<XmlTag>> m_children;
+    std::map<std::string, std::string> m_attributes;
 
 public:
-    XmlTag(std::string name);
-    virtual ~XmlTag();
+    explicit XmlTag(std::string name);
+    virtual ~XmlTag() = default;
 
-    std::string Name() const;
-    virtual std::string ToXML() const;
-    XmlTag *Parent() const;
+    [[nodiscard]] std::string Name() const;
+    [[nodiscard]] virtual std::string ToXML() const;
+    [[nodiscard]] std::weak_ptr<XmlTag> Parent() const;
 
-    void SetParent(XmlTag *parent);
-    void AddTag(XmlTag *tag);
-    void AddAttribute(const std::string &id, const std::string &value);
+    void AddTag(XmlTag* tag);
+    void AddAttribute(const std::string& id, const std::string& value);
 };
 
-#endif // XMLTAG_H

@@ -32,7 +32,7 @@ AppendedFile::AppendedFile(const std::string& filename, const char* buffer, cons
     this->name = filename;
 
     const auto crc_code = static_cast<uint32_t>(crc32(0L, nullptr, 0));
-    this->crc = static_cast<uint32_t>(crc32(crc_code, (Bytef*)buffer, (uInt)length));
+    this->crc = static_cast<uint32_t>(crc32(crc_code, (Bytef*)buffer, static_cast<uInt>(length)));
 
     this->deflate_buffer = move(Compress(buffer, length, this->compressed_size));
 

@@ -24,8 +24,9 @@
 
 class XML
 {
-    XmlTag* m_root = nullptr;
-    XmlTag* m_last_tag = nullptr;
+    std::shared_ptr<XmlTag> m_root;
+    std::vector<XmlTag *> m_last_tag;
+
     std::string m_version;
     std::string m_charset;
 
@@ -34,16 +35,16 @@ class XML
     std::string m_sys_id;
 
 public:
-    XML();
-    ~XML();
+    XML() = default;
+    ~XML() = default;
 
     void StartDocument(const std::string& version, const std::string& charset);
-    void SetDoctype(const std::string& name, const std::string& public_id,
-                    const std::string& sys_id);
-    void AddAttribute(const std::string& id, const std::string& value);
-    void AddElement(const std::string& value);
+    void SetDoctype(const std::string& name, const std::string& public_id, const std::string& sys_id);
+    void AddAttribute(const std::string& id, const std::string& value) const;
+    void AddElement(const std::string& value) const;
     void StartTag(const std::string& tag_name);
     void EndTag();
     void EndDocument();
-    [[nodiscard]] const std::string Content() const;
+
+    [[nodiscard]] std::string Content() const;
 };

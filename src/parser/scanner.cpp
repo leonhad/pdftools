@@ -242,10 +242,10 @@ void Scanner::ImageStream() const
     }
 }
 
-string Scanner::Stream(const streamsize length) const
+unique_ptr<char[]> Scanner::Stream(const streamsize length) const
 {
-    const auto stream = static_cast<char*>(alloca(static_cast<unsigned long>(length)));
-    m_filein->read(stream, length);
+    unique_ptr<char[]> stream(new char [length]);
+    m_filein->read(stream.get(), length);
     return stream;
 }
 

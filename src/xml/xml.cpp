@@ -23,19 +23,7 @@
 
 using namespace std;
 
-XML::XML()
-{
-}
-
-XML::~XML()
-{
-    if (m_root)
-    {
-        delete m_root;
-    }
-}
-
-const string XML::Content() const
+string XML::Content() const
 {
     stringstream m_buffer;
     m_buffer << "<?xml version=\"" << m_version << "\" encoding=\"" << m_charset << "\"?>" << endl;
@@ -52,20 +40,22 @@ const string XML::Content() const
         }
         m_buffer << ">" << endl;
     }
+
     if (m_root)
     {
         m_buffer << m_root->ToXML();
     }
+
     return m_buffer.str();
 }
 
-void XML::StartDocument(const string &version, const string &charset)
+void XML::StartDocument(const string& version, const string& charset)
 {
     m_version = version;
     m_charset = charset;
 }
 
-void XML::SetDoctype(const string &name, const string &public_id, const string &sys_id)
+void XML::SetDoctype(const string& name, const string& public_id, const string& sys_id)
 {
     m_doctype_name = name;
     m_public_id = public_id;
@@ -76,42 +66,32 @@ void XML::EndDocument()
 {
 }
 
-void XML::AddAttribute(const string &id, const string &value)
+void XML::AddAttribute(const string& id, const string& value) const
 {
-    if (m_last_tag)
-    {
-        m_last_tag->AddAttribute(id, value);
-    }
+    m_last_tag.back()->AddAttribute(id, value);
 }
 
-void XML::AddElement(const string &value)
+void XML::AddElement(const string& value) const
 {
-    if (m_last_tag)
-    {
-        m_last_tag->AddTag(new Element(value));
-    }
+    m_last_tag.back()->AddTag(new Element(value));
 }
 
-void XML::StartTag(const string &tag_name)
+void XML::StartTag(const string& tag_name)
 {
-    XmlTag *tag = new XmlTag
-    { tag_name };
+    const auto tag = new XmlTag{tag_name};
     if (not m_root)
     {
-        m_root = tag;
+        m_root = shared_ptr<XmlTag>(tag);
     }
-    if (m_last_tag)
+    else
     {
-        m_last_tag->AddTag(tag);
-        tag->SetParent(m_last_tag);
+        m_last_tag.back()->AddTag(tag);
     }
-    m_last_tag = tag;
+
+    m_last_tag.push_back(tag);
 }
 
 void XML::EndTag()
 {
-    if (m_last_tag)
-    {
-        m_last_tag = m_last_tag->Parent();
-    }
+    m_last_tag.pop_back();
 }
