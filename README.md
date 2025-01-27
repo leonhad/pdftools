@@ -2,6 +2,8 @@
 
 PDFTools is high level tools to convert PDF files to ePUB formats.
 
+WARNING: This package is not ready for end user use. Please do not use for production.
+
 Be sure to read BUGS and INSTALL.
 
 Mail suggestions to leonhad@gmail.com. Reports bugs on 
