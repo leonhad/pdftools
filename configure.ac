@@ -1,4 +1,4 @@
-AC_PREREQ(2.62)
+AC_PREREQ([2.71])
 AC_INIT([pdftools],[0.5.1],[leonhad@gmail.com],[pdftools],[https://github.com/leonhad/pdftools])
 AM_INIT_AUTOMAKE([-Wall tar-ustar no-define nostdinc subdir-objects])
 AC_CONFIG_SRCDIR([config.h.in])
@@ -9,7 +9,7 @@ dnl This mechanism allows one to enable debug compilations...
 AC_ARG_ENABLE(debug,
 [  --enable-debug     enable debugging and disable optimization],
 [  if test "$enable_debug" = "yes"; then
-AX_CHECK_COMPILE_FLAG([-g], [CXXFLAGS="$CXXFLAGS -g"])
+      AX_CHECK_COMPILE_FLAG([-g], [CXXFLAGS="$CXXFLAGS -g"])
       AX_CHECK_COMPILE_FLAG([-fPIC], [CXXFLAGS="$CXXFLAGS -fPIC"])
       AX_CHECK_COMPILE_FLAG([-O0], [CXXFLAGS="$CXXFLAGS -O0"])
       AX_CHECK_COMPILE_FLAG([-DDEBUG], [CXXFLAGS="$CXXFLAGS -DDEBUG"])
