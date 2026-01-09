@@ -30,14 +30,14 @@
 using namespace std;
 using namespace parser;
 
-Converter::Converter(const string& in, const string& out, string format) :
+Converter::Converter(const string& in, const string& out, string &format) :
     m_fileIn(in), m_format(std::move(format))
 {
     // Calculate the output file name
     if (m_fileOut.empty())
     {
         m_fileOut = in;
-        if (const auto last_dot = m_fileOut.find_last_of('.'); last_dot != string::npos)
+        if (const auto &last_dot = m_fileOut.find_last_of('.'); last_dot != string::npos)
         {
             m_fileOut = m_fileOut.substr(0, last_dot);
         }

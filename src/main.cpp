@@ -127,7 +127,8 @@ int main(const int argc, char* argv[])
 
     if (error)
     {
-        wcout << L"Try `" << PACKAGE_NAME << L" --help' for usage.\n";
+        string package_name = PACKAGE_NAME;
+        ErrorMessage(L"Try `" + wstring(package_name.begin(), package_name.end()) + L" --help' for usage.");
         return EXIT_FAILURE;
     }
 
